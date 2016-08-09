@@ -28,6 +28,7 @@ class Connection extends Component {
       todos: [],
       view: "week",
       date: moment().startOf("day"),
+      message: "Loading…",
     }
 
     this.saveTodo = this.saveTodo.bind(this);
@@ -36,8 +37,6 @@ class Connection extends Component {
   componentWillMount() {
     Firebase.auth().onAuthStateChanged(function(user) {
       if (user) {
-        console.log("User authenticated:");
-        console.log(user);
         this.setState({
           user: {
             uid: user.uid,
@@ -46,11 +45,11 @@ class Connection extends Component {
         });
         this.setupSubscription(this.state.user.uid);
       } else {
-        console.log("User not authenticated");
         this.setState({
           user: {
             uid: null,
             anonymous: null,
+            message: "Connecting…",
           }
         });
         this.signIn();
@@ -61,6 +60,8 @@ class Connection extends Component {
   setupSubscription(uid) {
     this.firebaseRef = Firebase.database().ref(uid);
 
+    this.setState({message: false});
+
     this.bindAsArray(
       this.firebaseRef,
       "todos",
@@ -69,24 +70,30 @@ class Connection extends Component {
         console.log(error);
       }
     );
+
+    Firebase.database().ref(".info/connected").on("value", function(online) {
+      if (online.val() === true) {
+        this.setState({message: false});
+      }
+      else {
+        this.setState({message: "Connecting…"});
+      }
+    }.bind(this));
   }
 
   signIn() {
-    console.log("Trying to sign in…");
     Firebase.auth().signInAnonymously().catch(function(error) {
       console.log(error);
     });
   }
 
   signOut() {
-    console.log("Trying to sign out…");
     Firebase.auth().signOut().catch(function(error) {
       console.log(error);
     });
   }
 
   signUp() {
-    console.log("Trying to sign up…");
     // TODO
   }
 
@@ -114,7 +121,14 @@ class Connection extends Component {
   render() {
     let controls, message, view;
 
-    if (this.state.user.uid) {
+    if (this.state.message) {
+      message = (
+        <div className="text-align-center color-bright-1 all-caps bg-4 padding-0-5">
+          {this.state.message}
+        </div>
+      );
+    }
+    else if (this.state.user.uid) {
       controls = (
         <Controls
           user={this.state.user}
@@ -122,13 +136,6 @@ class Connection extends Component {
           signOut={this.signOut}
           signUp={this.signUp}
         />
-      );
-    }
-    else {
-      message = (
-        <div className="text-align-center color-bright-5 padding-0-5">
-          Connecting…
-        </div>
       );
     }
 
