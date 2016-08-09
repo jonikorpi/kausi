@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import moment from "moment";
 import classNames from "classnames";
+import { debounce } from 'lodash/function';
 
 class Day extends Component {
   constructor(props) {
@@ -8,14 +9,27 @@ class Day extends Component {
 
     this.state = {
       editing: false,
+      text: "",
     };
 
+    this.saveTodo = this.saveTodo.bind(this);
     this.onFocus = this.onFocus.bind(this);
     this.onBlur = this.onBlur.bind(this);
+    this.onChange = this.onChange.bind(this);
+
+    this.saveTodoHandler = debounce(function () {
+      this.saveTodo()
+    }, 500);
   }
 
-  componentDidMount() {
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      text: nextProps.text
+    });
+  }
 
+  saveTodo() {
+    this.props.saveTodo(this.props.firebaseKey, this.props.day.valueOf(), this.state.text);
   }
 
   onFocus() {
@@ -23,9 +37,18 @@ class Day extends Component {
     this.props.focusDay(this.props.day);
   }
 
-  onBlur() {
-    this.setState({editing: false});
+  onBlur(event) {
+    this.setState({
+      editing: false
+    });
     this.props.focusDay(null);
+    this.saveTodo();
+  }
+
+  onChange(event) {
+    const value = event.target.value;
+    this.setState({text: value})
+    this.saveTodoHandler();
   }
 
   render() {
@@ -73,10 +96,11 @@ class Day extends Component {
             "padding-0-5 grow width-100": true,
             // "bold": this.state.editing,
           })}
-          defaultValue=""
           onFocus={this.onFocus}
           onBlur={this.onBlur}
+          onChange={this.onChange}
           autoFocus={isToday}
+          value={this.state.text}
         />
       </div>
     );

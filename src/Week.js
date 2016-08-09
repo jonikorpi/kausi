@@ -18,10 +18,23 @@ class Week extends Component {
 
   renderDays(week, today, colorNumber, isFirstWeek) {
     return week.map(function(day) {
+      let firebaseKey, text;
+
+      if (this.props.todos) {
+        this.props.todos.forEach(function(todo) {
+          if (todo.date === day.valueOf()) {
+            firebaseKey = todo[".key"];
+            text = todo.text;
+          }
+        });
+      }
+
       return (
         <Day
           key={day.valueOf()}
           day={day}
+          firebaseKey={firebaseKey}
+          text={text}
           today={today}
           colorNumber={colorNumber}
           isFirstweek={isFirstWeek}
@@ -29,6 +42,7 @@ class Week extends Component {
           isFocusedWeekDay={this.state.focusedDay && moment(this.state.focusedDay).day() === day.day()}
           isFocusedDay={moment(this.state.focusedDay).isSame(day)}
           focusDay={this.focusDay}
+          saveTodo={this.props.saveTodo}
         />
       );
     }.bind(this));

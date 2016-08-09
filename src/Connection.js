@@ -29,6 +29,8 @@ class Connection extends Component {
       view: "week",
       date: moment().startOf("day"),
     }
+
+    this.saveTodo = this.saveTodo.bind(this);
   }
 
   componentWillMount() {
@@ -42,7 +44,7 @@ class Connection extends Component {
             anonymous: user.isAnonymous,
           }
         });
-        this.subscribeToTodos(this.state.user.uid);
+        this.setupSubscription(this.state.user.uid);
       } else {
         console.log("User not authenticated");
         this.setState({
@@ -56,9 +58,11 @@ class Connection extends Component {
     }.bind(this));
   }
 
-  subscribeToTodos(uid) {
+  setupSubscription(uid) {
+    this.firebaseRef = Firebase.database().ref(uid);
+
     this.bindAsArray(
-      Firebase.database().ref(`users/${uid}`),
+      this.firebaseRef,
       "todos",
       function(error) {
         console.log("Firebase subscription cancelled:")
@@ -86,8 +90,16 @@ class Connection extends Component {
     // TODO
   }
 
-  updateTodo() {
-    // Firebase.ServerValue.TIMESTAMP
+  saveTodo(key, day, text) {
+    if (!key) {
+      key = this.firebaseRef.push().key;
+    }
+    this.firebaseRef.update({
+      [key]: {
+        date: day,
+        text: text,
+      }
+    });
   }
 
   render() {
@@ -114,7 +126,13 @@ class Connection extends Component {
     switch (this.state.view) {
       case "week":
       default:
-        view = (<Week todos={this.state.todos} date={this.state.date}/>);
+        view = (
+          <Week
+            todos={this.state.todos}
+            date={this.state.date}
+            saveTodo={this.saveTodo}
+          />
+        );
     }
 
     return (
