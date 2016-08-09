@@ -95,12 +95,19 @@ class Connection extends Component {
       key = this.firebaseRef.push().key;
     }
     if (key) {
-      this.firebaseRef.update({
-        [key]: {
-          date: day,
-          text: text,
-        }
-      });
+      if (text) {
+        this.firebaseRef.update({
+          [key]: {
+            date: day,
+            text: text,
+          }
+        });
+      }
+      else {
+        this.firebaseRef.update({
+          [key]: null
+        });
+      }
     }
   }
 
