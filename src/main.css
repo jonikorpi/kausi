@@ -20,7 +20,8 @@
   http://codepen.io/CrocoDillon/pen/jgmwt?editors=0010 */
 
 html {
-  font-size: calc(0.875em + 0.75vw + 0.75vh + 0.375vmin);
+  /*font-size: calc(0.875em + 0.75vw + 0.75vh + 0.375vmin);*/
+  font-size: calc(0.75vw + 0.75vh + 0.375vmin);
 }
 
 /*
@@ -199,4 +200,17 @@ textarea {
   width: 100%;
   outline: none;
   word-wrap: break-word;
+  resize: none;
+}
+
+.week {
+  transition: all 200ms ease-out;
+}
+
+.focused-week {
+  flex-grow: 5;
+}
+
+.focused-day {
+  /*flex-grow: 2;*/
 }

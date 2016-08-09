@@ -38,7 +38,7 @@ class Controls extends Component {
 
   render() {
     return (
-      <div id="controls" className="flex even-children bg-2 color-4">
+      <div id="controls" className="flex even-children bg-4 color-1">
         <Button
           label="Zoom out"
           onClick={false}

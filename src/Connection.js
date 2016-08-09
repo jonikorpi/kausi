@@ -2,8 +2,13 @@ import React, { Component } from "react";
 import reactMixin from "react-mixin";
 import Firebase from "firebase";
 import ReactFire from "reactfire";
+import moment from "moment";
 
 import Controls from "./Controls";
+import Week from "./Week";
+// import Day from "./Day";
+// import Month from "./Month";
+// import Year from "./Year";
 
 class Connection extends Component {
   constructor(props) {
@@ -21,6 +26,8 @@ class Connection extends Component {
         anonymous: null,
       },
       todos: [],
+      view: "week",
+      date: moment().startOf("day"),
     }
   }
 
@@ -79,8 +86,12 @@ class Connection extends Component {
     // TODO
   }
 
+  updateTodo() {
+    // Firebase.ServerValue.TIMESTAMP
+  }
+
   render() {
-    let controls, message;
+    let controls, message, view;
 
     if (this.state.user.uid) {
       controls = (
@@ -100,11 +111,15 @@ class Connection extends Component {
       );
     }
 
+    switch (this.state.view) {
+      case "week":
+      default:
+        view = (<Week todos={this.state.todos} date={this.state.date}/>);
+    }
+
     return (
       <div id="connection" className="flex vertical height-100vh">
-        <div id="todos" className="grow">
-          todos: {this.state.todos}
-        </div>
+        {view}
         {controls}
         {message}
       </div>
