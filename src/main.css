@@ -201,6 +201,9 @@ textarea {
   outline: none;
   word-wrap: break-word;
   resize: none;
+  overflow: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .week {

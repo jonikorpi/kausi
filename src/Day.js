@@ -94,7 +94,7 @@ class Day extends Component {
         <textarea
           className={classNames({
             "padding-0-5 grow width-100": true,
-            // "bold": this.state.editing,
+            "nowrap": !this.state.editing,
           })}
           onFocus={this.onFocus}
           onBlur={this.onBlur}
