@@ -18,7 +18,8 @@ class Week extends Component {
 
   renderDays(week, today, colorNumber, isFirstWeek) {
     return week.map(function(day) {
-      let firebaseKey, text;
+      let firebaseKey;
+      let text = "";
 
       if (this.props.todos) {
         this.props.todos.forEach(function(todo) {

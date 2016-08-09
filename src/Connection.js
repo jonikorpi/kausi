@@ -91,15 +91,17 @@ class Connection extends Component {
   }
 
   saveTodo(key, day, text) {
-    if (!key) {
+    if (!key && text) {
       key = this.firebaseRef.push().key;
     }
-    this.firebaseRef.update({
-      [key]: {
-        date: day,
-        text: text,
-      }
-    });
+    if (key) {
+      this.firebaseRef.update({
+        [key]: {
+          date: day,
+          text: text,
+        }
+      });
+    }
   }
 
   render() {
