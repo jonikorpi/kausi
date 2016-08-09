@@ -26,6 +26,7 @@ class Week extends Component {
           colorNumber={colorNumber}
           isFirstweek={isFirstWeek}
           aDayIsFocused={this.state.focusedDay}
+          isFocusedWeekDay={this.state.focusedDay && moment(this.state.focusedDay).day() === day.day()}
           isFocusedDay={moment(this.state.focusedDay).isSame(day)}
           focusDay={this.focusDay}
         />
@@ -70,21 +71,18 @@ class Week extends Component {
           key={week.colorNumber}
           className={classNames({
             "week flex even-children": true,
-            ["bg-" + week.colorNumber]: true,
             "focused-week": isFocusedWeek,
             "unfocused-week": this.state.focusedDay && !isFocusedWeek,
           })}
         >
-          {this.renderDays(week.days, today, week.colorNumber+2, true)}
+          {this.renderDays(week.days, today, week.colorNumber, true)}
         </div>
       );
     }.bind(this));
 
     return (
-      <div className="grow flex">
-        <div className="grow flex vertical even-children">
-          {weeks}
-        </div>
+      <div className="week-scroller grow flex vertical even-children overflow-auto">
+        {weeks}
       </div>
     );
   }

@@ -14,6 +14,10 @@ class Day extends Component {
     this.onBlur = this.onBlur.bind(this);
   }
 
+  componentDidMount() {
+
+  }
+
   onFocus() {
     this.setState({editing: true});
     this.props.focusDay(this.props.day);
@@ -28,13 +32,15 @@ class Day extends Component {
     const isToday = this.props.day.valueOf() === this.props.today.valueOf();
 
     const dayClasses = classNames({
-      "flex vertical padding-0-5 padding-top": true,
-      ["color-" + this.props.colorNumber]: true,
-      ["color-bright-" + this.props.colorNumber]:
+      "day flex vertical padding-0-5 padding-top overflow-hidden": true,
+      ["bg-" + this.props.colorNumber]: true,
+      ["color-" + (this.props.colorNumber+2)]: true,
+      ["color-bright-4"]:
         this.props.day.isoWeekday() === 7 ||
         this.props.day.isoWeekday() === 6
       ,
-      "focused-day": this.props.isFocusedDay,
+      "focused-day color-bright-5": this.props.isFocusedDay,
+      "focused-weekday": this.props.isFocusedWeekDay,
       "unfocused-day": this.props.aDayIsFocused && !this.props.isFocusedDay,
     });
 
@@ -55,7 +61,7 @@ class Day extends Component {
       <div className={dayClasses}>
         <h1
           className={classNames({
-            "padding-0-5 padding-x size-1-25": true,
+            "padding-0-5 padding-x": true,
             "all-caps": true,
           })}
         >
@@ -64,12 +70,13 @@ class Day extends Component {
 
         <textarea
           className={classNames({
-            "day padding-0-5 grow width-100": true,
+            "padding-0-5 grow width-100": true,
             // "bold": this.state.editing,
           })}
           defaultValue=""
           onFocus={this.onFocus}
           onBlur={this.onBlur}
+          autoFocus={isToday}
         />
       </div>
     );
