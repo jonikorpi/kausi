@@ -16,7 +16,7 @@ class Button extends Component {
 
   render() {
     const classes = classNames(
-      "size-1 all-caps padding-0-5 padding-y enter-from-above",
+      "size-1 all-caps padding-0-5 padding-y enter-zoom",
       {
         "color-3": this.props.disabled
       }

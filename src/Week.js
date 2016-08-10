@@ -37,7 +37,7 @@ class Week extends Component {
           firebaseKey={firebaseKey}
           text={text}
           today={today}
-          colorNumber={number+1}
+          colorNumber={number}
           isFirstweek={isFirstWeek}
           aDayIsFocused={this.state.focusedDay}
           isFocusedWeekDay={this.state.focusedDay && moment(this.state.focusedDay).day() === day.day()}
@@ -96,7 +96,7 @@ class Week extends Component {
     }.bind(this));
 
     return (
-      <div className="week-scroller grow flex vertical even-children overflow-auto enter-from-below animation-delay-1">
+      <div className="week-scroller grow flex vertical even-children overflow-auto enter-fade animation-delay-1">
         {weeks}
       </div>
     );

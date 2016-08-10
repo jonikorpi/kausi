@@ -60,23 +60,26 @@ class Controls extends Component {
     }
 
     return (
-      <div id="controls" className="flex justify color-3 bg-1 padding-x padding-0-5">
+      <div id="controls" className="flex justify color-1 bg-4 padding-x padding-0-5 relative enter-from-below">
+
         <div
           className={classNames({
-            "padding-y nowrap enter-from-above": true,
+            "padding-y nowrap": true,
             "padding-0-25 size-0-75": extraStatus,
             "padding-0-5": !extraStatus,
-            "color-bright-5": !this.props.connected
+            "color-bright-2": !this.props.connected
           })}
         >
           <p>{status}</p>
           <p>{extraStatus}</p>
         </div>
+
         <div className="flex child-margins-x-1">
           {this.getSignUp(this.props)}
           {this.getSignIn(this.props)}
           {this.getSignOut(this.props)}
         </div>
+
       </div>
     );
   }

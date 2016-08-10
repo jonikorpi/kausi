@@ -133,6 +133,7 @@ class Connection extends Component {
 
     return (
       <div id="connection" className="flex vertical grow">
+        {view}
         <Controls
           user={this.state.user}
           connected={this.state.connected}
@@ -140,7 +141,6 @@ class Connection extends Component {
           signOut={this.signOut}
           signUp={this.signUp}
         />
-        {view}
       </div>
     );
   }
