@@ -16,6 +16,7 @@ class Day extends Component {
     this.onFocus = this.onFocus.bind(this);
     this.onBlur = this.onBlur.bind(this);
     this.onChange = this.onChange.bind(this);
+    this.onKeyDown = this.onKeyDown.bind(this);
 
     this.saveTodoHandler = debounce(function () {
       this.saveTodo()
@@ -37,7 +38,7 @@ class Day extends Component {
     this.props.focusDay(this.props.day);
   }
 
-  onBlur(event) {
+  onBlur() {
     this.setState({
       editing: false
     });
@@ -49,6 +50,12 @@ class Day extends Component {
     const value = event.target.value;
     this.setState({text: value})
     this.saveTodoHandler();
+  }
+
+  onKeyDown(event) {
+    if (event.keyCode == 27 /*esc*/) {
+      this.textarea.blur();
+    }
   }
 
   render() {
@@ -98,6 +105,7 @@ class Day extends Component {
         </h1>
 
         <textarea
+          ref={(c) => this.textarea = c}
           className={classNames({
             "padding-0-5 grow width-100": true,
             "nowrap": !this.state.editing,
@@ -107,6 +115,7 @@ class Day extends Component {
           onChange={this.onChange}
           autoFocus={isToday}
           value={this.state.text}
+          onKeyDown={this.onKeyDown}
         />
       </div>
     );
