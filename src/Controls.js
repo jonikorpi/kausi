@@ -41,12 +41,38 @@ class Controls extends Component {
   }
 
   render() {
+    let status, extraStatus;
+
+    if (this.props.user.uid) {
+      if (this.props.user.anonymous) {
+        status = "Temporary account";
+        extraStatus = "Changes auto-saved"
+      }
+      else {
+        status = "Connected";
+        extraStatus = "Changes auto-saved"
+      }
+    }
+
+    if (!this.props.connected) {
+      status = "Offline";
+      extraStatus = "Changes not saved"
+    }
+
     return (
-      <div id="controls" className="flex justify color-3 bg-1 enter-from-above">
-        <div className="padding-0-5 nowrap all-caps">
-          Connecting…
+      <div id="controls" className="flex justify color-3 bg-1 padding-x padding-0-5">
+        <div
+          className={classNames({
+            "padding-y nowrap enter-from-above": true,
+            "padding-0-25 size-0-75": extraStatus,
+            "padding-0-5": !extraStatus,
+            "color-bright-5": !this.props.connected
+          })}
+        >
+          <p>{status}</p>
+          <p>{extraStatus}</p>
         </div>
-        <div className="flex">
+        <div className="flex child-margins-x-1">
           {this.getSignUp(this.props)}
           {this.getSignIn(this.props)}
           {this.getSignOut(this.props)}

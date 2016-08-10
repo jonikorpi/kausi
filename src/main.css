@@ -20,7 +20,7 @@
   http://codepen.io/CrocoDillon/pen/jgmwt?editors=0010 */
 
 html {
-  font-size: calc(0.875em + 0.25vw + 0.25vh + 0.125vmin);
+  font-size: calc(0.875em + 0.375vw + 0.375vh + 0.1875vmin);
   /*font-size: calc(0.75vw + 0.75vh + 0.375vmin);*/
 }
 

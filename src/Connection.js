@@ -29,7 +29,6 @@ class Connection extends Component {
       view: "week",
       date: moment().startOf("day"),
       connected: false,
-      authenticated: false,
     }
 
     this.saveTodo = this.saveTodo.bind(this);
@@ -42,7 +41,6 @@ class Connection extends Component {
           user: {
             uid: user.uid,
             anonymous: user.isAnonymous,
-            authenticated: true,
           }
         });
         this.setupSubscription(this.state.user.uid);
@@ -51,7 +49,6 @@ class Connection extends Component {
           user: {
             uid: null,
             anonymous: null,
-            authenticated: false,
           }
         });
         this.signIn();
@@ -138,10 +135,10 @@ class Connection extends Component {
       <div id="connection" className="flex vertical grow">
         <Controls
           user={this.state.user}
+          connected={this.state.connected}
           signIn={this.signIn}
           signOut={this.signOut}
           signUp={this.signUp}
-          connected={this.state.connected}
         />
         {view}
       </div>
