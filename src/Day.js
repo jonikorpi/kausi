@@ -62,7 +62,7 @@ class Day extends Component {
     const isToday = this.props.day.valueOf() === this.props.today.valueOf();
 
     const dayClasses = classNames({
-      "day flex vertical padding-0-5 padding-top overflow-hidden": true,
+      "day flex vertical padding-0-5 padding-top overflow-hidden min-day-width": true,
       ["bg-" + this.props.colorNumber]: true,
       ["color-" + (this.props.colorNumber+2)]: true,
       ["color-bright-4"]:
@@ -74,11 +74,7 @@ class Day extends Component {
       "unfocused-day": this.props.aDayIsFocused && !this.props.isFocusedDay,
     });
 
-    let monthLabel, todayLabel;
-
-    if (isToday) {
-      todayLabel = "Today";
-    }
+    let monthLabel;
 
     if (
         (this.props.isFirstWeek && this.props.day.isSame(moment(this.props.day).startOf("isoweek"))) ||
@@ -100,7 +96,7 @@ class Day extends Component {
               "underlined": isToday,
             })}
           >
-            {this.props.day.format("DD")} {monthLabel} {todayLabel}
+            {this.props.day.format("ddd DD")} {monthLabel}
           </span>
         </h1>
 
