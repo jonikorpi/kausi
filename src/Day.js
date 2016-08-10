@@ -53,7 +53,7 @@ class Day extends Component {
   }
 
   onKeyDown(event) {
-    if (event.keyCode == 27 /*esc*/) {
+    if (event.keyCode === 27 /*esc*/) {
       this.textarea.blur();
     }
   }
@@ -65,7 +65,7 @@ class Day extends Component {
       "day flex vertical padding-0-5 padding-top overflow-hidden min-day-width": true,
       ["bg-" + this.props.colorNumber]: true,
       ["color-" + (this.props.colorNumber+2)]: true,
-      ["color-bright-4"]:
+      "color-bright-4":
         this.props.day.isoWeekday() === 7 ||
         this.props.day.isoWeekday() === 6
       ,
@@ -109,7 +109,6 @@ class Day extends Component {
           onFocus={this.onFocus}
           onBlur={this.onBlur}
           onChange={this.onChange}
-          autoFocus={isToday}
           value={this.state.text}
           onKeyDown={this.onKeyDown}
         />

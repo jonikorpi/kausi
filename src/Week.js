@@ -16,7 +16,7 @@ class Week extends Component {
     this.focusDay = this.focusDay.bind(this);
   }
 
-  renderDays(week, today, colorNumber, isFirstWeek) {
+  renderDays(week, today, number, isFirstWeek) {
     return week.map(function(day) {
       let firebaseKey;
       let text = "";
@@ -37,7 +37,7 @@ class Week extends Component {
           firebaseKey={firebaseKey}
           text={text}
           today={today}
-          colorNumber={colorNumber}
+          colorNumber={number+1}
           isFirstweek={isFirstWeek}
           aDayIsFocused={this.state.focusedDay}
           isFocusedWeekDay={this.state.focusedDay && moment(this.state.focusedDay).day() === day.day()}
@@ -59,9 +59,9 @@ class Week extends Component {
     const firstOfLastWeek = moment(firstOfThisWeek).subtract(7, "days");
     const firstOfNextWeek = moment(firstOfThisWeek).add(7, "days");
 
-    let lastWeek = {colorNumber: 1, days: []};
-    let thisWeek = {colorNumber: 2, days: []};
-    let nextWeek = {colorNumber: 3, days: []};
+    let lastWeek = {number: 1, days: []};
+    let thisWeek = {number: 2, days: []};
+    let nextWeek = {number: 3, days: []};
 
     for (let i = 0; i < 7; i++) {
       lastWeek.days.push(moment(firstOfLastWeek).add(i, "days"));
@@ -83,20 +83,20 @@ class Week extends Component {
 
       return (
         <div
-          key={week.colorNumber}
+          key={week.number}
           className={classNames({
             "week flex even-children": true,
             "focused-week": isFocusedWeek,
             "unfocused-week": this.state.focusedDay && !isFocusedWeek,
           })}
         >
-          {this.renderDays(week.days, today, week.colorNumber, true)}
+          {this.renderDays(week.days, today, week.number, true)}
         </div>
       );
     }.bind(this));
 
     return (
-      <div className="week-scroller grow flex vertical even-children overflow-auto">
+      <div className="week-scroller grow flex vertical even-children overflow-auto enter-from-below animation-delay-1">
         {weeks}
       </div>
     );

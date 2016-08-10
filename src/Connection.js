@@ -28,7 +28,8 @@ class Connection extends Component {
       todos: [],
       view: "week",
       date: moment().startOf("day"),
-      message: "Loading…",
+      connected: false,
+      authenticated: false,
     }
 
     this.saveTodo = this.saveTodo.bind(this);
@@ -41,6 +42,7 @@ class Connection extends Component {
           user: {
             uid: user.uid,
             anonymous: user.isAnonymous,
+            authenticated: true,
           }
         });
         this.setupSubscription(this.state.user.uid);
@@ -49,7 +51,7 @@ class Connection extends Component {
           user: {
             uid: null,
             anonymous: null,
-            message: "Connecting…",
+            authenticated: false,
           }
         });
         this.signIn();
@@ -59,8 +61,6 @@ class Connection extends Component {
 
   setupSubscription(uid) {
     this.firebaseRef = Firebase.database().ref(uid);
-
-    this.setState({message: false});
 
     this.bindAsArray(
       this.firebaseRef,
@@ -73,10 +73,10 @@ class Connection extends Component {
 
     Firebase.database().ref(".info/connected").on("value", function(online) {
       if (online.val() === true) {
-        this.setState({message: false});
+        this.setState({connected: true});
       }
       else {
-        this.setState({message: "Connecting…"});
+        this.setState({connected: false});
       }
     }.bind(this));
   }
@@ -119,29 +119,9 @@ class Connection extends Component {
   }
 
   render() {
-    let controls, message, view;
-
-    if (this.state.message) {
-      message = (
-        <div className="text-align-center color-bright-1 all-caps bg-4 padding-0-5">
-          {this.state.message}
-        </div>
-      );
-    }
-    else if (this.state.user.uid) {
-      controls = (
-        <Controls
-          user={this.state.user}
-          signIn={this.signIn}
-          signOut={this.signOut}
-          signUp={this.signUp}
-        />
-      );
-    }
-
+    let view;
     switch (this.state.view) {
       case "week":
-      default:
         view = (
           <Week
             todos={this.state.todos}
@@ -149,13 +129,21 @@ class Connection extends Component {
             saveTodo={this.saveTodo}
           />
         );
+        break;
+      default:
+        view = null
     }
 
     return (
-      <div id="connection" className="flex vertical height-100vh">
+      <div id="connection" className="flex vertical grow">
+        <Controls
+          user={this.state.user}
+          signIn={this.signIn}
+          signOut={this.signOut}
+          signUp={this.signUp}
+          connected={this.state.connected}
+        />
         {view}
-        {controls}
-        {message}
       </div>
     );
   }
