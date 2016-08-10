@@ -1,0 +1,27 @@
+{
+  "rules": {
+    "$uid": {
+      // Users…
+      // - are indexed by their uid
+      // - can create themselves if a user with the same uid isn't in the database
+      // - can read their own todos
+      // - can push todos inside themselves
+      ".read": "auth != null && auth.uid === $uid",
+      ".write": "auth != null && ( !data.exists() || auth.uid === $uid )",
+      "$todo": {
+        // Todos have a date and text. Nothing else.
+        ".indexOn": ["date"],
+        ".validate": "newData.hasChildren(['date', 'text'])",
+        "date": {
+          ".validate": "newData.isNumber()",
+        },
+        "text": {
+          ".validate": "newData.isString()",
+        },
+        "$other": {
+          ".validate": "false",
+        },
+      },
+    },
+  },
+}
