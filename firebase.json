@@ -8,9 +8,9 @@
       // - can push todos inside themselves
       ".read": "auth != null && auth.uid === $uid",
       ".write": "auth != null && ( !data.exists() || auth.uid === $uid )",
+      ".indexOn": "date",
       "$todo": {
         // Todos have a date and text. Nothing else.
-        ".indexOn": ["date"],
         ".validate": "newData.hasChildren(['date', 'text'])",
         "date": {
           ".validate": "newData.isNumber()",

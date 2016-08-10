@@ -25,11 +25,11 @@ class Connection extends Component {
         uid: null,
         anonymous: null,
       },
-      todos: [],
       view: "week",
       today: moment().startOf("day"),
       targetDate: moment().startOf("day"),
       connected: false,
+      firebaseRef: false,
     }
 
     this.saveTodo = this.saveTodo.bind(this);
@@ -44,8 +44,9 @@ class Connection extends Component {
             anonymous: user.isAnonymous,
           }
         });
-        this.setupSubscription(this.state.user.uid);
-      } else {
+        this.setState({firebaseRef: Firebase.database().ref(user.uid)})
+      }
+      else {
         this.setState({
           user: {
             uid: null,
@@ -55,19 +56,6 @@ class Connection extends Component {
         this.signIn();
       }
     }.bind(this));
-  }
-
-  setupSubscription(uid) {
-    this.firebaseRef = Firebase.database().ref(uid);
-
-    this.bindAsArray(
-      this.firebaseRef,
-      "todos",
-      function(error) {
-        console.log("Firebase subscription cancelled:")
-        console.log(error);
-      }
-    );
 
     Firebase.database().ref(".info/connected").on("value", function(online) {
       if (online.val() === true) {
@@ -96,41 +84,47 @@ class Connection extends Component {
   }
 
   saveTodo(key, day, text) {
-    if (!key && text) {
-      key = this.firebaseRef.push().key;
-    }
-    if (key) {
-      if (text) {
-        this.firebaseRef.update({
-          [key]: {
-            date: day,
-            text: text,
-          }
-        });
+    if (this.state.firebaseRef) {
+      if (!key && text) {
+        key = this.state.firebaseRef.push().key;
       }
-      else {
-        this.firebaseRef.update({
-          [key]: null
-        });
+      if (key) {
+        if (text) {
+          this.state.firebaseRef.update({
+            [key]: {
+              date: day,
+              text: text,
+            }
+          });
+        }
+        else {
+          this.state.firebaseRef.update({
+            [key]: null
+          });
+        }
       }
     }
   }
 
   render() {
-    let view;
-    switch (this.state.view) {
-      case "week":
-        view = (
-          <Week
-            todos={this.state.todos}
-            today={this.state.today}
-            targetDate={this.state.targetDate}
-            saveTodo={this.saveTodo}
-          />
-        );
-        break;
-      default:
-        view = null
+    let view = (
+      <div className="grow"/>
+    );
+
+    if (this.state.firebaseRef) {
+      switch (this.state.view) {
+        case "week":
+        default:
+          view = (
+            <Week
+              today={this.state.today}
+              targetDate={this.state.targetDate}
+              saveTodo={this.saveTodo}
+              firebaseRef={this.state.firebaseRef}
+            />
+          );
+          break;
+      }
     }
 
     return (

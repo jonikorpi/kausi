@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import moment from "moment";
+import reactMixin from "react-mixin";
+import ReactFire from "reactfire";
 import classNames from "classnames";
 
 import Day from "./Day";
@@ -9,26 +11,39 @@ class Week extends Component {
     super(props);
 
     this.state = {
-      focusedDay: null
+      focusedDay: null,
+      todos: [],
     };
 
     this.renderDays = this.renderDays.bind(this);
     this.focusDay = this.focusDay.bind(this);
   }
 
-  renderDays(week, today, number, isFirstWeek) {
+  componentWillMount() {
+    this.bindAsArray(
+      this.props.firebaseRef
+        .orderByChild("date")
+        .startAt(moment(this.props.targetDate).startOf("week").subtract(7, "days").valueOf())
+        .endAt(moment(this.props.targetDate).startOf("week").add(15, "days").valueOf()),
+      "todos",
+      function(error) {
+        console.log("Firebase subscription cancelled:")
+        console.log(error);
+      }
+    );
+  }
+
+  renderDays(week, today, number) {
     return week.map(function(day) {
       let firebaseKey;
       let text = "";
 
-      if (this.props.todos) {
-        this.props.todos.forEach(function(todo) {
-          if (todo.date === day.valueOf()) {
-            firebaseKey = todo[".key"];
-            text = todo.text;
-          }
-        });
-      }
+      this.state.todos.forEach(function(todo) {
+        if (todo.date === day.valueOf()) {
+          firebaseKey = todo[".key"];
+          text = todo.text;
+        }
+      });
 
       return (
         <Day
@@ -38,7 +53,7 @@ class Week extends Component {
           text={text}
           today={today}
           colorNumber={number}
-          isFirstweek={isFirstWeek}
+          isFirstWeek={number === 1}
           aDayIsFocused={this.state.focusedDay}
           isFocusedWeekDay={this.state.focusedDay && moment(this.state.focusedDay).day() === day.day()}
           isFocusedDay={moment(this.state.focusedDay).isSame(day)}
@@ -90,7 +105,7 @@ class Week extends Component {
             "unfocused-week": this.state.focusedDay && !isFocusedWeek,
           })}
         >
-          {this.renderDays(week.days, this.props.today, week.number, true)}
+          {this.renderDays(week.days, this.props.today, week.number)}
         </div>
       );
     }.bind(this));
@@ -103,4 +118,5 @@ class Week extends Component {
   }
 }
 
+reactMixin(Week.prototype, ReactFire);
 export default Week;

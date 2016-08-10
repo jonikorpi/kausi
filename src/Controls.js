@@ -49,7 +49,7 @@ class Controls extends Component {
         extraStatus = "Changes auto-saved"
       }
       else {
-        status = "Connected";
+        status = "Signed in";
         extraStatus = "Changes auto-saved"
       }
     }
