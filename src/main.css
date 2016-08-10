@@ -231,7 +231,7 @@ textarea {
 }
 
 .focused-weekday {
-  min-width: 15rem;
+  /*min-width: 15rem;*/
 }
 
 .week-scroller {
