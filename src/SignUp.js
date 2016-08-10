@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 
-import Button from "./Button";
-import Input from "./Input";
+import Form from "./Form";
 
 class SignUp extends Component {
   constructor(props) {
@@ -25,12 +24,9 @@ class SignUp extends Component {
     this.setState({password: value})
   }
 
-  signUp(event) {
-    if (event) {
-      event.preventDefault();
-    }
-    if (this.state.email && this.state.password) {
-      this.props.signUp(this.state.email, this.state.password);
+  signUp(fields) {
+    if (fields.email.value && fields.password.value) {
+      this.props.signUp(fields.email.value, fields.password.value);
     }
   }
 
@@ -38,24 +34,21 @@ class SignUp extends Component {
     return (
       <div className="grow bg-1 flex vertical justify-center align-center child-margins-y-1 padding-0-5 max-width-5">
         <p className="color-3">Your current data will carry over to your new account.</p>
-        <form
+        <Form
           onSubmit={this.signUp}
-          className="child-margins-y-hairline flex vertical align-center"
-        >
-          <Input
-            label="Email"
-            name="email"
-            type="email"
-            onChange={this.onEmailChange}
-          />
-          <Input
-            label="Password"
-            name="password"
-            type="password"
-            onChange={this.onPasswordChange}
-          />
-          <Button type="submit" className="size-1-25" label="Sign up" onClick={this.signUp}/>
-        </form>
+          fields={[
+            {
+              id: "email",
+              type: "email",
+              label: "Email",
+            },
+            {
+              id: "password",
+              type: "password",
+              label: "Password",
+            },
+          ]}
+        />
       </div>
     );
   }
