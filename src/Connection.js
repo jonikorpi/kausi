@@ -6,6 +6,7 @@ import moment from "moment";
 
 import Controls from "./Controls";
 import Week from "./Week";
+import SignUp from "./SignUp";
 // import Day from "./Day";
 // import Month from "./Month";
 // import Year from "./Year";
@@ -33,6 +34,10 @@ class Connection extends Component {
     }
 
     this.saveTodo = this.saveTodo.bind(this);
+    this.showSignUp = this.showSignUp.bind(this);
+    this.signUp = this.signUp.bind(this);
+    this.showSignIn = this.showSignIn.bind(this);
+    this.goToToday = this.goToToday.bind(this);
   }
 
   componentWillMount() {
@@ -44,6 +49,7 @@ class Connection extends Component {
             anonymous: user.isAnonymous,
           }
         });
+
         this.setState({firebaseRef: Firebase.database().ref(user.uid)})
       }
       else {
@@ -79,8 +85,31 @@ class Connection extends Component {
     });
   }
 
-  signUp() {
-    // TODO
+  signUp(email, password) {
+    const credential = Firebase.auth.EmailAuthProvider.credential(email, password);
+    Firebase.auth().currentUser.link(credential).then(function(user) {
+      this.setState({
+        user: {
+          uid: user.uid,
+          anonymous: false,
+        },
+        view: "week"
+      });
+    }.bind(this), function(error) {
+      console.log("Error upgrading anonymous account", error);
+    });
+  }
+
+  showSignUp() {
+    this.setState({view: "signUp"});
+  }
+
+  showSignIn() {
+    this.setState({view: "signIn"});
+  }
+
+  goToToday() {
+    this.setState({view: "week", targetDate: this.state.today});
   }
 
   saveTodo(key, day, text) {
@@ -113,6 +142,11 @@ class Connection extends Component {
 
     if (this.state.firebaseRef) {
       switch (this.state.view) {
+        case "signUp":
+          view = (
+            <SignUp signUp={this.signUp}/>
+          );
+          break;
         case "week":
         default:
           view = (
@@ -133,9 +167,11 @@ class Connection extends Component {
         <Controls
           user={this.state.user}
           connected={this.state.connected}
-          signIn={this.signIn}
+          signIn={this.showSignIn}
           signOut={this.signOut}
-          signUp={this.signUp}
+          signUp={this.showSignUp}
+          goToToday={this.goToToday}
+          view={this.state.view}
         />
       </div>
     );

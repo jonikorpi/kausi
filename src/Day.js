@@ -47,8 +47,7 @@ class Day extends Component {
   }
 
   onChange(event) {
-    const value = event.target.value;
-    this.setState({text: value})
+    this.setState({text: event.target.value})
     this.saveTodoHandler();
   }
 

@@ -4,43 +4,43 @@ import classNames from "classnames";
 import Button from "./Button";
 
 class Controls extends Component {
-  getSignUp(props) {
-    if (props.user.anonymous) {
-      return (
-        <Button
-          label="Sign up"
-          onClick={props.signUp}
-          disabled={true}
-        />
-      );
-    }
-  }
-
-  getSignIn(props) {
-    if (props.user.anonymous) {
-      return (
-        <Button
-          label="Log in"
-          onClick={props.signIn}
-          disabled={true}
-        />
-      );
-    }
-  }
-
-  getSignOut(props) {
-    if (props.user.uid && !props.user.anonymous) {
-      return (
-        <Button
-          label="Log out"
-          onClick={props.signOut}
-          disabled={true}
-        />
-      );
-    }
-  }
 
   render() {
+    let signUp, signOut, signIn, today;
+
+    if (this.props.user.anonymous && this.props.view !== "signUp") {
+      signUp = (
+        <Button
+          label="Sign up"
+          onClick={this.props.signUp}
+        />
+      );
+    }
+    if (this.props.user.anonymous) {
+      signIn = (
+        <Button
+          label="Log in"
+          onClick={this.props.signIn}
+        />
+      );
+    }
+    if (this.props.user.uid && !this.props.user.anonymous) {
+      signOut = (
+        <Button
+          label="Log out"
+          onClick={this.props.signOut}
+        />
+      );
+    }
+    if (this.props.view !== "week") {
+      today = (
+        <Button
+          label="Today"
+          onClick={this.props.goToToday}
+        />
+      );
+    }
+
     let status, extraStatus;
 
     if (this.props.user.uid) {
@@ -60,24 +60,28 @@ class Controls extends Component {
     }
 
     return (
-      <div id="controls" className="flex justify color-1 bg-4 padding-x padding-0-5 relative enter-from-below">
-
-        <div
-          className={classNames({
-            "padding-y nowrap": true,
-            "padding-0-25 size-0-75": extraStatus,
-            "padding-0-5": !extraStatus,
-            "color-bright-2": !this.props.connected
-          })}
-        >
-          <p>{status}</p>
-          <p>{extraStatus}</p>
+      <div id="controls" className="flex justify color-1 bg-4 relative enter-from-below">
+        <div className="flex">
+          <div className="padding-0-5 padding-x">
+            <div
+              className={classNames({
+                "padding-y nowrap": true,
+                "padding-0-25 size-0-75": extraStatus,
+                "padding-0-5": !extraStatus,
+                "color-bright-2": !this.props.connected
+              })}
+            >
+              <p>{status}</p>
+              <p>{extraStatus}</p>
+            </div>
+          </div>
         </div>
 
-        <div className="flex child-margins-x-1">
-          {this.getSignUp(this.props)}
-          {this.getSignIn(this.props)}
-          {this.getSignOut(this.props)}
+        <div className="flex">
+          {today}
+          {signUp}
+          {signIn}
+          {signOut}
         </div>
 
       </div>
