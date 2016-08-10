@@ -88,7 +88,13 @@ class Day extends Component {
             "all-caps": true,
           })}
         >
-          {this.props.day.format("DD")} {monthLabel} {todayLabel}
+          <span
+            className={classNames({
+              "underlined": isToday,
+            })}
+          >
+            {this.props.day.format("DD")} {monthLabel} {todayLabel}
+          </span>
         </h1>
 
         <textarea
