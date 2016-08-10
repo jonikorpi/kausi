@@ -27,7 +27,8 @@ class Connection extends Component {
       },
       todos: [],
       view: "week",
-      date: moment().startOf("day"),
+      today: moment().startOf("day"),
+      targetDate: moment().startOf("day"),
       connected: false,
     }
 
@@ -122,7 +123,8 @@ class Connection extends Component {
         view = (
           <Week
             todos={this.state.todos}
-            date={this.state.date}
+            today={this.state.today}
+            targetDate={this.state.targetDate}
             saveTodo={this.saveTodo}
           />
         );

@@ -54,8 +54,8 @@ class Week extends Component {
   }
 
   render() {
-    const today = this.props.date;
-    const firstOfThisWeek = moment(today).startOf("isoweek");
+    const targetDate = this.props.targetDate;
+    const firstOfThisWeek = moment(targetDate).startOf("isoweek");
     const firstOfLastWeek = moment(firstOfThisWeek).subtract(7, "days");
     const firstOfNextWeek = moment(firstOfThisWeek).add(7, "days");
 
@@ -90,7 +90,7 @@ class Week extends Component {
             "unfocused-week": this.state.focusedDay && !isFocusedWeek,
           })}
         >
-          {this.renderDays(week.days, today, week.number, true)}
+          {this.renderDays(week.days, this.props.today, week.number, true)}
         </div>
       );
     }.bind(this));
