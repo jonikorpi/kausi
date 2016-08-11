@@ -103,6 +103,7 @@ class Week extends Component {
             "week flex even-children": true,
             "focused-week": isFocusedWeek,
             "unfocused-week": this.state.focusedDay && !isFocusedWeek,
+            "this-week": week.number === 2,
           })}
         >
           {this.renderDays(week.days, this.props.today, week.number)}

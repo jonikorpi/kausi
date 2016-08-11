@@ -61,14 +61,10 @@ class Day extends Component {
     const isToday = this.props.day.valueOf() === this.props.today.valueOf();
 
     const dayClasses = classNames({
-      "day flex vertical padding-0-5 padding-top overflow-hidden min-day-width": true,
+      "day flex vertical padding-0-25 padding-top overflow-hidden min-day-width": true,
       ["bg-" + this.props.colorNumber]: true,
       ["color-" + (this.props.colorNumber+2)]: true,
-      "color-bright-4":
-        this.props.day.isoWeekday() === 7 ||
-        this.props.day.isoWeekday() === 6
-      ,
-      "focused-day color-bright-5": this.props.isFocusedDay,
+      "focused-day color-5": this.props.isFocusedDay,
       "focused-weekday": this.props.isFocusedWeekDay,
       "unfocused-day": this.props.aDayIsFocused && !this.props.isFocusedDay,
     });
@@ -84,10 +80,16 @@ class Day extends Component {
 
     return (
       <div className={dayClasses}>
-        <h1
+        <label
+          htmlFor={this.props.day.valueOf()}
           className={classNames({
             "padding-0-5 padding-x": true,
             "all-caps": true,
+            "color-bright-5": this.props.isFocusedDay,
+            // "color-bright-4":
+            //   this.props.day.isoWeekday() === 7 ||
+            //   this.props.day.isoWeekday() === 6
+            // ,
           })}
         >
           <span
@@ -97,19 +99,21 @@ class Day extends Component {
           >
             {this.props.day.format("ddd DD")} {monthLabel}
           </span>
-        </h1>
+        </label>
 
         <textarea
+          id={this.props.day.valueOf()}
           ref={(c) => this.textarea = c}
           className={classNames({
             "padding-0-5 grow width-100": true,
-            "nowrap": !this.state.editing,
+            // "nowrap": !this.state.editing,
           })}
           onFocus={this.onFocus}
           onBlur={this.onBlur}
           onChange={this.onChange}
           value={this.state.text}
           onKeyDown={this.onKeyDown}
+          spellcheck="false"
         />
       </div>
     );
