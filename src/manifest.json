@@ -1,0 +1,15 @@
+{
+  "name": "Muisti",
+  "short_name": "Muisti",
+  "description": "A textarea for every day.",
+  "display": "minimal-ui",
+  "background_color": "#37302E",
+  "icons": [
+    {
+      "src": "/icon.png"
+    },
+    {
+      "src": "/icon.svg"
+    }
+  ]
+}
