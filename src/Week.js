@@ -100,7 +100,7 @@ class Week extends Component {
         <div
           key={week.number}
           className={classNames({
-            "week flex even-children": true,
+            "week flex even-children enter-zoom": true,
             "focused-week": isFocusedWeek,
             "unfocused-week": this.state.focusedDay && !isFocusedWeek,
             "this-week": week.number === 2,
@@ -112,7 +112,7 @@ class Week extends Component {
     }.bind(this));
 
     return (
-      <div className="week-scroller grow flex vertical even-children overflow-auto enter-fade animation-delay-1">
+      <div className="week-scroller grow flex vertical even-children overflow-auto">
         {weeks}
       </div>
     );

@@ -32,7 +32,7 @@ class SignUp extends Component {
 
   render() {
     return (
-      <div className="grow bg-1 flex vertical justify-center align-center child-margins-y-1 padding-0-5 max-width-5">
+      <div className="grow bg-1 flex vertical justify-center align-center child-margins-y-1 padding-0-5 max-width-5 enter-zoom">
         <p className="color-3">Your current data will carry over to your new account.</p>
         <Form
           onSubmit={this.signUp}

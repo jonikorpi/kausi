@@ -73,7 +73,7 @@ class Form extends Component {
         <div
           key={id}
           className={classNames({
-            "flex vertical enter-zoom": true,
+            "flex vertical": true,
             "bg-2": !field.focused,
             "bg-3": field.focused,
           })}
