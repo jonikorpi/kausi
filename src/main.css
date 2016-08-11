@@ -254,6 +254,15 @@ textarea {
   /*flex-grow: 2;*/
 }
 
-.week-scroller {
+.week-scroller::-webkit-scrollbar {
+  width:  0.5rem;
+  height: 0.5rem;
+}
 
+.week-scroller::-webkit-scrollbar-thumb {
+  background: #F1E1B1;
+}
+
+.week-scroller::-webkit-scrollbar-track {
+  background: #808677;
 }
