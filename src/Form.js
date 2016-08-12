@@ -105,7 +105,7 @@ class Form extends Component {
         <div className="child-margins-y-hairline">
           {fields}
         </div>
-        <Button type="submit" className="size-1-25 rounded" label="Sign up"/>
+        <Button type="submit" className="size-1-25 rounded" label={this.props.buttonLabel}/>
       </form>
     );
   }

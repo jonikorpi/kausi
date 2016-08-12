@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 
 import Form from "./Form";
+import Button from "./Button";
 
-class SignUp extends Component {
+class SignIn extends Component {
   constructor(props) {
     super(props);
 
@@ -14,7 +15,7 @@ class SignUp extends Component {
 
     this.onEmailChange = this.onEmailChange.bind(this);
     this.onPasswordChange = this.onPasswordChange.bind(this);
-    this.signUp = this.signUp.bind(this);
+    this.signIn = this.signIn.bind(this);
   }
 
   onEmailChange(value) {
@@ -25,8 +26,8 @@ class SignUp extends Component {
     this.setState({password: value})
   }
 
-  signUp(fields) {
-    this.props.signUp(fields.email.value, fields.password.value);
+  signIn(fields) {
+    this.props.signIn(fields.email.value, fields.password.value);
   }
 
   render() {
@@ -40,13 +41,8 @@ class SignUp extends Component {
 
     return (
       <div className="grow bg-1 flex vertical justify-center align-center child-margins-y-1 padding-0-5 max-width-5 enter-zoom">
-        <div className="color-4 text-align-center">
-          <p>Entries are stored in plain text, using <a href="http://firebase.google.com/">Firebase</a>.</p>
-          <p>Your current entries will carry over to your new account.</p>
-          <p>Your email will only ever be used for resetting your password.</p>
-        </div>
         <Form
-          onSubmit={this.signUp}
+          onSubmit={this.signIn}
           fields={[
             {
               id: "email",
@@ -59,12 +55,15 @@ class SignUp extends Component {
               label: "Password",
             },
           ]}
-          buttonLabel="Sign up"
+          buttonLabel="Log in"
         />
+
         {error}
+
+        <Button label="Reset password" onClick={this.props.resetPassword}/>
       </div>
     );
   }
 }
 
-export default SignUp;
+export default SignIn;

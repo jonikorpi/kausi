@@ -7,6 +7,8 @@ import moment from "moment";
 import Controls from "./Controls";
 import Week from "./Week";
 import SignUp from "./SignUp";
+import SignIn from "./SignIn";
+import Account from "./Account";
 // import Day from "./Day";
 // import Month from "./Month";
 // import Year from "./Year";
@@ -38,7 +40,10 @@ class Connection extends Component {
     this.showSignUp = this.showSignUp.bind(this);
     this.signUp = this.signUp.bind(this);
     this.showSignIn = this.showSignIn.bind(this);
+    this.signIn = this.signIn.bind(this);
     this.goToToday = this.goToToday.bind(this);
+    this.goToAccount = this.goToAccount.bind(this);
+    this.zoomOut = this.zoomOut.bind(this);
     this.setTodayRefreshTimer = this.setTodayRefreshTimer.bind(this);
   }
 
@@ -61,7 +66,10 @@ class Connection extends Component {
             anonymous: null,
           }
         });
-        this.signIn();
+
+        Firebase.auth().signInAnonymously().catch(function(error) {
+          console.log(error);
+        });
       }
     }.bind(this));
 
@@ -90,12 +98,6 @@ class Connection extends Component {
       }.bind(this),
       moment().add(1, "day").startOf("day").valueOf() - moment().valueOf()
     );
-  }
-
-  signIn() {
-    Firebase.auth().signInAnonymously().catch(function(error) {
-      console.log(error);
-    });
   }
 
   signOut() {
@@ -130,12 +132,35 @@ class Connection extends Component {
     this.setState({view: "signUp"});
   }
 
+  signIn(email, password) {
+    this.setState({error: null});
+    if (email && password) {
+      Firebase.auth().signInWithEmailAndPassword(email, password).then(function(){
+        this.goToAccount();
+      }.bind(this), function(error) {
+        console.log("Error signing in", error);
+        this.setState({error: error.message})
+      }.bind(this));
+    }
+    else {
+      this.setState({error: "Invalid email or password."});
+    }
+  }
+
   showSignIn() {
     this.setState({view: "signIn"});
   }
 
   goToToday() {
     this.setState({view: "week", targetDay: this.state.today});
+  }
+
+  goToAccount() {
+    this.setState({view: "account"});
+  }
+
+  zoomOut() {
+    this.setState({view: "zoomOut"});
   }
 
   saveTodo(key, day, text) {
@@ -173,6 +198,21 @@ class Connection extends Component {
             <SignUp signUp={this.signUp} error={this.state.error}/>
           );
           break;
+        case "signIn":
+          view = (
+            <SignIn signIn={this.signIn} error={this.state.error}/>
+          );
+          break;
+        case "zoomOut":
+          view = (
+            <SignIn signIn={this.signIn} error={this.state.error}/>
+          );
+          break;
+        case "account":
+          view = (
+            <Account/>
+          );
+          break;
         case "week":
         default:
           view = (
@@ -197,6 +237,8 @@ class Connection extends Component {
           signOut={this.signOut}
           signUp={this.showSignUp}
           goToToday={this.goToToday}
+          goToAccount={this.goToAccount}
+          zoomOut={this.zoomOut}
           view={this.state.view}
         />
       </div>
