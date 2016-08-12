@@ -30,7 +30,8 @@ class Week extends Component {
       function(error) {
         console.log("Firebase subscription cancelled:")
         console.log(error);
-      }
+        this.setState({todos: []})
+      }.bind(this)
     );
   }
 
