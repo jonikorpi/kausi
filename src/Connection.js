@@ -38,6 +38,7 @@ class Connection extends Component {
     this.signUp = this.signUp.bind(this);
     this.showSignIn = this.showSignIn.bind(this);
     this.goToToday = this.goToToday.bind(this);
+    this.setTodayRefreshTimer = this.setTodayRefreshTimer.bind(this);
   }
 
   componentWillMount() {
@@ -71,6 +72,23 @@ class Connection extends Component {
         this.setState({connected: false});
       }
     }.bind(this));
+  }
+
+  componentDidMount() {
+    this.setTodayRefreshTimer();
+  }
+
+  setTodayRefreshTimer() {
+    window.setTimeout(
+      function(){
+        if (this.state.today.valueOf() === this.state.targetDay.valueOf()) {
+          this.setState({targetDay: moment()});
+        }
+        this.setState({today: moment()});
+        this.setTodayRefreshTimer();
+      }.bind(this),
+      moment().add(1, "day").startOf("day").valueOf() - moment().valueOf()
+    );
   }
 
   signIn() {
