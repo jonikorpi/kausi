@@ -9,6 +9,7 @@ class SignUp extends Component {
     this.state = {
       email: "",
       password: "",
+      error: null,
     };
 
     this.onEmailChange = this.onEmailChange.bind(this);
@@ -25,17 +26,24 @@ class SignUp extends Component {
   }
 
   signUp(fields) {
-    if (fields.email.value && fields.password.value) {
-      this.props.signUp(fields.email.value, fields.password.value);
-    }
+    this.props.signUp(fields.email.value, fields.password.value);
   }
 
   render() {
+    let error;
+
+    if (this.props.error) {
+      error = (
+        <p className="color-bright-6 text-align-center">{this.props.error}</p>
+      );
+    }
+
     return (
       <div className="grow bg-1 flex vertical justify-center align-center child-margins-y-1 padding-0-5 max-width-5 enter-zoom">
-        <div>
-          <p className="color-3">Your current entries will carry over to your new account.</p>
-          <p className="color-3">Entries in this app are stored in plain text at <a href="http://firebase.google.com/">Firebase</a>.</p>
+        <div className="color-4 text-align-center">
+          <p>Entries are stored in plain text, using <a href="http://firebase.google.com/">Firebase</a>.</p>
+          <p>Your current entries will carry over to your new account.</p>
+          <p>Your email will only ever be used for resetting your password.</p>
         </div>
         <Form
           onSubmit={this.signUp}
@@ -52,6 +60,7 @@ class SignUp extends Component {
             },
           ]}
         />
+        {error}
       </div>
     );
   }

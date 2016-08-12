@@ -100,10 +100,12 @@ class Form extends Component {
     return (
       <form
         onSubmit={this.onSubmit}
-        className="child-margins-y-hairline flex vertical align-center"
+        className="child-margins-y-1 flex vertical align-center"
       >
-        {fields}
-        <Button type="submit" className="size-1-25" label="Sign up"/>
+        <div className="child-margins-y-hairline">
+          {fields}
+        </div>
+        <Button type="submit" className="size-1-25 rounded" label="Sign up"/>
       </form>
     );
   }

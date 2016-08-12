@@ -31,6 +31,7 @@ class Connection extends Component {
       targetDay: moment().startOf("day"),
       connected: false,
       firebaseRef: false,
+      error: null,
     }
 
     this.saveTodo = this.saveTodo.bind(this);
@@ -104,18 +105,25 @@ class Connection extends Component {
   }
 
   signUp(email, password) {
-    const credential = Firebase.auth.EmailAuthProvider.credential(email, password);
-    Firebase.auth().currentUser.link(credential).then(function(user) {
-      this.setState({
-        user: {
-          uid: user.uid,
-          anonymous: false,
-        },
-        view: "week"
-      });
-    }.bind(this), function(error) {
-      console.log("Error upgrading anonymous account", error);
-    });
+    this.setState({error: null});
+    if (email && password) {
+      const credential = Firebase.auth.EmailAuthProvider.credential(email, password);
+      Firebase.auth().currentUser.link(credential).then(function(user) {
+        this.setState({
+          user: {
+            uid: user.uid,
+            anonymous: false,
+          },
+          view: "week"
+        });
+      }.bind(this), function(error) {
+        console.log("Error upgrading anonymous account", error);
+        this.setState({error: error.message})
+      }.bind(this));
+    }
+    else {
+      this.setState({error: "Invalid email or password."});
+    }
   }
 
   showSignUp() {
@@ -162,7 +170,7 @@ class Connection extends Component {
       switch (this.state.view) {
         case "signUp":
           view = (
-            <SignUp signUp={this.signUp}/>
+            <SignUp signUp={this.signUp} error={this.state.error}/>
           );
           break;
         case "week":

@@ -5,85 +5,113 @@ import Button from "./Button";
 
 class Controls extends Component {
 
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      haveConnectedOnce: false,
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.connected) {
+      this.setState({haveConnectedOnce: true})
+    }
+  }
+
   render() {
-    let signUp, signOut, signIn, today;
+    let connecting, signUp, signOut, signIn, today, zoomOut;
 
-    if (this.props.user.anonymous && this.props.view !== "signUp") {
-      signUp = (
-        <Button
-          label="Sign up"
-          onClick={this.props.signUp}
-        />
-      );
-    }
-    if (this.props.user.anonymous) {
-      signIn = (
-        <Button
-          label="Log in"
-          onClick={this.props.signIn}
-        />
-      );
-    }
-    if (this.props.user.uid && !this.props.user.anonymous) {
-      signOut = (
-        <Button
-          label="Log out"
-          onClick={this.props.signOut}
-        />
-      );
-    }
-    if (this.props.view !== "week") {
-      today = (
-        <Button
-          label="Today"
-          onClick={this.props.goToToday}
-        />
-      );
-    }
-
-    let status, extraStatus;
-
-    if (this.props.user.uid) {
+    if (this.state.haveConnectedOnce) {
+      if (this.props.user.anonymous && this.props.view !== "signUp") {
+        signUp = (
+          <Button
+            label="Sign up"
+            onClick={this.props.signUp}
+          />
+        );
+      }
       if (this.props.user.anonymous) {
-        status = "Temporary account";
-        extraStatus = "Changes auto-saved"
+        signIn = (
+          <Button
+            label="Log in"
+            onClick={this.props.signIn}
+          />
+        );
       }
-      else {
-        status = "Signed in";
-        extraStatus = "Changes auto-saved"
+      if (this.props.user.uid && !this.props.user.anonymous) {
+        signOut = (
+          <Button
+            label="Log out"
+            onClick={this.props.signOut}
+          />
+        );
+      }
+      if (this.props.view !== "week") {
+        today = (
+          <Button
+            label="Today"
+            onClick={this.props.goToToday}
+          />
+        );
+      }
+      if (this.props.view === "week") {
+        zoomOut = (
+          <Button
+            label="Zoom out"
+            onClick={this.props.zoomOut}
+          />
+        );
       }
     }
+    else {
+      connecting = (
+        <div className="padding-0-5 text-align-center">
+          Connecting…
+        </div>
+      );
+    }
 
-    if (!this.props.connected) {
-      status = "Offline";
-      extraStatus = "Changes not saved"
+    let status;
+
+    // if (this.props.user.uid) {
+    //   if (this.props.user.anonymous) {
+    //     status = "Temp. account";
+    //   }
+    //   else {
+    //     status = "Online";
+    //   }
+    // }
+
+    if (!this.props.connected && this.state.haveConnectedOnce) {
+      status = (
+        <div className="text-align-center padding-0-5 bg-bright-6 color-bright-2">
+          <p>Connection offline.</p>
+          <p className="size-0-75">
+            Changes will not be saved before this message disappears.
+          </p>
+          <p className="size-0-75">
+            If you close this app now, unsaved changes may disappear.
+          </p>
+        </div>
+      );
     }
 
     return (
-      <div id="controls" className="flex justify color-1 bg-4 relative enter-from-below">
-        <div className="flex">
-          <div className="padding-0-25 padding-x">
-            <div
-              className={classNames({
-                "padding-y nowrap": true,
-                "padding-0-25 size-0-75": extraStatus,
-                "padding-0-5": !extraStatus,
-                "color-bright-2": !this.props.connected
-              })}
-            >
-              <p>{status}</p>
-              <p>{extraStatus}</p>
-            </div>
-          </div>
-        </div>
-
-        <div className="flex">
+      <div>
+        <div id="controls"
+          className={classNames({
+            "flex even-children align-center color-bright-1 bg-5 relative enter-from-below": true,
+          })}
+        >
+          {connecting}
           {today}
+          {zoomOut}
           {signUp}
           {signIn}
           {signOut}
         </div>
-
+        {status}
       </div>
     );
   }

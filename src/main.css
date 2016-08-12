@@ -34,7 +34,7 @@ html {
   Useful and readable at all screen sizes above 320px.
   Adjust the font-size multipliers to suit your font. */
 
-.size-0-75    { line-height: 0.75rem; font-size: calc(0.75rem * 0.764); }
+.size-0-75    { line-height: 0.75rem; font-size: calc(0.75rem * 0.854); }
 .size-1, body { line-height: 1.00rem; font-size: calc(1.00rem * 0.800); }
 .size-1-25    { line-height: 1.25rem; font-size: calc(1.25rem * 0.854); }
 .size-1-5     { line-height: 1.50rem; font-size: calc(1.50rem * 0.910); }
@@ -138,7 +138,7 @@ html {
 .stroke-bright-5 { stroke:           #A0C385; }
 
 .color-bright-6  { color:            #FBE289; }
-.bg-bright-56    { background-color: #FBE289; }
+.bg-bright-6     { background-color: #FBE289; }
 .border-bright-6 { border-color:     #FBE289; }
 .fill-bright-6   { fill:             #FBE289; }
 .stroke-bright-6 { stroke:           #FBE289; }
@@ -264,11 +264,31 @@ textarea {
   -webkit-overflow-scrolling: touch;
 }
 
-.day,
+input,
+.button {
+  outline: none;
+}
+
+.button:hover,
+.button:focus {
+  background: #F7E1AF;
+  color: #311D1F;
+}
+
+.button:active {
+  background: #679987;
+  color: #311D1F;
+}
+
 .week {
   transition: 200ms cubic-bezier(0.236, 0.000, 0.236, 1.000);
   transition-property: height, min-width, width, flex-grow;
   will-change: flex-grow;
+}
+
+.day,
+.week-scroller {
+  border-bottom: 0.125rem solid rgba(0,0,0, 0.09);
 }
 
 .min-day-width {
@@ -303,13 +323,18 @@ textarea {
 .week-scroller::-webkit-scrollbar {
   width:  0.5rem;
   height: 0.5rem;
-  /*background: #696963;*/
+  background: rgba(0,0,0, 0.09);
 }
 
 .week-scroller::-webkit-scrollbar-thumb {
-  background: #B9BB96;
+  background: #8A9280;
+  border-radius: 0.5rem;
 }
 
 .week-scroller::-webkit-scrollbar-track {
   /*background: #696963;*/
+}
+
+#controls {
+  transition: background-color 500ms ease-in-out;
 }

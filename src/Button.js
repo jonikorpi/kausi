@@ -15,16 +15,14 @@ class Button extends Component {
   }
 
   render() {
-    const classes = classNames({
-        "size-1 all-caps padding-0-5 enter-zoom text-align-center": true,
-        "color-3": this.props.disabled,
-        [this.props.className]: this.props.className,
-    });
-
     return (
       <button
         type={this.props.type || "button"}
-        className={classes}
+        className={classNames({
+          "button size-1 all-caps padding-0-5 enter-zoom text-align-center nowrap": true,
+          "color-3": this.props.disabled,
+          [this.props.className]: this.props.className,
+        })}
         onClick={this.clickHandler}
         disabled={this.props.disabled}
       >
