@@ -99,7 +99,7 @@ class Day extends Component {
         >
           <span
             className={classNames({
-              "underlined": this.props.isToday,
+              "underlined": this.props.isTargetDay,
             })}
           >
             {dayLabel}{monthLabel}
