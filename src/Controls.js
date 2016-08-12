@@ -62,7 +62,7 @@ class Controls extends Component {
     return (
       <div id="controls" className="flex justify color-1 bg-4 relative enter-from-below">
         <div className="flex">
-          <div className="padding-0-5 padding-x">
+          <div className="padding-0-25 padding-x">
             <div
               className={classNames({
                 "padding-y nowrap": true,

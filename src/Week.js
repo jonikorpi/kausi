@@ -17,6 +17,7 @@ class Week extends Component {
 
     this.renderDays = this.renderDays.bind(this);
     this.focusDay = this.focusDay.bind(this);
+    this.scrollToDay = this.scrollToDay.bind(this);
   }
 
   componentWillMount() {
@@ -33,6 +34,10 @@ class Week extends Component {
     );
   }
 
+  componentDidMount() {
+    this.scrollToDay(this.props.targetDate);
+  }
+
   renderDays(week, today, number) {
     return week.map(function(day) {
       let firebaseKey;
@@ -47,6 +52,7 @@ class Week extends Component {
 
       return (
         <Day
+          ref={(c) => this[day.valueOf()] = c}
           key={day.valueOf()}
           day={day}
           firebaseKey={firebaseKey}
@@ -54,6 +60,8 @@ class Week extends Component {
           today={today}
           colorNumber={number}
           isFirstWeek={number === 1}
+          isToday={day.valueOf() === this.props.today.valueOf()}
+          isTargetDate={day.valueOf() === this.props.targetDate.valueOf()}
           aDayIsFocused={this.state.focusedDay}
           isFocusedWeekDay={this.state.focusedDay && moment(this.state.focusedDay).day() === day.day()}
           isFocusedDay={moment(this.state.focusedDay).isSame(day)}
@@ -66,6 +74,16 @@ class Week extends Component {
 
   focusDay(day) {
     this.setState({focusedDay: day});
+    if (day) {
+      this.scrollToDay(day);
+    }
+  }
+
+  scrollToDay(day) {
+    const scroller = this.weekScroller;
+    const textarea = this[day.valueOf()].textarea.getBoundingClientRect();
+    const windowWidth = window.innerWidth;
+    scroller.scrollLeft += textarea.left - (windowWidth * 0.5) + (textarea.width * 0.5);
   }
 
   render() {
@@ -100,7 +118,7 @@ class Week extends Component {
         <div
           key={week.number}
           className={classNames({
-            "week flex even-children enter-zoom": true,
+            "week flex even-children": true,
             "focused-week": isFocusedWeek,
             "unfocused-week": this.state.focusedDay && !isFocusedWeek,
             "this-week": week.number === 2,
@@ -112,7 +130,10 @@ class Week extends Component {
     }.bind(this));
 
     return (
-      <div className="week-scroller grow flex vertical even-children overflow-auto">
+      <div
+        ref={(c) => this.weekScroller = c}
+        className="week-scroller grow flex vertical even-children overflow-auto"
+      >
         {weeks}
       </div>
     );

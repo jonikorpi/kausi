@@ -58,10 +58,8 @@ class Day extends Component {
   }
 
   render() {
-    const isToday = this.props.day.valueOf() === this.props.today.valueOf();
-
     const dayClasses = classNames({
-      "day flex vertical padding-0-25 padding-top overflow-hidden min-day-width": true,
+      "day flex vertical padding-0-5 padding-top overflow-hidden min-day-width": true,
       ["bg-" + this.props.colorNumber]: true,
       ["color-" + (this.props.colorNumber+2)]: true,
       "focused-day color-5": this.props.isFocusedDay,
@@ -83,9 +81,9 @@ class Day extends Component {
         <label
           htmlFor={this.props.day.valueOf()}
           className={classNames({
-            "padding-0-5 padding-x": true,
+            "padding-0-25 padding-x": true,
             "all-caps": true,
-            "color-bright-5": this.props.isFocusedDay,
+            "color-bright-5": this.props.isTargetDate,
             // "color-bright-4":
             //   this.props.day.isoWeekday() === 7 ||
             //   this.props.day.isoWeekday() === 6
@@ -94,7 +92,7 @@ class Day extends Component {
         >
           <span
             className={classNames({
-              "underlined": isToday,
+              "underlined": this.props.isToday,
             })}
           >
             {this.props.day.format("ddd DD")} {monthLabel}
@@ -105,7 +103,7 @@ class Day extends Component {
           id={this.props.day.valueOf()}
           ref={(c) => this.textarea = c}
           className={classNames({
-            "padding-0-5 grow width-100": true,
+            "padding-0-25 grow width-100": true,
             // "nowrap": !this.state.editing,
           })}
           onFocus={this.onFocus}
@@ -113,7 +111,6 @@ class Day extends Component {
           onChange={this.onChange}
           value={this.state.text}
           onKeyDown={this.onKeyDown}
-          spellcheck="false"
         />
       </div>
     );
