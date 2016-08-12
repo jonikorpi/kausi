@@ -179,8 +179,13 @@ html {
 
 @font-face {
   font-family:"Axel";
-  src:url("Fonts/1582471/d90a8be6-e183-4f43-88df-dbe3ef7113f1.eot?#iefix");
-  src:url("Fonts/1582471/d90a8be6-e183-4f43-88df-dbe3ef7113f1.eot?#iefix") format("eot"),url("Fonts/1582471/60dfe022-a41d-475e-8b0d-0048d09fbc82.woff2") format("woff2"),url("Fonts/1582471/7056c676-63b1-4e21-8ae6-205abd579c89.woff") format("woff"),url("Fonts/1582471/fb455dd0-eb5d-4fe5-8ee4-8cf8a6a31496.ttf") format("truetype");
+  src: url("Fonts/1582471/d90a8be6-e183-4f43-88df-dbe3ef7113f1.eot?#iefix");
+  src:
+    url("Fonts/1582471/d90a8be6-e183-4f43-88df-dbe3ef7113f1.eot?#iefix") format("eot"),
+    url("Fonts/1582471/60dfe022-a41d-475e-8b0d-0048d09fbc82.woff2") format("woff2"),
+    url("Fonts/1582471/7056c676-63b1-4e21-8ae6-205abd579c89.woff") format("woff"),
+    url("Fonts/1582471/fb455dd0-eb5d-4fe5-8ee4-8cf8a6a31496.ttf") format("truetype")
+  ;
 }
 
 html {
