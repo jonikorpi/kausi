@@ -80,7 +80,7 @@ class Day extends Component {
         (this.props.isFirstWeek && this.props.day.isSame(moment(this.props.day).startOf("isoweek"))) ||
         this.props.day.isSame(moment(this.props.day).startOf("month"))
     ) {
-      monthLabel = ` ${this.props.day.format("MMM YYYY")}`;
+      monthLabel = `, ${this.props.day.format("MMM YYYY")}`;
     }
 
     return (
