@@ -61,8 +61,9 @@ class Day extends Component {
     const dayClasses = classNames({
       "day flex vertical padding-0-5 padding-top overflow-hidden min-day-width": true,
       ["bg-" + this.props.colorNumber]: true,
-      ["color-" + (this.props.colorNumber+2)]: true,
-      "focused-day color-5": this.props.isFocusedDay,
+      ["color-" + (this.props.colorNumber+3)]: true,
+      "": !this.props.isFocusedDay,
+      ["focused-day color-bright-" + (this.props.colorNumber+3)]: this.props.isFocusedDay,
       "focused-weekday": this.props.isFocusedWeekDay,
       "unfocused-day": this.props.aDayIsFocused && !this.props.isFocusedDay,
     });
@@ -89,6 +90,7 @@ class Day extends Component {
           htmlFor={this.props.day.valueOf()}
           className={classNames({
             "padding-0-25 padding-x": true,
+            // ["color-" + (this.props.colorNumber+2)]: true,
             "all-caps": true,
             // "color-bright-5": this.props.isTargetDay,
             // "color-bright-4":
@@ -99,7 +101,8 @@ class Day extends Component {
         >
           <span
             className={classNames({
-              "underlined": this.props.isTargetDay,
+              "border-bottom": true,
+              "border-transparent": !this.props.isTargetDay,
             })}
           >
             {dayLabel}{monthLabel}
