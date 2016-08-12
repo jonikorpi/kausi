@@ -239,7 +239,7 @@ textarea {
 }
 
 .this-week {
-  flex-grow: 6;
+  flex-grow: 5;
 }
 
 .unfocused-week {
@@ -247,7 +247,7 @@ textarea {
 }
 
 .focused-week {
-  flex-grow: 6;
+  flex-grow: 5;
 }
 
 .focused-day {
