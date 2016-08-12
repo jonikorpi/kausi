@@ -63,69 +63,85 @@ html {
   http://tools.medialab.sciences-po.fr/iwanthue/
   http://tristen.ca/hcl-picker/ */
 
-/* Low chroma */
+/*
+  Low chroma
+  #2A201D,#4B4240,#696963,#8A9280,#B9BB96,#F7E1AF */
 
-.color-1  { color:            #37302E; }
-.bg-1     { background-color: #37302E; }
-.border-1 { border-color:     #37302E; }
-.fill-1   { fill:             #37302E; }
-.stroke-1 { stroke:           #37302E; }
+.color-1  { color:            #2A201D; }
+.bg-1     { background-color: #2A201D; }
+.border-1 { border-color:     #2A201D; }
+.fill-1   { fill:             #2A201D; }
+.stroke-1 { stroke:           #2A201D; }
 
-.color-2  { color:            #5B5954; }
-.bg-2     { background-color: #5B5954; }
-.border-2 { border-color:     #5B5954; }
-.fill-2   { fill:             #5B5954; }
-.stroke-2 { stroke:           #5B5954; }
+.color-2  { color:            #4B4240; }
+.bg-2     { background-color: #4B4240; }
+.border-2 { border-color:     #4B4240; }
+.fill-2   { fill:             #4B4240; }
+.stroke-2 { stroke:           #4B4240; }
 
-.color-3  { color:            #808677; }
-.bg-3     { background-color: #808677; }
-.border-3 { border-color:     #808677; }
-.fill-3   { fill:             #808677; }
-.stroke-3 { stroke:           #808677; }
+.color-3  { color:            #696963; }
+.bg-3     { background-color: #696963; }
+.border-3 { border-color:     #696963; }
+.fill-3   { fill:             #696963; }
+.stroke-3 { stroke:           #696963; }
 
-.color-4  { color:            #B1B493; }
-.bg-4     { background-color: #B1B493; }
-.border-4 { border-color:     #B1B493; }
-.fill-4   { fill:             #B1B493; }
-.stroke-4 { stroke:           #B1B493; }
+.color-4  { color:            #8A9280; }
+.bg-4     { background-color: #8A9280; }
+.border-4 { border-color:     #8A9280; }
+.fill-4   { fill:             #8A9280; }
+.stroke-4 { stroke:           #8A9280; }
 
-.color-5  { color:            #F1E1B1; }
-.bg-5     { background-color: #F1E1B1; }
-.border-5 { border-color:     #F1E1B1; }
-.fill-5   { fill:             #F1E1B1; }
-.stroke-5 { stroke:           #F1E1B1; }
+.color-5  { color:            #B9BB96; }
+.bg-5     { background-color: #B9BB96; }
+.border-5 { border-color:     #B9BB96; }
+.fill-5   { fill:             #B9BB96; }
+.stroke-5 { stroke:           #B9BB96; }
 
-/* High chroma */
+.color-6  { color:            #F7E1AF; }
+.bg-6     { background-color: #F7E1AF; }
+.border-6 { border-color:     #F7E1AF; }
+.fill-6   { fill:             #F7E1AF; }
+.stroke-6 { stroke:           #F7E1AF; }
 
-.color-bright-1  { color:            #3C2C3E; }
-.bg-bright-1     { background-color: #3C2C3E; }
-.border-bright-1 { border-color:     #3C2C3E; }
-.fill-bright-1   { fill:             #3C2C3E; }
-.stroke-bright-1 { stroke:           #3C2C3E; }
+/*
+  High chroma
+  #311D1F,#4D404B,#586C74,#679987,#A0C385,#FBE289 */
 
-.color-bright-2  { color:            #395D74; }
-.bg-bright-2     { background-color: #395D74; }
-.border-bright-2 { border-color:     #395D74; }
-.fill-bright-2   { fill:             #395D74; }
-.stroke-bright-2 { stroke:           #395D74; }
+.color-bright-1  { color:            #311D1F; }
+.bg-bright-1     { background-color: #311D1F; }
+.border-bright-1 { border-color:     #311D1F; }
+.fill-bright-1   { fill:             #311D1F; }
+.stroke-bright-1 { stroke:           #311D1F; }
 
-.color-bright-3  { color:            #1E938C; }
-.bg-bright-3     { background-color: #1E938C; }
-.border-bright-3 { border-color:     #1E938C; }
-.fill-bright-3   { fill:             #1E938C; }
-.stroke-bright-3 { stroke:           #1E938C; }
+.color-bright-2  { color:            #4D404B; }
+.bg-bright-2     { background-color: #4D404B; }
+.border-bright-2 { border-color:     #4D404B; }
+.fill-bright-2   { fill:             #4D404B; }
+.stroke-bright-2 { stroke:           #4D404B; }
 
-.color-bright-4  { color:            #6CC47B; }
-.bg-bright-4     { background-color: #6CC47B; }
-.border-bright-4 { border-color:     #6CC47B; }
-.fill-bright-4   { fill:             #6CC47B; }
-.stroke-bright-4 { stroke:           #6CC47B; }
+.color-bright-3  { color:            #586C74; }
+.bg-bright-3     { background-color: #586C74; }
+.border-bright-3 { border-color:     #586C74; }
+.fill-bright-3   { fill:             #586C74; }
+.stroke-bright-3 { stroke:           #586C74; }
 
-.color-bright-5  { color:            #E7E860; }
-.bg-bright-5     { background-color: #E7E860; }
-.border-bright-5 { border-color:     #E7E860; }
-.fill-bright-5   { fill:             #E7E860; }
-.stroke-bright-5 { stroke:           #E7E860; }
+.color-bright-4  { color:            #679987; }
+.bg-bright-4     { background-color: #679987; }
+.border-bright-4 { border-color:     #679987; }
+.fill-bright-4   { fill:             #679987; }
+.stroke-bright-4 { stroke:           #679987; }
+
+.color-bright-5  { color:            #A0C385; }
+.bg-bright-5     { background-color: #A0C385; }
+.border-bright-5 { border-color:     #A0C385; }
+.fill-bright-5   { fill:             #A0C385; }
+.stroke-bright-5 { stroke:           #A0C385; }
+
+.color-bright-6  { color:            #FBE289; }
+.bg-bright-56    { background-color: #FBE289; }
+.border-bright-6 { border-color:     #FBE289; }
+.fill-bright-6   { fill:             #FBE289; }
+.stroke-bright-6 { stroke:           #FBE289; }
 
 /* Other */
 
@@ -281,19 +297,19 @@ textarea {
 }
 
 .week-scroller {
-  background: #808677;
+  background: #696963;
 }
 
 .week-scroller::-webkit-scrollbar {
   width:  0.5rem;
   height: 0.5rem;
-  /*background: #808677;*/
+  /*background: #696963;*/
 }
 
 .week-scroller::-webkit-scrollbar-thumb {
-  background: #F1E1B1;
+  background: #B9BB96;
 }
 
 .week-scroller::-webkit-scrollbar-track {
-  /*background: #808677;*/
+  /*background: #696963;*/
 }

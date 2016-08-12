@@ -61,24 +61,21 @@ class Day extends Component {
     const dayClasses = classNames({
       "day flex vertical padding-0-5 padding-top overflow-hidden min-day-width": true,
       ["bg-" + this.props.colorNumber]: true,
-      ["color-" + (this.props.colorNumber+3)]: true,
       "": !this.props.isFocusedDay,
-      ["focused-day color-bright-" + (this.props.colorNumber+3)]: this.props.isFocusedDay,
+      // ["focused-day color-" + (this.props.colorNumber+3)]: this.props.isFocusedDay,
       "focused-weekday": this.props.isFocusedWeekDay,
-      "unfocused-day": this.props.aDayIsFocused && !this.props.isFocusedDay,
+      ["color-" + (this.props.colorNumber+3)]: !this.props.aDayIsFocused || this.props.isFocusedDay,
+      ["unfocused-day color-" + (this.props.colorNumber+2)]: this.props.aDayIsFocused && !this.props.isFocusedDay,
     });
 
-    let dayLabel, monthLabel;
-
-    if (this.props.isToday) {
-      dayLabel = "Today " + this.props.day.format("DD")
-    }
-    else {
-      dayLabel = this.props.day.format("ddd DD")
-    }
+    let monthLabel;
+    const todayLabel = this.props.isToday? ", Today" : false
 
     if (
-        (this.props.isFirstWeek && this.props.day.isSame(moment(this.props.day).startOf("isoweek"))) ||
+        (
+          this.props.isFirstWeek &&
+          this.props.day.isSame(moment(this.props.day).startOf("isoweek"))
+        ) ||
         this.props.day.isSame(moment(this.props.day).startOf("month"))
     ) {
       monthLabel = `, ${this.props.day.format("MMM YYYY")}`;
@@ -92,21 +89,14 @@ class Day extends Component {
             "padding-0-25 padding-x": true,
             // ["color-" + (this.props.colorNumber+2)]: true,
             "all-caps": true,
-            // "color-bright-5": this.props.isTargetDay,
+            // "color-bright-6": this.props.isTargetDay,
             // "color-bright-4":
             //   this.props.day.isoWeekday() === 7 ||
             //   this.props.day.isoWeekday() === 6
             // ,
           })}
         >
-          <span
-            className={classNames({
-              "border-bottom": true,
-              "border-transparent": !this.props.isTargetDay,
-            })}
-          >
-            {dayLabel}{monthLabel}
-          </span>
+          {this.props.day.format("ddd DD")}{monthLabel}{todayLabel}
         </label>
 
         <textarea
