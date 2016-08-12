@@ -90,7 +90,7 @@ class Day extends Component {
           className={classNames({
             "padding-0-25 padding-x": true,
             "all-caps": true,
-            // "color-bright-5": this.props.isTargetDate,
+            // "color-bright-5": this.props.isTargetDay,
             // "color-bright-4":
             //   this.props.day.isoWeekday() === 7 ||
             //   this.props.day.isoWeekday() === 6

@@ -24,8 +24,8 @@ class Week extends Component {
     this.bindAsArray(
       this.props.firebaseRef
         .orderByChild("date")
-        .startAt(moment(this.props.targetDate).startOf("week").subtract(7, "days").valueOf())
-        .endAt(moment(this.props.targetDate).startOf("week").add(15, "days").valueOf()),
+        .startAt(moment(this.props.targetDay).startOf("week").subtract(7, "days").valueOf())
+        .endAt(moment(this.props.targetDay).startOf("week").add(15, "days").valueOf()),
       "todos",
       function(error) {
         console.log("Firebase subscription cancelled:")
@@ -35,7 +35,7 @@ class Week extends Component {
   }
 
   componentDidMount() {
-    this.scrollToDay(this.props.targetDate);
+    this.scrollToDay(this.props.targetDay);
   }
 
   renderDays(week, today, number) {
@@ -61,7 +61,7 @@ class Week extends Component {
           colorNumber={number}
           isFirstWeek={number === 1}
           isToday={day.valueOf() === this.props.today.valueOf()}
-          isTargetDate={day.valueOf() === this.props.targetDate.valueOf()}
+          isTargetDay={day.valueOf() === this.props.targetDay.valueOf()}
           aDayIsFocused={this.state.focusedDay}
           isFocusedWeekDay={this.state.focusedDay && moment(this.state.focusedDay).day() === day.day()}
           isFocusedDay={moment(this.state.focusedDay).isSame(day)}
@@ -87,8 +87,8 @@ class Week extends Component {
   }
 
   render() {
-    const targetDate = this.props.targetDate;
-    const firstOfThisWeek = moment(targetDate).startOf("isoweek");
+    const targetDay = this.props.targetDay;
+    const firstOfThisWeek = moment(targetDay).startOf("isoweek");
     const firstOfLastWeek = moment(firstOfThisWeek).subtract(7, "days");
     const firstOfNextWeek = moment(firstOfThisWeek).add(7, "days");
 

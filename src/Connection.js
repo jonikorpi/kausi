@@ -28,7 +28,7 @@ class Connection extends Component {
       },
       view: "week",
       today: moment().startOf("day"),
-      targetDate: moment().startOf("day"),
+      targetDay: moment().startOf("day"),
       connected: false,
       firebaseRef: false,
     }
@@ -109,7 +109,7 @@ class Connection extends Component {
   }
 
   goToToday() {
-    this.setState({view: "week", targetDate: this.state.today});
+    this.setState({view: "week", targetDay: this.state.today});
   }
 
   saveTodo(key, day, text) {
@@ -152,7 +152,7 @@ class Connection extends Component {
           view = (
             <Week
               today={this.state.today}
-              targetDate={this.state.targetDate}
+              targetDay={this.state.targetDay}
               saveTodo={this.saveTodo}
               firebaseRef={this.state.firebaseRef}
             />
