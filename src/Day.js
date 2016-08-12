@@ -67,13 +67,20 @@ class Day extends Component {
       "unfocused-day": this.props.aDayIsFocused && !this.props.isFocusedDay,
     });
 
-    let monthLabel;
+    let dayLabel, monthLabel;
+
+    if (this.props.isToday) {
+      dayLabel = "Today " + this.props.day.format("DD")
+    }
+    else {
+      dayLabel = this.props.day.format("ddd DD")
+    }
 
     if (
         (this.props.isFirstWeek && this.props.day.isSame(moment(this.props.day).startOf("isoweek"))) ||
         this.props.day.isSame(moment(this.props.day).startOf("month"))
     ) {
-      monthLabel = this.props.day.format("MMM");
+      monthLabel = ` ${this.props.day.format("MMM YYYY")}`;
     }
 
     return (
@@ -83,7 +90,7 @@ class Day extends Component {
           className={classNames({
             "padding-0-25 padding-x": true,
             "all-caps": true,
-            "color-bright-5": this.props.isTargetDate,
+            // "color-bright-5": this.props.isTargetDate,
             // "color-bright-4":
             //   this.props.day.isoWeekday() === 7 ||
             //   this.props.day.isoWeekday() === 6
@@ -95,7 +102,7 @@ class Day extends Component {
               "underlined": this.props.isToday,
             })}
           >
-            {this.props.day.format("ddd DD")} {monthLabel}
+            {dayLabel}{monthLabel}
           </span>
         </label>
 
