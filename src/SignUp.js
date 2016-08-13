@@ -41,9 +41,9 @@ class SignUp extends Component {
     return (
       <div className="grow bg-1 flex vertical justify-center align-center child-margins-y-1 padding-0-5 max-width-5 enter-zoom">
         <div className="color-4 text-align-center">
-          <p>Entries are stored in plain text, using <a href="http://firebase.google.com/">Firebase</a>.</p>
+          <p>Entries are stored in plain text (in <a href="http://firebase.google.com/">Firebase</a>), so I don&rsquo;t recommend storing sensitive information using this app.</p>
+          <p>Emails and passwords are securely stored using <a href="http://firebase.google.com/">Firebase authentication</a>.</p>
           <p>Your current entries will carry over to your new account.</p>
-          <p>Your email will only ever be used for resetting your password.</p>
         </div>
         <Form
           onSubmit={this.signUp}
