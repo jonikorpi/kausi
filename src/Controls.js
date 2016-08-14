@@ -47,11 +47,12 @@ class Controls extends Component {
           />
         );
       }
-      if (this.props.view !== "week" || this.props.view === "week" && !this.props.targetIsToday) {
+      if (true) {
         today = (
           <Button
             label="Today"
             onClick={this.props.goToToday}
+            disabled={this.props.view === "week" && this.props.targetIsToday}
           />
         );
       }
@@ -92,7 +93,7 @@ class Controls extends Component {
       <div>
         <div id="controls"
           className={classNames({
-            "flex even-children align-center color-bright-1 bg-5 relative enter-from-below": true,
+            "flex even-children align-center color-bright-1 bg-4 relative enter-from-below": true,
           })}
         >
           {moveBackward}

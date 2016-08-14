@@ -271,7 +271,7 @@ button {
 
 .button:hover,
 .button:focus {
-  background: #8FF1FE;
+  background: #82C0D6;
   color: #28202A;
 }
 
@@ -280,19 +280,13 @@ button {
   color: #28202A;
 }
 
-.day-button {
-
-}
-
 .week {
   transition: 200ms cubic-bezier(0.236, 0.000, 0.236, 1.000);
   transition-property: height, min-width, width, flex-grow;
   will-change: flex-grow;
 }
 
-.day,
-.day-button,
-.week-scroller {
+.faint-bottom-border {
   border-bottom: 0.125rem solid rgba(0,0,0, 0.09);
 }
 
@@ -332,7 +326,7 @@ button {
 }
 
 .week-scroller::-webkit-scrollbar-thumb {
-  background: #938E85;
+  background: #E2E3D0;
   border-radius: 0.5rem;
 }
 

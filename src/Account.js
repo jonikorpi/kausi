@@ -26,6 +26,7 @@ class Account extends Component {
         <Button
           label="Log out"
           onClick={this.props.signOut}
+          className="rounded"
         />
       </div>
     );

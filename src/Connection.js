@@ -41,6 +41,7 @@ class Connection extends Component {
     this.signUp = this.signUp.bind(this);
     this.showSignIn = this.showSignIn.bind(this);
     this.signIn = this.signIn.bind(this);
+    this.signOut = this.signOut.bind(this);
     this.goToDay = this.goToDay.bind(this);
     this.goToToday = this.goToToday.bind(this);
     this.goToAccount = this.goToAccount.bind(this);
@@ -103,7 +104,9 @@ class Connection extends Component {
   }
 
   signOut() {
-    Firebase.auth().signOut().catch(function(error) {
+    Firebase.auth().signOut().then(function(){
+      this.goToToday();
+    }.bind(this)).catch(function(error) {
       console.log(error);
     });
   }
@@ -138,7 +141,7 @@ class Connection extends Component {
     this.setState({error: null});
     if (email && password) {
       Firebase.auth().signInWithEmailAndPassword(email, password).then(function(){
-        this.goToAccount();
+        this.goToToday();
       }.bind(this), function(error) {
         console.log("Error signing in", error);
         this.setState({error: error.message})

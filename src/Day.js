@@ -59,7 +59,7 @@ class Day extends Component {
 
   render() {
     const dayClasses = classNames({
-      "day flex vertical padding-0-5 padding-top overflow-hidden min-day-width": true,
+      "day faint-bottom-border flex vertical padding-0-5 padding-top overflow-hidden min-day-width": true,
       ["bg-" + this.props.colorNumber]: true,
       "": !this.props.isFocusedDay,
       // ["focused-day color-" + (this.props.colorNumber+3)]: this.props.isFocusedDay,

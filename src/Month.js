@@ -29,9 +29,9 @@ class Month extends Component {
   }
 
   bindFirebase(firebaseRef, targetDay, weekRange) {
-    console.log("Start at " + moment(targetDay).subtract(weekRange, "weeks").format("ddd DD MM HH:mm"));
-    console.log("Target is " + moment(targetDay).format("ddd DD MM HH:mm"));
-    console.log("Stop at " + moment(targetDay).add(weekRange+1, "weeks").format("ddd DD MM HH:mm"));
+    // console.log("Start at " + moment(targetDay).subtract(weekRange, "weeks").format("ddd DD MM HH:mm"));
+    // console.log("Target is " + moment(targetDay).format("ddd DD MM HH:mm"));
+    // console.log("Stop at " + moment(targetDay).add(weekRange+1, "weeks").format("ddd DD MM HH:mm"));
 
     this.bindAsArray(
       firebaseRef
@@ -57,13 +57,21 @@ class Month extends Component {
         }
       });
 
-      const textMarker = text ? "!" : null;
+      let monthAndYear, textMarker;
 
-      let monthAndYear;
+      if (text) {
+        textMarker = (
+          <div
+            className={classNames({
+              "round width-0-25 height-0-25 bg-bright-6": true,
+            })}
+          />
+        );
+      }
 
       if (moment(day).startOf("month").isSame(day)) {
         monthAndYear = (
-          <div className="size-0-75">
+          <div>
             {day.format("MMM YYYY")}
           </div>
         );
@@ -73,13 +81,17 @@ class Month extends Component {
         <button
           key={day.valueOf()}
           className={classNames({
-            "day-button flex vertical text-align-left padding-0-25 all-caps": true,
-            "color-bright-6": day.isSame(this.props.today),
+            "faint-bottom-border button size-0-75 flex vertical text-align-left padding-0-25 all-caps": true,
           })}
           onClick={this.goToDay}
           data-day={day.valueOf()}
         >
-          <div>{day.format("DD")} {textMarker}</div>
+          <div className="flex align-center child-margins-x-0-25">
+            <div className={classNames({"border-bottom": day.isSame(this.props.today)})}>
+              {day.format("DD")}
+            </div>
+            {textMarker}
+          </div>
           {monthAndYear}
         </button>
       );

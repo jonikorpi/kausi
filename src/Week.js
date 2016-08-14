@@ -29,7 +29,6 @@ class Week extends Component {
     if (nextProps.targetDay !== this.props.targetDay) {
       this.unbind("todos");
       this.bindFirebase(nextProps.firebaseRef, nextProps.targetDay);
-      this.scrollToDay(nextProps.targetDay);
     }
   }
 
@@ -37,10 +36,15 @@ class Week extends Component {
     this.scrollToDay(this.props.targetDay);
   }
 
+  componentDidUpdate() {
+    this.scrollToDay(this.props.targetDay);
+  }
+
   bindFirebase(firebaseRef, targetDay) {
-    console.log("Start at " + moment(targetDay).startOf("isoweek").subtract(7, "days").format("ddd DD MM HH:mm"));
-    console.log("Target is " + moment(targetDay).format("ddd DD MM HH:mm"));
-    console.log("Stop at " + moment(targetDay).startOf("isoweek").add(14, "days").format("ddd DD MM HH:mm"));
+    // console.log("current target is " + moment(targetDay).format("ddd DD MM HH:mm"));
+    // console.log("new target is " + moment(this.props.targetDay).format("ddd DD MM HH:mm"));
+    // console.log("Start at " + moment(targetDay).startOf("isoweek").subtract(7, "days").format("ddd DD MM HH:mm"));
+    // console.log("Stop at " + moment(targetDay).startOf("isoweek").add(14, "days").format("ddd DD MM HH:mm"));
 
     this.bindAsArray(
       firebaseRef
@@ -150,7 +154,7 @@ class Week extends Component {
     return (
       <div
         ref={(c) => this.weekScroller = c}
-        className="week-scroller grow flex vertical even-children overflow-auto"
+        className="week-scroller faint-bottom-border grow flex vertical even-children overflow-auto"
       >
         {weeks}
       </div>
