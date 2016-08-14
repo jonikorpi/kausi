@@ -29,6 +29,7 @@ class Week extends Component {
     if (nextProps.targetDay !== this.props.targetDay) {
       this.unbind("todos");
       this.bindFirebase(nextProps.firebaseRef, nextProps.targetDay);
+      this.setState({focusedDay: null});
     }
   }
 
@@ -37,7 +38,12 @@ class Week extends Component {
   }
 
   componentDidUpdate() {
-    this.scrollToDay(this.props.targetDay);
+    if (this.state.focusedDay) {
+      this.scrollToDay(this.state.focusedDay);
+    }
+    else {
+      this.scrollToDay(this.props.targetDay);
+    }
   }
 
   bindFirebase(firebaseRef, targetDay) {
@@ -96,9 +102,6 @@ class Week extends Component {
 
   focusDay(day) {
     this.setState({focusedDay: day});
-    if (day) {
-      this.scrollToDay(day);
-    }
   }
 
   scrollToDay(day) {
