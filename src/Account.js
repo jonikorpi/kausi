@@ -8,27 +8,9 @@ class Account extends Component {
     super(props);
 
     this.state = {
-      email: "",
-      password: "",
-      error: null,
+
     };
-
-    // this.onEmailChange = this.onEmailChange.bind(this);
-    // this.onPasswordChange = this.onPasswordChange.bind(this);
-    // this.signIn = this.signIn.bind(this);
   }
-
-  // onEmailChange(value) {
-  //   this.setState({email: value})
-  // }
-  //
-  // onPasswordChange(value) {
-  //   this.setState({password: value})
-  // }
-  //
-  // signIn(fields) {
-  //   this.props.signIn(fields.email.value, fields.password.value);
-  // }
 
   render() {
     let error;
@@ -41,26 +23,10 @@ class Account extends Component {
 
     return (
       <div className="grow bg-1 flex vertical justify-center align-center child-margins-y-1 padding-0-5 max-width-5 enter-zoom">
-        {/* <Form
-          onSubmit={this.signIn}
-          fields={[
-            {
-              id: "email",
-              type: "email",
-              label: "Email",
-            },
-            {
-              id: "password",
-              type: "password",
-              label: "Password",
-            },
-          ]}
-          buttonLabel="Log in"
+        <Button
+          label="Log out"
+          onClick={this.props.signOut}
         />
-
-        {error}
-
-        <Button label="Reset password" onClick={this.props.resetPassword}/> */}
       </div>
     );
   }

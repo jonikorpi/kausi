@@ -210,7 +210,7 @@ class Connection extends Component {
           break;
         case "account":
           view = (
-            <Account/>
+            <Account signOut={this.signOut}/>
           );
           break;
         case "week":

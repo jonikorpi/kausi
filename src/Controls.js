@@ -20,7 +20,7 @@ class Controls extends Component {
   }
 
   render() {
-    let connecting, signUp, signOut, signIn, account, today, zoomOut;
+    let connecting, signUp, signIn, account, today, zoomOut;
 
     if (this.state.haveConnectedOnce) {
       if (this.props.user.anonymous && this.props.view !== "signUp") {
@@ -36,14 +36,6 @@ class Controls extends Component {
           <Button
             label="Log in"
             onClick={this.props.signIn}
-          />
-        );
-      }
-      if (this.props.user.uid && !this.props.user.anonymous) {
-        signOut = (
-          <Button
-            label="Log out"
-            onClick={this.props.signOut}
           />
         );
       }
@@ -118,7 +110,6 @@ class Controls extends Component {
           {account}
           {signUp}
           {signIn}
-          {signOut}
         </div>
         {status}
       </div>
