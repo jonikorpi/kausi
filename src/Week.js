@@ -38,6 +38,10 @@ class Week extends Component {
   }
 
   bindFirebase(firebaseRef, targetDay) {
+    console.log("Start at " + moment(targetDay).startOf("isoweek").subtract(7, "days").format("ddd DD MM HH:mm"));
+    console.log("Target is " + moment(targetDay).format("ddd DD MM HH:mm"));
+    console.log("Stop at " + moment(targetDay).startOf("isoweek").add(14, "days").format("ddd DD MM HH:mm"));
+
     this.bindAsArray(
       firebaseRef
         .orderByChild("date")

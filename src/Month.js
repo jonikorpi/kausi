@@ -24,11 +24,15 @@ class Month extends Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.targetDay.valueOf() !== this.props.targetDay.valueOf()) {
       this.unbind("todos");
-      this.bindFirebase(nextProps.firebaseRef, nextProps.targetDay, nextProps.weekrange);
+      this.bindFirebase(nextProps.firebaseRef, nextProps.targetDay, nextProps.weekRange);
     }
   }
 
   bindFirebase(firebaseRef, targetDay, weekRange) {
+    console.log("Start at " + moment(targetDay).subtract(weekRange, "weeks").format("ddd DD MM HH:mm"));
+    console.log("Target is " + moment(targetDay).format("ddd DD MM HH:mm"));
+    console.log("Stop at " + moment(targetDay).add(weekRange+1, "weeks").format("ddd DD MM HH:mm"));
+
     this.bindAsArray(
       firebaseRef
         .orderByChild("date")
@@ -53,7 +57,17 @@ class Month extends Component {
         }
       });
 
-      const textMarker = text ? "!" : null
+      const textMarker = text ? "!" : null;
+
+      let monthAndYear;
+
+      if (moment(day).startOf("month").isSame(day)) {
+        monthAndYear = (
+          <div className="size-0-75">
+            {day.format("MMM YYYY")}
+          </div>
+        );
+      }
 
       return (
         <button
@@ -66,7 +80,7 @@ class Month extends Component {
           data-day={day.valueOf()}
         >
           <div>{day.format("DD")} {textMarker}</div>
-          <div className="size-0-75">{moment(day).startOf("month").isSame(day) ? day.format("MMM YYYY") : null}</div>
+          {monthAndYear}
         </button>
       );
     }.bind(this));
