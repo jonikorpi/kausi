@@ -89,7 +89,8 @@ class Day extends Component {
             "padding-0-25 padding-x": true,
             // ["color-" + (this.props.colorNumber+2)]: true,
             "all-caps": true,
-            // "color-bright-6": this.props.isTargetDay,
+            "color-bright-6": this.props.isTargetDay && (!this.props.aDayIsFocused || this.props.isFocusedDay),
+            "color-bright-4": this.props.isTargetDay && this.props.aDayIsFocused && !this.props.isFocusedDay,
             // "color-bright-4":
             //   this.props.day.isoWeekday() === 7 ||
             //   this.props.day.isoWeekday() === 6

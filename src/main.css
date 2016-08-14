@@ -65,83 +65,83 @@ html {
 
 /*
   Low chroma
-  #2A201D,#4B4240,#696963,#8A9280,#B9BB96,#F7E1AF */
+  #26211F,#49423F,#6D6761,#938E85,#BAB8AA,#E2E3D0 */
 
-.color-1  { color:            #2A201D; }
-.bg-1     { background-color: #2A201D; }
-.border-1 { border-color:     #2A201D; }
-.fill-1   { fill:             #2A201D; }
-.stroke-1 { stroke:           #2A201D; }
+.color-1  { color:            #26211F; }
+.bg-1     { background-color: #26211F; }
+.border-1 { border-color:     #26211F; }
+.fill-1   { fill:             #26211F; }
+.stroke-1 { stroke:           #26211F; }
 
-.color-2  { color:            #4B4240; }
-.bg-2     { background-color: #4B4240; }
-.border-2 { border-color:     #4B4240; }
-.fill-2   { fill:             #4B4240; }
-.stroke-2 { stroke:           #4B4240; }
+.color-2  { color:            #49423F; }
+.bg-2     { background-color: #49423F; }
+.border-2 { border-color:     #49423F; }
+.fill-2   { fill:             #49423F; }
+.stroke-2 { stroke:           #49423F; }
 
-.color-3  { color:            #696963; }
-.bg-3     { background-color: #696963; }
-.border-3 { border-color:     #696963; }
-.fill-3   { fill:             #696963; }
-.stroke-3 { stroke:           #696963; }
+.color-3  { color:            #6D6761; }
+.bg-3     { background-color: #6D6761; }
+.border-3 { border-color:     #6D6761; }
+.fill-3   { fill:             #6D6761; }
+.stroke-3 { stroke:           #6D6761; }
 
-.color-4  { color:            #8A9280; }
-.bg-4     { background-color: #8A9280; }
-.border-4 { border-color:     #8A9280; }
-.fill-4   { fill:             #8A9280; }
-.stroke-4 { stroke:           #8A9280; }
+.color-4  { color:            #938E85; }
+.bg-4     { background-color: #938E85; }
+.border-4 { border-color:     #938E85; }
+.fill-4   { fill:             #938E85; }
+.stroke-4 { stroke:           #938E85; }
 
-.color-5  { color:            #B9BB96; }
-.bg-5     { background-color: #B9BB96; }
-.border-5 { border-color:     #B9BB96; }
-.fill-5   { fill:             #B9BB96; }
-.stroke-5 { stroke:           #B9BB96; }
+.color-5  { color:            #BAB8AA; }
+.bg-5     { background-color: #BAB8AA; }
+.border-5 { border-color:     #BAB8AA; }
+.fill-5   { fill:             #BAB8AA; }
+.stroke-5 { stroke:           #BAB8AA; }
 
-.color-6  { color:            #F7E1AF; }
-.bg-6     { background-color: #F7E1AF; }
-.border-6 { border-color:     #F7E1AF; }
-.fill-6   { fill:             #F7E1AF; }
-.stroke-6 { stroke:           #F7E1AF; }
+.color-6  { color:            #E2E3D0; }
+.bg-6     { background-color: #E2E3D0; }
+.border-6 { border-color:     #E2E3D0; }
+.fill-6   { fill:             #E2E3D0; }
+.stroke-6 { stroke:           #E2E3D0; }
 
 /*
   High chroma
-  #311D1F,#4D404B,#586C74,#679987,#A0C385,#FBE289 */
+  #28202A,#464152,#5F687E,#7392AB,#82C0D6,#8FF1FE */
 
-.color-bright-1  { color:            #311D1F; }
-.bg-bright-1     { background-color: #311D1F; }
-.border-bright-1 { border-color:     #311D1F; }
-.fill-bright-1   { fill:             #311D1F; }
-.stroke-bright-1 { stroke:           #311D1F; }
+.color-bright-1  { color:            #28202A; }
+.bg-bright-1     { background-color: #28202A; }
+.border-bright-1 { border-color:     #28202A; }
+.fill-bright-1   { fill:             #28202A; }
+.stroke-bright-1 { stroke:           #28202A; }
 
-.color-bright-2  { color:            #4D404B; }
-.bg-bright-2     { background-color: #4D404B; }
-.border-bright-2 { border-color:     #4D404B; }
-.fill-bright-2   { fill:             #4D404B; }
-.stroke-bright-2 { stroke:           #4D404B; }
+.color-bright-2  { color:            #464152; }
+.bg-bright-2     { background-color: #464152; }
+.border-bright-2 { border-color:     #464152; }
+.fill-bright-2   { fill:             #464152; }
+.stroke-bright-2 { stroke:           #464152; }
 
-.color-bright-3  { color:            #586C74; }
-.bg-bright-3     { background-color: #586C74; }
-.border-bright-3 { border-color:     #586C74; }
-.fill-bright-3   { fill:             #586C74; }
-.stroke-bright-3 { stroke:           #586C74; }
+.color-bright-3  { color:            #5F687E; }
+.bg-bright-3     { background-color: #5F687E; }
+.border-bright-3 { border-color:     #5F687E; }
+.fill-bright-3   { fill:             #5F687E; }
+.stroke-bright-3 { stroke:           #5F687E; }
 
-.color-bright-4  { color:            #679987; }
-.bg-bright-4     { background-color: #679987; }
-.border-bright-4 { border-color:     #679987; }
-.fill-bright-4   { fill:             #679987; }
-.stroke-bright-4 { stroke:           #679987; }
+.color-bright-4  { color:            #7392AB; }
+.bg-bright-4     { background-color: #7392AB; }
+.border-bright-4 { border-color:     #7392AB; }
+.fill-bright-4   { fill:             #7392AB; }
+.stroke-bright-4 { stroke:           #7392AB; }
 
-.color-bright-5  { color:            #A0C385; }
-.bg-bright-5     { background-color: #A0C385; }
-.border-bright-5 { border-color:     #A0C385; }
-.fill-bright-5   { fill:             #A0C385; }
-.stroke-bright-5 { stroke:           #A0C385; }
+.color-bright-5  { color:            #82C0D6; }
+.bg-bright-5     { background-color: #82C0D6; }
+.border-bright-5 { border-color:     #82C0D6; }
+.fill-bright-5   { fill:             #82C0D6; }
+.stroke-bright-5 { stroke:           #82C0D6; }
 
-.color-bright-6  { color:            #FBE289; }
-.bg-bright-6     { background-color: #FBE289; }
-.border-bright-6 { border-color:     #FBE289; }
-.fill-bright-6   { fill:             #FBE289; }
-.stroke-bright-6 { stroke:           #FBE289; }
+.color-bright-6  { color:            #8FF1FE; }
+.bg-bright-6     { background-color: #8FF1FE; }
+.border-bright-6 { border-color:     #8FF1FE; }
+.fill-bright-6   { fill:             #8FF1FE; }
+.stroke-bright-6 { stroke:           #8FF1FE; }
 
 /* Other */
 
@@ -271,13 +271,13 @@ input,
 
 .button:hover,
 .button:focus {
-  background: #F7E1AF;
-  color: #311D1F;
+  background: #8FF1FE;
+  color: #28202A;
 }
 
 .button:active {
-  background: #679987;
-  color: #311D1F;
+  background: #7392AB;
+  color: #28202A;
 }
 
 .week {
@@ -317,7 +317,7 @@ input,
 }
 
 .week-scroller {
-  background: #696963;
+  background: #6D6761;
 }
 
 .week-scroller::-webkit-scrollbar {
@@ -327,12 +327,12 @@ input,
 }
 
 .week-scroller::-webkit-scrollbar-thumb {
-  background: #8A9280;
+  background: #938E85;
   border-radius: 0.5rem;
 }
 
 .week-scroller::-webkit-scrollbar-track {
-  /*background: #696963;*/
+  /*background: #6D6761;*/
 }
 
 #controls {
