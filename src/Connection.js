@@ -6,12 +6,10 @@ import moment from "moment";
 
 import Controls from "./Controls";
 import Week from "./Week";
+import Month from "./Month";
 import SignUp from "./SignUp";
 import SignIn from "./SignIn";
 import Account from "./Account";
-// import Day from "./Day";
-// import Month from "./Month";
-// import Year from "./Year";
 
 class Connection extends Component {
   constructor(props) {
@@ -36,15 +34,19 @@ class Connection extends Component {
       error: null,
     }
 
+    this.weekRange = 3;
+
     this.saveTodo = this.saveTodo.bind(this);
     this.showSignUp = this.showSignUp.bind(this);
     this.signUp = this.signUp.bind(this);
     this.showSignIn = this.showSignIn.bind(this);
     this.signIn = this.signIn.bind(this);
+    this.goToDay = this.goToDay.bind(this);
     this.goToToday = this.goToToday.bind(this);
     this.goToAccount = this.goToAccount.bind(this);
-    this.zoomOut = this.zoomOut.bind(this);
     this.setTodayRefreshTimer = this.setTodayRefreshTimer.bind(this);
+    this.moveBackward = this.moveBackward.bind(this);
+    this.moveForward = this.moveForward.bind(this);
   }
 
   componentWillMount() {
@@ -90,10 +92,10 @@ class Connection extends Component {
   setTodayRefreshTimer() {
     window.setTimeout(
       function(){
-        if (this.state.today.valueOf() === this.state.targetDay.valueOf()) {
-          this.setState({targetDay: moment()});
+        if (this.state.today.valueOf() === this.state.targetDay.valueOf() && this.state.view === "week") {
+          this.setState({targetDay: moment().startOf("day")});
         }
-        this.setState({today: moment()});
+        this.setState({today: moment().startOf("day")});
         this.setTodayRefreshTimer();
       }.bind(this),
       moment().add(1, "day").startOf("day").valueOf() - moment().valueOf()
@@ -155,12 +157,26 @@ class Connection extends Component {
     this.setState({view: "week", targetDay: this.state.today});
   }
 
+  goToDay(day) {
+    this.setState({view: "week", targetDay: day});
+  }
+
   goToAccount() {
     this.setState({view: "account"});
   }
 
-  zoomOut() {
-    this.setState({view: "zoomOut"});
+  moveBackward() {
+    this.setState({
+      view: "month",
+      targetDay: moment(this.state.targetDay).startOf("isoweek").subtract(this.weekRange, "weeks"),
+    });
+  }
+
+  moveForward() {
+    this.setState({
+      view: "month",
+      targetDay: moment(this.state.targetDay).startOf("isoweek").add(this.weekRange, "weeks"),
+    });
   }
 
   saveTodo(key, day, text) {
@@ -187,6 +203,8 @@ class Connection extends Component {
   }
 
   render() {
+    console.log("targetDay is now " + this.state.targetDay.format("ddd DD MM HH:mm"))
+
     let view = (
       <div className="grow"/>
     );
@@ -203,14 +221,20 @@ class Connection extends Component {
             <SignIn signIn={this.signIn} error={this.state.error}/>
           );
           break;
-        case "zoomOut":
-          view = (
-            <SignIn signIn={this.signIn} error={this.state.error}/>
-          );
-          break;
         case "account":
           view = (
             <Account signOut={this.signOut}/>
+          );
+          break;
+        case "month":
+          view = (
+            <Month
+              today={this.state.today}
+              targetDay={this.state.targetDay}
+              goToDay={this.goToDay}
+              firebaseRef={this.state.firebaseRef}
+              weekRange={this.weekRange}
+            />
           );
           break;
         case "week":
@@ -236,10 +260,13 @@ class Connection extends Component {
           signIn={this.showSignIn}
           signOut={this.signOut}
           signUp={this.showSignUp}
+          targetIsToday={this.state.targetDay.valueOf() === this.state.today.valueOf()}
           goToToday={this.goToToday}
           goToAccount={this.goToAccount}
           zoomOut={this.zoomOut}
           view={this.state.view}
+          moveBackward={this.moveBackward}
+          moveForward={this.moveForward}
         />
       </div>
     );

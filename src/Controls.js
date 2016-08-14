@@ -20,7 +20,7 @@ class Controls extends Component {
   }
 
   render() {
-    let connecting, signUp, signIn, account, today, zoomOut;
+    let signUp, signIn, account, today, moveBackward, moveForward;
 
     if (this.state.haveConnectedOnce) {
       if (this.props.user.anonymous && this.props.view !== "signUp") {
@@ -47,7 +47,7 @@ class Controls extends Component {
           />
         );
       }
-      if (this.props.view !== "week") {
+      if (this.props.view !== "week" || this.props.view === "week" && !this.props.targetIsToday) {
         today = (
           <Button
             label="Today"
@@ -55,33 +55,24 @@ class Controls extends Component {
           />
         );
       }
-      if (this.props.view === "week") {
-        zoomOut = (
+      if (this.props.view === "week" || this.props.view === "month") {
+        moveBackward = (
           <Button
-            label="Zoom out"
-            onClick={this.props.zoomOut}
+            label="&uarr;"
+            onClick={this.props.moveBackward}
+          />
+        );
+
+        moveForward = (
+          <Button
+            label="&darr;"
+            onClick={this.props.moveForward}
           />
         );
       }
     }
-    else {
-      connecting = (
-        <div className="padding-0-5 text-align-center">
-          Connecting…
-        </div>
-      );
-    }
 
     let status;
-
-    // if (this.props.user.uid) {
-    //   if (this.props.user.anonymous) {
-    //     status = "Temp. account";
-    //   }
-    //   else {
-    //     status = "Online";
-    //   }
-    // }
 
     if (!this.props.connected && this.state.haveConnectedOnce) {
       status = (
@@ -104,12 +95,12 @@ class Controls extends Component {
             "flex even-children align-center color-bright-1 bg-5 relative enter-from-below": true,
           })}
         >
-          {connecting}
+          {moveBackward}
           {today}
-          {zoomOut}
           {account}
           {signUp}
           {signIn}
+          {moveForward}
         </div>
         {status}
       </div>

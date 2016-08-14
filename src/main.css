@@ -265,7 +265,7 @@ textarea {
 }
 
 input,
-.button {
+button {
   outline: none;
 }
 
@@ -280,6 +280,10 @@ input,
   color: #28202A;
 }
 
+.day-button {
+
+}
+
 .week {
   transition: 200ms cubic-bezier(0.236, 0.000, 0.236, 1.000);
   transition-property: height, min-width, width, flex-grow;
@@ -287,6 +291,7 @@ input,
 }
 
 .day,
+.day-button,
 .week-scroller {
   border-bottom: 0.125rem solid rgba(0,0,0, 0.09);
 }

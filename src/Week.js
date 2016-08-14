@@ -15,17 +15,34 @@ class Week extends Component {
       todos: [],
     };
 
+    this.bindFirebase = this.bindFirebase.bind(this);
     this.renderDays = this.renderDays.bind(this);
     this.focusDay = this.focusDay.bind(this);
     this.scrollToDay = this.scrollToDay.bind(this);
   }
 
   componentWillMount() {
+    this.bindFirebase(this.props.firebaseRef, this.props.targetDay);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.targetDay !== this.props.targetDay) {
+      this.unbind("todos");
+      this.bindFirebase(nextProps.firebaseRef, nextProps.targetDay);
+      this.scrollToDay(nextProps.targetDay);
+    }
+  }
+
+  componentDidMount() {
+    this.scrollToDay(this.props.targetDay);
+  }
+
+  bindFirebase(firebaseRef, targetDay) {
     this.bindAsArray(
-      this.props.firebaseRef
+      firebaseRef
         .orderByChild("date")
-        .startAt(moment(this.props.targetDay).startOf("week").subtract(7, "days").valueOf())
-        .endAt(moment(this.props.targetDay).startOf("week").add(15, "days").valueOf()),
+        .startAt(moment(targetDay).startOf("isoweek").subtract(7, "days").valueOf())
+        .endAt(moment(targetDay).startOf("isoweek").add(15, "days").valueOf()),
       "todos",
       function(error) {
         console.log("Firebase subscription cancelled:")
@@ -33,10 +50,6 @@ class Week extends Component {
         this.setState({todos: []})
       }.bind(this)
     );
-  }
-
-  componentDidMount() {
-    this.scrollToDay(this.props.targetDay);
   }
 
   renderDays(week, today, number) {
