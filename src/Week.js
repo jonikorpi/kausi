@@ -41,9 +41,6 @@ class Week extends Component {
     if (this.state.focusedDay) {
       this.scrollToDay(this.state.focusedDay);
     }
-    else {
-      this.scrollToDay(this.props.targetDay);
-    }
   }
 
   bindFirebase(firebaseRef, targetDay) {
