@@ -20,54 +20,31 @@ class Controls extends Component {
   }
 
   render() {
-    let signUp, signIn, account, today, moveBackward, moveForward;
+    let signUp, signIn, account;
 
     if (this.state.haveConnectedOnce) {
-      if (this.props.user.anonymous && this.props.view !== "signUp") {
+      if (this.props.user.anonymous) {
         signUp = (
           <Button
             label="Sign up"
             onClick={this.props.signUp}
+            disabled={this.props.view === "signUp"}
           />
         );
-      }
-      if (this.props.user.anonymous) {
         signIn = (
           <Button
             label="Log in"
             onClick={this.props.signIn}
+            disabled={this.props.view === "signIn"}
           />
         );
       }
-      if (this.props.user.uid && !this.props.user.anonymous && this.props.view !== "account") {
+      if (this.props.user.uid && !this.props.user.anonymous) {
         account = (
           <Button
             label="Account"
             onClick={this.props.goToAccount}
-          />
-        );
-      }
-      if (true) {
-        today = (
-          <Button
-            label="Today"
-            onClick={this.props.goToToday}
-            disabled={this.props.view === "week" && this.props.targetIsToday}
-          />
-        );
-      }
-      if (this.props.view === "week" || this.props.view === "month") {
-        moveBackward = (
-          <Button
-            label="&uarr;"
-            onClick={this.props.moveBackward}
-          />
-        );
-
-        moveForward = (
-          <Button
-            label="&darr;"
-            onClick={this.props.moveForward}
+            disabled={this.props.view === "account"}
           />
         );
       }
@@ -89,6 +66,8 @@ class Controls extends Component {
       );
     }
 
+    const viewIsWeekOrMonth = this.props.view === "week" || this.props.view === "month"
+
     return (
       <div>
         <div id="controls"
@@ -96,12 +75,24 @@ class Controls extends Component {
             "flex even-children align-center color-bright-1 bg-4 relative enter-from-below": true,
           })}
         >
-          {moveBackward}
-          {today}
+          <Button
+            label="&uarr;"
+            onClick={this.props.moveBackward}
+            disabled={!viewIsWeekOrMonth}
+          />
+          <Button
+            label="Today"
+            onClick={this.props.goToToday}
+            disabled={this.props.view === "week" && this.props.targetIsToday}
+          />
           {account}
           {signUp}
           {signIn}
-          {moveForward}
+          <Button
+            label="&darr;"
+            onClick={this.props.moveForward}
+            disabled={!viewIsWeekOrMonth}
+          />
         </div>
         {status}
       </div>
