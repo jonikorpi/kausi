@@ -148,7 +148,7 @@ class Month extends Component {
         moment(this.props.today).isBetween(week.days[0], week.days[6], null, "[]")
       );
       const isFutureWeek = (
-        moment(this.props.today).isBefore(week.days[6])
+        moment(this.props.today).isBefore(week.days[0])
       );
 
       let number = isCurrentWeek ? 2 : 1;
