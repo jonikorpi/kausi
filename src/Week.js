@@ -28,6 +28,7 @@ class Week extends Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.targetDay !== this.props.targetDay) {
       this.unbind("todos");
+      this.unbind("somedays");
       this.bindFirebase(nextProps.firebaseRef, nextProps.targetDay);
       this.setState({focusedDay: null});
     }
