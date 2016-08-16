@@ -3,6 +3,7 @@ import moment from "moment";
 import reactMixin from "react-mixin";
 import ReactFire from "reactfire";
 import classNames from "classnames";
+import { random } from 'lodash/number';
 
 class Month extends Component {
   constructor(props) {
@@ -57,42 +58,43 @@ class Month extends Component {
         }
       });
 
-      let monthAndYear, textMarker;
+      let month, year, textMarker;
 
       if (text) {
+        let lines = [];
+        for (let i = 0; i < (text.length/30); i++) {
+          lines.push(i);
+        }
+
         textMarker = (
-          <div
-            className={classNames({
-              "round width-0-25 height-0-25 bg-bright-6": true,
+          <div className="child-margins-y-0-25 margin-0-25 margin-top">
+            {lines.map(function(i) {
+              return <div key={i} style={{width: `${random(62, 100)}%`}} className="border-top"/>;
             })}
-          />
+          </div>
         );
       }
 
       if (moment(day).startOf("month").isSame(day)) {
-        monthAndYear = (
-          <div>
-            {day.format("MMM YYYY")}
-          </div>
-        );
+        month = day.format("MMM");
+        year = day.format("YYYY");
       }
 
       return (
         <button
           key={day.valueOf()}
           className={classNames({
-            "faint-bottom-border button size-0-75 flex vertical text-align-left padding-0-25 all-caps": true,
+            "faint-bottom-border button size-0-75 flex vertical text-align-left padding-0-25 all-caps overflow-hidden": true,
+            "color-bright-6": day.isSame(this.props.today),
           })}
           onClick={this.goToDay}
           data-day={day.valueOf()}
         >
-          <div className="flex align-center child-margins-x-0-25">
-            <div className={classNames({"border-bottom": day.isSame(this.props.today)})}>
-              {day.format("DD")}
-            </div>
+          <div className="no-events">
+            {day.format("DD")} {month}
+            <div>{year}</div>
             {textMarker}
           </div>
-          {monthAndYear}
         </button>
       );
     }.bind(this));
