@@ -53,7 +53,8 @@ class Week extends Component {
     this.bindAsArray(
       firebaseRef
         .orderByChild("date")
-        .startAt(moment(targetDay).startOf("isoweek").subtract(7, "days").valueOf())
+        // .startAt(moment(targetDay).startOf("isoweek").subtract(7, "days").valueOf())
+        .startAt(moment(targetDay).startOf("isoweek").valueOf())
         .endAt(moment(targetDay).startOf("isoweek").add(15, "days").valueOf()),
       "todos",
       function(error) {
@@ -136,14 +137,14 @@ class Week extends Component {
     const firstOfLastWeek = moment(firstOfThisWeek).subtract(7, "days");
     const firstOfNextWeek = moment(firstOfThisWeek).add(7, "days");
 
-    let lastWeek = {number: 1, days: []};
-    let thisWeek = {number: 2, days: []};
-    let nextWeek = {number: 3, days: []};
-    let somedays = {number: 4, days: [], somedays: true}
+    // let lastWeek = {number: 1, days: []};
+    let thisWeek = {number: 1, days: []};
+    let nextWeek = {number: 2, days: []};
+    let somedays = {number: 3, days: [], somedays: true}
 
-    for (let i = 0; i < 7; i++) {
-      lastWeek.days.push(moment(firstOfLastWeek).add(i, "days"));
-    }
+    // for (let i = 0; i < 7; i++) {
+    //   lastWeek.days.push(moment(firstOfLastWeek).add(i, "days"));
+    // }
 
     for (let i = 0; i < 7; i++) {
       thisWeek.days.push(moment(firstOfThisWeek).add(i, "days"));
@@ -157,7 +158,7 @@ class Week extends Component {
       somedays.days.push(moment(0).add(i, "days"));
     }
 
-    const weeks = [lastWeek, thisWeek, nextWeek, somedays].map(function(week) {
+    const weeks = [/*lastWeek,*/ thisWeek, nextWeek, somedays].map(function(week) {
       const isFocusedWeek = (
         this.state.focusedDay &&
         moment(this.state.focusedDay).isBetween(week.days[0], week.days[6], null, "[]")
@@ -170,7 +171,7 @@ class Week extends Component {
             "week flex even-children padding-x padding-0-25": true,
             "focused-week": isFocusedWeek,
             "unfocused-week": this.state.focusedDay && !isFocusedWeek,
-            "this-week": week.number === 2,
+            "this-week": week.number === 1,
             [`bg-${week.number}`]: true,
           })}
         >
