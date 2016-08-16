@@ -54,7 +54,7 @@ class Controls extends Component {
 
     if (!this.props.connected && this.state.haveConnectedOnce) {
       status = (
-        <div className="text-align-center padding-0-5 bg-bright-6 color-bright-2">
+        <div className="text-align-center padding-0-5 bg-5 color-bright-2">
           <p>Connection offline.</p>
           <p className="size-0-75">
             Changes will not be saved before this message disappears.
@@ -72,7 +72,7 @@ class Controls extends Component {
       <div>
         <div id="controls"
           className={classNames({
-            "flex even-children align-center color-bright-1 bg-5 relative enter-from-below": true,
+            "flex even-children align-center color-bright-1 bg-4 relative enter-from-below": true,
           })}
         >
           <Button
