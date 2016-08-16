@@ -4,13 +4,13 @@
   "private": true,
   "devDependencies": {
     "react-scripts": "0.2.1",
-    "now": "^0.19.0",
+    "now": "^0.20.0",
     "now-serve": "^0.3.1"
   },
   "dependencies": {
     "firebase": "^3.2.1",
-    "jonikorpi-base-files": "^3.0.0",
-    "lodash": "^4.14.2",
+    "jonikorpi-base-files": "^3.2.2",
+    "lodash": "^4.15.0",
     "react": "^15.2.1",
     "react-dom": "^15.2.1",
     "react-mixin": "^3.0.5",
