@@ -61,11 +61,10 @@ class Day extends Component {
     const dayClasses = classNames({
       "day faint-bottom-border flex vertical padding-0-5 padding-top overflow-hidden min-day-width": true,
       ["bg-" + this.props.colorNumber]: true,
-      "": !this.props.isFocusedDay,
-      // ["focused-day color-" + (this.props.colorNumber+3)]: this.props.isFocusedDay,
-      "focused-weekday": this.props.isFocusedWeekDay,
-      ["color-" + (this.props.colorNumber+3)]: !this.props.aDayIsFocused || this.props.isFocusedDay,
-      ["unfocused-day color-" + (this.props.colorNumber+2)]: this.props.aDayIsFocused && !this.props.isFocusedDay,
+      ["color-" + (this.props.colorNumber+3)]: !this.props.aDayIsFocused || this.props.isFocusedDay && !this.props.someday,
+      ["color-" + (this.props.colorNumber+2)]: this.props.aDayIsFocused && !this.props.isFocusedDay && !this.props.someday,
+      ["color-" + (this.props.colorNumber-3)]: !this.props.aDayIsFocused || this.props.isFocusedDay && this.props.someday,
+      ["color-" + (this.props.colorNumber-2)]: this.props.aDayIsFocused && !this.props.isFocusedDay && this.props.someday,
     });
 
     let dayLabel, monthLabel;

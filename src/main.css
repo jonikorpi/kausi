@@ -311,15 +311,6 @@ button {
   flex-grow: 5;
 }
 
-.focused-day {
-
-}
-
-.focused-weekday {
-  /*min-width: 15rem;*/
-  /*flex-grow: 2;*/
-}
-
 /*.week-scroller {
   background: #6D6761;
 }
