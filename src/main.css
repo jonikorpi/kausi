@@ -67,7 +67,7 @@ html {
   Low chroma
   #26211F,#49423F,#6D6761,#938E85,#BAB8AA,#E2E3D0 */
 
-.color-1, .color-7  { color:            #26211F; }
+.color-1  { color:            #26211F; }
 .bg-1     { background-color: #26211F; }
 .border-1 { border-color:     #26211F; }
 .fill-1   { fill:             #26211F; }
