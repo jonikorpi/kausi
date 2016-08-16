@@ -72,7 +72,7 @@ class Controls extends Component {
       <div>
         <div id="controls"
           className={classNames({
-            "flex even-children align-center color-bright-1 bg-4 relative enter-from-below": true,
+            "flex even-children align-center color-bright-1 bg-5 relative enter-from-below": true,
           })}
         >
           <Button

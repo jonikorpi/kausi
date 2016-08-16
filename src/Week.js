@@ -61,14 +61,34 @@ class Week extends Component {
         this.setState({todos: []})
       }.bind(this)
     );
+
+    this.bindAsArray(
+      firebaseRef
+        .orderByChild("date")
+        .startAt(0)
+        .endAt(moment(targetDay).startOf("isoweek").add(7, "days").valueOf()),
+      "somedays",
+      function(error) {
+        console.log("Firebase subscription cancelled:")
+        console.log(error);
+        this.setState({somedays: []})
+      }.bind(this)
+    );
   }
 
-  renderDays(week, today, number) {
+  renderDays(week, today, number, someday) {
     return week.map(function(day) {
       let firebaseKey;
       let text = "";
 
       this.state.todos.forEach(function(todo) {
+        if (todo.date === day.valueOf()) {
+          firebaseKey = todo[".key"];
+          text = todo.text;
+        }
+      });
+
+      this.state.somedays.forEach(function(todo) {
         if (todo.date === day.valueOf()) {
           firebaseKey = todo[".key"];
           text = todo.text;
@@ -92,6 +112,7 @@ class Week extends Component {
           isFocusedDay={moment(this.state.focusedDay).isSame(day)}
           focusDay={this.focusDay}
           saveTodo={this.props.saveTodo}
+          someday={someday}
         />
       );
     }.bind(this));
@@ -117,6 +138,7 @@ class Week extends Component {
     let lastWeek = {number: 1, days: []};
     let thisWeek = {number: 2, days: []};
     let nextWeek = {number: 3, days: []};
+    let somedays = {number: 4, days: [], somedays: true}
 
     for (let i = 0; i < 7; i++) {
       lastWeek.days.push(moment(firstOfLastWeek).add(i, "days"));
@@ -130,7 +152,11 @@ class Week extends Component {
       nextWeek.days.push(moment(firstOfNextWeek).add(i, "days"));
     }
 
-    const weeks = [lastWeek, thisWeek, nextWeek].map(function(week) {
+    for (let i = 0; i < 7; i++) {
+      somedays.days.push(moment(0).add(i, "days"));
+    }
+
+    const weeks = [lastWeek, thisWeek, nextWeek, somedays].map(function(week) {
       const isFocusedWeek = (
         this.state.focusedDay &&
         moment(this.state.focusedDay).isBetween(week.days[0], week.days[6], null, "[]")
@@ -140,13 +166,14 @@ class Week extends Component {
         <div
           key={week.number}
           className={classNames({
-            "week flex even-children": true,
+            "week flex even-children padding-x padding-0-25": true,
             "focused-week": isFocusedWeek,
             "unfocused-week": this.state.focusedDay && !isFocusedWeek,
             "this-week": week.number === 2,
+            [`bg-${week.number}`]: true,
           })}
         >
-          {this.renderDays(week.days, this.props.today, week.number)}
+          {this.renderDays(week.days, this.props.today, week.number, week.somedays)}
         </div>
       );
     }.bind(this));
@@ -154,7 +181,7 @@ class Week extends Component {
     return (
       <div
         ref={(c) => this.weekScroller = c}
-        className="week-scroller faint-bottom-border grow flex vertical even-children overflow-auto"
+        className="week-scroller grow flex vertical even-children overflow-auto"
       >
         {weeks}
       </div>

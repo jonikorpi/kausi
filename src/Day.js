@@ -68,17 +68,24 @@ class Day extends Component {
       ["unfocused-day color-" + (this.props.colorNumber+2)]: this.props.aDayIsFocused && !this.props.isFocusedDay,
     });
 
-    let monthLabel;
+    let dayLabel, monthLabel;
     const todayLabel = this.props.isToday? ", Today" : false
 
-    if (
-        (
-          this.props.isFirstWeek &&
-          this.props.day.isSame(moment(this.props.day).startOf("isoweek"))
-        ) ||
-        this.props.day.isSame(moment(this.props.day).startOf("month"))
-    ) {
-      monthLabel = `, ${this.props.day.format("MMM YYYY")}`;
+    if (this.props.someday) {
+      dayLabel = `Someday ${this.props.day.format("D")}`
+    }
+    else {
+      dayLabel = this.props.day.format("ddd DD");
+
+      if (
+          (
+            this.props.isFirstWeek &&
+            this.props.day.isSame(moment(this.props.day).startOf("isoweek"))
+          ) ||
+          this.props.day.isSame(moment(this.props.day).startOf("month"))
+      ) {
+        monthLabel = `, ${this.props.day.format("MMM YYYY")}`;
+      }
     }
 
     return (
@@ -97,7 +104,7 @@ class Day extends Component {
             // ,
           })}
         >
-          {this.props.day.format("ddd DD")}{monthLabel}{todayLabel}
+          {dayLabel}{monthLabel}{todayLabel}
         </label>
 
         <textarea

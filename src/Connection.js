@@ -206,7 +206,7 @@ class Connection extends Component {
   }
 
   render() {
-    console.log("targetDay is now " + this.state.targetDay.format("ddd DD MM HH:mm"))
+    // console.log("targetDay is now " + this.state.targetDay.format("ddd DD MM HH:mm"))
 
     let view = (
       <div className="grow"/>
