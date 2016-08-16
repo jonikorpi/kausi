@@ -25,7 +25,7 @@ html {
 
 @media (min-width: 90em) {
   html {
-    font-size: calc(0.75vw + 0.75vh + 0.375vmin);
+    font-size: calc(0.425em + 0.5vw + 0.5vh + 0.25vmin);
   }
 }
 
