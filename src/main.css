@@ -23,6 +23,12 @@ html {
   font-size: calc(1.25em);
 }
 
+@media (min-width: 80em) {
+  html {
+    font-size: calc(0.370em + 0.5vw + 0.5vh + 0.25vmin);
+  }
+}
+
 @media (min-width: 90em) {
   html {
     font-size: calc(0.425em + 0.5vw + 0.5vh + 0.25vmin);
