@@ -91,8 +91,7 @@ class Month extends Component {
           data-day={day.valueOf()}
         >
           <div className="no-events">
-            {day.format("DD")} {month}
-            <div>{year}</div>
+            {day.format("DD")} {month} {year}
             {textMarker}
           </div>
         </button>
