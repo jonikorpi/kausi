@@ -1,6 +1,5 @@
 {
-  "name": "Muisti",
-  "short_name": "Muisti",
+  "name": "Kausi",
   "description": "A textarea for every day.",
   "display": "minimal-ui",
   "background_color": "#37302E",
