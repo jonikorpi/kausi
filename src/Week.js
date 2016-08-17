@@ -1,14 +1,9 @@
 import React, { Component } from "react";
 import moment from "moment";
-import classNames from "classnames";
 
 import Day from "./Day";
 
 class Week extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     const days = this.props.days.map(function(day) {
       let firebaseKey;
@@ -23,7 +18,6 @@ class Week extends Component {
 
       return (
         <Day
-          ref={(c) => this[day.valueOf()] = c}
           key={day.valueOf()}
           day={day}
           firebaseKey={firebaseKey}

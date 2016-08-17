@@ -29,12 +29,10 @@ class Day extends Component {
     });
   }
 
-  // shouldComponentUpdate(nextProps, nextState) {
-  //
-  // }
-
   componentDidUpdate() {
-    // console.log("day updated");
+    // if (this.props.isTargetDay && !this.props.aDayIsFocused) {
+    //   this.props.scrollTo(this.textarea);
+    // }
   }
 
   saveTodo() {
@@ -43,7 +41,7 @@ class Day extends Component {
 
   onFocus() {
     this.setState({editing: true});
-    this.props.focusDay(this.props.day);
+    this.props.focusDay(this.props.day, this.textarea);
   }
 
   onBlur() {

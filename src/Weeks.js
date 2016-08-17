@@ -5,7 +5,6 @@ import ReactFire from "reactfire";
 import classNames from "classnames";
 
 import Week from "./Week";
-import Day from "./Day";
 
 class Weeks extends Component {
   constructor(props) {
@@ -19,7 +18,6 @@ class Weeks extends Component {
     this.bindFirebase = this.bindFirebase.bind(this);
     this.focusDay = this.focusDay.bind(this);
     this.unfocusDay = this.unfocusDay.bind(this);
-    this.scrollTo = this.scrollTo.bind(this);
   }
 
   componentWillMount() {
@@ -33,16 +31,6 @@ class Weeks extends Component {
       this.unbind("somedays");
       this.bindFirebase(nextProps.firebaseRef, nextProps.targetDay);
       this.setState({focusedDay: null});
-    }
-  }
-
-  componentDidMount() {
-    this.scrollTo(this.props.targetDay);
-  }
-
-  componentDidUpdate(prevProps) {
-    if (this.state.focusedDay) {
-      this.scrollTo(this.state.focusedDay);
     }
   }
 
@@ -80,20 +68,20 @@ class Weeks extends Component {
     );
   }
 
-  focusDay(day) {
+  focusDay(day, textarea) {
     this.setState({focusedDay: day});
-    this.scrollTo();
+    this.scrollTo(textarea);
   }
 
   unfocusDay(day) {
     this.setState({focusedDay: null});
   }
 
-  scrollTo(pixels) {
-    // const textarea = this[day.valueOf()].textarea.getBoundingClientRect();
-    // const windowWidth = window.innerWidth;
-    // const pixels = textarea.left - (windowWidth * 0.5) + (textarea.width * 0.5);
-    // this.weekScroller.scrollLeft += pixels;
+  scrollTo(element) {
+    const target = element.getBoundingClientRect();
+    const windowWidth = window.innerWidth;
+    const pixels = target.left - (windowWidth * 0.5) + (target.width * 0.5);
+    this.weekScroller.scrollLeft += pixels;
   }
 
   render() {
@@ -123,9 +111,6 @@ class Weeks extends Component {
       somedays.days.push(moment(0).add(i, "days"));
     }
 
-    let firebaseKey;
-    let text = "";
-
     const weeks = [/*lastWeek,*/ thisWeek, nextWeek, somedays].map(function(week) {
       const isFocusedWeek = (
         this.state.focusedDay &&
@@ -140,7 +125,6 @@ class Weeks extends Component {
 
       return (
         <Week
-          ref={(c) => this[week.number] = c}
           key={week.number}
           days={week.days}
           todos={todoSource}
@@ -150,9 +134,9 @@ class Weeks extends Component {
           number={week.number}
           somedays={week.somedays}
           focusDay={this.focusDay}
+          scrollTo={this.scrollTo}
           unfocusDay={this.unfocusDay}
           saveTodo={this.props.saveTodo}
-          scrollTo={this.scrollTo}
           className={classNames({
             "week flex even-children padding-x padding-0-25": true,
             "focused-week": isFocusedWeek,
