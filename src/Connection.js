@@ -5,7 +5,7 @@ import ReactFire from "reactfire";
 import moment from "moment";
 
 import Controls from "./Controls";
-import Week from "./Week";
+import Weeks from "./Weeks";
 import Month from "./Month";
 import SignUp from "./SignUp";
 import SignIn from "./SignIn";
@@ -243,7 +243,7 @@ class Connection extends Component {
         case "week":
         default:
           view = (
-            <Week
+            <Weeks
               today={this.state.today}
               targetDay={this.state.targetDay}
               saveTodo={this.saveTodo}

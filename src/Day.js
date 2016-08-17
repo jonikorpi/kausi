@@ -29,6 +29,14 @@ class Day extends Component {
     });
   }
 
+  // shouldComponentUpdate(nextProps, nextState) {
+  //
+  // }
+
+  componentDidUpdate() {
+    // console.log("day updated");
+  }
+
   saveTodo() {
     this.props.saveTodo(this.props.firebaseKey, this.props.day.valueOf(), this.state.text);
   }
@@ -42,7 +50,7 @@ class Day extends Component {
     this.setState({
       editing: false
     });
-    this.props.focusDay(null);
+    this.props.unfocusDay();
     this.saveTodo();
   }
 
