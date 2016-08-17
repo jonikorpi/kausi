@@ -254,6 +254,10 @@ body {
 /*-------------------------------------------*/
 /*-------------------------------------------*/
 
+.narrow-max-width {
+  max-width: 13rem;
+}
+
 a {
   text-decoration: none;
 }
@@ -331,7 +335,3 @@ button {
   background: #E2E3D0;
   border-radius: 0.5rem;
 }*/
-
-#controls {
-  transition: background-color 500ms ease-in-out;
-}

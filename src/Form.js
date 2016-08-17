@@ -100,7 +100,7 @@ class Form extends Component {
     return (
       <form
         onSubmit={this.onSubmit}
-        className="child-margins-y-1 flex vertical align-center"
+        className="narrow-max-width child-margins-y-1 flex vertical align-center"
       >
         <div className="child-margins-y-hairline">
           {fields}
