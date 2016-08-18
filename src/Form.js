@@ -73,7 +73,7 @@ class Form extends Component {
         <div
           key={id}
           className={classNames({
-            "flex vertical": true,
+            "flex vertical .narrow-max-width": true,
             "bg-2": !field.focused,
             "bg-3": field.focused,
           })}
@@ -86,7 +86,7 @@ class Form extends Component {
           </label>
           <input
             ref={(c) => this[id] = c}
-            className="padding-0-5 size-1-25"
+            className="padding-0-5 size-1-25 width-100"
             id={field.id}
             type={field.type}
             onChange={this.onChange}

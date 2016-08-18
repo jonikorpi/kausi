@@ -309,16 +309,20 @@ button {
   min-width: 10.25rem;
 }
 
-.this-week {
+.week {
   flex-grow: 5;
+}
+
+.this-week {
+  flex-grow: 18;
 }
 
 .unfocused-week {
-  flex-grow: 1;
+  flex-grow: 5;
 }
 
 .focused-week {
-  flex-grow: 5;
+  flex-grow: 18;
 }
 
 /*.week-scroller {

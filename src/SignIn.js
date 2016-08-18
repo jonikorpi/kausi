@@ -60,7 +60,7 @@ class SignIn extends Component {
 
         {error}
 
-        <Button label="Reset password" onClick={this.props.resetPassword}/>
+        <Button className="rounded" disabled={true} label="Reset password" onClick={this.props.resetPassword}/>
       </div>
     );
   }

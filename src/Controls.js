@@ -69,8 +69,8 @@ class Controls extends Component {
     const viewIsWeekOrMonth = this.props.view === "week" || this.props.view === "month"
 
     return (
-      <div>
-        <div id="controls"
+      <div id="controls">
+        <div
           className={classNames({
             "flex even-children align-center color-bright-1 bg-4 relative enter-from-below": true,
           })}
