@@ -32,6 +32,7 @@ class Connection extends Component {
       connected: false,
       firebaseRef: false,
       error: null,
+      dateUpdater: null,
     }
 
     this.weekRange = 3;
@@ -45,12 +46,27 @@ class Connection extends Component {
     this.goToDay = this.goToDay.bind(this);
     this.goToToday = this.goToToday.bind(this);
     this.goToAccount = this.goToAccount.bind(this);
-    this.setTodayRefreshTimer = this.setTodayRefreshTimer.bind(this);
     this.moveBackward = this.moveBackward.bind(this);
     this.moveForward = this.moveForward.bind(this);
   }
 
   componentWillMount() {
+    const dateUpdater = setInterval(
+      function() {
+        const startOfToday = moment().startOf("day");
+
+        if (!this.state.today.isSame(startOfToday)) {
+          if (this.state.today.isSame(this.state.targetDay) && this.state.view === "week") {
+            this.setState({targetDay: startOfToday});
+          }
+          this.setState({today: startOfToday});
+        }
+      }.bind(this),
+      2*1000*60
+    );
+
+    this.setState({dateUpdater: dateUpdater});
+
     Firebase.auth().onAuthStateChanged(function(user) {
       if (user) {
         this.setState({
@@ -86,21 +102,8 @@ class Connection extends Component {
     }.bind(this));
   }
 
-  componentDidMount() {
-    this.setTodayRefreshTimer();
-  }
-
-  setTodayRefreshTimer() {
-    window.setTimeout(
-      function(){
-        if (this.state.today.valueOf() === this.state.targetDay.valueOf() && this.state.view === "week") {
-          this.setState({targetDay: moment().startOf("day")});
-        }
-        this.setState({today: moment().startOf("day")});
-        this.setTodayRefreshTimer();
-      }.bind(this),
-      moment().add(1, "day").startOf("day").valueOf() - moment().valueOf()
-    );
+  componentWillUnmount() {
+    clearInterval(this.state.dateUpdater);
   }
 
   signOut() {
