@@ -39,6 +39,7 @@ class Connection extends Component {
     this.saveTodo = this.saveTodo.bind(this);
     this.signUp = this.signUp.bind(this);
     this.setPassword = this.setPassword.bind(this);
+    this.requestPasswordReset = this.requestPasswordReset.bind(this);
     this.signIn = this.signIn.bind(this);
     this.signOut = this.signOut.bind(this);
     this.goToSignInUp = this.goToSignInUp.bind(this);
@@ -149,6 +150,14 @@ class Connection extends Component {
     }
   }
 
+  requestPasswordReset(email) {
+    Firebase.auth().sendPasswordResetEmail(email).then(function() {
+      this.setState({error: "Password reset link sent to your email."})
+    }.bind(this), function(error) {
+      this.setState({error: error.message})
+    }.bind(this));
+  }
+
   signIn(email, password) {
     this.setState({error: null});
     if (email && password) {
@@ -236,7 +245,12 @@ class Connection extends Component {
       switch (this.state.view) {
         case "signInUp":
           view = (
-            <SignInUp signUp={this.signUp} signIn={this.signIn} error={this.state.error}/>
+            <SignInUp
+              signUp={this.signUp}
+              signIn={this.signIn}
+              requestPasswordReset={this.requestPasswordReset}
+              error={this.state.error}
+            />
           );
           break;
         case "account":

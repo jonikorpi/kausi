@@ -7,8 +7,26 @@ class Form extends Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      fields: this.getFields(this.props.fields),
+    }
+
+    this.getFields = this.getFields.bind(this);
+    this.onChange = this.onChange.bind(this);
+    this.onFocus = this.onFocus.bind(this);
+    this.onBlur = this.onBlur.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.fields !== this.state.fields) {
+      this.setState({fields: this.getFields(nextProps.fields)})
+    }
+  }
+
+  getFields(propFields) {
     let fields = {};
-    this.props.fields.forEach(function(field) {
+    propFields.forEach(function(field) {
       fields[field.id] = {
         id: field.id,
         type: field.type,
@@ -17,15 +35,7 @@ class Form extends Component {
         focused: false,
       };
     });
-
-    this.state = {
-      fields: fields,
-    }
-
-    this.onChange = this.onChange.bind(this);
-    this.onFocus = this.onFocus.bind(this);
-    this.onBlur = this.onBlur.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
+    return fields;
   }
 
   onChange(event) {

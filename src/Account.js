@@ -30,15 +30,7 @@ class Account extends Component {
     return (
       <div className="grow bg-1 flex vertical">
 
-        <div className="padding-0-5 flex justify-center">
-          <Button
-            label="Log out"
-            onClick={this.props.signOut}
-            className="rounded"
-          />
-        </div>
-
-        <div className="padding-0-5 bg-2 grow flex vertical justify-center">
+        <div className="padding-0-5 bg-2 grow flex vertical align-center justify-center">
           <Form
             colorNumber={1}
             onSubmit={this.setPassword}
@@ -57,6 +49,14 @@ class Account extends Component {
             buttonLabel="Change password"
           />
           {error}
+        </div>
+
+        <div className="flex even-children bg-5 color-1">
+          <Button
+            label="Log out"
+            onClick={this.props.signOut}
+            className="rounded"
+          />
         </div>
       </div>
     );
