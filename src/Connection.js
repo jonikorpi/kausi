@@ -73,10 +73,9 @@ class Connection extends Component {
           user: {
             uid: user.uid,
             anonymous: user.isAnonymous,
-          }
+          },
+          firebaseRef: Firebase.database().ref(user.uid),
         });
-
-        this.setState({firebaseRef: Firebase.database().ref(user.uid)})
       }
       else {
         this.setState({

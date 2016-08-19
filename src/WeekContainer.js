@@ -24,6 +24,7 @@ class WeekContainer extends Component {
   componentWillReceiveProps(nextProps) {
     if (
       nextProps.targetDay !== this.props.targetDay
+      || nextProps.firebaseRef !== this.props.firebaseRef
       || nextProps.startAt !== this.props.startAt
       || nextProps.endAt !== this.props.endAt
     ) {
@@ -34,11 +35,6 @@ class WeekContainer extends Component {
   }
 
   bindFirebase(firebaseRef, targetDay, startAt, endAt) {
-    // console.log("current target is " + moment(targetDay).format("ddd DD MM HH:mm"));
-    // console.log("new target is " + moment(this.props.targetDay).format("ddd DD MM HH:mm"));
-    // console.log("Start at " + moment(targetDay).startOf("isoweek").subtract(7, "days").format("ddd DD MM HH:mm"));
-    // console.log("Stop at " + moment(targetDay).startOf("isoweek").add(14, "days").format("ddd DD MM HH:mm"));
-
     this.bindAsArray(
       firebaseRef
         .orderByChild("date")

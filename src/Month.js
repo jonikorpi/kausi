@@ -25,7 +25,11 @@ class Month extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.targetDay.valueOf() !== this.props.targetDay.valueOf()) {
+    if (
+      nextProps.targetDay !== this.props.targetDay
+      || nextProps.firebaseRef !== this.props.firebaseRef
+      || nextProps.startAt !== this.props.weekRange
+    ) {
       this.unbind("todos");
       this.bindFirebase(nextProps.firebaseRef, nextProps.targetDay, nextProps.weekRange);
     }
