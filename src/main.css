@@ -293,6 +293,13 @@ button {
   color: #28202A;
 }
 
+.button[disabled] {
+  color: inherit;
+  background: none;
+  cursor: default !important;
+  opacity: 0.382;
+}
+
 .week {
   transition: 200ms cubic-bezier(0.236, 0.000, 0.236, 1.000);
   transition-property: height, min-width, width, flex-grow;
