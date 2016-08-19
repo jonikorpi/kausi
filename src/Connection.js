@@ -259,6 +259,7 @@ class Connection extends Component {
               signOut={this.signOut}
               setPassword={this.setPassword}
               error={this.state.error}
+              firebaseRef={this.state.firebaseRef}
             />
           );
           break;

@@ -2,24 +2,35 @@ import React, { Component } from "react";
 
 import Form from "./Form";
 import Button from "./Button";
+import DataExport from "./DataExport";
 
 class Account extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-
+      view: "changePassword"
     };
 
     this.setPassword = this.setPassword.bind(this);
+    this.showChangePassword = this.showChangePassword.bind(this);
+    this.showExportData = this.showExportData.bind(this);
   }
 
   setPassword(fields) {
     this.props.setPassword(fields.newPassword.value, fields.newPasswordAgain.value);
   }
 
+  showChangePassword() {
+    this.setState({view: "changePassword"})
+  }
+
+  showExportData() {
+    this.setState({view: "exportData"})
+  }
+
   render() {
-    let error;
+    let error, view;
 
     if (this.props.error) {
       error = (
@@ -27,33 +38,84 @@ class Account extends Component {
       );
     }
 
-    return (
-      <div className="grow bg-1 flex vertical">
-
-        <div className="padding-0-5 bg-2 grow flex vertical align-center justify-center">
-          <Form
-            colorNumber={1}
-            onSubmit={this.setPassword}
-            fields={[
-              {
-                id: "newPassword",
-                type: "password",
-                label: "New password",
-              },
-              {
-                id: "newPasswordAgain",
-                type: "password",
-                label: "New password again",
-              },
-            ]}
-            buttonLabel="Change password"
+    switch (this.state.view) {
+      case "changePassword":
+        view = (
+          <div className="flex vertical align-center child-margins-y-1">
+            <Form
+              colorNumber={1}
+              onSubmit={this.setPassword}
+              fields={[
+                {
+                  id: "newPassword",
+                  type: "password",
+                  label: "New password",
+                },
+                {
+                  id: "newPasswordAgain",
+                  type: "password",
+                  label: "New password again",
+                },
+              ]}
+              buttonLabel="Change password"
+            />
+          </div>
+        );
+        break;
+      case "exportData":
+        view = (
+          <DataExport
+            firebaseRef={this.props.firebaseRef}
           />
+        );
+        break;
+      default:
+      case "signIn":
+        view = (
+          <div className="flex vertical align-center child-margins-y-1">
+            <Form
+              onSubmit={this.signIn}
+              fields={[
+                {
+                  id: "emailIn",
+                  type: "email",
+                  label: "Email",
+                },
+                {
+                  id: "passwordIn",
+                  type: "password",
+                  label: "Password",
+                },
+              ]}
+              buttonLabel="Sign in"
+            />
+          </div>
+        );
+        break;
+    }
+
+    return (
+      <div className="grow bg-1 color-4 overflow-auto flex vertical">
+        <div className="grow flex vertical align-center justify-center child-margins-y-1 padding-0-5">
+          {view}
           {error}
         </div>
 
         <div className="flex even-children bg-5 color-1">
           <Button
-            label="Log out"
+            label="Password"
+            onClick={this.showChangePassword}
+            className="rounded"
+            disabled={this.state.view === "changePassword"}
+          />
+          <Button
+            label="Export data"
+            onClick={this.showExportData}
+            className="rounded"
+            disabled={this.state.view === "exportData"}
+          />
+          <Button
+            label="Sign out"
             onClick={this.props.signOut}
             className="rounded"
           />

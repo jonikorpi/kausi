@@ -8,7 +8,6 @@ class SignInUp extends Component {
     super(props);
 
     this.state = {
-      error: null,
       view: "signIn"
     };
 
@@ -60,7 +59,10 @@ class SignInUp extends Component {
         view = (
           <div className="flex vertical align-center child-margins-y-1">
             <p className="wide-max-width">
-              <strong className="color-5">You are currently using a temporary account.</strong> If you sign up, entries from this account will carry over to your new account.
+              <strong className="color-5">You are currently using a temporary account.</strong> If you sign up for a permanent account, any entries you made using this temporary account will carry over.
+            </p>
+            <p className="wide-max-width">
+              With a permanent account you will be able to sign in from browsers other than this one, as well as export your entries (in the JSON format) whenever you want.
             </p>
             <p className="wide-max-width">
               Entries are stored in <a className="border-bottom" href="http://firebase.google.com/">Firebase</a>, unencrypted. Authentication is securely handled by Firebase.
