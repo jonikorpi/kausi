@@ -33,7 +33,7 @@ class Week extends Component {
           focusDay={this.props.focusDay}
           unfocusDay={this.props.unfocusDay}
           saveTodo={this.props.saveTodo}
-          someday={this.props.somedays}
+          someday={this.props.someday}
         />
       );
     }.bind(this));

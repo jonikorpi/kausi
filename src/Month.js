@@ -5,6 +5,8 @@ import ReactFire from "reactfire";
 import classNames from "classnames";
 import { random } from 'lodash/number';
 
+import Button from "./Button";
+
 class Month extends Component {
   constructor(props) {
     super(props);
@@ -159,7 +161,7 @@ class Month extends Component {
         <div
           key={week.days[0].valueOf()}
           className={classNames({
-            [`week flex even-children bg-${number-1} color-${number+2}`]: true,
+            [`week flex even-children bg-${number} color-${number+3}`]: true,
           })}
         >
           {this.renderDays(week.days)}
@@ -168,10 +170,21 @@ class Month extends Component {
     }.bind(this));
 
     return (
-      <div
-        className="month grow flex vertical even-children"
-      >
-        {weeks}
+      <div className="month grow flex vertical">
+        <div className="grow flex vertical even-children">
+          {weeks}
+        </div>
+
+        <div className="flex even-children bg-5 color-1">
+          <Button
+            label="&uarr;"
+            onClick={this.props.moveBackward}
+          />
+          <Button
+            label="&darr;"
+            onClick={this.props.moveForward}
+          />
+        </div>
       </div>
     );
   }

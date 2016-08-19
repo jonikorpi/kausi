@@ -20,39 +20,27 @@ class Controls extends Component {
   }
 
   render() {
-    let signUp, signIn, account;
+    let account = (
+      <Button
+        label="Account"
+        onClick={this.props.goToAccount}
+        disabled={this.props.view === "account" || !this.state.haveConnectedOnce}
+      />
+    );
 
-    if (this.state.haveConnectedOnce) {
-      if (this.props.user.anonymous) {
-        signUp = (
-          <Button
-            label="Sign up"
-            onClick={this.props.signUp}
-            disabled={this.props.view === "signUp"}
-          />
-        );
-        signIn = (
-          <Button
-            label="Log in"
-            onClick={this.props.signIn}
-            disabled={this.props.view === "signIn"}
-          />
-        );
-      }
-      if (this.props.user.uid && !this.props.user.anonymous) {
-        account = (
-          <Button
-            label="Account"
-            onClick={this.props.goToAccount}
-            disabled={this.props.view === "account"}
-          />
-        );
-      }
+    if (this.state.haveConnectedOnce && this.props.user.anonymous) {
+      account = (
+        <Button
+          label="Sign in/up"
+          onClick={this.props.goToSignInUp}
+          disabled={this.props.view === "signInUp"}
+        />
+      );
     }
 
     let status;
 
-    if (!this.props.connected && this.state.haveConnectedOnce) {
+    if (!this.props.connected) {
       status = (
         <div className="text-align-center padding-0-5 bg-5 color-bright-2">
           <p>Connection offline.</p>
@@ -66,35 +54,34 @@ class Controls extends Component {
       );
     }
 
-    const viewIsWeekOrMonth = this.props.view === "week" || this.props.view === "month"
-
     return (
       <div id="controls">
+        {status}
+
         <div
           className={classNames({
             "flex even-children align-center color-bright-1 bg-4 relative enter-from-below": true,
           })}
         >
-          <Button
-            label="&uarr;"
-            onClick={this.props.moveBackward}
-            disabled={!viewIsWeekOrMonth}
-          />
+
           <Button
             label="Today"
             onClick={this.props.goToToday}
-            disabled={this.props.view === "week" && this.props.targetIsToday}
+            disabled={(this.props.view === "week" && this.props.targetIsToday) || !this.state.haveConnectedOnce}
+          />
+          <Button
+            label="Zoom out"
+            onClick={this.props.goToMonth}
+            disabled={this.props.view === "month" || !this.state.haveConnectedOnce}
+          />
+          <Button
+            label="Someday"
+            onClick={this.props.goToSomeday}
+            disabled={this.props.view === "someday" || !this.state.haveConnectedOnce}
           />
           {account}
-          {signUp}
-          {signIn}
-          <Button
-            label="&darr;"
-            onClick={this.props.moveForward}
-            disabled={!viewIsWeekOrMonth}
-          />
+
         </div>
-        {status}
       </div>
     );
   }

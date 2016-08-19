@@ -7,8 +7,7 @@ import moment from "moment";
 import Controls from "./Controls";
 import Weeks from "./Weeks";
 import Month from "./Month";
-import SignUp from "./SignUp";
-import SignIn from "./SignIn";
+import SignInUp from "./SignInUp";
 import Account from "./Account";
 
 class Connection extends Component {
@@ -38,13 +37,14 @@ class Connection extends Component {
     this.weekRange = 3;
 
     this.saveTodo = this.saveTodo.bind(this);
-    this.showSignUp = this.showSignUp.bind(this);
     this.signUp = this.signUp.bind(this);
-    this.showSignIn = this.showSignIn.bind(this);
     this.signIn = this.signIn.bind(this);
     this.signOut = this.signOut.bind(this);
+    this.goToSignInUp = this.goToSignInUp.bind(this);
     this.goToDay = this.goToDay.bind(this);
+    this.goToMonth = this.goToMonth.bind(this);
     this.goToToday = this.goToToday.bind(this);
+    this.goToSomeday = this.goToSomeday.bind(this);
     this.goToAccount = this.goToAccount.bind(this);
     this.moveBackward = this.moveBackward.bind(this);
     this.moveForward = this.moveForward.bind(this);
@@ -136,10 +136,6 @@ class Connection extends Component {
     }
   }
 
-  showSignUp() {
-    this.setState({view: "signUp"});
-  }
-
   signIn(email, password) {
     this.setState({error: null});
     if (email && password) {
@@ -155,16 +151,24 @@ class Connection extends Component {
     }
   }
 
-  showSignIn() {
-    this.setState({view: "signIn"});
-  }
-
   goToToday() {
     this.setState({view: "week", targetDay: this.state.today});
   }
 
+  goToMonth() {
+    this.setState({view: "month"});
+  }
+
+  goToSomeday() {
+    this.setState({view: "someday"});
+  }
+
   goToDay(day) {
     this.setState({view: "week", targetDay: day});
+  }
+
+  goToSignInUp() {
+    this.setState({view: "signInUp"});
   }
 
   goToAccount() {
@@ -217,14 +221,9 @@ class Connection extends Component {
 
     if (this.state.firebaseRef) {
       switch (this.state.view) {
-        case "signUp":
+        case "signInUp":
           view = (
-            <SignUp signUp={this.signUp} error={this.state.error}/>
-          );
-          break;
-        case "signIn":
-          view = (
-            <SignIn signIn={this.signIn} error={this.state.error}/>
+            <SignInUp signUp={this.signUp} signIn={this.signIn} error={this.state.error}/>
           );
           break;
         case "account":
@@ -240,6 +239,19 @@ class Connection extends Component {
               goToDay={this.goToDay}
               firebaseRef={this.state.firebaseRef}
               weekRange={this.weekRange}
+              moveBackward={this.moveBackward}
+              moveForward={this.moveForward}
+            />
+          );
+          break;
+        case "someday":
+          view = (
+            <Weeks
+              today={this.state.today}
+              targetDay={this.state.targetDay}
+              saveTodo={this.saveTodo}
+              firebaseRef={this.state.firebaseRef}
+              someday={true}
             />
           );
           break;
@@ -263,16 +275,13 @@ class Connection extends Component {
         <Controls
           user={this.state.user}
           connected={this.state.connected}
-          signIn={this.showSignIn}
-          signOut={this.signOut}
-          signUp={this.showSignUp}
           targetIsToday={this.state.targetDay.valueOf() === this.state.today.valueOf()}
-          goToToday={this.goToToday}
-          goToAccount={this.goToAccount}
-          zoomOut={this.zoomOut}
           view={this.state.view}
-          moveBackward={this.moveBackward}
-          moveForward={this.moveForward}
+          goToToday={this.goToToday}
+          goToSomeday={this.goToSomeday}
+          goToAccount={this.goToAccount}
+          goToSignInUp={this.goToSignInUp}
+          goToMonth={this.goToMonth}
         />
       </div>
     );

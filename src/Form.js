@@ -67,26 +67,28 @@ class Form extends Component {
   }
 
   render() {
+    const colorNumber = this.props.colorNumber || 0;
+
     let fields = Object.keys(this.state.fields).map(function(id){
       const field = this.state.fields[id];
       return (
         <div
           key={id}
           className={classNames({
-            "flex vertical .narrow-max-width": true,
-            "bg-2": !field.focused,
-            "bg-3": field.focused,
+            "flex vertical grow color-6": true,
+            [`bg-${2 + colorNumber}`]: !field.focused,
+            [`bg-${3 + colorNumber}`]: field.focused,
           })}
         >
           <label
-            className="all-caps padding-0-5 padding-bottom-0"
+            className="all-caps size-0-75 padding-0-5 padding-bottom-0"
             htmlFor={id}
           >
             {field.label}
           </label>
           <input
             ref={(c) => this[id] = c}
-            className="padding-0-5 size-1-25 width-100"
+            className="padding-0-5 size-1 width-100"
             id={field.id}
             type={field.type}
             onChange={this.onChange}
@@ -100,12 +102,12 @@ class Form extends Component {
     return (
       <form
         onSubmit={this.onSubmit}
-        className="narrow-max-width child-margins-y-1 flex vertical align-center"
+        className="child-margins-y-1 flex vertical align-center width-100"
       >
-        <div className="child-margins-y-hairline">
+        <div className="child-margins-x-hairline flex wide-max-width width-100">
           {fields}
         </div>
-        <Button type="submit" className="size-1-25 rounded" label={this.props.buttonLabel}/>
+        <Button type="submit" className="rounded" label={this.props.buttonLabel}/>
       </form>
     );
   }
