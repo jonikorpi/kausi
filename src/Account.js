@@ -10,6 +10,12 @@ class Account extends Component {
     this.state = {
 
     };
+
+    this.setPassword = this.setPassword.bind(this);
+  }
+
+  setPassword(fields) {
+    this.props.setPassword(fields.newPassword.value, fields.newPasswordAgain.value);
   }
 
   render() {
@@ -17,17 +23,41 @@ class Account extends Component {
 
     if (this.props.error) {
       error = (
-        <p className="color-bright-6 text-align-center">{this.props.error}</p>
+        <p className="color-bright-6">{this.props.error}</p>
       );
     }
 
     return (
-      <div className="grow bg-1 flex vertical justify-center align-center child-margins-y-1 padding-0-5 max-width-5 enter-zoom">
-        <Button
-          label="Log out"
-          onClick={this.props.signOut}
-          className="rounded"
-        />
+      <div className="grow bg-1 flex vertical">
+
+        <div className="padding-0-5 flex justify-center">
+          <Button
+            label="Log out"
+            onClick={this.props.signOut}
+            className="rounded"
+          />
+        </div>
+
+        <div className="padding-0-5 bg-2 grow flex vertical justify-center">
+          <Form
+            colorNumber={1}
+            onSubmit={this.setPassword}
+            fields={[
+              {
+                id: "newPassword",
+                type: "password",
+                label: "New password",
+              },
+              {
+                id: "newPasswordAgain",
+                type: "password",
+                label: "New password again",
+              },
+            ]}
+            buttonLabel="Change password"
+          />
+          {error}
+        </div>
       </div>
     );
   }

@@ -38,6 +38,7 @@ class Connection extends Component {
 
     this.saveTodo = this.saveTodo.bind(this);
     this.signUp = this.signUp.bind(this);
+    this.setPassword = this.setPassword.bind(this);
     this.signIn = this.signIn.bind(this);
     this.signOut = this.signOut.bind(this);
     this.goToSignInUp = this.goToSignInUp.bind(this);
@@ -135,6 +136,19 @@ class Connection extends Component {
     }
   }
 
+  setPassword(password, passwordAgain) {
+    if (password && password === passwordAgain) {
+      Firebase.auth().currentUser.updatePassword(password).then(function() {
+        this.setState({error: "Password changed."})
+      }.bind(this), function(error) {
+        this.setState({error: error.message})
+      }.bind(this));
+    }
+    else {
+      this.setState({error: "New passwords do not match."})
+    }
+  }
+
   signIn(email, password) {
     this.setState({error: null});
     if (email && password) {
@@ -167,11 +181,11 @@ class Connection extends Component {
   }
 
   goToSignInUp() {
-    this.setState({view: "signInUp"});
+    this.setState({view: "signInUp", error: null});
   }
 
   goToAccount() {
-    this.setState({view: "account"});
+    this.setState({view: "account", error: null});
   }
 
   moveBackward() {
@@ -227,7 +241,11 @@ class Connection extends Component {
           break;
         case "account":
           view = (
-            <Account signOut={this.signOut}/>
+            <Account
+              signOut={this.signOut}
+              setPassword={this.setPassword}
+              error={this.state.error}
+            />
           );
           break;
         case "month":
