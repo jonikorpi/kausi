@@ -70,14 +70,14 @@ class Controls extends Component {
             disabled={(this.props.view === "week" && this.props.targetIsToday) || !this.state.haveConnectedOnce}
           />
           <Button
-            label="Zoom out"
-            onClick={this.props.goToMonth}
-            disabled={this.props.view === "month" || !this.state.haveConnectedOnce}
-          />
-          <Button
             label="Someday"
             onClick={this.props.goToSomeday}
             disabled={this.props.view === "someday" || !this.state.haveConnectedOnce}
+          />
+          <Button
+            label="Zoom out"
+            onClick={this.props.goToMonth}
+            disabled={this.props.view === "month" || !this.state.haveConnectedOnce}
           />
           {account}
 
