@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import moment from "moment";
 import reactMixin from "react-mixin";
 import ReactFire from "reactfire";
 

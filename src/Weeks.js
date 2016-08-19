@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import moment from "moment";
 import reactMixin from "react-mixin";
 import ReactFire from "reactfire";
-import classNames from "classnames";
+// import classNames from "classnames";
 
 import WeekContainer from "./WeekContainer";
 
