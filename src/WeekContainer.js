@@ -52,8 +52,8 @@ class WeekContainer extends Component {
   render() {
     const weeks = this.props.weeks.map(function(week) {
       const isFocusedWeek = (
-        this.state.focusedDay &&
-        moment(this.state.focusedDay).isBetween(week.days[0], week.days[6], null, "[]")
+        this.props.focusedDay &&
+        moment(this.props.focusedDay).isBetween(week.days[0], week.days[6], null, "[]")
       );
 
       return (
@@ -73,7 +73,7 @@ class WeekContainer extends Component {
           className={classNames({
             "week flex even-children padding-x padding-0-25": true,
             "focused-week": isFocusedWeek,
-            "unfocused-week": this.state.focusedDay && !isFocusedWeek,
+            "unfocused-week": this.props.focusedDay && !isFocusedWeek,
             "this-week": week.number === 2,
             [`bg-${week.number}`]: true,
           })}
