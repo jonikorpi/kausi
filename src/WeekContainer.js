@@ -82,10 +82,7 @@ class WeekContainer extends Component {
     }.bind(this));
 
     return (
-      <div
-        ref={(c) => this.weekScroller = c}
-        className="week-scroller grow flex vertical even-children overflow-auto"
-      >
+      <div className="grow flex vertical even-children">
         {weeks}
       </div>
     );

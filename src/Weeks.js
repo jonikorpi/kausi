@@ -83,20 +83,25 @@ class Weeks extends Component {
     }
 
     return (
-      <WeekContainer
-        weeks={weeks}
-        startAt={startAt}
-        endAt={endAt}
-        firebaseRef={this.props.firebaseRef}
-        today={this.props.today}
-        targetDay={this.props.targetDay}
-        focusedDay={this.state.focusedDay}
-        saveTodo={this.props.saveTodo}
-        focusDay={this.focusDay}
-        unfocusDay={this.unfocusDay}
-        scrollTo={this.scrollTo}
-        someday={this.props.someday}
-      />
+      <div
+        ref={(c) => this.weekScroller = c}
+        className="week-scroller grow flex overflow-auto"
+      >
+        <WeekContainer
+          weeks={weeks}
+          startAt={startAt}
+          endAt={endAt}
+          firebaseRef={this.props.firebaseRef}
+          today={this.props.today}
+          targetDay={this.props.targetDay}
+          focusedDay={this.state.focusedDay}
+          saveTodo={this.props.saveTodo}
+          focusDay={this.focusDay}
+          unfocusDay={this.unfocusDay}
+          scrollTo={this.scrollTo}
+          someday={this.props.someday}
+        />
+      </div>
     );
   }
 }
