@@ -126,6 +126,7 @@ class Day extends Component {
           value={this.state.text}
           onKeyDown={this.onKeyDown}
           readOnly={!this.props.connected}
+          placeholder={this.props.isToday ? "Start typing here…" : null}
         />
       </div>
     );
