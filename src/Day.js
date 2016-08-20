@@ -125,6 +125,7 @@ class Day extends Component {
           onChange={this.onChange}
           value={this.state.text}
           onKeyDown={this.onKeyDown}
+          readOnly={!this.props.connected}
         />
       </div>
     );

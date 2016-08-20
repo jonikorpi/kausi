@@ -279,6 +279,7 @@ class Connection extends Component {
         case "someday":
           view = (
             <Weeks
+              connected={this.state.connected}
               today={this.state.today}
               targetDay={this.state.targetDay}
               saveTodo={this.saveTodo}
@@ -291,6 +292,7 @@ class Connection extends Component {
         default:
           view = (
             <Weeks
+              connected={this.state.connected}
               today={this.state.today}
               targetDay={this.state.targetDay}
               saveTodo={this.saveTodo}

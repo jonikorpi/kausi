@@ -41,17 +41,23 @@ class Controls extends Component {
     let status;
 
     if (!this.props.connected) {
-      status = (
-        <div className="text-align-center padding-0-5 bg-5 color-bright-2">
-          <p>Connection offline.</p>
-          <p className="size-0-75">
-            Changes will not be saved before this message disappears.
-          </p>
-          <p className="size-0-75">
-            If you close this app now, unsaved changes may disappear.
-          </p>
-        </div>
-      );
+      if (this.state.haveConnectedOnce) {
+        status = (
+          <div className="text-align-center padding-0-5 bg-5 color-bright-2">
+            <p>Connection offline.</p>
+            <p className="size-0-75">
+              Text entry is disabled. Changes will not be saved before this message disappears.
+            </p>
+          </div>
+        );
+      }
+      else {
+        status = (
+          <div className="text-align-center padding-0-5 bg-5 color-bright-2">
+            <p>Connecting…</p>
+          </div>
+        );
+      }
     }
 
     return (

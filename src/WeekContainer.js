@@ -70,6 +70,7 @@ class WeekContainer extends Component {
           scrollTo={this.props.scrollTo}
           saveTodo={this.props.saveTodo}
           someday={this.props.someday}
+          connected={this.props.connected}
           className={classNames({
             "week flex even-children": true,
             "focused-week": isFocusedWeek,
