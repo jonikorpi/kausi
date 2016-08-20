@@ -71,7 +71,7 @@ class WeekContainer extends Component {
           saveTodo={this.props.saveTodo}
           someday={this.props.someday}
           className={classNames({
-            "week flex even-children padding-x padding-0-25": true,
+            "week flex even-children": true,
             "focused-week": isFocusedWeek,
             "unfocused-week": this.props.focusedDay && !isFocusedWeek,
             "this-week": week.number === 2,

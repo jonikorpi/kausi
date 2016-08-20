@@ -65,7 +65,7 @@ class Day extends Component {
 
   render() {
     const dayClasses = classNames({
-      "day faint-bottom-border flex vertical padding-0-5 padding-top overflow-hidden min-day-width": true,
+      "day faint-bottom-border flex vertical padding-0-5 padding-top min-day-width": true,
       ["bg-" + this.props.colorNumber]: true,
       ["color-" + (this.props.colorNumber+3)]: !this.props.aDayIsFocused || this.props.isFocusedDay /*&& !this.props.someday*/,
       ["color-" + (this.props.colorNumber+2)]: this.props.aDayIsFocused && !this.props.isFocusedDay /*&& !this.props.someday*/,
@@ -98,7 +98,7 @@ class Day extends Component {
         <label
           htmlFor={this.props.day.valueOf()}
           className={classNames({
-            "padding-0-25 padding-x": true,
+            "padding-0-5 padding-x": true,
             // ["color-" + (this.props.colorNumber+2)]: true,
             "all-caps": true,
             "color-bright-6": this.props.isTargetDay && (!this.props.aDayIsFocused || this.props.isFocusedDay),
@@ -116,7 +116,7 @@ class Day extends Component {
           id={this.props.day.valueOf()}
           ref={(c) => this.textarea = c}
           className={classNames({
-            "padding-0-25 grow width-100": true,
+            "padding-0-5 grow width-100": true,
             ["scrollbar-" + (this.props.colorNumber+1)]: true,
             // "nowrap": !this.state.editing,
           })}
