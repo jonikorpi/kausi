@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import moment from "moment";
 import reactMixin from "react-mixin";
 import ReactFire from "reactfire";
-// import classNames from "classnames";
+import classNames from "classnames";
 
 import WeekContainer from "./WeekContainer";
 
@@ -85,7 +85,10 @@ class Weeks extends Component {
     return (
       <div
         ref={(c) => this.weekScroller = c}
-        className="week-scroller grow flex overflow-auto"
+        className={classNames({
+          "week-scroller grow flex overflow-auto faint-bottom-border": true,
+          [`bg-${weeks[weeks.length-1].number} scrollbar-${weeks[weeks.length-1].number+2}`]: true,
+        })}
       >
         <WeekContainer
           weeks={weeks}

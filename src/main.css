@@ -72,36 +72,42 @@ html {
 .border-1 { border-color:     #26211F; }
 .fill-1   { fill:             #26211F; }
 .stroke-1 { stroke:           #26211F; }
+.scrollbar-1::-webkit-scrollbar-thumb { background-color: #26211F; }
 
 .color-2  { color:            #49423F; }
 .bg-2     { background-color: #49423F; }
 .border-2 { border-color:     #49423F; }
 .fill-2   { fill:             #49423F; }
 .stroke-2 { stroke:           #49423F; }
+.scrollbar-2::-webkit-scrollbar-thumb { background-color: #49423F; }
 
 .color-3  { color:            #6D6761; }
 .bg-3     { background-color: #6D6761; }
 .border-3 { border-color:     #6D6761; }
 .fill-3   { fill:             #6D6761; }
 .stroke-3 { stroke:           #6D6761; }
+.scrollbar-3::-webkit-scrollbar-thumb { background-color: #6D6761; }
 
 .color-4  { color:            #938E85; }
 .bg-4     { background-color: #938E85; }
 .border-4 { border-color:     #938E85; }
 .fill-4   { fill:             #938E85; }
 .stroke-4 { stroke:           #938E85; }
+.scrollbar-4::-webkit-scrollbar-thumb { background-color: #938E85; }
 
 .color-5  { color:            #BAB8AA; }
 .bg-5     { background-color: #BAB8AA; }
 .border-5 { border-color:     #BAB8AA; }
 .fill-5   { fill:             #BAB8AA; }
 .stroke-5 { stroke:           #BAB8AA; }
+.scrollbar-5::-webkit-scrollbar-thumb { background-color: #BAB8AA; }
 
 .color-6  { color:            #E2E3D0; }
 .bg-6     { background-color: #E2E3D0; }
 .border-6 { border-color:     #E2E3D0; }
 .fill-6   { fill:             #E2E3D0; }
 .stroke-6 { stroke:           #E2E3D0; }
+.scrollbar-6::-webkit-scrollbar-thumb { background-color: #E2E3D0; }
 
 /*
   High chroma
@@ -112,36 +118,42 @@ html {
 .border-bright-1 { border-color:     #28202A; }
 .fill-bright-1   { fill:             #28202A; }
 .stroke-bright-1 { stroke:           #28202A; }
+.scrollbar-bright-1::-webkit-scrollbar-thumb { background-color: #28202A; }
 
 .color-bright-2  { color:            #464152; }
 .bg-bright-2     { background-color: #464152; }
 .border-bright-2 { border-color:     #464152; }
 .fill-bright-2   { fill:             #464152; }
 .stroke-bright-2 { stroke:           #464152; }
+.scrollbar-bright-2::-webkit-scrollbar-thumb { background-color: #464152; }
 
 .color-bright-3  { color:            #5F687E; }
 .bg-bright-3     { background-color: #5F687E; }
 .border-bright-3 { border-color:     #5F687E; }
 .fill-bright-3   { fill:             #5F687E; }
 .stroke-bright-3 { stroke:           #5F687E; }
+.scrollbar-bright-3::-webkit-scrollbar-thumb { background-color: #5F687E; }
 
 .color-bright-4  { color:            #7392AB; }
 .bg-bright-4     { background-color: #7392AB; }
 .border-bright-4 { border-color:     #7392AB; }
 .fill-bright-4   { fill:             #7392AB; }
 .stroke-bright-4 { stroke:           #7392AB; }
+.scrollbar-bright-4::-webkit-scrollbar-thumb { background-color: #7392AB; }
 
 .color-bright-5  { color:            #82C0D6; }
 .bg-bright-5     { background-color: #82C0D6; }
 .border-bright-5 { border-color:     #82C0D6; }
 .fill-bright-5   { fill:             #82C0D6; }
 .stroke-bright-5 { stroke:           #82C0D6; }
+.scrollbar-bright-5::-webkit-scrollbar-thumb { background-color: #82C0D6; }
 
 .color-bright-6  { color:            #8FF1FE; }
 .bg-bright-6     { background-color: #8FF1FE; }
 .border-bright-6 { border-color:     #8FF1FE; }
 .fill-bright-6   { fill:             #8FF1FE; }
 .stroke-bright-6 { stroke:           #8FF1FE; }
+.scrollbar-bright-6::-webkit-scrollbar-thumb { background-color: #8FF1FE; }
 
 /* Other */
 
@@ -330,17 +342,14 @@ button {
   flex-grow: 18;
 }
 
-/*.week-scroller {
-  background: #6D6761;
-}
-
-.week-scroller::-webkit-scrollbar {
+::-webkit-scrollbar {
   width:  0.5rem;
   height: 0.5rem;
   background: rgba(0,0,0, 0.09);
+  border-radius: 0.5rem;
 }
 
-.week-scroller::-webkit-scrollbar-thumb {
-  background: #E2E3D0;
+::-webkit-scrollbar-thumb {
   border-radius: 0.5rem;
-}*/
+  background: #938E85;
+}

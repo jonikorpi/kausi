@@ -117,6 +117,7 @@ class Day extends Component {
           ref={(c) => this.textarea = c}
           className={classNames({
             "padding-0-25 grow width-100": true,
+            ["scrollbar-" + (this.props.colorNumber+1)]: true,
             // "nowrap": !this.state.editing,
           })}
           onFocus={this.onFocus}

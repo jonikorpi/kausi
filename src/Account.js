@@ -41,7 +41,7 @@ class Account extends Component {
     switch (this.state.view) {
       case "changePassword":
         view = (
-          <div className="flex vertical align-center child-margins-y-1">
+          <div className="flex vertical align-center child-margins-y-1 padding-0-5">
             <Form
               colorNumber={1}
               onSubmit={this.setPassword}
@@ -72,7 +72,7 @@ class Account extends Component {
       default:
       case "signIn":
         view = (
-          <div className="flex vertical align-center child-margins-y-1">
+          <div className="flex vertical align-center child-margins-y-1 padding-0-5">
             <Form
               onSubmit={this.signIn}
               fields={[
@@ -96,7 +96,7 @@ class Account extends Component {
 
     return (
       <div className="grow bg-1 color-4 overflow-auto flex vertical">
-        <div className="grow flex vertical align-center justify-center child-margins-y-1 padding-0-5">
+        <div className="grow flex vertical align-center justify-center child-margins-y-1">
           {view}
           {error}
         </div>
