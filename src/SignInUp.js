@@ -130,8 +130,8 @@ class SignInUp extends Component {
     }
 
     return (
-      <div className="grow overflow-auto flex vertical">
-        <div className="grow flex vertical justify-center child-margins-y-1 padding-0-5">
+      <div className="overflow-auto">
+        <div className="flex vertical justify-center child-margins-y-1 padding-0-5">
           <div className="flex justify-center">
             <Button
               label="Sign up"

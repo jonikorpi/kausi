@@ -50,7 +50,7 @@ class DataExport extends Component {
         defaultValue={"Fetching your entries…"}
         value={data}
         readOnly={true}
-        className="grow width-100 size-0-75 padding-0-5 bg-2"
+        className="height-5 width-100 size-0-75 padding-0-5 bg-2"
       />
     );
   }
