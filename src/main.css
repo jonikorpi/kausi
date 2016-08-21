@@ -65,61 +65,49 @@ html {
 
 /*
   Low chroma
-  #2D2524,#473936,#634E47,#7F6558,#9B7D69,#B59779,#CDB38C,#E3D0A1
-  #2D2524,#473936,#634E47,#7F6558,#9B7D69,#B59779,#CDB38C,#E3D0A1 */
+  #211E1A,#3F3932,#63584E,#8A7A6B,#B29E88,#D9C5A7
+  #1E1C18,#3F3932,#63584E,#8A7A6B,#B29E88,#D9C5A7 */
 
-.color-1  { color:            #2D2524; }
-.bg-1     { background-color: #2D2524; }
-.border-1 { border-color:     #2D2524; }
-.fill-1   { fill:             #2D2524; }
-.stroke-1 { stroke:           #2D2524; }
+.color-1  { color:            #211E1A; }
+.bg-1     { background-color: #211E1A; }
+.border-1 { border-color:     #211E1A; }
+.fill-1   { fill:             #211E1A; }
+.stroke-1 { stroke:           #211E1A; }
 
-.color-2  { color:            #473936; }
-.bg-2     { background-color: #473936; }
-.border-2 { border-color:     #473936; }
-.fill-2   { fill:             #473936; }
-.stroke-2 { stroke:           #473936; }
+.color-2  { color:            #3F3932; }
+.bg-2     { background-color: #3F3932; }
+.border-2 { border-color:     #3F3932; }
+.fill-2   { fill:             #3F3932; }
+.stroke-2 { stroke:           #3F3932; }
 
-.color-3  { color:            #634E47; }
-.bg-3     { background-color: #634E47; }
-.border-3 { border-color:     #634E47; }
-.fill-3   { fill:             #634E47; }
-.stroke-3 { stroke:           #634E47; }
+.color-3  { color:            #63584E; }
+.bg-3     { background-color: #63584E; }
+.border-3 { border-color:     #63584E; }
+.fill-3   { fill:             #63584E; }
+.stroke-3 { stroke:           #63584E; }
 
-.color-4  { color:            #7F6558; }
-.bg-4     { background-color: #7F6558; }
-.border-4 { border-color:     #7F6558; }
-.fill-4   { fill:             #7F6558; }
-.stroke-4 { stroke:           #7F6558; }
+.color-4  { color:            #8A7A6B; }
+.bg-4     { background-color: #8A7A6B; }
+.border-4 { border-color:     #8A7A6B; }
+.fill-4   { fill:             #8A7A6B; }
+.stroke-4 { stroke:           #8A7A6B; }
 
-.color-5  { color:            #9B7D69; }
-.bg-5     { background-color: #9B7D69; }
-.border-5 { border-color:     #9B7D69; }
-.fill-5   { fill:             #9B7D69; }
-.stroke-5 { stroke:           #9B7D69; }
+.color-5  { color:            #B29E88; }
+.bg-5     { background-color: #B29E88; }
+.border-5 { border-color:     #B29E88; }
+.fill-5   { fill:             #B29E88; }
+.stroke-5 { stroke:           #B29E88; }
 
-.color-6  { color:            #B59779; }
-.bg-6     { background-color: #B59779; }
-.border-6 { border-color:     #B59779; }
-.fill-6   { fill:             #B59779; }
-.stroke-6 { stroke:           #B59779; }
-
-.color-7  { color:            #CDB38C; }
-.bg-7     { background-color: #CDB38C; }
-.border-7 { border-color:     #CDB38C; }
-.fill-7   { fill:             #CDB38C; }
-.stroke-7 { stroke:           #CDB38C; }
-
-.color-8  { color:            #E3D0A1; }
-.bg-8     { background-color: #E3D0A1; }
-.border-8 { border-color:     #E3D0A1; }
-.fill-8   { fill:             #E3D0A1; }
-.stroke-8 { stroke:           #E3D0A1; }
+.color-6  { color:            #D9C5A7; }
+.bg-6     { background-color: #D9C5A7; }
+.border-6 { border-color:     #D9C5A7; }
+.fill-6   { fill:             #D9C5A7; }
+.stroke-6 { stroke:           #D9C5A7; }
 
 /*
   High chroma
-  #352033,#5B2D43,#843C4B,#AA4E4C,#C96848,#DE883F,#E7AD3A,#E4D541
-  #352033,#5B2D43,#843C4B,#AA4E4C,#C96848,#DE883F,#E7AD3A,#E4D541 */
+  #352033,#5B2D43,#843C4B,#AA4E4C,#C96848,#DE883F
+  #031E2D,#3E3456,#8A416A,#D15262,#FC7D44,#FCBD1A */
 
 .color-bright-1  { color:            #352033; }
 .bg-bright-1     { background-color: #352033; }
@@ -157,18 +145,6 @@ html {
 .fill-bright-6   { fill:             #DE883F; }
 .stroke-bright-6 { stroke:           #DE883F; }
 
-.color-bright-7  { color:            #E7AD3A; }
-.bg-bright-7     { background-color: #E7AD3A; }
-.border-bright-7 { border-color:     #E7AD3A; }
-.fill-bright-7   { fill:             #E7AD3A; }
-.stroke-bright-7 { stroke:           #E7AD3A; }
-
-.color-bright-8  { color:            #E4D541; }
-.bg-bright-8     { background-color: #E4D541; }
-.border-bright-8 { border-color:     #E4D541; }
-.fill-bright-8   { fill:             #E4D541; }
-.stroke-bright-8 { stroke:           #E4D541; }
-
 /* Other */
 
 .color-none  { color:            none; }
@@ -184,6 +160,9 @@ html {
 .color-inherit  { color:            inherit; }
 .bg-inherit     { background-color: inherit; }
 .border-inherit { border-color:     inherit; }
+
+.bg-currentcolor     { background-color: currentcolor; }
+.border-currentcolor { border-color:     currentcolor; }
 
 /*
   Entry animations
@@ -313,20 +292,19 @@ button {
 
 .button:hover,
 .button:focus {
-  background: #B59779;
-  color: #2D2524;
+  background: #D9C5A7;
+  color: #211E1A;
 }
 
 .button:active {
   background: #E3D0A1;
-  color: #2D2524;
+  color: #211E1A;
 }
 
 .button[disabled] {
   cursor: default !important;
-  background: none;
-  color: inherit;
-  opacity: 0.5;
+  color: #63584E;
+  background: #211E1A;
 }
 
 .week {

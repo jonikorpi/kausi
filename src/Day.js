@@ -64,12 +64,12 @@ class Day extends Component {
   }
 
   render() {
-    // const bgweekNumber = 1 + (this.props.weekNumber + +this.props.day.format("d") - 1) % 2;
+    const colorNumber = this.props.isInFocusedWeek ? 2 : 1;
 
     const dayClasses = classNames({
       "day flex vertical padding-0-5 padding-top min-day-width border-1": true,
-      [`color-${this.props.weekNumber+5}`]: !this.props.aDayIsFocused ||  this.props.isFocusedDay,
-      [`color-${this.props.weekNumber+3}`]: this.props.aDayIsFocused && !this.props.isFocusedDay,
+      [`color-${colorNumber+4}`]: !this.props.aDayIsFocused ||  this.props.isFocusedDay,
+      [`color-${colorNumber+3}`]: this.props.aDayIsFocused && !this.props.isFocusedDay,
       // [`bg-${this.props.weekNumber}`]: !this.props.isFocusedDay,
       // [`bg-bright-${this.props.weekNumber}`]: this.props.isFocusedDay,
     });
@@ -147,8 +147,10 @@ class Day extends Component {
           htmlFor={this.props.day.valueOf()}
           className={classNames({
             "all-caps margin-0-25 margin-bottom": true,
-            [`color-${this.props.weekNumber+4}`]: !this.props.aDayIsFocused,
-            [`color-bright-${this.props.weekNumber+5}`]: (this.props.isToday && !this.props.aDayIsFocused) || (this.props.weekly && this.props.day.format("d") === this.props.today.format("d") && !this.props.aDayIsFocused)
+            [`color-${colorNumber+3}`]: !this.props.aDayIsFocused || this.props.aDayIsFocused && this.props.isFocusedDay,
+            [`color-${colorNumber+2}`]:  this.props.aDayIsFocused,
+            [`color-bright-${colorNumber+4}`]: this.props.isToday && (!this.props.aDayIsFocused || (this.props.aDayIsFocused && this.props.isFocusedDay)),
+            [`color-bright-${colorNumber+3}`]: this.props.isToday && !this.props.aDayIsFocused,
             // "color-5": !this.props.aDayIsFocused || this.props.isFocusedDay,
             // "color-3": this.props.aDayIsFocused && !this.props.isFocusedDay,
             // "color-bright-6": this.props.isToday && !this.props.aDayIsFocused,

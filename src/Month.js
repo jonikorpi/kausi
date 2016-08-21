@@ -190,7 +190,7 @@ class Month extends Component {
       );
 
       let number = isCurrentWeek ? 2 : 1;
-      if (isFutureWeek) { number = 3; }
+      if (isFutureWeek) { number = 1; }
 
       return (
         <div

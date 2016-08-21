@@ -50,7 +50,7 @@ class SignInUp extends Component {
 
     if (this.props.error) {
       error = (
-        <p className="color-bright-6">{this.props.error}</p>
+        <p className="color-bright-6 text-align-center">{this.props.error}</p>
       );
     }
 

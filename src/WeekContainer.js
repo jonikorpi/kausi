@@ -100,11 +100,11 @@ class WeekContainer extends Component {
           connected={this.props.connected}
           anonymous={this.props.anonymous}
           className={classNames({
-            "week flex even-children child-margins-x-0-5 padding-x padding-0-75": true,
+            "week flex even-children child-margins-x-0-5 padding-x padding-0-75 border-2": true,
             "focused-week": isFocusedWeek,
+            "bg-2": isFocusedWeek || this.props.someday,
             "unfocused-week": this.props.focusedDay && !isFocusedWeek,
             "this-week": isThisWeek,
-            [`bg-${i+1}`]: true,
           })}
         />
       );
@@ -113,7 +113,7 @@ class WeekContainer extends Component {
     return (
       <div
         className={classNames({
-          "grow flex vertical even-children": true,
+          "grow flex vertical even-children child-borders-y": true,
         })}
       >
         {weeks}

@@ -59,7 +59,7 @@ class Controls extends Component {
       }
 
       buttons = (
-        <div className="flex enter-from-below flex even-children">
+        <div className="flex enter-from-below flex">
           <Button
             label="Today"
             onClick={this.props.goToToday}
@@ -70,18 +70,13 @@ class Controls extends Component {
             onClick={this.props.goToMonth}
             disabled={this.props.view === "month" || !this.state.haveConnectedOnce}
           />
-          <Button
-            label="Lists"
-            onClick={this.props.goToSomeday}
-            disabled={this.props.view === "someday" || !this.state.haveConnectedOnce}
-          />
           {account}
         </div>
       );
     }
 
     return (
-      <div id="controls" className="bg-5 color-1 text-align-center">
+      <div id="controls" className="bg-5 color-1">
         {status}
         {buttons}
       </div>
