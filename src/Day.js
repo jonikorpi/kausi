@@ -106,11 +106,11 @@ class Day extends Component {
         placeholder = "x Vacuum\nWork out\nDo the dishes";
       }
       else if (this.props.someday && +this.props.day.format("D") === 1) {
-        placeholder = "This row is not tied to any week. Useful for stuff like grocery lists.";
+        placeholder = "These lists are not tied to any week. Useful for stuff like grocery lists and grandiose plans.";
       }
-      // else if (this.props.weekNumber === 1 && +this.props.day.format("d") === 1) {
-      //   placeholder = "This row is always last week."
-      // }
+      else if (this.props.weekNumber === 1 && +this.props.day.format("d") === 1) {
+        placeholder = "This row is always last week."
+      }
       else if (this.props.weekNumber === 2) {
         if (+this.props.day.format("d") === 1) {
           placeholder = "This row is always the current week."

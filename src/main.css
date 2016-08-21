@@ -313,7 +313,8 @@ button {
 
 .button:hover,
 .button:focus {
-  background: #E3D0A1;
+  background: #B59779;
+  color: #2D2524;
 }
 
 .button:active {
@@ -324,6 +325,7 @@ button {
 .button[disabled] {
   cursor: default !important;
   background: none;
+  color: inherit;
   opacity: 0.5;
 }
 
@@ -342,7 +344,7 @@ button {
 }
 
 .focused-week {
-  flex-grow: 8;
+  flex-grow: 12;
 }
 
 ::-webkit-scrollbar {

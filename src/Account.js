@@ -95,30 +95,29 @@ class Account extends Component {
     }
 
     return (
-      <div className="grow bg-1 color-4 overflow-auto flex vertical">
-        <div className="grow flex vertical align-center justify-center child-margins-y-1">
+      <div className="grow overflow-auto flex vertical">
+        <div className="grow flex vertical justify-center child-margins-y-1 padding-0-5">
+          <div className="flex justify-center">
+            <Button
+              label="Password"
+              onClick={this.showChangePassword}
+              className="rounded"
+              disabled={this.state.view === "changePassword"}
+            />
+            <Button
+              label="Export data"
+              onClick={this.showExportData}
+              className="rounded"
+              disabled={this.state.view === "exportData"}
+            />
+            <Button
+              label="Sign out"
+              onClick={this.props.signOut}
+              className="rounded"
+            />
+          </div>
           {view}
           {error}
-        </div>
-
-        <div className="flex even-children bg-5 color-1">
-          <Button
-            label="Password"
-            onClick={this.showChangePassword}
-            className="rounded"
-            disabled={this.state.view === "changePassword"}
-          />
-          <Button
-            label="Export data"
-            onClick={this.showExportData}
-            className="rounded"
-            disabled={this.state.view === "exportData"}
-          />
-          <Button
-            label="Sign out"
-            onClick={this.props.signOut}
-            className="rounded"
-          />
         </div>
       </div>
     );

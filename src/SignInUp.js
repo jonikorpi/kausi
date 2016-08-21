@@ -8,7 +8,7 @@ class SignInUp extends Component {
     super(props);
 
     this.state = {
-      view: "signIn"
+      view: "signUp"
     };
 
     this.signIn = this.signIn.bind(this);
@@ -59,7 +59,7 @@ class SignInUp extends Component {
         view = (
           <div className="flex vertical align-center child-margins-y-1">
             <p className="wide-max-width">
-              <strong className="color-5">You are currently using a temporary account.</strong> If you sign up for a permanent account, any entries you made using this temporary account will carry over.
+              You are currently using a temporary account. If you sign up for a permanent account, any entries you made using this temporary account will carry over.
             </p>
             <p className="wide-max-width">
               With a permanent account you will be able to sign in from browsers other than this one, as well as export your entries (in the JSON format) whenever you want.
@@ -129,27 +129,27 @@ class SignInUp extends Component {
     }
 
     return (
-      <div className="grow bg-1 color-4 overflow-auto flex vertical">
-        <div className="grow flex vertical align-center justify-center child-margins-y-1 padding-0-5">
+      <div className="grow overflow-auto flex vertical">
+        <div className="grow flex vertical justify-center child-margins-y-1 padding-0-5">
+          <div className="flex justify-center">
+            <Button
+              label="Sign up"
+              onClick={this.showSignUp}
+              disabled={this.state.view === "signUp"}
+            />
+            <Button
+              label="Sign in"
+              onClick={this.showSignIn}
+              disabled={this.state.view === "signIn"}
+            />
+            <Button
+              label="Reset password"
+              onClick={this.showResetPassword}
+              disabled={this.state.view === "resetPassword"}
+            />
+          </div>
           {view}
           {error}
-        </div>
-        <div className="flex even-children bg-5 color-1">
-          <Button
-            label="Sign in"
-            onClick={this.showSignIn}
-            disabled={this.state.view === "signIn"}
-          />
-          <Button
-            label="Reset password"
-            onClick={this.showResetPassword}
-            disabled={this.state.view === "resetPassword"}
-          />
-          <Button
-            label="Sign up"
-            onClick={this.showSignUp}
-            disabled={this.state.view === "signUp"}
-          />
         </div>
       </div>
     );

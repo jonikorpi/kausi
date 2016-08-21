@@ -61,7 +61,7 @@ class Month extends Component {
           <Button
             key="upButton"
             label="&uarr;"
-            className="size-1-25 color-1 bg-8"
+            className="size-1-25 color-1 bg-4"
             onClick={this.props.moveBackward}
           />
         );
@@ -71,7 +71,7 @@ class Month extends Component {
           <Button
             key="downButton"
             label="&darr;"
-            className="size-1-25 color-1 bg-8"
+            className="size-1-25 color-1 bg-4"
             onClick={this.props.moveForward}
           />
         );
@@ -94,7 +94,7 @@ class Month extends Component {
         }
 
         textMarker = (
-          <div className="child-margins-y-hairline margin-0-25 margin-top">
+          <div className="child-margins-y-0-25 margin-0-25 margin-top">
             {lines.map(function(i) {
               const randomWidth = i+1 === lines.length ? random(38, 76) : random(85, 100)
 
@@ -103,9 +103,7 @@ class Month extends Component {
                   key={i}
                   style={{width: `${randomWidth}%`}}
                   className={classNames({
-                    "height-0-25": true,
-                    "bg-8": !day.isSame(this.props.today),
-                    "bg-bright-8": day.isSame(this.props.today),
+                    "border-top": true,
                   })}
                 />
               );
@@ -123,8 +121,8 @@ class Month extends Component {
         <button
           key={day.valueOf()}
           className={classNames({
-            "color-8 button size-0-75 flex vertical text-align-left padding-0-5 all-caps overflow-hidden": true,
-            "color-bright-8": day.isSame(this.props.today),
+            "color-6 button size-0-75 flex vertical text-align-left padding-0-5 all-caps overflow-hidden": true,
+            "color-bright-6": day.isSame(this.props.today),
           })}
           onClick={this.goToDay}
           data-day={day.valueOf()}
@@ -198,8 +196,8 @@ class Month extends Component {
         <div
           key={week.days[0].valueOf()}
           className={classNames({
-            "week flex even-children border-inherit": true,
-            "color-bright-4": isCurrentWeek,
+            "week flex even-children border-2": true,
+            [`bg-${number}`]: true,
           })}
         >
           {this.renderDays(week.days, nthWeek)}
@@ -209,7 +207,7 @@ class Month extends Component {
 
     return (
       <div className="month grow flex vertical">
-        <div className="grow flex vertical even-children child-borders-y border-top border-8">
+        <div className="grow flex vertical even-children child-borders-y">
           {weeks}
         </div>
       </div>

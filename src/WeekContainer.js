@@ -32,7 +32,9 @@ class WeekContainer extends Component {
     ) {
       console.log("rebinding");
       this.unbind("todos");
-      this.unbind("weeklies");
+      if (this.props.alsoStartAt && this.props.alsoEndAt) {
+        this.unbind("weeklies");
+      }
       this.bindFirebase(nextProps.firebaseRef, nextProps.targetDay, nextProps.startAt, nextProps.endAt, nextProps.alsoStartAt, nextProps.alsoEndAt);
     }
   }
@@ -51,18 +53,20 @@ class WeekContainer extends Component {
       }.bind(this)
     );
 
-    this.bindAsArray(
-      firebaseRef
-        .orderByChild("date")
-        .startAt(alsoStartAt)
-        .endAt(alsoEndAt),
-      "weeklies",
-      function(error) {
-        console.log("Firebase subscription cancelled:")
-        console.log(error);
-        this.setState({weeklies: []})
-      }.bind(this)
-    );
+    if (alsoStartAt && alsoEndAt) {
+      this.bindAsArray(
+        firebaseRef
+          .orderByChild("date")
+          .startAt(alsoStartAt)
+          .endAt(alsoEndAt),
+        "weeklies",
+        function(error) {
+          console.log("Firebase subscription cancelled:")
+          console.log(error);
+          this.setState({weeklies: []})
+        }.bind(this)
+      );
+    }
   }
 
   render() {
@@ -96,7 +100,7 @@ class WeekContainer extends Component {
           connected={this.props.connected}
           anonymous={this.props.anonymous}
           className={classNames({
-            "week flex even-children child-margins-x-0-25 padding-x padding-0-5": true,
+            "week flex even-children child-margins-x-0-5 padding-x padding-0-75": true,
             "focused-week": isFocusedWeek,
             "unfocused-week": this.props.focusedDay && !isFocusedWeek,
             "this-week": isThisWeek,

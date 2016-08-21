@@ -60,24 +60,24 @@ class Weeks extends Component {
       const firstOfLastWeek = moment(firstOfThisWeek).subtract(7, "days");
       const firstOfNextWeek = moment(firstOfThisWeek).add(7, "days");
 
-      startAt = firstOfThisWeek.valueOf();
+      startAt = moment(firstOfThisWeek).subtract(7, "days").valueOf();
       endAt = moment(firstOfThisWeek).add(15, "days").valueOf();
 
-      alsoStartAt = moment(0).add(11, "days").valueOf();
-      alsoEndAt = moment(alsoStartAt).add(7, "days").valueOf();
+      // alsoStartAt = moment(0).add(11, "days").valueOf();
+      // alsoEndAt = moment(alsoStartAt).add(7, "days").valueOf();
 
-      // let lastWeek = {days: []};
+      // let weeklies = {days: [], weeklies: true};
+      let lastWeek = {days: []};
       let thisWeek = {days: []};
       let nextWeek = {days: []};
-      let weeklies = {days: [], weeklies: true};
-
-      for (let i = 0; i < 7; i++) {
-        weeklies.days.push(moment(alsoStartAt).add(i, "days"));
-      }
 
       // for (let i = 0; i < 7; i++) {
-      //   lastWeek.days.push(moment(firstOfLastWeek).add(i, "days"));
+      //   weeklies.days.push(moment(alsoStartAt).add(i, "days"));
       // }
+
+      for (let i = 0; i < 7; i++) {
+        lastWeek.days.push(moment(firstOfLastWeek).add(i, "days"));
+      }
 
       for (let i = 0; i < 7; i++) {
         thisWeek.days.push(moment(firstOfThisWeek).add(i, "days"));
@@ -87,7 +87,7 @@ class Weeks extends Component {
         nextWeek.days.push(moment(firstOfNextWeek).add(i, "days"));
       }
 
-      weeks = [/*lastWeek, */weeklies, thisWeek, nextWeek];
+      weeks = [lastWeek, /*weeklies,*/ thisWeek, nextWeek];
     }
 
     return (
