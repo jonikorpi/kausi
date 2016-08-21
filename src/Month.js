@@ -54,8 +54,29 @@ class Month extends Component {
     );
   }
 
-  renderDays(week) {
-    return week.map(function(day) {
+  renderDays(week, nthWeek) {
+    return week.map(function(day, nthDay) {
+      if (nthWeek === 0 && nthDay === 0) {
+        return (
+          <Button
+            key="upButton"
+            label="&uarr;"
+            className="size-1-25 color-1 bg-8"
+            onClick={this.props.moveBackward}
+          />
+        );
+      }
+      else if (nthWeek === 6 && nthDay === 6) {
+        return (
+          <Button
+            key="downButton"
+            label="&darr;"
+            className="size-1-25 color-1 bg-8"
+            onClick={this.props.moveForward}
+          />
+        );
+      }
+
       let text = "";
 
       this.state.todos.forEach(function(todo) {
@@ -73,10 +94,22 @@ class Month extends Component {
         }
 
         textMarker = (
-          <div className="child-margins-y-0-25 margin-0-25 margin-top">
+          <div className="child-margins-y-hairline margin-0-25 margin-top">
             {lines.map(function(i) {
-              return <div key={i} style={{width: `${random(62, 100)}%`}} className="border-top"/>;
-            })}
+              const randomWidth = i+1 === lines.length ? random(38, 76) : random(85, 100)
+
+              return (
+                <div
+                  key={i}
+                  style={{width: `${randomWidth}%`}}
+                  className={classNames({
+                    "height-0-25": true,
+                    "bg-8": !day.isSame(this.props.today),
+                    "bg-bright-8": day.isSame(this.props.today),
+                  })}
+                />
+              );
+            }.bind(this))}
           </div>
         );
       }
@@ -90,8 +123,8 @@ class Month extends Component {
         <button
           key={day.valueOf()}
           className={classNames({
-            "faint-bottom-border button size-0-75 flex vertical text-align-left padding-0-25 all-caps overflow-hidden": true,
-            "color-bright-6": day.isSame(this.props.today),
+            "color-8 button size-0-75 flex vertical text-align-left padding-0-5 all-caps overflow-hidden": true,
+            "color-bright-8": day.isSame(this.props.today),
           })}
           onClick={this.goToDay}
           data-day={day.valueOf()}
@@ -150,7 +183,7 @@ class Month extends Component {
       }
     });
 
-    const weeks = allWeeks.map(function(week) {
+    const weeks = allWeeks.map(function(week, nthWeek) {
       const isCurrentWeek = (
         moment(this.props.today).isBetween(week.days[0], week.days[6], null, "[]")
       );
@@ -165,29 +198,19 @@ class Month extends Component {
         <div
           key={week.days[0].valueOf()}
           className={classNames({
-            [`week flex even-children bg-${number} color-${number+3}`]: true,
+            "week flex even-children border-inherit": true,
+            "color-bright-4": isCurrentWeek,
           })}
         >
-          {this.renderDays(week.days)}
+          {this.renderDays(week.days, nthWeek)}
         </div>
       );
     }.bind(this));
 
     return (
       <div className="month grow flex vertical">
-        <div className="grow flex vertical even-children">
+        <div className="grow flex vertical even-children child-borders-y border-top border-8">
           {weeks}
-        </div>
-
-        <div className="flex even-children bg-5 color-1">
-          <Button
-            label="&uarr;"
-            onClick={this.props.moveBackward}
-          />
-          <Button
-            label="&darr;"
-            onClick={this.props.moveForward}
-          />
         </div>
       </div>
     );

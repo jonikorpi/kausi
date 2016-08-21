@@ -280,6 +280,7 @@ class Connection extends Component {
           view = (
             <Weeks
               connected={this.state.connected}
+              anonymous={this.state.user.anonymous}
               today={this.state.today}
               targetDay={this.state.targetDay}
               saveTodo={this.saveTodo}
@@ -293,6 +294,7 @@ class Connection extends Component {
           view = (
             <Weeks
               connected={this.state.connected}
+              anonymous={this.state.user.anonymous}
               today={this.state.today}
               targetDay={this.state.targetDay}
               saveTodo={this.saveTodo}

@@ -41,7 +41,7 @@ class Weeks extends Component {
   }
 
   render() {
-    let weeks, startAt, endAt;
+    let weeks, startAt, endAt, alsoStartAt, alsoEndAt;
 
     if (this.props.someday) {
       startAt = 0;
@@ -56,20 +56,28 @@ class Weeks extends Component {
       weeks = [somedays];
     }
     else {
-      startAt = moment(this.props.targetDay).startOf("isoweek").subtract(7, "days").valueOf();
-      endAt = moment(this.props.targetDay).startOf("isoweek").add(15, "days").valueOf();
-
       const firstOfThisWeek = moment(this.props.targetDay).startOf("isoweek");
       const firstOfLastWeek = moment(firstOfThisWeek).subtract(7, "days");
       const firstOfNextWeek = moment(firstOfThisWeek).add(7, "days");
 
-      let lastWeek = {number: 1, days: []};
-      let thisWeek = {number: 2, days: []};
-      let nextWeek = {number: 3, days: []};
+      startAt = firstOfThisWeek.valueOf();
+      endAt = moment(firstOfThisWeek).add(15, "days").valueOf();
+
+      alsoStartAt = moment(0).add(11, "days").valueOf();
+      alsoEndAt = moment(alsoStartAt).add(7, "days").valueOf();
+
+      // let lastWeek = {days: []};
+      let thisWeek = {days: []};
+      let nextWeek = {days: []};
+      let weeklies = {days: [], weeklies: true};
 
       for (let i = 0; i < 7; i++) {
-        lastWeek.days.push(moment(firstOfLastWeek).add(i, "days"));
+        weeklies.days.push(moment(alsoStartAt).add(i, "days"));
       }
+
+      // for (let i = 0; i < 7; i++) {
+      //   lastWeek.days.push(moment(firstOfLastWeek).add(i, "days"));
+      // }
 
       for (let i = 0; i < 7; i++) {
         thisWeek.days.push(moment(firstOfThisWeek).add(i, "days"));
@@ -79,21 +87,22 @@ class Weeks extends Component {
         nextWeek.days.push(moment(firstOfNextWeek).add(i, "days"));
       }
 
-      weeks = [lastWeek, thisWeek, nextWeek];
+      weeks = [/*lastWeek, */weeklies, thisWeek, nextWeek];
     }
 
     return (
       <div
         ref={(c) => this.weekScroller = c}
         className={classNames({
-          "week-scroller grow flex overflow-auto faint-bottom-border": true,
-          [`bg-${weeks[weeks.length-1].number} scrollbar-${weeks[weeks.length-1].number+2}`]: true,
+          "week-scroller grow flex overflow-auto": true,
         })}
       >
         <WeekContainer
           weeks={weeks}
           startAt={startAt}
           endAt={endAt}
+          alsoStartAt={alsoStartAt}
+          alsoEndAt={alsoEndAt}
           firebaseRef={this.props.firebaseRef}
           today={this.props.today}
           targetDay={this.props.targetDay}
@@ -104,6 +113,7 @@ class Weeks extends Component {
           scrollTo={this.scrollTo}
           someday={this.props.someday}
           connected={this.props.connected}
+          anonymous={this.props.anonymous}
         />
       </div>
     );

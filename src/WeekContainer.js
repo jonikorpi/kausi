@@ -18,7 +18,7 @@ class WeekContainer extends Component {
   }
 
   componentWillMount() {
-    this.bindFirebase(this.props.firebaseRef, this.props.targetDay, this.props.startAt, this.props.endAt);
+    this.bindFirebase(this.props.firebaseRef, this.props.targetDay, this.props.startAt, this.props.endAt, this.props.alsoStartAt, this.props.alsoEndAt);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -27,14 +27,17 @@ class WeekContainer extends Component {
       || nextProps.firebaseRef !== this.props.firebaseRef
       || nextProps.startAt !== this.props.startAt
       || nextProps.endAt !== this.props.endAt
+      || nextProps.alsoStartAt !== this.props.alsoStartAt
+      || nextProps.alsoEndAt !== this.props.alsoEndAt
     ) {
       console.log("rebinding");
       this.unbind("todos");
-      this.bindFirebase(nextProps.firebaseRef, nextProps.targetDay, nextProps.startAt, nextProps.endAt);
+      this.unbind("weeklies");
+      this.bindFirebase(nextProps.firebaseRef, nextProps.targetDay, nextProps.startAt, nextProps.endAt, nextProps.alsoStartAt, nextProps.alsoEndAt);
     }
   }
 
-  bindFirebase(firebaseRef, targetDay, startAt, endAt) {
+  bindFirebase(firebaseRef, targetDay, startAt, endAt, alsoStartAt, alsoEndAt) {
     this.bindAsArray(
       firebaseRef
         .orderByChild("date")
@@ -47,43 +50,68 @@ class WeekContainer extends Component {
         this.setState({todos: []})
       }.bind(this)
     );
+
+    this.bindAsArray(
+      firebaseRef
+        .orderByChild("date")
+        .startAt(alsoStartAt)
+        .endAt(alsoEndAt),
+      "weeklies",
+      function(error) {
+        console.log("Firebase subscription cancelled:")
+        console.log(error);
+        this.setState({weeklies: []})
+      }.bind(this)
+    );
   }
 
   render() {
-    const weeks = this.props.weeks.map(function(week) {
+    const weeks = this.props.weeks.map(function(week, i) {
+      const isThisWeek = (
+        moment(this.props.today).isBetween(week.days[0], week.days[6], null, "[]")
+      );
+
       const isFocusedWeek = (
-        this.props.focusedDay &&
-        moment(this.props.focusedDay).isBetween(week.days[0], week.days[6], null, "[]")
+        (this.props.focusedDay && moment(this.props.focusedDay).isBetween(week.days[0], week.days[6], null, "[]"))
+        || (!this.props.focusedDay && isThisWeek)
       );
 
       return (
         <Week
-          key={week.number}
+          key={week.days[0].valueOf()}
           days={week.days}
-          todos={this.state.todos}
+          todos={week.weeklies ? this.state.weeklies : this.state.todos}
           today={this.props.today}
           targetDay={this.props.targetDay}
           focusedDay={this.props.focusedDay}
-          number={week.number}
+          aDayIsFocused={this.props.focusedDay ? true : false}
+          number={i+1}
           unfocusDay={this.props.unfocusDay}
           focusDay={this.props.focusDay}
+          isFocusedWeek={isFocusedWeek}
           scrollTo={this.props.scrollTo}
           saveTodo={this.props.saveTodo}
           someday={this.props.someday}
+          weeklies={week.weeklies}
           connected={this.props.connected}
+          anonymous={this.props.anonymous}
           className={classNames({
-            "week flex even-children": true,
+            "week flex even-children child-margins-x-0-25 padding-x padding-0-5": true,
             "focused-week": isFocusedWeek,
             "unfocused-week": this.props.focusedDay && !isFocusedWeek,
-            "this-week": week.number === 2,
-            [`bg-${week.number}`]: true,
+            "this-week": isThisWeek,
+            [`bg-${i+1}`]: true,
           })}
         />
       );
     }.bind(this));
 
     return (
-      <div className="grow flex vertical even-children">
+      <div
+        className={classNames({
+          "grow flex vertical even-children": true,
+        })}
+      >
         {weeks}
       </div>
     );
