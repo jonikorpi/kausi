@@ -98,14 +98,14 @@ class WeekContainer extends Component {
           number={i+1}
           unfocusDay={this.props.unfocusDay}
           focusDay={this.props.focusDay}
-          isFocusedWeek={isFocusedWeek}
+          isFocusedWeek={isFocusedWeek || (!aDayIsFocused && isTargetWeek)}
           scrollTo={this.props.scrollTo}
           saveTodo={this.props.saveTodo}
           somedays={week.somedays ? true : false}
           connected={this.props.connected}
           anonymous={this.props.anonymous}
           className={classNames({
-            "week flex even-children child-margins-x-0-5 padding-x padding-0-5 border-2": true,
+            "week flex even-children padding-x padding-0-25 border-2": true,
             "focused-week bg-2": isFocusedWeek || (!aDayIsFocused && isTargetWeek),
             // "unfocused-week": this.props.focusedDay && !isFocusedWeek,
             "this-week": isThisWeek,

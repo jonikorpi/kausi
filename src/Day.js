@@ -69,7 +69,7 @@ class Day extends Component {
     const dayClasses = classNames({
       "day flex vertical padding-0-5 padding-top min-day-width border-1": true,
       [`color-${colorNumber+4}`]: !this.props.aDayIsFocused ||  this.props.isFocusedDay,
-      [`color-${colorNumber+3}`]: this.props.aDayIsFocused && !this.props.isFocusedDay,
+      [`color-${colorNumber+3}`]:  this.props.aDayIsFocused && !this.props.isFocusedDay,
       // [`bg-${this.props.weekNumber}`]: !this.props.isFocusedDay,
       // [`bg-bright-${this.props.weekNumber}`]: this.props.isFocusedDay,
     });
@@ -137,7 +137,7 @@ class Day extends Component {
         <label
           htmlFor={this.props.day.valueOf()}
           className={classNames({
-            "all-caps margin-0-25 margin-bottom": true,
+            "all-caps padding-0-25 padding-top-0": true,
             [`color-${colorNumber+3}`]: (this.props.aDayIsFocused && this.props.isFocusedDay) || !this.props.aDayIsFocused,
             [`color-${colorNumber+2}`]:  this.props.aDayIsFocused,
             [`color-bright-${colorNumber+4}`]: this.props.isToday && (!this.props.aDayIsFocused || (this.props.aDayIsFocused && this.props.isFocusedDay)),
@@ -155,7 +155,7 @@ class Day extends Component {
           id={this.props.day.valueOf()}
           ref={(c) => this.textarea = c}
           className={classNames({
-            "padding-0-5 padding-left-0 padding-top-0 grow width-100": true,
+            "padding-0-25 padding-top-0 grow width-100": true,
             // "nowrap": !this.state.editing,
           })}
           onFocus={this.onFocus}

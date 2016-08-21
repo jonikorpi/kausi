@@ -325,14 +325,14 @@ button {
   flex-grow: 9;
 }
 
-::-webkit-scrollbar {
+/*::-webkit-scrollbar {
   width:  0.25rem;
   height: 0.25rem;
   background: rgba(0,0,0, 0.09);
-  /*border-radius: 0.25rem;*/
+  border-radius: 0.25rem;
 }
 
 ::-webkit-scrollbar-thumb {
-  /*border-radius: 0.25rem;*/
+  border-radius: 0.25rem;
   background: currentcolor;
-}
+}*/
