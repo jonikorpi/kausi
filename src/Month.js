@@ -56,27 +56,6 @@ class Month extends Component {
 
   renderDays(week, nthWeek) {
     return week.map(function(day, nthDay) {
-      if (nthWeek === 0 && nthDay === 0) {
-        return (
-          <Button
-            key="upButton"
-            label="&uarr;"
-            className="size-1-25 color-1 bg-4"
-            onClick={this.props.moveBackward}
-          />
-        );
-      }
-      else if (nthWeek === 6 && nthDay === 6) {
-        return (
-          <Button
-            key="downButton"
-            label="&darr;"
-            className="size-1-25 color-1 bg-4"
-            onClick={this.props.moveForward}
-          />
-        );
-      }
-
       let text = "";
 
       this.state.todos.forEach(function(todo) {
@@ -107,7 +86,7 @@ class Month extends Component {
                   })}
                 />
               );
-            }.bind(this))}
+            })}
           </div>
         );
       }

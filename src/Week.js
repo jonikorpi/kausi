@@ -34,8 +34,7 @@ class Week extends Component {
           focusDay={this.props.focusDay}
           unfocusDay={this.props.unfocusDay}
           saveTodo={this.props.saveTodo}
-          someday={this.props.someday}
-          weekly={this.props.weeklies}
+          someday={this.props.somedays}
           connected={this.props.connected}
           anonymous={this.props.anonymous}
         />

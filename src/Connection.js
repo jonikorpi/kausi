@@ -46,7 +46,6 @@ class Connection extends Component {
     this.goToDay = this.goToDay.bind(this);
     this.goToMonth = this.goToMonth.bind(this);
     this.goToToday = this.goToToday.bind(this);
-    this.goToSomeday = this.goToSomeday.bind(this);
     this.goToAccount = this.goToAccount.bind(this);
     this.moveBackward = this.moveBackward.bind(this);
     this.moveForward = this.moveForward.bind(this);
@@ -181,10 +180,6 @@ class Connection extends Component {
     this.setState({view: "month"});
   }
 
-  goToSomeday() {
-    this.setState({view: "someday"});
-  }
-
   goToDay(day) {
     this.setState({view: "week", targetDay: day});
   }
@@ -198,16 +193,16 @@ class Connection extends Component {
   }
 
   moveBackward() {
+    const weeksToMove = this.state.view === "month" ? this.weekRange : 1;
     this.setState({
-      view: "month",
-      targetDay: moment(this.state.targetDay).startOf("isoweek").subtract(this.weekRange, "weeks"),
+      targetDay: moment(this.state.targetDay).startOf("isoweek").subtract(weeksToMove, "weeks"),
     });
   }
 
   moveForward() {
+    const weeksToMove = this.state.view === "month" ? this.weekRange : 1;
     this.setState({
-      view: "month",
-      targetDay: moment(this.state.targetDay).startOf("isoweek").add(this.weekRange, "weeks"),
+      targetDay: moment(this.state.targetDay).startOf("isoweek").add(weeksToMove, "weeks"),
     });
   }
 
@@ -271,21 +266,6 @@ class Connection extends Component {
               goToDay={this.goToDay}
               firebaseRef={this.state.firebaseRef}
               weekRange={this.weekRange}
-              moveBackward={this.moveBackward}
-              moveForward={this.moveForward}
-            />
-          );
-          break;
-        case "someday":
-          view = (
-            <Weeks
-              connected={this.state.connected}
-              anonymous={this.state.user.anonymous}
-              today={this.state.today}
-              targetDay={this.state.targetDay}
-              saveTodo={this.saveTodo}
-              firebaseRef={this.state.firebaseRef}
-              someday={true}
             />
           );
           break;
@@ -307,18 +287,19 @@ class Connection extends Component {
 
     return (
       <div id="connection" className="flex vertical grow">
-        {view}
         <Controls
           user={this.state.user}
           connected={this.state.connected}
           targetIsToday={this.state.targetDay.valueOf() === this.state.today.valueOf()}
           view={this.state.view}
           goToToday={this.goToToday}
-          goToSomeday={this.goToSomeday}
           goToAccount={this.goToAccount}
           goToSignInUp={this.goToSignInUp}
           goToMonth={this.goToMonth}
+          moveBackward={this.moveBackward}
+          moveForward={this.moveForward}
         />
+        {view}
       </div>
     );
   }

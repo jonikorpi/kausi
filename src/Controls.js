@@ -25,14 +25,14 @@ class Controls extends Component {
     if (!this.props.connected) {
       if (this.state.haveConnectedOnce) {
         status = (
-          <div className="padding-0-5 color-bright-5 enter-from-below">
+          <div className="padding-0-5 color-bright-5 enter-from-above">
             <p>OFFLINE: text entry disabled.</p>
           </div>
         );
       }
       else {
         status = (
-          <div className="padding-0-5 color-bright-5 enter-from-below">
+          <div className="padding-0-5 color-bright-5 enter-from-above">
             <p>Connecting…</p>
           </div>
         );
@@ -59,24 +59,38 @@ class Controls extends Component {
       }
 
       buttons = (
-        <div className="flex enter-from-below flex">
-          <Button
-            label="Today"
-            onClick={this.props.goToToday}
-            disabled={(this.props.view === "week" && this.props.targetIsToday) || !this.state.haveConnectedOnce}
-          />
-          <Button
-            label="Zoom out"
-            onClick={this.props.goToMonth}
-            disabled={this.props.view === "month" || !this.state.haveConnectedOnce}
-          />
-          {account}
+        <div className="flex enter-from-above justify">
+          <div className="flex">
+            <Button
+              label="Today"
+              onClick={this.props.goToToday}
+              disabled={(this.props.view === "week" && this.props.targetIsToday) || !this.state.haveConnectedOnce}
+            />
+            <Button
+              label="Zoom out"
+              onClick={this.props.goToMonth}
+              disabled={this.props.view === "month" || !this.state.haveConnectedOnce}
+            />
+            {account}
+          </div>
+          <div className="flex">
+            <Button
+              key="upButton"
+              label="&uarr;"
+              onClick={this.props.moveBackward}
+            />
+            <Button
+              key="downButton"
+              label="&darr;"
+              onClick={this.props.moveForward}
+            />
+          </div>
         </div>
       );
     }
 
     return (
-      <div id="controls" className="bg-5 color-1">
+      <div id="controls" className="border-bottom border-2">
         {status}
         {buttons}
       </div>

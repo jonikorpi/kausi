@@ -12,7 +12,6 @@ class Weeks extends Component {
 
     this.state = {
       focusedDay: null,
-      todos: [],
     };
     this.focusDay = this.focusDay.bind(this);
     this.unfocusDay = this.unfocusDay.bind(this);
@@ -42,53 +41,38 @@ class Weeks extends Component {
 
   render() {
     let weeks, startAt, endAt, alsoStartAt, alsoEndAt;
+    const firstOfThisWeek = moment(this.props.targetDay).startOf("isoweek");
+    const firstOfLastWeek = moment(firstOfThisWeek).subtract(7, "days");
+    const firstOfNextWeek = moment(firstOfThisWeek).add(7, "days");
 
-    if (this.props.someday) {
-      startAt = 0;
-      endAt = moment(this.props.targetDay).startOf("isoweek").add(7, "days").valueOf();
+    startAt = moment(firstOfThisWeek)/*.subtract(7, "days")*/.valueOf();
+    endAt = moment(firstOfThisWeek).add(15, "days").valueOf();
 
-      let somedays = {number: 1, days: [], somedays: true}
+    alsoStartAt = 0;
+    alsoEndAt = moment(0).add(7, "days").valueOf();
 
-      for (let i = 0; i < 7; i++) {
-        somedays.days.push(moment(0).add(i, "days"));
-      }
+    let somedays = {days: [], somedays: true}
+    // let lastWeek = {days: []};
+    let thisWeek = {days: []};
+    let nextWeek = {days: []};
 
-      weeks = [somedays];
+    for (let i = 0; i < 7; i++) {
+      somedays.days.push(moment(0).add(i, "days"));
     }
-    else {
-      const firstOfThisWeek = moment(this.props.targetDay).startOf("isoweek");
-      const firstOfLastWeek = moment(firstOfThisWeek).subtract(7, "days");
-      const firstOfNextWeek = moment(firstOfThisWeek).add(7, "days");
 
-      startAt = moment(firstOfThisWeek).subtract(7, "days").valueOf();
-      endAt = moment(firstOfThisWeek).add(15, "days").valueOf();
+    // for (let i = 0; i < 7; i++) {
+    //   lastWeek.days.push(moment(firstOfLastWeek).add(i, "days"));
+    // }
 
-      // alsoStartAt = moment(0).add(11, "days").valueOf();
-      // alsoEndAt = moment(alsoStartAt).add(7, "days").valueOf();
-
-      // let weeklies = {days: [], weeklies: true};
-      let lastWeek = {days: []};
-      let thisWeek = {days: []};
-      let nextWeek = {days: []};
-
-      // for (let i = 0; i < 7; i++) {
-      //   weeklies.days.push(moment(alsoStartAt).add(i, "days"));
-      // }
-
-      for (let i = 0; i < 7; i++) {
-        lastWeek.days.push(moment(firstOfLastWeek).add(i, "days"));
-      }
-
-      for (let i = 0; i < 7; i++) {
-        thisWeek.days.push(moment(firstOfThisWeek).add(i, "days"));
-      }
-
-      for (let i = 0; i < 7; i++) {
-        nextWeek.days.push(moment(firstOfNextWeek).add(i, "days"));
-      }
-
-      weeks = [lastWeek, /*weeklies,*/ thisWeek, nextWeek];
+    for (let i = 0; i < 7; i++) {
+      thisWeek.days.push(moment(firstOfThisWeek).add(i, "days"));
     }
+
+    for (let i = 0; i < 7; i++) {
+      nextWeek.days.push(moment(firstOfNextWeek).add(i, "days"));
+    }
+
+    weeks = [/*lastWeek,*/ thisWeek, nextWeek, somedays];
 
     return (
       <div
@@ -111,7 +95,6 @@ class Weeks extends Component {
           focusDay={this.focusDay}
           unfocusDay={this.unfocusDay}
           scrollTo={this.scrollTo}
-          someday={this.props.someday}
           connected={this.props.connected}
           anonymous={this.props.anonymous}
         />

@@ -19,7 +19,7 @@ class Button extends Component {
       <button
         type={this.props.type || "button"}
         className={classNames({
-          "button size-1 all-caps padding-0-75 enter-zoom text-align-center nowrap": true,
+          "button size-1 all-caps padding-0-5 enter-zoom text-align-center nowrap": true,
           [this.props.className]: this.props.className,
         })}
         onClick={this.clickHandler}

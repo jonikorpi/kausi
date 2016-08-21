@@ -75,43 +75,34 @@ class Day extends Component {
     });
 
     let dayLabel, monthLabel;
+    const todayLabel = this.props.isToday? ", Today" : false
 
-    if (this.props.weekly) {
-      dayLabel = `${this.props.day.format("dddd")}s`;
-    }
-    else if (this.props.someday) {
-      dayLabel = `List ${this.props.day.format("D")}`;
+    if (this.props.someday) {
+      dayLabel = `Someday ${this.props.day.format("D")}`;
     }
     else {
       dayLabel = this.props.day.format("ddd DD");
-    }
 
-    const todayLabel = this.props.isToday? ", Today" : false
-    if (
-        (
-          this.props.weekNumber === 2 &&
-          this.props.day.isSame(moment(this.props.day).startOf("isoweek"))
-        ) ||
-        this.props.day.isSame(moment(this.props.day).startOf("month"))
-    ) {
-      monthLabel = `, ${this.props.day.format("MMM YYYY")}`;
+      if (
+          (
+            this.props.weekNumber === 1 &&
+            this.props.day.isSame(moment(this.props.day).startOf("isoweek"))
+          ) ||
+          this.props.day.isSame(moment(this.props.day).startOf("month"))
+      ) {
+        monthLabel = `, ${this.props.day.format("MMM YYYY")}`;
+      }
     }
 
     let placeholder;
     if (this.props.anonymous) {
-      if (this.props.weekly && +this.props.day.format("d") === 1) {
-        placeholder = "This row stays put. Useful for weekly and daily reminders."
+      if (this.props.someday && +this.props.day.format("D") === 1) {
+        placeholder = "This row is not tied to any week and will always stay put. Useful for stuff like grocery lists and grandiose plans.";
       }
-      else if (this.props.weekly && +this.props.day.format("d") === 6) {
-        placeholder = "x Vacuum\nWork out\nDo the dishes";
-      }
-      else if (this.props.someday && +this.props.day.format("D") === 1) {
-        placeholder = "These lists are not tied to any week. Useful for stuff like grocery lists and grandiose plans.";
-      }
-      else if (this.props.weekNumber === 1 && +this.props.day.format("d") === 1) {
-        placeholder = "This row is always last week."
-      }
-      else if (this.props.weekNumber === 2) {
+      // else if (this.props.weekNumber === 1 && +this.props.day.format("d") === 1) {
+      //   placeholder = "This row is always last week."
+      // }
+      else if (this.props.weekNumber === 1) {
         if (+this.props.day.format("d") === 1) {
           placeholder = "This row is always the current week."
         }
@@ -131,7 +122,7 @@ class Day extends Component {
           placeholder = "x 9:00 Dentist\n12:00 Lunch\n18:00 Play video games";
         }
       }
-      else if (this.props.weekNumber === 3) {
+      else if (this.props.weekNumber === 2) {
         if (+this.props.day.format("d") === 1) {
           placeholder = "This row is always next week."
         }
@@ -147,7 +138,7 @@ class Day extends Component {
           htmlFor={this.props.day.valueOf()}
           className={classNames({
             "all-caps margin-0-25 margin-bottom": true,
-            [`color-${colorNumber+3}`]: !this.props.aDayIsFocused || this.props.aDayIsFocused && this.props.isFocusedDay,
+            [`color-${colorNumber+3}`]: (this.props.aDayIsFocused && this.props.isFocusedDay) || !this.props.aDayIsFocused,
             [`color-${colorNumber+2}`]:  this.props.aDayIsFocused,
             [`color-bright-${colorNumber+4}`]: this.props.isToday && (!this.props.aDayIsFocused || (this.props.aDayIsFocused && this.props.isFocusedDay)),
             [`color-bright-${colorNumber+3}`]: this.props.isToday && !this.props.aDayIsFocused,
