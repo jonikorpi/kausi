@@ -113,7 +113,7 @@ class Day extends Component {
           placeholder = "You are currently using a temporary account. Your entries are saved in this browser only.";
         }
         else if (+this.props.day.format("d") === 4) {
-          placeholder = "To access your entries in other browsers or devices, SIGN UP from the bottom menu. \n\nSigning up will also make these messages go away.";
+          placeholder = "To access your entries in other browsers or devices, SIGN UP from the top menu. \n\nSigning up will also make these messages go away.";
         }
         else if (+this.props.day.format("d") === 5) {
           placeholder = "Protips:\n\nWhen using this app for todos I find it handy to mark completed tasks with an x. Like this ->\n\nTo move todos from one day to another, just cut and paste.";
@@ -127,7 +127,7 @@ class Day extends Component {
           placeholder = "This row is always next week."
         }
         else if (+this.props.day.format("d") === 2) {
-          placeholder = "To access weeks further in the future or in the past, ZOOM OUT from the bottom menu.";
+          placeholder = "To access weeks further in the future or in the past, ZOOM OUT from the top menu.";
         }
       }
     }
