@@ -77,8 +77,6 @@ class Form extends Component {
   }
 
   render() {
-    const weekNumber = this.props.weekNumber || 0;
-
     let fields = Object.keys(this.state.fields).map(function(id){
       const field = this.state.fields[id];
       return (
@@ -86,8 +84,8 @@ class Form extends Component {
           key={id}
           className={classNames({
             "flex vertical grow": true,
-            [`bg-${2 + weekNumber}`]: !field.focused,
-            [`bg-${3 + weekNumber}`]: field.focused,
+            "bg-2": !field.focused,
+            "bg-3":  field.focused,
           })}
         >
           <label
