@@ -100,7 +100,7 @@ class Month extends Component {
         <button
           key={day.valueOf()}
           className={classNames({
-            "color-6 button size-0-75 flex vertical text-align-left padding-0-5 all-caps overflow-hidden": true,
+            "button size-0-75 flex vertical text-align-left padding-0-5 all-caps overflow-hidden": true,
             "color-bright-6": day.isSame(this.props.today),
           })}
           onClick={this.goToDay}

@@ -85,7 +85,7 @@ class Form extends Component {
         <div
           key={id}
           className={classNames({
-            "flex vertical grow color-6": true,
+            "flex vertical grow": true,
             [`bg-${2 + weekNumber}`]: !field.focused,
             [`bg-${3 + weekNumber}`]: field.focused,
           })}
