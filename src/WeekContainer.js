@@ -77,9 +77,14 @@ class WeekContainer extends Component {
       );
 
       const isFocusedWeek = (
-        (this.props.focusedDay && moment(this.props.focusedDay).isBetween(week.days[0], week.days[6], null, "[]"))
-        || (!this.props.focusedDay && isThisWeek)
+        this.props.focusedDay && moment(this.props.focusedDay).isBetween(week.days[0], week.days[6], null, "[]")
       );
+
+      const isTargetWeek = (
+        moment(this.props.targetDay).isBetween(week.days[0], week.days[6], null, "[]")
+      );
+
+      const aDayIsFocused = this.props.focusedDay ? true : false;
 
       return (
         <Week
@@ -89,7 +94,7 @@ class WeekContainer extends Component {
           today={this.props.today}
           targetDay={this.props.targetDay}
           focusedDay={this.props.focusedDay}
-          aDayIsFocused={this.props.focusedDay ? true : false}
+          aDayIsFocused={aDayIsFocused}
           number={i+1}
           unfocusDay={this.props.unfocusDay}
           focusDay={this.props.focusDay}
@@ -101,9 +106,8 @@ class WeekContainer extends Component {
           anonymous={this.props.anonymous}
           className={classNames({
             "week flex even-children child-margins-x-0-5 padding-x padding-0-5 border-2": true,
-            "focused-week": isFocusedWeek,
-            "bg-2": isFocusedWeek || this.props.someday,
-            "unfocused-week": this.props.focusedDay && !isFocusedWeek,
+            "focused-week bg-2": isFocusedWeek || (!aDayIsFocused && isTargetWeek),
+            // "unfocused-week": this.props.focusedDay && !isFocusedWeek,
             "this-week": isThisWeek,
           })}
         />

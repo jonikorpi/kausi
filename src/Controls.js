@@ -59,32 +59,30 @@ class Controls extends Component {
       }
 
       buttons = (
-        <div className="flex enter-from-above justify">
-          <div className="flex">
-            <Button
-              label="Today"
-              onClick={this.props.goToToday}
-              disabled={(this.props.view === "week" && this.props.targetIsToday) || !this.state.haveConnectedOnce}
-            />
-            <Button
-              label="Zoom out"
-              onClick={this.props.goToMonth}
-              disabled={this.props.view === "month" || !this.state.haveConnectedOnce}
-            />
-            {account}
-          </div>
-          <div className="flex">
-            <Button
-              key="upButton"
-              label="&uarr;"
-              onClick={this.props.moveBackward}
-            />
-            <Button
-              key="downButton"
-              label="&darr;"
-              onClick={this.props.moveForward}
-            />
-          </div>
+        <div className="flex enter-from-above overflow-auto">
+          <Button
+            label="Today"
+            onClick={this.props.goToToday}
+            disabled={(this.props.view === "week" && this.props.targetIsToday) || !this.state.haveConnectedOnce}
+          />
+          <Button
+            label="Zoom out"
+            onClick={this.props.goToMonth}
+            disabled={this.props.view === "month" || !this.state.haveConnectedOnce}
+          />
+          {account}
+          <Button
+            key="upButton"
+            label="&nbsp;&uarr;&nbsp;"
+            disabled={this.props.view !== "week" && this.props.view !== "month"}
+            onClick={this.props.moveBackward}
+          />
+          <Button
+            key="downButton"
+            label="&nbsp;&darr;&nbsp;"
+            disabled={this.props.view !== "week" && this.props.view !== "month"}
+            onClick={this.props.moveForward}
+          />
         </div>
       );
     }

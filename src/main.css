@@ -322,7 +322,7 @@ button {
 }
 
 .focused-week {
-  flex-grow: 12;
+  flex-grow: 9;
 }
 
 ::-webkit-scrollbar {
