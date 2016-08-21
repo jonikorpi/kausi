@@ -1,4 +1,4 @@
-# Kausi – a <textarea> for every day.
+# Kausi: a <textarea> for every day.
 
 Developed by [@jonikorpi](http://twitter.com/jonikorpi) / [Vuoro](http://vuoro.design/)
 

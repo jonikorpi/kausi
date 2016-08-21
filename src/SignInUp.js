@@ -2,6 +2,7 @@ import React, { Component } from "react";
 
 import Form from "./Form";
 import Button from "./Button";
+import About from "./About";
 
 class SignInUp extends Component {
   constructor(props) {
@@ -150,6 +151,7 @@ class SignInUp extends Component {
           </div>
           {view}
           {error}
+          <About/>
         </div>
       </div>
     );

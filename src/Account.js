@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import Form from "./Form";
 import Button from "./Button";
 import DataExport from "./DataExport";
+import About from "./About";
 
 class Account extends Component {
   constructor(props) {
@@ -118,6 +119,7 @@ class Account extends Component {
           </div>
           {view}
           {error}
+          <About/>
         </div>
       </div>
     );
