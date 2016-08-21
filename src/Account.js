@@ -95,7 +95,7 @@ class Account extends Component {
     }
 
     return (
-      <div className="overflow-auto">
+      <div className="overflow-auto grow">
         <div className="flex vertical justify-center child-margins-y-1 padding-0-5">
           <div className="flex justify-center">
             <Button

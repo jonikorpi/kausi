@@ -155,7 +155,7 @@ class Day extends Component {
           id={this.props.day.valueOf()}
           ref={(c) => this.textarea = c}
           className={classNames({
-            "padding-0-25 padding-top-0 grow width-100": true,
+            "padding-0-25 padding-top-0 margin-bottom margin-0-25 grow width-100": true,
             // "nowrap": !this.state.editing,
           })}
           onFocus={this.onFocus}
