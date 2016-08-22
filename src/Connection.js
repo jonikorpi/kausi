@@ -286,7 +286,7 @@ class Connection extends Component {
     }
 
     return (
-      <div id="connection" className="flex vertical grow">
+      <div id="connection" className="flex vertical grow enter-fade bg-1">
         <Controls
           user={this.state.user}
           connected={this.state.connected}
