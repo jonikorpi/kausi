@@ -1,11 +1,11 @@
 import React, { Component } from "react";
-import Perf from "react-addons-perf";
-Perf.start();
-window.Perf = Perf;
+// import Perf from "react-addons-perf";
+// Perf.start();
+// window.Perf = Perf;
 
 import Connection from "./Connection";
 
-class Development extends Component {
+class App extends Component {
   render() {
     return (
       <Connection/>
@@ -13,4 +13,4 @@ class Development extends Component {
   }
 }
 
-export default Development;
+export default App;
