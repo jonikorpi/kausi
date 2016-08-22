@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import Perf from "react-addons-perf";
-Perf.start();
-window.Perf = Perf;
+// import Perf from "react-addons-perf";
+// Perf.start();
+// window.Perf = Perf;
 
 import Connection from "./Connection";
 
