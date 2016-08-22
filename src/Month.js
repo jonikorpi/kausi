@@ -72,7 +72,7 @@ class Month extends Component {
         }
 
         textMarker = (
-          <div className="child-margins-y-0-25 margin-0-25 margin-top">
+          <div className="child-margins-y-0-25 margin-0-25 margin-top enter-fade">
             {lines.map(function(i) {
               const randomWidth = i+1 === lines.length ? Math.floor(Math.random()*(76-38+1)+38) : Math.floor(Math.random()*(100-85+1)+85);
 
