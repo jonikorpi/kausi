@@ -23,6 +23,7 @@ class Week extends Component {
           firebaseKey={firebaseKey}
           text={text}
           today={this.props.today}
+          targetIsToday={this.props.targetDay.isSame(this.props.today)}
           weekNumber={this.props.number}
           isFirstWeek={this.props.number === 1}
           isToday={day.valueOf() === this.props.today.valueOf()}

@@ -96,7 +96,7 @@ class Day extends Component {
     }
 
     let placeholder;
-    if (this.props.anonymous) {
+    if (this.props.anonymous && this.props.targetIsToday) {
       if (this.props.someday && +this.props.day.format("D") === 1) {
         placeholder = "This row is not tied to any week and will always stay put. Useful for stuff like grocery lists and grandiose plans.";
       }
