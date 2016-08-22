@@ -59,15 +59,20 @@ class SignInUp extends Component {
       case "signUp":
         view = (
           <div className="flex vertical align-center child-margins-y-1">
-            <p className="wide-max-width">
-              You are currently using a temporary account. If you sign up for a permanent account, any entries you made using this temporary account will carry over.
-            </p>
-            <p className="wide-max-width">
-              With a permanent account you will be able to sign in from browsers other than this one, as well as export your entries (in the JSON format) whenever you want.
-            </p>
-            <p className="wide-max-width">
-              Entries are stored in <a className="border-bottom" href="http://firebase.google.com/">Firebase</a>, unencrypted. Authentication is securely handled by Firebase.
-            </p>
+            <div className="wide-max-width child-margins-y-1">
+              <p>
+                You are currently using a temporary account. If you sign up for a permanent account, any entries you made using this temporary account will carry over.
+              </p>
+              <p>
+                With a permanent account you will be able to sign in from browsers other than this one, as well as export your entries (in the JSON format) whenever you want.
+              </p>
+              <p>
+                Entries are stored in <a className="border-bottom" href="http://firebase.google.com/">Firebase</a>, unencrypted. Authentication is securely handled by Firebase.
+              </p>
+              <p>
+                Kausi is still in beta. Expect things to break and/or change.
+              </p>
+            </div>
             <Form
               onSubmit={this.signUp}
               fields={[
