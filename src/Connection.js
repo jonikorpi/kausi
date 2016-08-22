@@ -290,7 +290,7 @@ class Connection extends Component {
     return (
       <div id="connection" className="flex vertical grow enter-fade bg-1">
         <Controls
-          user={this.state.user}
+          anonymous={this.state.user.anonymous}
           connected={this.state.connected}
           haveConnectedOnce={this.state.haveConnectedOnce}
           targetIsToday={this.state.targetDay.valueOf() === this.state.today.valueOf()}

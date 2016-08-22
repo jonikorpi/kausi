@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import moment from "moment";
 import classNames from "classnames";
 import debounce from "lodash.debounce";
+import shallowCompare from "react-addons-shallow-compare";
 
 class Day extends Component {
   constructor(props) {
@@ -23,6 +24,10 @@ class Day extends Component {
     }, 500);
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    return shallowCompare(this, nextProps, nextState);
+  }
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.text !== this.state.text) {
       this.setState({
@@ -30,23 +35,6 @@ class Day extends Component {
       });
     }
   }
-
-  componentDidUpdate() {
-    // if (this.props.isTargetDay && !this.props.aDayIsFocused) {
-    //   this.props.scrollTo(this.textarea);
-    // }
-  }
-
-  // shouldComponentUpdate(nextProps, nextState) {
-  //   if (
-  //          nextProps.text === this.state.text
-  //       || nextProps.firebaseKey === this.state.firebaseKey
-  //       || nextProps.today === this.state.today
-  //     ) {
-  //     return false;
-  //   }
-  //   return true;
-  // }
 
   saveTodo() {
     this.props.saveTodo(this.props.firebaseKey, this.props.day.valueOf(), this.state.text);
@@ -173,6 +161,7 @@ class Day extends Component {
           onKeyDown={this.onKeyDown}
           readOnly={!this.props.connected}
           placeholder={placeholder}
+          autoFocus={this.props.isToday}
         />
       </div>
     );

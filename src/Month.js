@@ -4,7 +4,7 @@ import reactMixin from "react-mixin";
 import ReactFire from "reactfire";
 import classNames from "classnames";
 
-// import Button from "./Button";
+import MonthButton from "./MonthButton";
 
 class Month extends Component {
   constructor(props) {
@@ -63,61 +63,20 @@ class Month extends Component {
         }
       });
 
-      let month, year, textMarker;
-
-      if (text) {
-        let lines = [];
-        for (let i = 0; i < (text.length/30); i++) {
-          lines.push(i);
-        }
-
-        textMarker = (
-          <div className="child-margins-y-0-25 margin-0-25 margin-top enter-fade">
-            {lines.map(function(i) {
-              const randomWidth = i+1 === lines.length ? Math.floor(Math.random()*(76-38+1)+38) : Math.floor(Math.random()*(100-85+1)+85);
-
-              return (
-                <div
-                  key={i}
-                  style={{width: `${randomWidth}%`}}
-                  className={classNames({
-                    "border-top": true,
-                  })}
-                />
-              );
-            })}
-          </div>
-        );
-      }
-
-      if (moment(day).startOf("month").isSame(day)) {
-        month = day.format("MMM");
-        year = day.format("YYYY");
-      }
-
       return (
-        <button
+        <MonthButton
           key={day.valueOf()}
-          className={classNames({
-            "button size-0-75 flex vertical text-align-left padding-0-5 all-caps overflow-hidden": true,
-            "color-bright-6": day.isSame(this.props.today),
-          })}
-          onClick={this.goToDay}
-          data-day={day.valueOf()}
-        >
-          <div className="no-events">
-            {day.format("DD")} {month} {year}
-            {textMarker}
-          </div>
-        </button>
+          day={day}
+          today={this.props.today}
+          text={text}
+          goToDay={this.goToDay}
+        />
       );
     }.bind(this));
   }
 
-  goToDay(event) {
-    if (event.target.dataset.day) {
-      this.props.goToDay(moment(+event.target.dataset.day));
-    }
+  goToDay(day) {
+    this.props.goToDay(moment(day));
   }
 
   render() {

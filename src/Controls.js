@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
+import shallowCompare from "react-addons-shallow-compare";
 // import classNames from "classnames";
 
 import Button from "./Button";
 
 class Controls extends Component {
+  shouldComponentUpdate(nextProps, nextState) {
+    return shallowCompare(this, nextProps, nextState);
+  }
 
   render() {
     let status, buttons;
@@ -34,7 +38,7 @@ class Controls extends Component {
         />
       );
 
-      if (this.props.haveConnectedOnce && this.props.user.anonymous) {
+      if (this.props.haveConnectedOnce && this.props.anonymous) {
         account = (
           <Button
             label="Sign in/up"

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import moment from "moment";
 import classNames from "classnames";
+import shallowCompare from "react-addons-shallow-compare";
 
 import WeekContainer from "./WeekContainer";
 
@@ -10,9 +11,16 @@ class Weeks extends Component {
 
     this.state = {
       focusedDay: null,
+      requestedScroll: null,
     };
+
     this.focusDay = this.focusDay.bind(this);
     this.unfocusDay = this.unfocusDay.bind(this);
+    this.scrollTo = this.scrollTo.bind(this);
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return shallowCompare(this, nextProps, nextState);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -31,10 +39,12 @@ class Weeks extends Component {
   }
 
   scrollTo(element) {
-    const target = element.getBoundingClientRect();
-    const windowWidth = window.innerWidth;
-    const pixels = target.left - (windowWidth * 0.5) + (target.width * 0.5);
-    this.weekScroller.scrollLeft += pixels;
+    if (this.weekScroller) {
+      const target = element.getBoundingClientRect();
+      const windowWidth = window.innerWidth;
+      const pixels = target.left - (windowWidth * 0.5) + (target.width * 0.5);
+      this.weekScroller.scrollLeft += pixels;
+    }
   }
 
   render() {
