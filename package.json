@@ -3,9 +3,10 @@
   "version": "0.0.1",
   "private": true,
   "devDependencies": {
-    "react-scripts": "0.2.1",
     "now": "^0.21.0",
-    "now-serve": "^0.3.1"
+    "now-serve": "^0.3.1",
+    "react-addons-perf": "^15.3.1",
+    "react-scripts": "0.2.1"
   },
   "dependencies": {
     "firebase": "^3.2.1",
