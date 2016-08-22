@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import moment from "moment";
 import classNames from "classnames";
-import { debounce } from 'lodash/function';
+import debounce from "lodash.debounce";
 
 class Day extends Component {
   constructor(props) {
