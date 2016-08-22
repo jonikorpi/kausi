@@ -107,8 +107,6 @@ class WeekContainer extends Component {
           className={classNames({
             "week flex even-children": true,
             "focused-week": isFocusedWeek || (!aDayIsFocused && isTargetWeek),
-            // "bg-bright-1": week.somedays && !isFocusedWeek,
-            // "unfocused-week": this.props.focusedDay && !isFocusedWeek,
             "this-week": isThisWeek,
           })}
         />

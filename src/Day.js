@@ -24,9 +24,11 @@ class Day extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({
-      text: nextProps.text
-    });
+    if (nextProps.text !== this.state.text) {
+      this.setState({
+        text: nextProps.text
+      });
+    }
   }
 
   componentDidUpdate() {
@@ -34,6 +36,17 @@ class Day extends Component {
     //   this.props.scrollTo(this.textarea);
     // }
   }
+
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   if (
+  //          nextProps.text === this.state.text
+  //       || nextProps.firebaseKey === this.state.firebaseKey
+  //       || nextProps.today === this.state.today
+  //     ) {
+  //     return false;
+  //   }
+  //   return true;
+  // }
 
   saveTodo() {
     this.props.saveTodo(this.props.firebaseKey, this.props.day.valueOf(), this.state.text);
@@ -72,8 +85,6 @@ class Day extends Component {
       "bg-2": this.props.isInFocusedWeek,
       [`color-${colorNumber+4}`]: !this.props.aDayIsFocused ||  this.props.isFocusedDay,
       [`color-${colorNumber+3}`]:  this.props.aDayIsFocused && !this.props.isFocusedDay,
-      // [`bg-${this.props.weekNumber}`]: !this.props.isFocusedDay,
-      // [`bg-bright-${this.props.weekNumber}`]: this.props.isFocusedDay,
     });
 
     let dayLabel, monthLabel;
@@ -144,10 +155,6 @@ class Day extends Component {
             [`color-${colorNumber+2}`]:  this.props.aDayIsFocused,
             [`color-bright-${colorNumber+4}`]: this.props.isToday && (!this.props.aDayIsFocused || (this.props.aDayIsFocused && this.props.isFocusedDay)),
             [`color-bright-${colorNumber+3}`]: this.props.isToday && !this.props.aDayIsFocused,
-            // "color-5": !this.props.aDayIsFocused || this.props.isFocusedDay,
-            // "color-3": this.props.aDayIsFocused && !this.props.isFocusedDay,
-            // "color-bright-6": this.props.isToday && !this.props.aDayIsFocused,
-            // "color-bright-4": this.props.isToday && this.props.aDayIsFocused,
           })}
         >
           {dayLabel}{monthLabel}{todayLabel}
@@ -158,7 +165,6 @@ class Day extends Component {
           ref={(c) => this.textarea = c}
           className={classNames({
             "padding-0-5 padding-top-0 margin-bottom margin-0-25 grow width-100": true,
-            // "nowrap": !this.state.editing,
           })}
           onFocus={this.onFocus}
           onBlur={this.onBlur}

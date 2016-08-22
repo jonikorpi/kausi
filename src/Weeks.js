@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 import moment from "moment";
-import reactMixin from "react-mixin";
-import ReactFire from "reactfire";
 import classNames from "classnames";
 
 import WeekContainer from "./WeekContainer";
@@ -42,7 +40,7 @@ class Weeks extends Component {
   render() {
     let weeks, startAt, endAt, alsoStartAt, alsoEndAt;
     const firstOfThisWeek = moment(this.props.targetDay).startOf("isoweek");
-    const firstOfLastWeek = moment(firstOfThisWeek).subtract(7, "days");
+    // const firstOfLastWeek = moment(firstOfThisWeek).subtract(7, "days");
     const firstOfNextWeek = moment(firstOfThisWeek).add(7, "days");
 
     startAt = moment(firstOfThisWeek)/*.subtract(7, "days")*/.valueOf();
@@ -103,5 +101,4 @@ class Weeks extends Component {
   }
 }
 
-reactMixin(Weeks.prototype, ReactFire);
 export default Weeks;

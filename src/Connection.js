@@ -1,7 +1,5 @@
 import React, { Component } from "react";
-import reactMixin from "react-mixin";
 import Firebase from "firebase";
-import ReactFire from "reactfire";
 import moment from "moment";
 
 import Controls from "./Controls";
@@ -29,6 +27,7 @@ class Connection extends Component {
       today: moment().startOf("day"),
       targetDay: moment().startOf("day"),
       connected: false,
+      haveConnectedOnce: true,
       firebaseRef: false,
       error: null,
       dateUpdater: null,
@@ -94,7 +93,10 @@ class Connection extends Component {
 
     Firebase.database().ref(".info/connected").on("value", function(online) {
       if (online.val() === true) {
-        this.setState({connected: true});
+        this.setState({
+          connected: true,
+          haveConnectedOnce: true,
+        });
       }
       else {
         this.setState({connected: false});
@@ -290,6 +292,7 @@ class Connection extends Component {
         <Controls
           user={this.state.user}
           connected={this.state.connected}
+          haveConnectedOnce={this.state.haveConnectedOnce}
           targetIsToday={this.state.targetDay.valueOf() === this.state.today.valueOf()}
           view={this.state.view}
           goToToday={this.goToToday}
@@ -305,5 +308,4 @@ class Connection extends Component {
   }
 }
 
-reactMixin(Connection.prototype, ReactFire);
 export default Connection;

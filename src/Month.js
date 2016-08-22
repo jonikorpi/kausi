@@ -3,9 +3,8 @@ import moment from "moment";
 import reactMixin from "react-mixin";
 import ReactFire from "reactfire";
 import classNames from "classnames";
-import { random } from 'lodash/number';
 
-import Button from "./Button";
+// import Button from "./Button";
 
 class Month extends Component {
   constructor(props) {
@@ -75,7 +74,7 @@ class Month extends Component {
         textMarker = (
           <div className="child-margins-y-0-25 margin-0-25 margin-top">
             {lines.map(function(i) {
-              const randomWidth = i+1 === lines.length ? random(38, 76) : random(85, 100)
+              const randomWidth = i+1 === lines.length ? Math.floor(Math.random()*(76-38+1)+38) : Math.floor(Math.random()*(100-85+1)+85);
 
               return (
                 <div
