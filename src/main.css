@@ -256,6 +256,7 @@ body {
 
 ::placeholder {
   color: inherit;
+  opacity: 0.618;
 }
 
 /*-------------------------------------------*/

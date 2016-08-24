@@ -27,7 +27,7 @@ class Connection extends Component {
       today: moment().startOf("day"),
       targetDay: moment().startOf("day"),
       connected: false,
-      haveConnectedOnce: true,
+      haveConnectedOnce: false,
       firebaseRef: false,
       error: null,
       dateUpdater: null,
@@ -281,6 +281,7 @@ class Connection extends Component {
               targetDay={this.state.targetDay}
               saveTodo={this.saveTodo}
               firebaseRef={this.state.firebaseRef}
+              haveConnectedOnce={this.state.haveConnectedOnce}
             />
           );
           break;

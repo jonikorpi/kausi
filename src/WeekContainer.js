@@ -103,6 +103,7 @@ class WeekContainer extends Component {
           saveTodo={this.props.saveTodo}
           somedays={week.somedays ? true : false}
           connected={this.props.connected}
+          haveConnectedOnce={this.props.haveConnectedOnce}
           anonymous={this.props.anonymous}
           className={classNames({
             "week flex even-children": true,

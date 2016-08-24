@@ -68,7 +68,7 @@ class Day extends Component {
     const colorNumber = this.props.isInFocusedWeek ? 2 : 1;
 
     const dayClasses = classNames({
-      "day flex vertical padding-0-5 padding-top min-day-width": true,
+      "day flex vertical padding-0-5 padding-top min-day-width child-margins-y-0-25": true,
       "border-2 border-top": !this.props.isFirstWeek,
       "bg-2": this.props.isInFocusedWeek,
       [`color-${colorNumber+4}`]: !this.props.aDayIsFocused ||  this.props.isFocusedDay,
@@ -133,12 +133,29 @@ class Day extends Component {
       }
     }
 
+    let additionalTexts;
+    if (this.props.additionalTexts.length > 0) {
+      let pluralConflictingEntries = `is a conflicting entry`;
+      let next;
+
+      if (this.props.additionalTexts.length > 1) {
+        pluralConflictingEntries = `are ${this.props.additionalTexts.length} conflicting entries`;
+        next = "next ";
+      }
+
+      additionalTexts = (
+        <div className="color-bright-5 size-0-75 padding-0-5 padding-top-0">
+          Problem: there {pluralConflictingEntries} for this day. If you remove this &uarr; entry, the {next}conflicting entry will appear and you can decide what to do with it. This sometimes happens with an unstable connection. Sorry for the hassle. :&#65279;(
+        </div>
+      );
+    }
+
     return (
       <div className={dayClasses}>
         <label
           htmlFor={this.props.day.valueOf()}
           className={classNames({
-            "all-caps padding-0-5 padding-top-0 padding-bottom-0 margin-bottom margin-0-25": true,
+            "all-caps padding-0-5 padding-top-0 padding-bottom-0": true,
             [`color-${colorNumber+3}`]: (this.props.aDayIsFocused && this.props.isFocusedDay) || !this.props.aDayIsFocused,
             [`color-${colorNumber+2}`]:  this.props.aDayIsFocused,
             [`color-bright-${colorNumber+4}`]: this.props.isToday && (!this.props.aDayIsFocused || (this.props.aDayIsFocused && this.props.isFocusedDay)),
@@ -159,10 +176,12 @@ class Day extends Component {
           onChange={this.onChange}
           value={this.state.text}
           onKeyDown={this.onKeyDown}
-          readOnly={!this.props.connected}
+          readOnly={!this.props.haveConnectedOnce}
           placeholder={placeholder}
           autoFocus={this.props.isToday}
         />
+
+        {additionalTexts}
       </div>
     );
   }

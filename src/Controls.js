@@ -15,8 +15,10 @@ class Controls extends Component {
     if (!this.props.connected) {
       if (this.props.haveConnectedOnce) {
         status = (
-          <div className="padding-0-5 color-bright-5 enter-from-above">
-            <p>OFFLINE: text entry disabled.</p>
+          <div className="padding-0-5 color-bright-6 enter-from-above">
+            <p>
+              OFFLINE: any changes made will not be saved until this message disappears. If you close Kausi any unsaved changes will be lost.
+            </p>
           </div>
         );
       }

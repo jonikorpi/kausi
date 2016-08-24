@@ -104,6 +104,7 @@ class Weeks extends Component {
           unfocusDay={this.unfocusDay}
           scrollTo={this.scrollTo}
           connected={this.props.connected}
+          haveConnectedOnce={this.props.haveConnectedOnce}
           anonymous={this.props.anonymous}
         />
       </div>

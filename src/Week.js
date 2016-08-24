@@ -8,11 +8,17 @@ class Week extends Component {
     const days = this.props.days.map(function(day) {
       let firebaseKey;
       let text = "";
+      let additionalTexts = [];
 
       this.props.todos.forEach(function(todo) {
         if (todo.date === day.valueOf()) {
-          firebaseKey = todo[".key"];
-          text = todo.text;
+          if (!firebaseKey) {
+            firebaseKey = todo[".key"];
+            text = todo.text;
+          }
+          else {
+            additionalTexts.push(todo.text);
+          }
         }
       });
 
@@ -22,6 +28,7 @@ class Week extends Component {
           day={day}
           firebaseKey={firebaseKey}
           text={text}
+          additionalTexts={additionalTexts}
           today={this.props.today}
           targetIsToday={this.props.targetDay.isSame(this.props.today)}
           weekNumber={this.props.number}
@@ -37,6 +44,7 @@ class Week extends Component {
           saveTodo={this.props.saveTodo}
           someday={this.props.somedays}
           connected={this.props.connected}
+          haveConnectedOnce={this.props.haveConnectedOnce}
           anonymous={this.props.anonymous}
         />
       );
