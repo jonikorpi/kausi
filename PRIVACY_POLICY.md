@@ -52,7 +52,7 @@ Registry holder:
 Vuoro Design
 hello@vuoro.design
 
-This registry is used for handling authentication and account management in this Kausi.
+This registry is used for handling authentication and account management in Kausi.
 
 The data saved to this registry contains the user's email address (retrieved via the user's input), a unique identifier, a password, the textual entries they input into Kausi, and other miscellaneous pieces of data related to user authentication.
 
