@@ -45,3 +45,19 @@ If there are any questions regarding this privacy policy you may contact us usin
 Vuoro Design
 http://vuoro.design/
 hello@vuoro.design
+
+# User Registry
+
+Registry holder:
+Vuoro Design
+hello@vuoro.design
+
+This registry is used for handling authentication and account management in this Kausi.
+
+The data saved to this registry contains the user's email address (retrieved via the user's input), a unique identifier, a password, the textual entries they input into Kausi, and other miscellaneous pieces of data related to user authentication.
+
+The data resides in Firebase, in the United States. Firebase is owned by Google and their terms of service can be found [here](https://firebase.google.com/terms/).
+
+Every user has the right to inspect and remove their data, as well as request corrections to their data. Users can contact hello@vuoro.design for assistance with inspecting or removing their data.
+
+Other than Firebase, no third party has access to the data. Kausi will not use the data for any purposes other than user authentication and customer support.
