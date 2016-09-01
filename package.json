@@ -3,20 +3,22 @@
   "version": "0.0.1",
   "private": true,
   "devDependencies": {
-    "now": "^0.21.0",
-    "now-serve": "^0.3.1",
+    "now": "^0.22.0",
+    "now-serve": "^0.4.0",
     "react-addons-perf": "^15.3.1",
-    "react-scripts": "0.2.1"
+    "react-scripts": "0.2.3"
   },
   "dependencies": {
+    "classnames": "^2.2.5",
     "firebase": "^3.2.1",
     "jonikorpi-base-files": "^3.2.2",
     "lodash.debounce": "^4.0.8",
+    "moment": "^2.14.1",
     "react": "^15.2.1",
     "react-addons-shallow-compare": "^15.3.1",
     "react-dom": "^15.2.1",
     "react-mixin": "^3.0.5",
-    "react-scripts": "git@github.com:facebookincubator/create-react-app.git",
+    "react-scripts": "git@github.com:facebookincubator/create-react-app.git#59c4eb2d9358c5c3e8dd8e21eb0ca0579ef4b533",
     "reactfire": "^1.0.0"
   },
   "scripts": {
