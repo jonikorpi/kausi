@@ -68,9 +68,8 @@ class Day extends Component {
     const colorNumber = this.props.isInFocusedWeek ? 2 : 1;
 
     const dayClasses = classNames({
-      "day flex vertical padding-0-5 padding-top min-day-width child-margins-y-0-25": true,
+      "day flex vertical padding-0-5 padding-top min-day-width child-margins-y-0-25 enter-fade": true,
       "border-2 border-top": !this.props.isFirstWeek,
-      "bg-2": this.props.isInFocusedWeek,
       [`color-${colorNumber+4}`]: !this.props.aDayIsFocused ||  this.props.isFocusedDay,
       [`color-${colorNumber+3}`]:  this.props.aDayIsFocused && !this.props.isFocusedDay,
     });

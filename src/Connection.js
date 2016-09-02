@@ -235,7 +235,11 @@ class Connection extends Component {
     // console.log("targetDay is now " + this.state.targetDay.format("ddd DD MM HH:mm"))
 
     let view = (
-      <div className="grow"/>
+      <div className="flex grow vertical child-borders-y">
+        <div className="focused-week bg-2 border-2"></div>
+        <div className="week border-2"></div>
+        <div className="week border-2"></div>
+      </div>
     );
 
     if (this.state.firebaseRef) {
@@ -289,7 +293,7 @@ class Connection extends Component {
     }
 
     return (
-      <div id="connection" className="flex vertical grow bg-1">
+      <div id="connection" className="flex vertical grow">
         <Controls
           anonymous={this.state.user.anonymous}
           connected={this.state.connected}

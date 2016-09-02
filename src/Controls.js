@@ -17,7 +17,7 @@ class Controls extends Component {
     if (!this.props.connected) {
       if (this.props.haveConnectedOnce) {
         status = (
-          <div className="padding-0-5 color-bright-6 enter-from-above child-margins-x-0-5 flex">
+          <div className="padding-0-5 color-bright-6 child-margins-x-0-5 flex">
             {spinner}
             <p>
               OFFLINE: any changes made will not be saved until this message disappears. If you close Kausi any unsaved changes will be lost.
@@ -27,7 +27,7 @@ class Controls extends Component {
       }
       else {
         status = (
-          <div className="padding-0-5 color-bright-6 enter-from-above child-margins-x-0-5 flex">
+          <div className="padding-0-5 color-bright-6 child-margins-x-0-5 flex">
             {spinner}
             <p>Connecting…</p>
           </div>
