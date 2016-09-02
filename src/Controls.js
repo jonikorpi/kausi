@@ -12,10 +12,13 @@ class Controls extends Component {
   render() {
     let status, buttons;
 
+    const spinner = (<div className="spinner round border-bright-6 height-1 width-1"></div>);
+
     if (!this.props.connected) {
       if (this.props.haveConnectedOnce) {
         status = (
-          <div className="padding-0-5 color-bright-6 enter-from-above">
+          <div className="padding-0-5 color-bright-6 enter-from-above child-margins-x-0-5 flex">
+            {spinner}
             <p>
               OFFLINE: any changes made will not be saved until this message disappears. If you close Kausi any unsaved changes will be lost.
             </p>
@@ -24,7 +27,8 @@ class Controls extends Component {
       }
       else {
         status = (
-          <div className="padding-0-5 color-bright-5 enter-from-above">
+          <div className="padding-0-5 color-bright-6 enter-from-above child-margins-x-0-5 flex">
+            {spinner}
             <p>Connecting…</p>
           </div>
         );

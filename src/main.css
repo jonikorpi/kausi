@@ -345,9 +345,7 @@ button {
 .spinner {
   animation: spin 1230ms linear infinite;
   border-style: dashed;
-  border-width: 0.225rem;
-  width: 2rem;
-  height: 2rem;
+  border-width: 0.2em;
 }
 
 @keyframes spin {

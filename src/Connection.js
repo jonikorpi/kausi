@@ -289,7 +289,7 @@ class Connection extends Component {
     }
 
     return (
-      <div id="connection" className="flex vertical grow enter-fade bg-1">
+      <div id="connection" className="flex vertical grow bg-1">
         <Controls
           anonymous={this.state.user.anonymous}
           connected={this.state.connected}
