@@ -3,10 +3,10 @@
   "version": "0.0.1",
   "private": true,
   "devDependencies": {
-    "now": "^0.22.0",
+    "now": "^0.23.0",
     "now-serve": "^0.4.0",
     "react-addons-perf": "^15.3.1",
-    "react-scripts": "0.2.3"
+    "react-scripts": "0.4.0"
   },
   "dependencies": {
     "classnames": "^2.2.5",
@@ -18,7 +18,7 @@
     "react-addons-shallow-compare": "^15.3.1",
     "react-dom": "^15.2.1",
     "react-mixin": "^3.0.5",
-    "react-scripts": "git@github.com:facebookincubator/create-react-app.git#59c4eb2d9358c5c3e8dd8e21eb0ca0579ef4b533",
+    "react-scripts": "^0.4.0",
     "reactfire": "^1.0.0"
   },
   "scripts": {
