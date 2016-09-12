@@ -84,7 +84,7 @@ class Controls extends Component {
     }
 
     return (
-      <div id="controls" className="border-bottom border-2">
+      <div id="controls" className="border border-y border-top-0 border-color-2">
         {status}
         {buttons}
       </div>

@@ -37,7 +37,7 @@ class MonthButton extends Component {
                 key={i}
                 style={{width: `${randomWidth}%`}}
                 className={classNames({
-                  "border-top": true,
+                  "border border-y border-bottom-0": true,
                 })}
               />
             );

@@ -236,9 +236,9 @@ class Connection extends Component {
 
     let view = (
       <div className="flex grow vertical child-borders-y">
-        <div className="focused-week bg-2 border-2"></div>
-        <div className="week border-2"></div>
-        <div className="week border-2"></div>
+        <div className="focused-week bg-2 border-color-2"></div>
+        <div className="week border-color-2"></div>
+        <div className="week border-color-2"></div>
       </div>
     );
 

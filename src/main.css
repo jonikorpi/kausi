@@ -71,37 +71,37 @@ html {
 
 .color-1  { color:            #251916; }
 .bg-1     { background-color: #251916; }
-.border-1 { border-color:     #251916; }
+.border-color-1 { border-color:     #251916; }
 .fill-1   { fill:             #251916; }
 .stroke-1 { stroke:           #251916; }
 
 .color-2  { color:            #4C3A39; }
 .bg-2     { background-color: #4C3A39; }
-.border-2 { border-color:     #4C3A39; }
+.border-color-2 { border-color:     #4C3A39; }
 .fill-2   { fill:             #4C3A39; }
 .stroke-2 { stroke:           #4C3A39; }
 
 .color-3  { color:            #716063; }
 .bg-3     { background-color: #716063; }
-.border-3 { border-color:     #716063; }
+.border-color-3 { border-color:     #716063; }
 .fill-3   { fill:             #716063; }
 .stroke-3 { stroke:           #716063; }
 
 .color-4  { color:            #918C8E; }
 .bg-4     { background-color: #918C8E; }
-.border-4 { border-color:     #918C8E; }
+.border-color-4 { border-color:     #918C8E; }
 .fill-4   { fill:             #918C8E; }
 .stroke-4 { stroke:           #918C8E; }
 
 .color-5  { color:            #B7B9AF; }
 .bg-5     { background-color: #B7B9AF; }
-.border-5 { border-color:     #B7B9AF; }
+.border-color-5 { border-color:     #B7B9AF; }
 .fill-5   { fill:             #B7B9AF; }
 .stroke-5 { stroke:           #B7B9AF; }
 
 .color-6  { color:            #DDE9D2; }
 .bg-6     { background-color: #DDE9D2; }
-.border-6 { border-color:     #DDE9D2; }
+.border-color-6 { border-color:     #DDE9D2; }
 .fill-6   { fill:             #DDE9D2; }
 .stroke-6 { stroke:           #DDE9D2; }
 
@@ -112,37 +112,37 @@ html {
 
 .color-bright-1  { color:            #301315; }
 .bg-bright-1     { background-color: #301315; }
-.border-bright-1 { border-color:     #301315; }
+.border-color-bright-1 { border-color:     #301315; }
 .fill-bright-1   { fill:             #301315; }
 .stroke-bright-1 { stroke:           #301315; }
 
 .color-bright-2  { color:            #5D3142; }
 .bg-bright-2     { background-color: #5D3142; }
-.border-bright-2 { border-color:     #5D3142; }
+.border-color-bright-2 { border-color:     #5D3142; }
 .fill-bright-2   { fill:             #5D3142; }
 .stroke-bright-2 { stroke:           #5D3142; }
 
 .color-bright-3  { color:            #7A597E; }
 .bg-bright-3     { background-color: #7A597E; }
-.border-bright-3 { border-color:     #7A597E; }
+.border-color-bright-3 { border-color:     #7A597E; }
 .fill-bright-3   { fill:             #7A597E; }
 .stroke-bright-3 { stroke:           #7A597E; }
 
 .color-bright-4  { color:            #7B8CBB; }
 .bg-bright-4     { background-color: #7B8CBB; }
-.border-bright-4 { border-color:     #7B8CBB; }
+.border-color-bright-4 { border-color:     #7B8CBB; }
 .fill-bright-4   { fill:             #7B8CBB; }
 .stroke-bright-4 { stroke:           #7B8CBB; }
 
 .color-bright-5  { color:            #58C5EA; }
 .bg-bright-5     { background-color: #58C5EA; }
-.border-bright-5 { border-color:     #58C5EA; }
+.border-color-bright-5 { border-color:     #58C5EA; }
 .fill-bright-5   { fill:             #58C5EA; }
 .stroke-bright-5 { stroke:           #58C5EA; }
 
 .color-bright-6  { color:            #10FEFE; }
 .bg-bright-6     { background-color: #10FEFE; }
-.border-bright-6 { border-color:     #10FEFE; }
+.border-color-bright-6 { border-color:     #10FEFE; }
 .fill-bright-6   { fill:             #10FEFE; }
 .stroke-bright-6 { stroke:           #10FEFE; }
 
@@ -150,20 +150,20 @@ html {
 
 .color-none  { color:            none; }
 .bg-none     { background-color: none; }
-.border-none { border-color:     none; }
+.border-color-none { border-color:     none; }
 .fill-none   { fill:             none; }
 .stroke-none { stroke:           none; }
 
 .color-transparent  { color:            transparent; }
 .bg-transparent     { background-color: transparent; }
-.border-transparent { border-color:     transparent; }
+.border-color-transparent { border-color:     transparent; }
 
 .color-inherit  { color:            inherit; }
 .bg-inherit     { background-color: inherit; }
-.border-inherit { border-color:     inherit; }
+.border-color-inherit { border-color:     inherit; }
 
 .bg-currentcolor     { background-color: currentcolor; }
-.border-currentcolor { border-color:     currentcolor; }
+.border-color-currentcolor { border-color:     currentcolor; }
 
 /*
   Entry animations

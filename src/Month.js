@@ -133,7 +133,7 @@ class Month extends Component {
         <div
           key={week.days[0].valueOf()}
           className={classNames({
-            "week flex even-children border-2": true,
+            "week flex even-children border-color-2": true,
             [`bg-${number}`]: true,
           })}
         >

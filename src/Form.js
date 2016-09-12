@@ -112,7 +112,7 @@ class Form extends Component {
         onSubmit={this.onSubmit}
         className="child-margins-y-1 flex vertical align-center width-100"
       >
-        <div className="child-margins-x-hairline flex wide-max-width width-100">
+        <div className="child-margins-x flex wide-max-width width-100">
           {fields}
         </div>
         <Button type="submit" className="rounded" label={this.props.buttonLabel}/>
