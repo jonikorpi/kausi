@@ -20,14 +20,8 @@
   http://codepen.io/CrocoDillon/pen/jgmwt?editors=0010 */
 
 html {
-  font-size: 125%;
-  font-size: calc(1.25em);
-}
-
-@media (min-width: 75em) {
-  html {
-    font-size: calc(0.45em + 0.375vw + 0.375vh + 0.1875vmin);
-  }
+  font-size: 126%;
+  font-size: calc(1.26em + 0.125vw + 0.125vh + 0.0625vmin);
 }
 
 /*
@@ -36,7 +30,7 @@ html {
   Adjust the font-size multipliers to suit your font. */
 
 .size-0-75    { line-height: 0.75rem; font-size: 0.6405rem; }
-.size-1, body { line-height: 1.00rem; font-size: 0.8rem; }
+.size-1, body { line-height: 1.00rem; font-size: 0.75rem; }
 .size-1-25    { line-height: 1.25rem; font-size: 1.0675rem;}
 .size-1-5     { line-height: 1.50rem; font-size: 1.365rem; }
 .size-2       { line-height: 2.00rem; font-size: 2rem; }
@@ -316,10 +310,6 @@ button {
   transition: 91ms cubic-bezier(0.236, 0.000, 0.236, 1.000);
   transition-property: background-color, height, min-width, width, flex-grow;
   will-change: flex-grow, height, background-color;
-}
-
-.min-day-width {
-  min-width: 10.25rem;
 }
 
 .week {

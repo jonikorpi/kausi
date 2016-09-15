@@ -3,7 +3,7 @@ import firebase from "firebase";
 import moment from "moment";
 
 import Controls from "./Controls";
-import Weeks from "./Weeks";
+import Timeline from "./Timeline";
 import Month from "./Month";
 import SignInUp from "./SignInUp";
 import Account from "./Account";
@@ -272,13 +272,14 @@ class App extends Component {
         case "week":
         default:
           view = (
-            <Weeks
+            <Timeline
               connected={this.state.connected}
               anonymous={this.state.user.anonymous}
-              today={this.state.today}
-              targetDay={this.state.targetDay}
-              saveTodo={this.saveTodo}
-              firebaseRef={this.state.firebaseRef}
+              // today={this.state.today}
+              // targetDay={this.state.targetDay}
+              // saveTodo={this.saveTodo}
+              // firebaseRef={this.state.firebaseRef}
+              uid={this.state.user.uid}
               haveConnectedOnce={this.state.haveConnectedOnce}
             />
           );
