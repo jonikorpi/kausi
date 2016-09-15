@@ -1,10 +1,6 @@
 import React, { Component } from "react";
-import Firebase from "firebase";
+import firebase from "firebase";
 import moment from "moment";
-
-// import Perf from "react-addons-perf";
-// Perf.start();
-// window.Perf = Perf;
 
 import Controls from "./Controls";
 import Weeks from "./Weeks";
@@ -15,12 +11,6 @@ import Account from "./Account";
 class App extends Component {
   constructor(props) {
     super(props);
-
-    Firebase.initializeApp({
-      authDomain: "muisti-6a29a.firebaseapp.com",
-      apiKey: "AIzaSyAF4obcBK8wggQq9klNNkHH-dolEoNhlLM",
-      databaseURL: "https://muisti-6a29a.firebaseio.com",
-    });
 
     this.state = {
       user: {
@@ -71,14 +61,14 @@ class App extends Component {
 
     this.setState({dateUpdater: dateUpdater});
 
-    Firebase.auth().onAuthStateChanged(function(user) {
+    firebase.auth().onAuthStateChanged(function(user) {
       if (user) {
         this.setState({
           user: {
             uid: user.uid,
             anonymous: user.isAnonymous,
           },
-          firebaseRef: Firebase.database().ref(user.uid),
+          firebaseRef: firebase.database().ref(user.uid),
         });
       }
       else {
@@ -89,13 +79,13 @@ class App extends Component {
           }
         });
 
-        Firebase.auth().signInAnonymously().catch(function(error) {
+        firebase.auth().signInAnonymously().catch(function(error) {
           console.log(error);
         });
       }
     }.bind(this));
 
-    Firebase.database().ref(".info/connected").on("value", function(online) {
+    firebase.database().ref(".info/connected").on("value", function(online) {
       if (online.val() === true) {
         this.setState({
           connected: true,
@@ -113,7 +103,7 @@ class App extends Component {
   }
 
   signOut() {
-    Firebase.auth().signOut().then(function(){
+    firebase.auth().signOut().then(function(){
       this.goToToday();
     }.bind(this)).catch(function(error) {
       console.log(error);
@@ -123,8 +113,8 @@ class App extends Component {
   signUp(email, password) {
     this.setState({error: null});
     if (email && password) {
-      const credential = Firebase.auth.EmailAuthProvider.credential(email, password);
-      Firebase.auth().currentUser.link(credential).then(function(user) {
+      const credential = firebase.auth.EmailAuthProvider.credential(email, password);
+      firebase.auth().currentUser.link(credential).then(function(user) {
         this.setState({
           user: {
             uid: user.uid,
@@ -144,7 +134,7 @@ class App extends Component {
 
   setPassword(password, passwordAgain) {
     if (password && password === passwordAgain) {
-      Firebase.auth().currentUser.updatePassword(password).then(function() {
+      firebase.auth().currentUser.updatePassword(password).then(function() {
         this.setState({error: "Password changed."})
       }.bind(this), function(error) {
         this.setState({error: error.message})
@@ -156,7 +146,7 @@ class App extends Component {
   }
 
   requestPasswordReset(email) {
-    Firebase.auth().sendPasswordResetEmail(email).then(function() {
+    firebase.auth().sendPasswordResetEmail(email).then(function() {
       this.setState({error: "Password reset link sent to your email."})
     }.bind(this), function(error) {
       this.setState({error: error.message})
@@ -166,7 +156,7 @@ class App extends Component {
   signIn(email, password) {
     this.setState({error: null});
     if (email && password) {
-      Firebase.auth().signInWithEmailAndPassword(email, password).then(function(){
+      firebase.auth().signInWithEmailAndPassword(email, password).then(function(){
         this.goToToday();
       }.bind(this), function(error) {
         console.log("Error signing in", error);
