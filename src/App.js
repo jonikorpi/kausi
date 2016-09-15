@@ -289,6 +289,7 @@ class App extends Component {
 
     return (
       <div id="connection" className="flex vertical grow">
+        {view}
         <Controls
           anonymous={this.state.user.anonymous}
           connected={this.state.connected}
@@ -302,7 +303,6 @@ class App extends Component {
           moveBackward={this.moveBackward}
           moveForward={this.moveForward}
         />
-        {view}
       </div>
     );
   }

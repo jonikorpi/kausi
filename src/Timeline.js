@@ -10,10 +10,6 @@ class Timeline extends Component {
   constructor(props) {
     super(props);
     //
-    // this.state = {
-    //   focusedDay: null,
-    //   requestedScroll: null,
-    // };
     //
     // this.focusDay = this.focusDay.bind(this);
     // this.unfocusDay = this.unfocusDay.bind(this);
@@ -21,6 +17,12 @@ class Timeline extends Component {
 
     this.timelineLength = 4096;
     this.somedayLength = 10;
+
+    this.state = {
+      visibleRange: [0, 0]
+      // focusedDay: null,
+      // requestedScroll: null,
+    };
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -51,6 +53,10 @@ class Timeline extends Component {
   //   }
   // }
 
+  onScroll() {
+    this.setState({visibleRange: this.timeline.getVisibleRange()});
+  }
+
   timelineDayRenderer(index, key) {
     const todayIndex = Math.round((this.timelineLength / 2));
     let day = moment().startOf("day");
@@ -68,6 +74,7 @@ class Timeline extends Component {
         index={index}
         day={day}
         uid={this.props.uid}
+        anonymous={this.props.anonymous}
       />
     );
   }
@@ -81,6 +88,8 @@ class Timeline extends Component {
         index={index}
         day={day}
         uid={this.props.uid}
+        anonymous={this.props.anonymous}
+        someday={true}
       />
     );
   }
@@ -89,23 +98,6 @@ class Timeline extends Component {
     return (
       <div
         className="flex"
-        style={{
-          height: "76vh",
-        }}
-        ref={ref}
-      >
-        {items}
-      </div>
-    );
-  }
-
-  somedayRenderer(items, ref) {
-    return (
-      <div
-        className="flex"
-        style={{
-          height: "24vh",
-        }}
         ref={ref}
       >
         {items}
@@ -177,28 +169,39 @@ class Timeline extends Component {
     // );
 
     return (
-      <div id="timeline" className="grow flex vertical">
-        <div className="overflow-auto grow">
+      <div className="grow flex vertical">
+
+        <div
+          className="timeline overflow-auto grow grow-children flex vertical"
+          onScroll={this.onScroll.bind(this)}
+        >
           <ReactList
+            ref={c => this.timeline = c}
             axis="x"
             itemRenderer={this.timelineDayRenderer.bind(this)}
             itemsRenderer={this.timelineRenderer.bind(this)}
             length={this.timelineLength}
-            initialIndex={this.timelineLength / 2}
             type="uniform"
             pageSize={7}
+            initialIndex={this.timelineLength / 2}
+            threshold={window.outerWidth}
           />
         </div>
-        <div id="someday" className="overflow-auto grow bg-2">
+
+        <div
+          className="timeline overflow-auto grow grow-children flex vertical bg-2"
+        >
           <ReactList
+            ref={c => this.someday = c}
             axis="x"
             itemRenderer={this.somedayDayRenderer.bind(this)}
-            itemsRenderer={this.somedayRenderer.bind(this)}
+            itemsRenderer={this.timelineRenderer.bind(this)}
             length={this.somedayLength}
             type="uniform"
             pageSize={this.somedayLength}
           />
         </div>
+
       </div>
     );
   }

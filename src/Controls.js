@@ -61,30 +61,13 @@ class Controls extends Component {
             onClick={this.props.goToToday}
             disabled={(this.props.view === "week" && this.props.targetIsToday) || !this.props.haveConnectedOnce}
           />
-          <Button
-            label="Zoom out"
-            onClick={this.props.goToMonth}
-            disabled={this.props.view === "month" || !this.props.haveConnectedOnce}
-          />
           {account}
-          <Button
-            key="upButton"
-            label="&nbsp;&uarr;&nbsp;"
-            disabled={this.props.view !== "week" && this.props.view !== "month"}
-            onClick={this.props.moveBackward}
-          />
-          <Button
-            key="downButton"
-            label="&nbsp;&darr;&nbsp;"
-            disabled={this.props.view !== "week" && this.props.view !== "month"}
-            onClick={this.props.moveForward}
-          />
         </div>
       );
     }
 
     return (
-      <div id="controls" className="border border-y border-top-0 border-color-2">
+      <div id="controls" className="bg-3 fixed position-bottom-right">
         {status}
         {buttons}
       </div>

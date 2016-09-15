@@ -17,7 +17,7 @@ firebase.initializeApp({
 if (process.env.NODE_ENV === "development") {
   window.ReactPerf = require('react-addons-perf');
   window.ReactPerf.start();
-  firebase.database.enableLogging(true);
+  // firebase.database.enableLogging(true);
 }
 
 ReactDOM.render(
