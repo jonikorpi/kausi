@@ -18,17 +18,15 @@ class Day extends Component {
     };
 
     this.bindFirebase = this.bindFirebase.bind(this);
-
-    //
-    // this.saveTodo = this.saveTodo.bind(this);
+    this.saveTodo = this.saveTodo.bind(this);
     this.onFocus = this.onFocus.bind(this);
     this.onBlur = this.onBlur.bind(this);
-    // this.onChange = this.onChange.bind(this);
+    this.onChange = this.onChange.bind(this);
     this.onKeyDown = this.onKeyDown.bind(this);
-    //
-    // this.saveTodoHandler = debounce(function () {
-    //   this.saveTodo()
-    // }, 500);
+
+    this.saveTodoHandler = debounce(function () {
+      this.saveTodo()
+    }, 500);
   }
 
   componentDidMount() {
@@ -44,6 +42,14 @@ class Day extends Component {
     }
   }
 
+  componentDidUpdate() {
+    const newText = this.state.firebase[0] ? this.state.firebase[0].text : null;
+
+    if (newText && newText !== this.state.text) {
+      this.setState({ text: newText });
+    }
+  }
+
   bindFirebase(uid) {
     this.bindAsArray(
       firebase.database().ref(uid).orderByChild("date").equalTo(this.props.day.valueOf()),
@@ -56,18 +62,35 @@ class Day extends Component {
     );
   }
 
-  // componentWillReceiveProps(nextProps) {
-  //   if (nextProps.text !== this.state.text) {
-  //     this.setState({
-  //       text: nextProps.text
-  //     });
-  //   }
-  // }
-  //
-  // saveTodo() {
-  //   this.props.saveTodo(this.props.firebaseKey, this.props.day.valueOf(), this.state.text);
-  // }
-  //
+  saveTodo() {
+    if (this.props.uid) {
+      let firebaseRef = firebase.database().ref(this.props.uid);
+      let key = this.state.firebase[0] ? this.state.firebase[0][".key"] : null;
+      const text = this.state.text;
+      const day = this.props.day.valueOf();
+
+      if (!key && text) {
+        key = firebaseRef.push().key;
+      }
+
+      if (key) {
+        if (text) {
+          firebaseRef.update({
+            [key]: {
+              date: day,
+              text: text,
+            }
+          });
+        }
+        else {
+          firebaseRef.update({
+            [key]: null
+          });
+        }
+      }
+    }
+  }
+
   onFocus() {
     this.setState({editing: true});
   }
@@ -76,51 +99,19 @@ class Day extends Component {
     this.setState({
       editing: false
     });
-    // this.saveTodo();
+    this.saveTodo();
   }
-  //
-  // onChange(event) {
-  //   this.setState({text: event.target.value})
-  //   this.saveTodoHandler();
-  // }
-  //
+
+  onChange(event) {
+    this.setState({text: event.target.value})
+    this.saveTodoHandler();
+  }
+
   onKeyDown(event) {
     if (event.keyCode === 27 /*esc*/) {
       this.textarea.blur();
     }
   }
-  //
-  // render() {
-  //   const colorNumber = this.props.isInFocusedWeek ? 2 : 1;
-  //
-  //   const dayClasses = classNames({
-  //     "day flex vertical padding-0-5 padding-top min-day-width child-margins-y-0-25": true,
-  //     "border-color-2 border border-y border-bottom-0": !this.props.isFirstWeek,
-  //     "bg-2": this.props.isInFocusedWeek,
-  //     [`color-${colorNumber+4}`]: !this.props.aDayIsFocused ||  this.props.isFocusedDay,
-  //     [`color-${colorNumber+3}`]:  this.props.aDayIsFocused && !this.props.isFocusedDay,
-  //   });
-  //
-  //   let dayLabel, monthLabel;
-  //   const todayLabel = this.props.isToday? ", Today" : false
-  //
-  //   if (this.props.someday) {
-  //     dayLabel = `Someday ${this.props.day.format("D")}`;
-  //   }
-  //   else {
-  //     dayLabel = this.props.day.format("ddd DD");
-  //
-  //     if (
-  //         (
-  //           this.props.weekNumber === 1 &&
-  //           this.props.day.isSame(moment(this.props.day).startOf("isoweek"))
-  //         ) ||
-  //         this.props.day.isSame(moment(this.props.day).startOf("month"))
-  //     ) {
-  //       monthLabel = `, ${this.props.day.format("MMM YYYY")}`;
-  //     }
-  //   }
-  //
 
   render() {
     const isToday = this.props.day.isSame(moment().startOf("day"));
@@ -235,11 +226,9 @@ class Day extends Component {
           onKeyDown={this.onKeyDown}
           onFocus={this.onFocus}
           onBlur={this.onBlur}
-          //         onChange={this.onChange}
-          //         value={this.state.text}
-          //         readOnly={!this.props.haveConnectedOnce}
+          onChange={this.onChange}
+          value={this.state.text}
           placeholder={placeholder}
-          //         autoFocus={this.props.isToday}
         />
 
         {additionalTexts}
