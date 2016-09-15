@@ -1,14 +1,19 @@
 {
   "name": "Kausi",
+  "short_name": "Kausi",
   "description": "A textarea for every day.",
-  "display": "minimal-ui",
-  "background_color": "#37302E",
+  "display": "fullscreen",
+  "start_url": "./",
+  "background_color": "#251916",
+  "theme_color": "#10FEFE",
   "icons": [
     {
-      "src": "/icon.png"
+      "src": "./src/logo.png",
+      "type": "image/png"
     },
     {
-      "src": "/icon.svg"
+      "src": "./src/logo.svg",
+      "type": "image/svg+xml"
     }
   ]
 }
