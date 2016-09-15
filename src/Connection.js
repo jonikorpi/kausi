@@ -50,7 +50,7 @@ class Connection extends Component {
     this.moveForward = this.moveForward.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     const dateUpdater = setInterval(
       function() {
         const startOfToday = moment().startOf("day");

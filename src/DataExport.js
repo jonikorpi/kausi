@@ -13,7 +13,7 @@ class DataExport extends Component {
     this.bindFirebase = this.bindFirebase.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.bindFirebase(this.props.firebaseRef);
   }
 

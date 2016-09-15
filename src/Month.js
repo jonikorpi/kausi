@@ -19,7 +19,7 @@ class Month extends Component {
     this.bindFirebase = this.bindFirebase.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.bindFirebase(this.props.firebaseRef, this.props.targetDay, this.props.weekRange);
   }
 
