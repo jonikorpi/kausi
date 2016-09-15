@@ -68,7 +68,7 @@ class Day extends Component {
   }
 
   saveTodo() {
-    if (this.props.uid) {
+    if (this.props.uid && this.state.lastUpdated) {
       let firebaseRef = firebase.database().ref(this.props.uid);
       let key = this.state.firebase[0] ? this.state.firebase[0][".key"] : null;
       const text = this.state.text;
@@ -189,10 +189,6 @@ class Day extends Component {
             "color-bright-4": isWeekend,
             "color-bright-5": isToday,
             "color-bright-6": isEditing,
-            //           [`color-${colorNumber+3}`]: (this.props.aDayIsFocused && this.props.isFocusedDay) || !this.props.aDayIsFocused,
-            //           [`color-${colorNumber+2}`]:  this.props.aDayIsFocused,
-            //           [`color-bright-${colorNumber+4}`]: this.props.isToday && (!this.props.aDayIsFocused || (this.props.aDayIsFocused && this.props.isFocusedDay)),
-            //           [`color-bright-${colorNumber+3}`]: this.props.isToday && !this.props.aDayIsFocused,
           })}
           style={{
             paddingBottom: "0.5rem",
@@ -210,11 +206,8 @@ class Day extends Component {
           "flex vertical day": true,
           "bg-1": !this.props.someday,
           "bg-2 border border-x border-right-0 border-color-1":  this.props.someday,
-          // "bg-bright-2": !isWeekend,
           "color-6": isEditing,
           "color-5": !isEditing,
-          // [`color-${colorNumber+4}`]: !this.props.aDayIsFocused ||  this.props.isFocusedDay,
-          // [`color-${colorNumber+3}`]:  this.props.aDayIsFocused && !this.props.isFocusedDay,
         })}
         style={{
           minWidth: "12rem",
@@ -236,6 +229,7 @@ class Day extends Component {
           onBlur={this.onBlur}
           onChange={this.onChange}
           placeholder={placeholder}
+          readOnly={!this.props.haveConnectedOnce}
         />
 
         {additionalTexts}
