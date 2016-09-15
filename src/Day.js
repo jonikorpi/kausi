@@ -15,6 +15,7 @@ class Day extends Component {
       firebase: [],
       editing: false,
       text: "",
+      lastUpdated: null,
     };
 
     this.bindFirebase = this.bindFirebase.bind(this);
@@ -44,8 +45,12 @@ class Day extends Component {
 
   componentDidUpdate() {
     const newText = this.state.firebase[0] ? this.state.firebase[0].text : null;
+    const newTimestamp = this.state.firebase[0] ? this.state.firebase[0].lastUpdated : 0;
 
-    if (newText && newText !== this.state.text) {
+    if (
+      (newText && newText !== this.state.text)
+      && (!this.state.lastUpdated || newTimestamp > this.state.lastUpdated)
+    ) {
       this.setState({ text: newText });
     }
   }
@@ -67,6 +72,7 @@ class Day extends Component {
       let firebaseRef = firebase.database().ref(this.props.uid);
       let key = this.state.firebase[0] ? this.state.firebase[0][".key"] : null;
       const text = this.state.text;
+      const lastUpdated = this.state.lastUpdated.valueOf();
       const day = this.props.day.valueOf();
 
       if (!key && text) {
@@ -79,6 +85,7 @@ class Day extends Component {
             [key]: {
               date: day,
               text: text,
+              lastUpdated: lastUpdated,
             }
           });
         }
@@ -96,14 +103,15 @@ class Day extends Component {
   }
 
   onBlur() {
-    this.setState({
-      editing: false
-    });
+    this.setState({editing: false});
     this.saveTodo();
   }
 
   onChange(event) {
-    this.setState({text: event.target.value})
+    this.setState({
+      text: event.target.value,
+      lastUpdated: moment(),
+    });
     this.saveTodoHandler();
   }
 
@@ -222,12 +230,11 @@ class Day extends Component {
             "padding-0-75 grow width-100 scrollbar-3": true,
             "padding-top-0": !this.props.someday,
           })}
-          value={text}
+          value={this.state.text}
           onKeyDown={this.onKeyDown}
           onFocus={this.onFocus}
           onBlur={this.onBlur}
           onChange={this.onChange}
-          value={this.state.text}
           placeholder={placeholder}
         />
 
