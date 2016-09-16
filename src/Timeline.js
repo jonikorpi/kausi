@@ -110,7 +110,7 @@ class Timeline extends Component {
   }
 
   render() {
-    let timeline, someday;
+    let timeline, someday, spinner;
 
     if (this.props.haveConnectedOnce) {
       timeline = (
@@ -138,6 +138,13 @@ class Timeline extends Component {
           pageSize={this.somedayLength}
           threshold={window.innerWidth*2}
         />
+      );
+    }
+    else {
+      spinner = (
+        <div className="width-100 flex justify-center align-center enter-zoom">
+          <div className="spin border border-0-125 dashed round height-1-5 width-1-5"></div>
+        </div>
       );
     }
 
@@ -187,6 +194,7 @@ class Timeline extends Component {
             "active-timeline": this.state.activeTimeline === "timeline"
           })}
         >
+          {spinner}
           {timeline}
         </div>
 

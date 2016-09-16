@@ -188,7 +188,7 @@ class App extends Component {
     }
 
     if (!this.state.connected) {
-      const spinner = (<div className="spinner round height-1 width-1"></div>);
+      const spinner = (<div className="spin border border-0-125 dashed round height-1 width-1"></div>);
       const statusText = this.state.haveConnectedOnce ? "OFFLINE: any changes made will not be saved until this message disappears. If you close Kausi any unsaved changes will be lost." : "Connecting…"
 
       status = (
