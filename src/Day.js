@@ -223,7 +223,6 @@ class Day extends Component {
           onBlur={this.onBlur}
           onChange={this.onChange}
           placeholder={placeholder}
-          readOnly={!this.props.haveConnectedOnce}
         />
 
         {additionalTexts}

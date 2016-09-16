@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import firebase from "firebase";
 import shallowCompare from "react-addons-shallow-compare";
 
-import Controls from "./Controls";
 import Timeline from "./Timeline";
 import SignInUp from "./SignInUp";
 import Account from "./Account";
@@ -148,7 +147,7 @@ class App extends Component {
   }
 
   render() {
-    let view;
+    let view, status;
 
     switch (this.state.view) {
       case "signInUp":
@@ -158,6 +157,7 @@ class App extends Component {
             signIn={this.signIn}
             requestPasswordReset={this.requestPasswordReset}
             error={this.state.error}
+            goToToday={this.goToToday}
           />
         );
         break;
@@ -168,6 +168,7 @@ class App extends Component {
             setPassword={this.setPassword}
             error={this.state.error}
             uid={this.state.uid}
+            goToToday={this.goToToday}
           />
         );
         break;
@@ -179,23 +180,33 @@ class App extends Component {
             anonymous={this.state.anonymous}
             uid={this.state.uid}
             haveConnectedOnce={this.state.haveConnectedOnce}
+            goToAccount={this.goToAccount}
+            goToSignInUp={this.goToSignInUp}
           />
         );
         break;
     }
 
+    if (!this.state.connected) {
+      const spinner = (<div className="spinner round height-1 width-1"></div>);
+      const statusText = this.state.haveConnectedOnce ? "OFFLINE: any changes made will not be saved until this message disappears. If you close Kausi any unsaved changes will be lost." : "Connecting…"
+
+      status = (
+        <div className="padding-0-75 padding-x bg-5 color-1 fixed position-bottom enter-from-below">
+          <div className="padding-0-5 padding-y child-margins-x-0-5 flex">
+            {spinner}
+            <p>
+              {statusText}
+            </p>
+          </div>
+        </div>
+      );
+    }
+
     return (
       <div id="connection" className="flex vertical grow">
         {view}
-        <Controls
-          anonymous={this.state.anonymous}
-          connected={this.state.connected}
-          haveConnectedOnce={this.state.haveConnectedOnce}
-          view={this.state.view}
-          goToToday={this.goToToday}
-          goToAccount={this.goToAccount}
-          goToSignInUp={this.goToSignInUp}
-        />
+        {status}
       </div>
     );
   }

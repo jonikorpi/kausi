@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 
 import Form from "./Form";
+import Controls from "./Controls";
 import Button from "./Button";
 import About from "./About";
 
@@ -137,7 +138,11 @@ class SignInUp extends Component {
     return (
       <div className="overflow-auto grow">
         <div className="flex vertical justify-center child-margins-y-1 padding-0-5">
-          <div className="flex justify-center child-margins-x-0-5">
+          <Controls className="wide-max-width margin-auto-x">
+            <Button
+              label="Back"
+              onClick={this.props.goToToday}
+            />
             <Button
               label="Sign up"
               onClick={this.showSignUp}
@@ -153,7 +158,8 @@ class SignInUp extends Component {
               onClick={this.showResetPassword}
               disabled={this.state.view === "resetPassword"}
             />
-          </div>
+          </Controls>
+
           {view}
           {error}
           <About/>

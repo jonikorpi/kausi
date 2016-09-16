@@ -305,25 +305,14 @@ button {
   outline: none;
 }
 
-.button:hover,
-.button:focus {
-  background: #DDE9D2;
-}
-
-.button:active,
-.button[disabled] {
-  cursor: default !important;
-  background: #58C5EA;
-}
-
 .timeline {
-  flex-grow: 2;
+  height: 23.6vh;
   transition: 141ms ease-out;
-  transition-property: height, flex-grow;
+  transition-property: height;
 }
 
 .active-timeline {
-  flex-grow: 13;
+  height: 76.4vh;
 }
 
 ::-webkit-scrollbar {
