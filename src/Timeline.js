@@ -160,7 +160,7 @@ class Timeline extends Component {
     if (this.props.anonymous) {
       accountButton = (
         <Button
-          label="Sign in/up"
+          label="Sign up/in"
           onClick={this.props.goToSignInUp}
         />
       );
@@ -179,10 +179,11 @@ class Timeline extends Component {
     if (this.props.haveConnectedOnce) {
       controls = (
         <Controls
-          className="position-top-right padding-0-75 padding-x padding-left-0"
+          className="absolute padding-0-75 padding-x padding-left-0"
           style={{
-            transform: `translateY(-50%) translateY(${controlsPosition}vh)`,
-            transition: "transform 141ms ease-out",
+            right: 0,
+            transform: `translateY(-50%)`,
+            zIndex: 2,
           }}
         >
           <Button label="Today" onClick={this.scrollToToday.bind(this)}/>
@@ -204,6 +205,10 @@ class Timeline extends Component {
           {timeline}
         </div>
 
+        <div>
+          {controls}
+        </div>
+
         <div
           className={classNames({
             "timeline overflow-auto grow grow-children flex vertical bg-2": true,
@@ -212,8 +217,6 @@ class Timeline extends Component {
         >
           {someday}
         </div>
-
-        {controls}
       </div>
     );
   }
