@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import reactMixin from "react-mixin";
 import ReactFire from "reactfire";
+import firebase from "firebase";
 
 class DataExport extends Component {
   constructor(props) {
@@ -14,21 +15,25 @@ class DataExport extends Component {
   }
 
   componentDidMount() {
-    this.bindFirebase(this.props.firebaseRef);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (
-      nextProps.firebaseRef !== this.props.firebaseRef
-    ) {
-      this.unbind("data");
-      this.bindFirebase(nextProps.firebaseRef);
+    if (this.props.uid) {
+      this.bindFirebase(this.props.uid);
     }
   }
 
-  bindFirebase(firebaseRef, targetDay, weekRange) {
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.uid !== this.props.uid) {
+      if (this.firebaseRefs.firebase) {
+        this.unbind("firebase");
+      }
+      if (nextProps.uid) {
+        this.bindFirebase(nextProps.uid);
+      }
+    }
+  }
+
+  bindFirebase(uid) {
     this.bindAsObject(
-      firebaseRef.orderByChild("date"),
+      firebase.database().ref(uid).orderByChild("date"),
       "data",
       function(error) {
         console.log("Firebase subscription cancelled:")
@@ -47,7 +52,7 @@ class DataExport extends Component {
 
     return (
       <textarea
-        defaultValue={"Fetching your entries…"}
+        placeholder={"Fetching your entries…"}
         value={data}
         readOnly={true}
         className="height-5 width-100 size-0-75 padding-0-5 bg-2"

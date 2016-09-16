@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 
 import Form from "./Form";
+import Controls from "./Controls";
 import Button from "./Button";
 import DataExport from "./DataExport";
 import About from "./About";
@@ -64,9 +65,7 @@ class Account extends Component {
         break;
       case "exportData":
         view = (
-          <DataExport
-            firebaseRef={this.props.firebaseRef}
-          />
+          <DataExport uid={this.props.uid}/>
         );
         break;
       default:
@@ -97,27 +96,30 @@ class Account extends Component {
     return (
       <div className="overflow-auto grow">
         <div className="flex vertical justify-center child-margins-y-1 padding-0-5">
-          <div className="flex justify-center">
+          <Controls className="wide-max-width margin-auto-x">
+            <Button
+              label="Back"
+              onClick={this.props.goToToday}
+            />
             <Button
               label="Password"
               onClick={this.showChangePassword}
-              className="rounded"
               disabled={this.state.view === "changePassword"}
             />
             <Button
               label="Export data"
               onClick={this.showExportData}
-              className="rounded"
               disabled={this.state.view === "exportData"}
             />
             <Button
               label="Sign out"
               onClick={this.props.signOut}
-              className="rounded"
             />
-          </div>
+          </Controls>
+
           {view}
           {error}
+
           <About/>
         </div>
       </div>

@@ -11,6 +11,7 @@ class Day extends Component {
     this.state = {
       editing: false,
       text: "",
+      lastUpdated: null,
     };
 
     this.saveTodo = this.saveTodo.bind(this);
@@ -29,32 +30,39 @@ class Day extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.text !== this.state.text) {
+    const newText = nextProps.text;
+    const newTimestamp = nextProps.lastUpdated;
+
+    if (
+         (newText && newText !== this.state.text)
+      && (!this.state.lastUpdated || newTimestamp > this.state.lastUpdated)
+    ) {
       this.setState({
-        text: nextProps.text
+        text: newText,
+        lastUpdated: newTimestamp,
       });
     }
   }
 
   saveTodo() {
-    this.props.saveTodo(this.props.firebaseKey, this.props.day.valueOf(), this.state.text);
+    this.props.saveTodo(this.state.text, this.state.lastUpdated.valueOf(), this.props.day.valueOf());
   }
 
   onFocus() {
     this.setState({editing: true});
-    this.props.focusDay(this.props.day, this.textarea);
+    this.props.setActiveTimeline(this.props.index);
   }
 
   onBlur() {
-    this.setState({
-      editing: false
-    });
-    this.props.unfocusDay();
+    this.setState({editing: false});
     this.saveTodo();
   }
 
   onChange(event) {
-    this.setState({text: event.target.value})
+    this.setState({
+      text: event.target.value,
+      lastUpdated: moment(),
+    });
     this.saveTodoHandler();
   }
 
@@ -65,123 +73,117 @@ class Day extends Component {
   }
 
   render() {
-    const colorNumber = this.props.isInFocusedWeek ? 2 : 1;
+    const isToday = this.props.day.isSame(moment().startOf("day"));
+    const isWeekend = !this.props.someday && (this.props.day.day() === 0 || this.props.day.day() === 6);
+    const isEditing = this.state.editing;
 
-    const dayClasses = classNames({
-      "day flex vertical padding-0-5 padding-top min-day-width child-margins-y-0-25": true,
-      "border-color-2 border border-y border-bottom-0": !this.props.isFirstWeek,
-      "bg-2": this.props.isInFocusedWeek,
-      [`color-${colorNumber+4}`]: !this.props.aDayIsFocused ||  this.props.isFocusedDay,
-      [`color-${colorNumber+3}`]:  this.props.aDayIsFocused && !this.props.isFocusedDay,
-    });
-
-    let dayLabel, monthLabel;
-    const todayLabel = this.props.isToday? ", Today" : false
-
-    if (this.props.someday) {
-      dayLabel = `Someday ${this.props.day.format("D")}`;
-    }
-    else {
-      dayLabel = this.props.day.format("ddd DD");
-
-      if (
-          (
-            this.props.weekNumber === 1 &&
-            this.props.day.isSame(moment(this.props.day).startOf("isoweek"))
-          ) ||
-          this.props.day.isSame(moment(this.props.day).startOf("month"))
-      ) {
-        monthLabel = `, ${this.props.day.format("MMM YYYY")}`;
-      }
-    }
-
+    // Placeholder
     let placeholder;
-    if (this.props.anonymous && this.props.targetIsToday) {
-      if (this.props.someday && +this.props.day.format("D") === 1) {
-        placeholder = "This row is not tied to any week and will always stay put. Useful for stuff like grocery lists and grandiose plans.";
+
+    if (this.props.anonymous) {
+      if ( this.props.someday && this.props.day.isSame(moment(0)) ) {
+        placeholder = "You can also type here. Useful for stuff like grocery lists and grandiose plans.";
       }
-      // else if (this.props.weekNumber === 1 && +this.props.day.format("d") === 1) {
-      //   placeholder = "This row is always last week."
-      // }
-      else if (this.props.weekNumber === 1) {
-        if (+this.props.day.format("d") === 1) {
-          placeholder = "This row is always the current week."
-        }
-        else if (+this.props.day.format("d") === 2) {
-          placeholder = "Try typing something here. Text is auto-saved as you type.";
-        }
-        else if (+this.props.day.format("d") === 3) {
-          placeholder = "You are currently using a temporary account. Your entries are saved in this browser only.";
-        }
-        else if (+this.props.day.format("d") === 4) {
-          placeholder = "To access your entries in other browsers or devices, SIGN UP from the top menu. \n\nSigning up will also make these messages go away.";
-        }
-        else if (+this.props.day.format("d") === 5) {
-          placeholder = "Protips:\n\nWhen using this app for todos I find it handy to mark completed tasks with an x. Like this ->\n\nTo move todos from one day to another, just cut and paste.";
-        }
-        else if (+this.props.day.format("d") === 6) {
-          placeholder = "x 9:00 Dentist\n12:00 Lunch\n18:00 Play video games";
-        }
-      }
-      else if (this.props.weekNumber === 2) {
-        if (+this.props.day.format("d") === 1) {
-          placeholder = "This row is always next week."
-        }
-        else if (+this.props.day.format("d") === 2) {
-          placeholder = "To access weeks further in the future or in the past, ZOOM OUT from the top menu.";
-        }
+      else if (isToday) {
+        placeholder = "Try typing something here. Text is auto-saved as you type.\n\nYou are currently using a temporary account. Your entries are saved in this browser only.\n\nTo access your entries in other browsers or devices, SIGN UP from the top menu.\n\nSigning up will also make these messages go away.";
       }
     }
 
+    // Additional entries
     let additionalTexts;
-    if (this.props.additionalTexts.length > 0) {
+
+    if (this.props.textCount > 1) {
       let pluralConflictingEntries = `is a conflicting entry`;
       let next;
 
-      if (this.props.additionalTexts.length > 1) {
+      if (this.props.textCount > 2) {
         pluralConflictingEntries = `are ${this.props.additionalTexts.length} conflicting entries`;
         next = "next ";
       }
 
       additionalTexts = (
-        <div className="color-bright-5 size-0-75 padding-0-5 padding-top-0">
+        <div className="color-bright-6 size-0-75 padding-0-75 padding-top-0 margin-0-5 margin-y margin-bottom-0">
           Problem: there {pluralConflictingEntries} for this day. If you remove this &uarr; entry, the {next}conflicting entry will appear and you can decide what to do with it. This sometimes happens with an unstable connection. Sorry for the hassle. :&#65279;(
         </div>
       );
     }
 
-    return (
-      <div className={dayClasses}>
+    // Date label
+    let label, dayLabel, monthLabel;
+
+    if (!this.props.someday) {
+      dayLabel = this.props.day.format("ddd DD");
+      const todayLabel = isToday ? ", Today" : false
+
+      if (
+             this.props.day.isSame(moment(this.props.day).startOf("isoweek"))
+          || this.props.day.isSame(moment(this.props.day).startOf("month"))
+      ) {
+        monthLabel = `, ${this.props.day.format("MMM YYYY")}`;
+      }
+
+      label = (
         <label
-          htmlFor={this.props.day.valueOf()}
           className={classNames({
-            "all-caps padding-0-5 padding-top-0 padding-bottom-0": true,
-            [`color-${colorNumber+3}`]: (this.props.aDayIsFocused && this.props.isFocusedDay) || !this.props.aDayIsFocused,
-            [`color-${colorNumber+2}`]:  this.props.aDayIsFocused,
-            [`color-bright-${colorNumber+4}`]: this.props.isToday && (!this.props.aDayIsFocused || (this.props.aDayIsFocused && this.props.isFocusedDay)),
-            [`color-bright-${colorNumber+3}`]: this.props.isToday && !this.props.aDayIsFocused,
+            "all-caps padding-0-75 padding-x color-4": true,
+            "color-bright-4": isWeekend,
+            "color-bright-5": isToday,
+            "color-bright-6": isEditing,
           })}
+          style={{
+            paddingTop: "0.5rem",
+          }}
+          htmlFor={this.props.day.valueOf()}
         >
           {dayLabel}{monthLabel}{todayLabel}
         </label>
+      );
+    }
 
-        <textarea
-          id={this.props.day.valueOf()}
-          ref={(c) => this.textarea = c}
-          className={classNames({
-            "padding-0-5 padding-top-0 margin-bottom margin-0-25 grow width-100": true,
-          })}
-          onFocus={this.onFocus}
-          onBlur={this.onBlur}
-          onChange={this.onChange}
-          value={this.state.text}
-          onKeyDown={this.onKeyDown}
-          readOnly={!this.props.haveConnectedOnce}
-          placeholder={placeholder}
-          autoFocus={this.props.isToday}
-        />
+    return (
+      <div
+        className={classNames({
+          "flex": true,
+          "bg-1": !this.props.someday,
+          "bg-2 border border-x border-right-0 border-color-1": this.props.someday,
+          "color-5": !isEditing,
+          "color-6": isEditing,
+        })}
+        style={{
+          minWidth: "11rem",
+          width: "11rem",
+        }}
+      >
+        <div className={classNames({
+          "flex grow vertical": true,
+          "border border-y border-bottom-0 border-0-25": true,
+          "border-color-1": !this.props.someday,
+          "border-color-2":  this.props.someday,
+          "border-color-bright-4": isWeekend,
+          "border-color-bright-5": isToday,
+          "border-color-bright-6": isEditing,
+        })}>
+          {label}
 
-        {additionalTexts}
+          <textarea
+            id={this.props.day.valueOf()}
+            ref={(c) => this.textarea = c}
+            className={classNames({
+              "padding-0-75 padding-x grow width-100 scrollbar-3": true,
+            })}
+            style={{
+              paddingTop: "0.5rem",
+            }}
+            value={this.state.text}
+            onKeyDown={this.onKeyDown}
+            onFocus={this.onFocus}
+            onBlur={this.onBlur}
+            onChange={this.onChange}
+            placeholder={placeholder}
+          />
+
+          {additionalTexts}
+        </div>
       </div>
     );
   }
