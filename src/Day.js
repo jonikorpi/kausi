@@ -45,7 +45,9 @@ class Day extends Component {
   }
 
   saveTodo() {
-    this.props.saveTodo(this.state.text, this.state.lastUpdated.valueOf(), this.props.day.valueOf());
+    if (this.state.lastUpdated) {
+      this.props.saveTodo(this.state.text, this.state.lastUpdated.valueOf(), this.props.day.valueOf());
+    }
   }
 
   onFocus() {
