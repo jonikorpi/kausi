@@ -2,22 +2,18 @@ import React, { Component } from "react";
 import moment from "moment";
 import classNames from "classnames";
 import debounce from "lodash.debounce";
-import firebase from "firebase";
-import reactMixin from "react-mixin";
-import ReactFire from "reactfire";
+import shallowCompare from "react-addons-shallow-compare";
 
 class Day extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      firebase: [],
       editing: false,
       text: "",
       lastUpdated: null,
     };
 
-    this.bindFirebase = this.bindFirebase.bind(this);
     this.saveTodo = this.saveTodo.bind(this);
     this.onFocus = this.onFocus.bind(this);
     this.onBlur = this.onBlur.bind(this);
@@ -29,76 +25,27 @@ class Day extends Component {
     }, 500);
   }
 
-  componentDidMount() {
-    if (this.props.uid) {
-      this.bindFirebase(this.props.uid);
-    }
+  shouldComponentUpdate(nextProps, nextState) {
+    return shallowCompare(this, nextProps, nextState);
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.uid !== this.props.uid) {
-      if (this.firebaseRefs.firebase) {
-        this.unbind("firebase");
-      }
-      if (nextProps.uid) {
-        this.bindFirebase(nextProps.uid);
-      }
-    }
-  }
-
-  componentDidUpdate() {
-    const newText = this.state.firebase[0] ? this.state.firebase[0].text : null;
-    const newTimestamp = this.state.firebase[0] ? this.state.firebase[0].lastUpdated : 0;
+    const newText = nextProps.text;
+    const newTimestamp = nextProps.lastUpdated;
 
     if (
-      (newText && newText !== this.state.text)
+         (newText && newText !== this.state.text)
       && (!this.state.lastUpdated || newTimestamp > this.state.lastUpdated)
     ) {
-      this.setState({ text: newText });
+      this.setState({
+        text: newText,
+        lastUpdated: newTimestamp,
+      });
     }
-  }
-
-  bindFirebase(uid) {
-    this.bindAsArray(
-      firebase.database().ref(uid).orderByChild("date").equalTo(this.props.day.valueOf()),
-      "firebase",
-      function(error) {
-        console.log("Firebase subscription cancelled:")
-        console.log(error);
-        this.setState({firebase: {}})
-      }.bind(this)
-    );
   }
 
   saveTodo() {
-    if (this.props.uid && this.state.lastUpdated) {
-      let firebaseRef = firebase.database().ref(this.props.uid);
-      let key = this.state.firebase[0] ? this.state.firebase[0][".key"] : null;
-      const text = this.state.text;
-      const lastUpdated = this.state.lastUpdated.valueOf();
-      const day = this.props.day.valueOf();
-
-      if (!key && text) {
-        key = firebaseRef.push().key;
-      }
-
-      if (key) {
-        if (text) {
-          firebaseRef.update({
-            [key]: {
-              date: day,
-              text: text,
-              lastUpdated: lastUpdated,
-            }
-          });
-        }
-        else {
-          firebaseRef.update({
-            [key]: null
-          });
-        }
-      }
-    }
+    this.props.saveTodo(this.state.text, this.state.lastUpdated.valueOf(), this.props.day.valueOf());
   }
 
   onFocus() {
@@ -145,11 +92,11 @@ class Day extends Component {
     // Additional entries
     let additionalTexts;
 
-    if (this.state.firebase.length > 1) {
+    if (this.props.textCount > 1) {
       let pluralConflictingEntries = `is a conflicting entry`;
       let next;
 
-      if (this.state.firebase.length > 2) {
+      if (this.props.textCount > 2) {
         pluralConflictingEntries = `are ${this.props.additionalTexts.length} conflicting entries`;
         next = "next ";
       }
@@ -231,5 +178,4 @@ class Day extends Component {
   }
 }
 
-reactMixin(Day.prototype, ReactFire);
 export default Day;

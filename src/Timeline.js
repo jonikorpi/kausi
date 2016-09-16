@@ -7,7 +7,7 @@ import debounce from "lodash.debounce";
 
 import Controls from "./Controls";
 import Button from "./Button";
-import Day from "./Day";
+import DayContainer from "./DayContainer";
 
 class Timeline extends Component {
   constructor(props) {
@@ -37,7 +37,7 @@ class Timeline extends Component {
   }
 
   componentWillUnmount() {
-    window.removeEventListener("resize");
+    window.removeEventListener("resize", this.handleResizeHandler.bind(this));
   }
 
   handleResize(timelineIndex, somedayIndex) {
@@ -71,7 +71,7 @@ class Timeline extends Component {
     }
 
     return (
-      <Day
+      <DayContainer
         key={index}
         index={index}
         day={day}
@@ -86,7 +86,7 @@ class Timeline extends Component {
     let day = moment(0).add(index, "days");
 
     return (
-      <Day
+      <DayContainer
         key={index}
         index={index}
         day={day}
