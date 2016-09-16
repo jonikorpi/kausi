@@ -25,7 +25,7 @@ class DataExport extends Component {
       if (this.firebaseRefs.firebase) {
         this.unbind("firebase");
       }
-      if nextProps.uid) {
+      if (nextProps.uid) {
         this.bindFirebase(nextProps.uid);
       }
     }
