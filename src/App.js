@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import firebase from "firebase";
+import shallowCompare from "react-addons-shallow-compare";
 
 import Controls from "./Controls";
 import Timeline from "./Timeline";
@@ -11,10 +12,8 @@ class App extends Component {
     super(props);
 
     this.state = {
-      user: {
-        uid: null,
-        anonymous: null,
-      },
+      uid: null,
+      anonymous: null,
       view: "timeline",
       connected: false,
       haveConnectedOnce: false,
@@ -31,22 +30,22 @@ class App extends Component {
     this.goToAccount = this.goToAccount.bind(this);
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    return shallowCompare(this, nextProps, nextState);
+  }
+
   componentDidMount() {
     firebase.auth().onAuthStateChanged(function(user) {
       if (user) {
         this.setState({
-          user: {
-            uid: user.uid,
-            anonymous: user.isAnonymous,
-          },
+          uid: user.uid,
+          anonymous: user.isAnonymous,
         });
       }
       else {
         this.setState({
-          user: {
-            uid: null,
-            anonymous: null,
-          }
+          uid: null,
+          anonymous: null,
         });
 
         firebase.auth().signInAnonymously().catch(function(error) {
@@ -71,10 +70,8 @@ class App extends Component {
   signOut() {
     firebase.auth().signOut().then(function(){
       this.setState({
-        user: {
-          uid: null,
-          anonymous: null,
-        },
+        uid: null,
+        anonymous: null,
       });
       this.goToToday();
     }.bind(this)).catch(function(error) {
@@ -88,12 +85,10 @@ class App extends Component {
       const credential = firebase.auth.EmailAuthProvider.credential(email, password);
       firebase.auth().currentUser.link(credential).then(function(user) {
         this.setState({
-          user: {
-            uid: user.uid,
-            anonymous: false,
-          },
-          view: "timeline"
+          uid: user.uid,
+          anonymous: false,
         });
+        this.goToToday();
       }.bind(this), function(error) {
         console.log("Error upgrading anonymous account", error);
         this.setState({error: error.message})
@@ -172,7 +167,7 @@ class App extends Component {
             signOut={this.signOut}
             setPassword={this.setPassword}
             error={this.state.error}
-            uid={this.state.user.uid}
+            uid={this.state.uid}
           />
         );
         break;
@@ -181,8 +176,8 @@ class App extends Component {
         view = (
           <Timeline
             connected={this.state.connected}
-            anonymous={this.state.user.anonymous}
-            uid={this.state.user.uid}
+            anonymous={this.state.anonymous}
+            uid={this.state.uid}
             haveConnectedOnce={this.state.haveConnectedOnce}
           />
         );
@@ -193,7 +188,7 @@ class App extends Component {
       <div id="connection" className="flex vertical grow">
         {view}
         <Controls
-          anonymous={this.state.user.anonymous}
+          anonymous={this.state.anonymous}
           connected={this.state.connected}
           haveConnectedOnce={this.state.haveConnectedOnce}
           view={this.state.view}

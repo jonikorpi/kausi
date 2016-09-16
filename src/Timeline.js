@@ -14,7 +14,8 @@ class Timeline extends Component {
     this.somedayLength = 10;
 
     this.state = {
-      visibleRange: [0, 0]
+      visibleRange: [0, 0],
+      activeTimeline: "timeline",
     };
   }
 
@@ -24,6 +25,14 @@ class Timeline extends Component {
 
   onScroll() {
     this.setState({visibleRange: this.timeline.getVisibleRange()});
+  }
+
+  setTimelineAsActive() {
+    this.setState({activeTimeline: "timeline"});
+  }
+
+  setSomedayAsActive() {
+    this.setState({activeTimeline: "someday"});
   }
 
   timelineDayRenderer(index, key) {
@@ -45,6 +54,7 @@ class Timeline extends Component {
         uid={this.props.uid}
         anonymous={this.props.anonymous}
         haveConnectedOnce={this.props.haveConnectedOnce}
+        setActiveTimeline={this.setTimelineAsActive.bind(this)}
       />
     );
   }
@@ -60,6 +70,7 @@ class Timeline extends Component {
         uid={this.props.uid}
         anonymous={this.props.anonymous}
         haveConnectedOnce={this.props.haveConnectedOnce}
+        setActiveTimeline={this.setSomedayAsActive.bind(this)}
         someday={true}
       />
     );
@@ -81,8 +92,11 @@ class Timeline extends Component {
       <div className="grow flex vertical">
 
         <div
-          className="timeline overflow-auto grow grow-children flex vertical"
-          onScroll={this.onScroll.bind(this)}
+          className={classNames({
+            "timeline overflow-auto grow grow-children flex vertical": true,
+            "active-timeline": this.state.activeTimeline === "timeline"
+          })}
+          // onScroll={this.onScroll.bind(this)}
         >
           <ReactList
             ref={c => this.timeline = c}
@@ -98,7 +112,10 @@ class Timeline extends Component {
         </div>
 
         <div
-          className="timeline overflow-auto grow grow-children flex vertical bg-2"
+          className={classNames({
+            "timeline overflow-auto grow grow-children flex vertical bg-2": true,
+            "active-timeline": this.state.activeTimeline === "someday"
+          })}
         >
           <ReactList
             ref={c => this.someday = c}

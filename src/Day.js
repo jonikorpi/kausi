@@ -104,6 +104,7 @@ class Day extends Component {
 
   onFocus() {
     this.setState({editing: true});
+    this.props.setActiveTimeline();
   }
 
   onBlur() {
@@ -176,11 +177,8 @@ class Day extends Component {
       const todayLabel = isToday ? ", Today" : false
 
       if (
-          (
-            this.props.weekNumber === 1 &&
-            this.props.day.isSame(moment(this.props.day).startOf("isoweek"))
-          ) ||
-          this.props.day.isSame(moment(this.props.day).startOf("month"))
+             this.props.day.isSame(moment(this.props.day).startOf("isoweek"))
+          || this.props.day.isSame(moment(this.props.day).startOf("month"))
       ) {
         monthLabel = `, ${this.props.day.format("MMM YYYY")}`;
       }

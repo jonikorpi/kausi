@@ -318,18 +318,14 @@ button {
   background: #4C3A39;
 }
 
-.week {
-  transition: 91ms cubic-bezier(0.236, 0.000, 0.236, 1.000);
-  transition-property: background-color, height, min-width, width, flex-grow;
-  will-change: flex-grow, height, background-color;
+.timeline {
+  flex-grow: 1;
+  transition: 141ms ease-out;
+  transition-property: height, flex-grow;
 }
 
-.week {
-  flex-grow: 3;
-}
-
-.focused-week {
-  flex-grow: 9;
+.active-timeline {
+  flex-grow: 13;
 }
 
 ::-webkit-scrollbar {
