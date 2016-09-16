@@ -12,7 +12,7 @@ class Controls extends Component {
   render() {
     let status, buttons;
 
-    const spinner = (<div className="spinner round border-bright-6 height-1 width-1"></div>);
+    const spinner = (<div className="spinner round height-1 width-1"></div>);
 
     if (!this.props.connected) {
       if (this.props.haveConnectedOnce) {
@@ -27,7 +27,7 @@ class Controls extends Component {
       }
       else {
         status = (
-          <div className="padding-0-5 color-bright-6 child-margins-x-0-5 flex">
+          <div className="padding-0-5 color-1 bg-5 child-margins-x-0-5 flex">
             {spinner}
             <p>Connecting…</p>
           </div>
@@ -35,39 +35,50 @@ class Controls extends Component {
       }
     }
 
-    if (!status) {
-      let account = (
-        <Button
-          label="Account"
-          onClick={this.props.goToAccount}
-          disabled={this.props.view === "account" || !this.props.haveConnectedOnce}
-        />
-      );
+    if (!status && this.props.haveConnectedOnce) {
+      let timeline, account, today;
 
-      if (this.props.haveConnectedOnce && this.props.anonymous) {
+      if (this.props.view !== "timeline") {
+        timeline = (
+          <Button
+            label="Timeline"
+            onClick={this.props.goToToday}
+          />
+        )
+      }
+
+      if (!this.props.anonymous && this.props.view !== "account") {
+        account = (
+          <Button
+            label="Account"
+            onClick={this.props.goToAccount}
+          />
+        );
+      }
+      else if (this.props.anonymous && this.props.view !== "signInUp") {
         account = (
           <Button
             label="Sign in/up"
             onClick={this.props.goToSignInUp}
-            disabled={this.props.view === "signInUp"}
           />
         );
       }
 
+      if (this.props.view === "timeline") {
+
+      }
+
       buttons = (
-        <div className="flex overflow-auto">
-          <Button
-            label="Today"
-            onClick={this.props.goToToday}
-            disabled={(this.props.view === "week" && this.props.targetIsToday) || !this.props.haveConnectedOnce}
-          />
+        <div className="flex child-margins-x-0-5">
+          {today}
+          {timeline}
           {account}
         </div>
       );
     }
 
     return (
-      <div id="controls" className="bg-3 fixed position-bottom-right">
+      <div id="controls" className="fixed position-bottom-right margin-1 margin-top-0 margin-left-0">
         {status}
         {buttons}
       </div>

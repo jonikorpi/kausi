@@ -107,7 +107,7 @@ class Timeline extends Component {
             type="uniform"
             pageSize={7}
             initialIndex={this.timelineLength / 2}
-            threshold={window.outerWidth}
+            threshold={window.innerWidth*2}
           />
         </div>
 
@@ -125,6 +125,7 @@ class Timeline extends Component {
             length={this.somedayLength}
             type="uniform"
             pageSize={this.somedayLength}
+            threshold={window.innerWidth*2}
           />
         </div>
 

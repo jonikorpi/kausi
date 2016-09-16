@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import moment from "moment";
 import classNames from "classnames";
 import debounce from "lodash.debounce";
-import shallowCompare from "react-addons-shallow-compare";
 import firebase from "firebase";
 import reactMixin from "react-mixin";
 import ReactFire from "reactfire";
@@ -130,13 +129,6 @@ class Day extends Component {
     const isToday = this.props.day.isSame(moment().startOf("day"));
     const isWeekend = !this.props.someday && (this.props.day.day() === 0 || this.props.day.day() === 6);
     const isEditing = this.state.editing;
-
-    // Text value
-    let text;
-
-    if (this.state.firebase[0] && this.state.firebase[0].text) {
-      text = this.state.firebase[0].text;
-    }
 
     // Placeholder
     let placeholder;
