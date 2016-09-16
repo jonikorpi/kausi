@@ -103,7 +103,7 @@ class Day extends Component {
 
   onFocus() {
     this.setState({editing: true});
-    this.props.setActiveTimeline();
+    this.props.setActiveTimeline(this.props.index);
   }
 
   onBlur() {

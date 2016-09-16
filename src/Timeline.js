@@ -3,6 +3,7 @@ import moment from "moment";
 import classNames from "classnames";
 import shallowCompare from "react-addons-shallow-compare";
 import ReactList from 'react-list';
+import debounce from "lodash.debounce";
 
 import Controls from "./Controls";
 import Button from "./Button";
@@ -12,29 +13,50 @@ class Timeline extends Component {
   constructor(props) {
     super(props);
 
-    this.timelineLength = 4096;
+    const timelineLength = 4096;
+    this.timelineLength = timelineLength;
     this.somedayLength = 10;
 
     this.state = {
-      visibleRange: [0, 0],
+      lastActiveTimelineIndex: timelineLength / 2,
+      lastActiveSomedayIndex: 0,
       activeTimeline: "timeline",
     };
+
+    this.handleResizeHandler = debounce(function () {
+      this.handleResize(this.state.lastActiveTimelineIndex, this.state.lastActiveSomedayIndex)
+    }, 100);
   }
 
   shouldComponentUpdate(nextProps, nextState) {
     return shallowCompare(this, nextProps, nextState);
   }
 
-  onScroll() {
-    this.setState({visibleRange: this.timeline.getVisibleRange()});
+  componentDidMount() {
+    window.addEventListener("resize", this.handleResizeHandler.bind(this));
   }
 
-  setTimelineAsActive() {
-    this.setState({activeTimeline: "timeline"});
+  componentWillUnmount() {
+    window.removeEventListener("resize");
   }
 
-  setSomedayAsActive() {
-    this.setState({activeTimeline: "someday"});
+  handleResize(timelineIndex, somedayIndex) {
+    this.timeline.scrollTo(timelineIndex);
+    this.someday.scrollTo(somedayIndex);
+  }
+
+  setTimelineAsActive(index) {
+    this.setState({
+      activeTimeline: "timeline",
+      lastActiveTimelineIndex: index,
+    });
+  }
+
+  setSomedayAsActive(index) {
+    this.setState({
+      activeTimeline: "someday",
+      lastActiveSomedayIndex: index,
+    });
   }
 
   timelineDayRenderer(index, key) {
@@ -164,7 +186,6 @@ class Timeline extends Component {
             "timeline relative overflow-auto grow grow-children flex vertical": true,
             "active-timeline": this.state.activeTimeline === "timeline"
           })}
-          // onScroll={this.onScroll.bind(this)}
         >
           {timeline}
         </div>
