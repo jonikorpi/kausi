@@ -64,9 +64,7 @@ class Account extends Component {
         break;
       case "exportData":
         view = (
-          <DataExport
-            firebaseRef={this.props.firebaseRef}
-          />
+          <DataExport uid={this.props.uid}/>
         );
         break;
       default:

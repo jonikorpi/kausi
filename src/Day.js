@@ -38,8 +38,12 @@ class Day extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.uid !== this.props.uid) {
-      this.unbind("firebase");
-      this.bindFirebase(nextProps.uid);
+      if (this.firebaseRefs.firebase) {
+        this.unbind("firebase");
+      }
+      if (this.props.uid) {
+        this.bindFirebase(nextProps.uid);
+      }
     }
   }
 
@@ -138,7 +142,7 @@ class Day extends Component {
 
     if (this.props.anonymous) {
       if ( this.props.someday && this.props.day.isSame(moment(0)) ) {
-        placeholder = "You can also type here. This row is not tied to any week. Useful for stuff like grocery lists and grandiose plans.";
+        placeholder = "You can also type here. Useful for stuff like grocery lists and grandiose plans.";
       }
       else if (isToday) {
         placeholder = "Try typing something here. Text is auto-saved as you type.\n\nYou are currently using a temporary account. Your entries are saved in this browser only.\n\nTo access your entries in other browsers or devices, SIGN UP from the top menu.\n\nSigning up will also make these messages go away.";
