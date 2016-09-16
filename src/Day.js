@@ -125,14 +125,13 @@ class Day extends Component {
       label = (
         <label
           className={classNames({
-            "all-caps padding-0-75 padding-bottom-0": true,
-            "color-4": !isToday,
+            "all-caps padding-0-75 padding-x color-4": true,
             "color-bright-4": isWeekend,
             "color-bright-5": isToday,
             "color-bright-6": isEditing,
           })}
           style={{
-            paddingBottom: "0.5rem",
+            paddingTop: "0.5rem",
           }}
           htmlFor={this.props.day.valueOf()}
         >
@@ -144,35 +143,47 @@ class Day extends Component {
     return (
       <div
         className={classNames({
-          "flex vertical day": true,
+          "flex": true,
           "bg-1": !this.props.someday,
-          "bg-2 border border-x border-right-0 border-color-1":  this.props.someday,
-          "color-6": isEditing,
+          "bg-2 border border-x border-right-0 border-color-1": this.props.someday,
           "color-5": !isEditing,
+          "color-6": isEditing,
         })}
         style={{
           minWidth: "11rem",
           width: "11rem",
         }}
       >
-        {label}
+        <div className={classNames({
+          "flex grow vertical": true,
+          "border border-y border-bottom-0 border-0-25": true,
+          "border-color-1": !this.props.someday,
+          "border-color-2":  this.props.someday,
+          "border-color-bright-4": isWeekend,
+          "border-color-bright-5": isToday,
+          "border-color-bright-6": isEditing,
+        })}>
+          {label}
 
-        <textarea
-          id={this.props.day.valueOf()}
-          ref={(c) => this.textarea = c}
-          className={classNames({
-            "padding-0-75 grow width-100 scrollbar-3": true,
-            "padding-top-0": !this.props.someday,
-          })}
-          value={this.state.text}
-          onKeyDown={this.onKeyDown}
-          onFocus={this.onFocus}
-          onBlur={this.onBlur}
-          onChange={this.onChange}
-          placeholder={placeholder}
-        />
+          <textarea
+            id={this.props.day.valueOf()}
+            ref={(c) => this.textarea = c}
+            className={classNames({
+              "padding-0-75 padding-x grow width-100 scrollbar-3": true,
+            })}
+            style={{
+              paddingTop: "0.5rem",
+            }}
+            value={this.state.text}
+            onKeyDown={this.onKeyDown}
+            onFocus={this.onFocus}
+            onBlur={this.onBlur}
+            onChange={this.onChange}
+            placeholder={placeholder}
+          />
 
-        {additionalTexts}
+          {additionalTexts}
+        </div>
       </div>
     );
   }
