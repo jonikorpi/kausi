@@ -40,7 +40,7 @@ class Button extends Component {
       <button
         type={this.props.type || "button"}
         className={classNames({
-          "button size-0-75 color-1 border border-color-2 rounded-0-25 all-caps padding-0-25 enter-zoom text-align-center nowrap": true,
+          "button size-0-75 color-1 border border-color-1 rounded-0-25 all-caps padding-0-25 enter-zoom text-align-center nowrap": true,
           [this.props.className]: this.props.className,
           "bg-5": !this.state.isFocused,
           "bg-6":  this.state.isFocused,
