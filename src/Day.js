@@ -151,8 +151,8 @@ class Day extends Component {
           "color-5": !isEditing,
         })}
         style={{
-          minWidth: "12rem",
-          width: "12rem",
+          minWidth: "11rem",
+          width: "11rem",
         }}
       >
         {label}

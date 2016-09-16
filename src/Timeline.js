@@ -45,6 +45,11 @@ class Timeline extends Component {
     this.someday.scrollTo(somedayIndex);
   }
 
+  scrollToToday(timelineIndex, somedayIndex) {
+    this.timeline.scrollTo(this.timelineLength / 2);
+    this.setTimelineAsActive(this.timelineLength / 2);
+  }
+
   setTimelineAsActive(index) {
     this.setState({
       activeTimeline: "timeline",
@@ -180,6 +185,7 @@ class Timeline extends Component {
             transition: "transform 141ms ease-out",
           }}
         >
+          <Button label="Today" onClick={this.scrollToToday.bind(this)}/>
           {accountButton}
         </Controls>
       );
