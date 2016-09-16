@@ -40,7 +40,7 @@ class Day extends Component {
       if (this.firebaseRefs.firebase) {
         this.unbind("firebase");
       }
-      if (this.props.uid) {
+      if (nextProps.uid) {
         this.bindFirebase(nextProps.uid);
       }
     }
