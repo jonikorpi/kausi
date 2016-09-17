@@ -47,10 +47,9 @@ class DayContainer extends Component {
   }
 
   saveTodo(text, lastUpdated, day) {
-    if (this.props.uid && lastUpdated) {
+    if (this.props.uid && lastUpdated && day) {
       let firebaseRef = firebase.database().ref(this.props.uid);
       let key = this.state.firebase[0] ? this.state.firebase[0][".key"] : null;
-      const day = this.props.day.valueOf();
 
       if (!key && text) {
         key = firebaseRef.push().key;
