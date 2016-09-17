@@ -239,7 +239,6 @@ class Timeline extends Component {
             zIndex: 2,
             opacity: this.state.haveScrolledRecently ? 1 : 0,
             transition: "opacity 414ms ease-out",
-            transitionDelay: this.state.haveScrolledRecently ? "1000ms" : "0ms",
             textShadow: `
               -0.0625rem -0.0625rem 0 #251916,
                0.0625rem  0.0625rem 0 #251916,
