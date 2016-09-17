@@ -19,13 +19,23 @@ class Timeline extends Component {
 
     this.state = {
       lastActiveTimelineIndex: timelineLength / 2,
+      firstVisibleIndex: timelineLength / 2,
       lastActiveSomedayIndex: 0,
       activeTimeline: "timeline",
+      haveScrolledRecently: false,
+      recentScrollDirection: "left",
     };
 
-    this.handleResizeHandler = debounce(function () {
-      this.handleResize(this.state.lastActiveTimelineIndex, this.state.lastActiveSomedayIndex)
+    this.getDayFromIndex = this.getDayFromIndex.bind(this);
+    this.removeRecentScroll = this.removeRecentScroll.bind(this);
+
+    this.onResizeHandler = debounce(function () {
+      this.onResize(this.state.lastActiveTimelineIndex, this.state.lastActiveSomedayIndex)
     }, 100);
+
+    this.removeRecentScrollHandler = debounce(function () {
+      this.removeRecentScroll()
+    }, 500);
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -33,16 +43,37 @@ class Timeline extends Component {
   }
 
   componentDidMount() {
-    window.addEventListener("resize", this.handleResizeHandler.bind(this));
+    window.addEventListener("resize", this.onResizeHandler.bind(this));
   }
 
   componentWillUnmount() {
-    window.removeEventListener("resize", this.handleResizeHandler.bind(this));
+    window.removeEventListener("resize", this.onResizeHandler.bind(this));
   }
 
-  handleResize(timelineIndex, somedayIndex) {
+  onResize(timelineIndex, somedayIndex) {
     this.timeline.scrollTo(timelineIndex);
     this.someday.scrollTo(somedayIndex);
+  }
+
+  removeRecentScroll() {
+    this.setState({haveScrolledRecently: false});
+  }
+
+  onScroll() {
+    const firstVisibleIndex = this.timeline.getVisibleRange()[0];
+    const lastVisibleIndex = this.timeline.getVisibleRange()[1];
+    const recentScrollDirection = firstVisibleIndex >= this.state.firstVisibleIndex ? "right" : "left";
+
+    if (firstVisibleIndex && firstVisibleIndex !== this.state.firstVisibleIndex) {
+      this.setState({
+        firstVisibleIndex: firstVisibleIndex,
+        lastVisibleIndex: lastVisibleIndex,
+        haveScrolledRecently: true,
+        recentScrollDirection: recentScrollDirection,
+      });
+    }
+
+    this.removeRecentScrollHandler();
   }
 
   scrollToToday(timelineIndex, somedayIndex) {
@@ -64,7 +95,7 @@ class Timeline extends Component {
     });
   }
 
-  timelineDayRenderer(index, key) {
+  getDayFromIndex(index) {
     const todayIndex = Math.round((this.timelineLength / 2));
     let day = moment().startOf("day");
 
@@ -74,6 +105,12 @@ class Timeline extends Component {
     else if (index > todayIndex) {
       day.add(index - todayIndex, "days");
     }
+
+    return day;
+  }
+
+  timelineDayRenderer(index, key) {
+    const day = this.getDayFromIndex(index);
 
     return (
       <DayContainer
@@ -153,8 +190,6 @@ class Timeline extends Component {
       );
     }
 
-    const controlsPosition = this.state.activeTimeline === "timeline" ? 76.4 : 23.6;
-
     let accountButton;
 
     if (this.props.anonymous) {
@@ -174,7 +209,7 @@ class Timeline extends Component {
       );
     }
 
-    let controls;
+    let controls, dateSticker;
 
     if (this.props.haveConnectedOnce) {
       controls = (
@@ -190,6 +225,32 @@ class Timeline extends Component {
           {accountButton}
         </Controls>
       );
+
+      const visibleIndexToShow = this.state.recentScrollDirection === "left" ? this.state.firstVisibleIndex : this.state.lastVisibleIndex;
+
+      dateSticker = (
+        <div
+          className={classNames({
+            "all-caps size-1 padding-0-75 font-mono color-bright-6 enter-zoom no-events": true,
+            "position-top-left": this.state.recentScrollDirection === "left",
+            "position-top-right": this.state.recentScrollDirection === "right",
+          })}
+          style={{
+            zIndex: 2,
+            opacity: this.state.haveScrolledRecently ? 1 : 0,
+            transition: "opacity 414ms ease-out",
+            transitionDelay: this.state.haveScrolledRecently ? "1000ms" : "0ms",
+            textShadow: `
+              -0.0625rem -0.0625rem 0 #251916,
+               0.0625rem  0.0625rem 0 #251916,
+              -0.0625rem  0.0625rem 0 #251916,
+               0.0625rem -0.0625rem 0 #251916
+            `,
+          }}
+        >
+          {this.getDayFromIndex(visibleIndexToShow).format("DD MMM YYYY")}
+        </div>
+      );
     }
 
     return (
@@ -200,12 +261,14 @@ class Timeline extends Component {
             "timeline relative overflow-auto grow grow-children flex vertical": true,
             "active-timeline": this.state.activeTimeline === "timeline"
           })}
+          onScroll={this.onScroll.bind(this)}
         >
           {spinner}
           {timeline}
         </div>
 
         <div>
+          {dateSticker}
           {controls}
         </div>
 
