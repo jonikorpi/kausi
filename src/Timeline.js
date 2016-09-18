@@ -201,7 +201,7 @@ class Timeline extends Component {
     }
     else {
       spinner = (
-        <div className="width-100 flex justify-center align-center enter-zoom">
+        <div className="width-100 flex justify-center align-center">
           <div className="spin border border-0-125 dashed round height-1-5 width-1-5"></div>
         </div>
       );
