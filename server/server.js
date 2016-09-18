@@ -31,7 +31,6 @@ app.get('*', (req, res) => {
     dt: "Kausi",
     uip: req.ip,
     geoid: req.countryCode,
-
   }).send();
 });
 
