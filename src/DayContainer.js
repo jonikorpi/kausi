@@ -19,24 +19,24 @@ class DayContainer extends Component {
 
   componentDidMount() {
     if (this.props.uid) {
-      this.bindFirebase(this.props.uid);
+      this.bindFirebase(this.props.uid, this.props.day);
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.uid !== this.props.uid) {
+    if (nextProps.uid !== this.props.uid || nextProps.day.valueOf() !== this.props.day.valueOf()) {
       if (this.firebaseRefs.firebase) {
         this.unbind("firebase");
       }
       if (nextProps.uid) {
-        this.bindFirebase(nextProps.uid);
+        this.bindFirebase(nextProps.uid, nextProps.day);
       }
     }
   }
 
-  bindFirebase(uid) {
+  bindFirebase(uid, day) {
     this.bindAsArray(
-      firebase.database().ref(uid).orderByChild("date").equalTo(this.props.day.valueOf()),
+      firebase.database().ref(uid).orderByChild("date").equalTo(day.valueOf()),
       "firebase",
       function(error) {
         console.log("Firebase subscription cancelled:")

@@ -18,16 +18,19 @@ class Timeline extends Component {
     this.somedayLength = 10;
 
     this.state = {
+      today: moment().startOf("day"),
       lastActiveTimelineIndex: timelineLength / 2,
       firstVisibleIndex: timelineLength / 2,
       lastActiveSomedayIndex: 0,
       activeTimeline: "timeline",
       haveScrolledRecently: false,
       recentScrollDirection: "left",
+      updateTodayHandler: null,
     };
 
     this.getDayFromIndex = this.getDayFromIndex.bind(this);
     this.removeRecentScroll = this.removeRecentScroll.bind(this);
+    this.updateToday = this.updateToday.bind(this);
 
     this.onResizeHandler = debounce(function () {
       this.onResize(this.state.lastActiveTimelineIndex, this.state.lastActiveSomedayIndex)
@@ -44,10 +47,24 @@ class Timeline extends Component {
 
   componentDidMount() {
     window.addEventListener("resize", this.onResizeHandler.bind(this));
+
+    const updateTodayHandler = setInterval(this.updateToday, 1000*10);
+    this.setState({updateTodayHandler: updateTodayHandler});
   }
 
   componentWillUnmount() {
     window.removeEventListener("resize", this.onResizeHandler.bind(this));
+
+    clearInterval(this.state.updateTodayHandler);
+  }
+
+  updateToday() {
+    const newToday = moment().startOf("day");
+
+    if (!this.state.today.isSame(newToday)) {
+      console.log("Reloading because date has changed");
+      window.location.reload();
+    }
   }
 
   onResize(timelineIndex, somedayIndex) {
@@ -97,7 +114,7 @@ class Timeline extends Component {
 
   getDayFromIndex(index) {
     const todayIndex = Math.round((this.timelineLength / 2));
-    let day = moment().startOf("day");
+    let day = moment(this.state.today);
 
     if (index < todayIndex) {
       day.subtract(todayIndex - index, "days");
