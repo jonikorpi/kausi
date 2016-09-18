@@ -99,13 +99,13 @@ class Day extends Component {
       let next;
 
       if (this.props.textCount > 2) {
-        pluralConflictingEntries = `are ${this.props.additionalTexts.length} conflicting entries`;
+        pluralConflictingEntries = `are ${this.props.textCount} conflicting entries`;
         next = "next ";
       }
 
       additionalTexts = (
         <div className="color-bright-6 size-0-75 padding-0-75 padding-top-0 margin-0-5 margin-y margin-bottom-0">
-          Problem: there {pluralConflictingEntries} for this day. If you remove this &uarr; entry, the {next}conflicting entry will appear and you can decide what to do with it. This sometimes happens with an unstable connection. Sorry for the hassle. :&#65279;(
+          Problem: there {pluralConflictingEntries} for this day. If you remove this &uarr; entry, the {next}conflicting entry should appear and you can decide what to do with it. This sometimes happens with an unstable connection. Sorry for the hassle. :&#65279;(
         </div>
       );
     }
