@@ -3,7 +3,7 @@ const path = require('path');
 const compression = require('compression');
 const morgan = require('morgan');
 const analytics = require('universal-analytics');
-const expressGeoIP = require('express-geoip');
+// const expressGeoIP = require('express-geoip');
 
 const app = express();
 
@@ -20,17 +20,17 @@ app.use(analytics.middleware('UA-3628636-11', {https: true}));
 app.use(express.static(path.resolve(__dirname, '..', 'build')));
 
 // Setup GEOID
-app.use(expressGeoIP('FI').getCountryCodeMiddleware);
+// app.use(expressGeoIP('FI').getCountryCodeMiddleware);
 
 // Always return the main index.html, so react-router render the route in the client
 app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, '..', 'build', 'index.html'));
   req.visitor.pageview({
-    dp: req.originalUrl,
+    dp: "/",
     dh: "https://kausi.xyz",
     dt: "Kausi",
     uip: req.ip,
-    geoid: req.countryCode,
+    // geoid: req.countryCode,
   }).send();
 });
 
