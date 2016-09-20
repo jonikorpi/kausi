@@ -29,6 +29,7 @@
     "now-start": "node server",
     "now-build": "",
     "start": "react-scripts start",
+    "server": "node server",
     "build": "react-scripts build",
     "eject": "react-scripts eject",
     "deploy": "npm run build && now -e NODE_ENV=production"
