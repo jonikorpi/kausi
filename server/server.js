@@ -33,7 +33,6 @@ app.get('*', (req, res) => {
       ua: req.headers['user-agent'] || undefined,
       ul: req.headers['accept-language'].split(",")[0].split(";")[0] || undefined,
     };
-    console.log(trackingObject);
     req.visitor.pageview(trackingObject).send();
   }
 });
