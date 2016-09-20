@@ -21,7 +21,7 @@ app.use(analytics.middleware('UA-3628636-11', {https: true}));
 // Serve static assets
 app.use("/static", express.static(path.resolve(__dirname, '..', 'build/static')));
 
-// Always return the main index.html, so react-router render the route in the client
+// Serve index.html for all non-static things
 app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, '..', 'build', 'index.html'));
   const trackingObject = {
