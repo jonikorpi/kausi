@@ -4,6 +4,7 @@ import classNames from "classnames";
 import shallowCompare from "react-addons-shallow-compare";
 import ReactList from 'react-list';
 import debounce from "lodash.debounce";
+import throttle from "lodash.throttle";
 
 import Controls from "./Controls";
 import Button from "./Button";
@@ -39,6 +40,10 @@ class Timeline extends Component {
     this.removeRecentScrollHandler = debounce(function () {
       this.removeRecentScroll()
     }, 500);
+
+    this.onScrollHandler = throttle(function () {
+      this.onScroll()
+    }, 50);
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -255,7 +260,8 @@ class Timeline extends Component {
           style={{
             zIndex: 2,
             opacity: this.state.haveScrolledRecently ? 1 : 0,
-            transition: "opacity 414ms ease-out",
+            transition: "opacity ease-in-out",
+            transitionDuration: this.state.haveScrolledRecently ? "414ms" : "256ms",
             textShadow: `
               -0.0625rem -0.0625rem 0 #251916,
                0.0625rem  0.0625rem 0 #251916,
@@ -277,7 +283,7 @@ class Timeline extends Component {
             "timeline relative overflow-auto grow grow-children flex vertical": true,
             "active-timeline": this.state.activeTimeline === "timeline"
           })}
-          onScroll={this.onScroll.bind(this)}
+          onScroll={this.onScrollHandler.bind(this)}
         >
           {spinner}
           {timeline}
