@@ -43,7 +43,7 @@ class Timeline extends Component {
 
     this.onScrollHandler = throttle(function () {
       this.onScroll()
-    }, 50);
+    }, 50, {leading: false});
   }
 
   shouldComponentUpdate(nextProps, nextState) {
