@@ -31,7 +31,7 @@ app.get('*', (req, res) => {
     dt: "Kausi",
     uip: req.ip || undefined,
     ua: req.get('user-agent'),
-    ul: req.headers['accept-language'].split(",")[0].split(";")[0] || undefined,
+    ul: req.headers['accept-language'].split(",")[0].split(";")[0].toLowerCase() || undefined,
   };
 
   if (process.env.NODE_ENV === "production") {
