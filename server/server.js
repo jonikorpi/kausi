@@ -20,6 +20,7 @@ app.use(analytics.middleware('UA-3628636-11', {https: true}));
 
 // Serve static assets
 app.use("/static", express.static(path.resolve(__dirname, '..', 'build/static')));
+app.use("/assets", express.static(path.resolve(__dirname, '..', 'build/assets')));
 
 // 404 favicon
 app.get('/favicon.ico', (req, res) => {

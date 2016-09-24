@@ -8,11 +8,11 @@
   "theme_color": "#10FEFE",
   "icons": [
     {
-      "src": "./src/logo.png",
+      "src": "/assets/logo.png",
       "type": "image/png"
     },
     {
-      "src": "./src/logo.svg",
+      "src": "/assets/logo.svg",
       "type": "image/svg+xml"
     }
   ]
