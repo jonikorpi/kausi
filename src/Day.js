@@ -171,10 +171,11 @@ class Day extends Component {
             id={this.props.day.valueOf()}
             ref={(c) => this.textarea = c}
             className={classNames({
-              "padding-0-75 padding-x grow width-100 scrollbar-3": true,
+              "padding-0-75 grow width-100 scrollbar-3": true,
             })}
             style={{
               paddingTop: "0.5rem",
+              paddingBottom: "0.5rem",
             }}
             value={this.state.text}
             onKeyDown={this.onKeyDown}
