@@ -152,8 +152,8 @@ class Day extends Component {
           "color-6": isEditing,
         })}
         style={{
-          minWidth: "11.5rem",
-          width: "11.5rem",
+          minWidth: "12rem",
+          width: "12rem",
         }}
       >
         <div className={classNames({
