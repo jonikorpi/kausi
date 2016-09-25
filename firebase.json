@@ -10,7 +10,7 @@
       ".write": "auth != null && ( !data.exists() || auth.uid === $uid )",
       ".indexOn": "date",
       "$todo": {
-        // Todos have a date and text. Nothing else.
+        // Todos have a date, text and a lastUpdated timestamp. Nothing else.
         ".validate": "newData.hasChildren(['date', 'text', 'lastUpdated'])",
         "date": {
           ".validate": "newData.isNumber()",
