@@ -59,7 +59,7 @@ class DayContainer extends Component {
         if (text) {
           firebaseRef.update({
             [key]: {
-              date: day,
+              date: day.valueOf(),
               text: text,
               lastUpdated: lastUpdated,
             }

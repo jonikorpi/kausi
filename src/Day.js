@@ -46,7 +46,7 @@ class Day extends Component {
 
   saveTodo() {
     if (this.state.lastUpdated && this.state.text !== this.props.text) {
-      this.props.saveTodo(this.state.text, this.state.lastUpdated.valueOf(), this.props.day.valueOf());
+      this.props.saveTodo(this.state.text, this.state.lastUpdated.valueOf(), this.props.day);
     }
   }
 
