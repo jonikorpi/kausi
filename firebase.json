@@ -11,12 +11,15 @@
       ".indexOn": "date",
       "$todo": {
         // Todos have a date and text. Nothing else.
-        ".validate": "newData.hasChildren(['date', 'text'])",
+        ".validate": "newData.hasChildren(['date', 'text', 'lastUpdated'])",
         "date": {
           ".validate": "newData.isNumber()",
         },
         "text": {
           ".validate": "newData.isString()",
+        },
+        "lastUpdated": {
+          ".validate": "newData.isNumber()",
         },
         "$other": {
           ".validate": "false",
