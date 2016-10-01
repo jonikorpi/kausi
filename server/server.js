@@ -8,6 +8,7 @@ const app = express();
 
 const isProduction = process.env.NODE_ENV === "production";
 const assetMaxAge = isProduction ? "1y" : 0;
+const logStyle = isProduction ? "combined" : "dev";
 
 // Enable trust
 app.enable('trust proxy');
@@ -16,7 +17,7 @@ app.enable('trust proxy');
 app.use(compression());
 
 // Setup logger
-app.use(morgan(':remote-addr - :remote-user [:date[clf]] :response-time ms ":method :url HTTP/:http-version" :status :res[content-length]'));
+app.use(morgan(logStyle));
 
 // Setup analytics
 app.use(analytics.middleware('UA-3628636-11', {https: true}));
