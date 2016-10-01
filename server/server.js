@@ -6,6 +6,9 @@ const analytics = require('universal-analytics');
 
 const app = express();
 
+const isProduction = process.env.NODE_ENV === "production";
+const assetMaxAge = isProduction ? "1y" : 0;
+
 // Enable trust
 app.enable('trust proxy');
 
@@ -19,8 +22,8 @@ app.use(morgan(':remote-addr - :remote-user [:date[clf]] :response-time ms ":met
 app.use(analytics.middleware('UA-3628636-11', {https: true}));
 
 // Serve static assets
-app.use("/static", express.static(path.resolve(__dirname, '..', 'build/static')));
-app.use("/assets", express.static(path.resolve(__dirname, '..', 'build/assets')));
+app.use("/static", express.static(path.resolve(__dirname, '..', 'build/static'), { maxAge: assetMaxAge }));
+app.use("/assets", express.static(path.resolve(__dirname, '..', 'build/assets'), { maxAge: assetMaxAge }));
 
 // 404 favicon
 app.get('/favicon.ico', (req, res) => {
@@ -30,6 +33,7 @@ app.get('/favicon.ico', (req, res) => {
 // Serve index.html for all non-static things
 app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, '..', 'build', 'index.html'));
+
   const trackingObject = {
     dp: req.originalUrl,
     dr: req.get('Referrer'),
@@ -40,7 +44,7 @@ app.get('*', (req, res) => {
     ul: req.headers['accept-language'].split(",")[0].split(";")[0].toLowerCase() || undefined,
   };
 
-  if (process.env.NODE_ENV === "production") {
+  if (isProduction) {
     req.visitor.pageview(trackingObject).send();
   }
   else {
