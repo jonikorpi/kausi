@@ -8,6 +8,7 @@ const app = express();
 
 const isProduction = process.env.NODE_ENV === "production";
 const assetMaxAge = isProduction ? "1y" : 0;
+const pageMaxAge = isProduction ? "1m" : 0;
 const logStyle = isProduction ? "combined" : "dev";
 
 // Enable trust
@@ -33,7 +34,7 @@ app.get('/favicon.ico', (req, res) => {
 
 // Serve index.html for all non-static things
 app.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, '..', 'build', 'index.html'));
+  res.sendFile(path.resolve(__dirname, '..', 'build', 'index.html'), { maxAge: pageMaxAge });
 
   const trackingObject = {
     dp: req.originalUrl,
