@@ -75,20 +75,18 @@ class DayContainer extends Component {
 
   render() {
     let firebaseValue, firebaseKey;
-    let textCount = 0;
     let firebaseKeys = [];
-    const firebase = this.state.firebase;
+    const firebaseState = this.state.firebase;
 
-    if (firebase) {
-      Object.keys(firebase).map((prop)=> {
-        if (!prop.startsWith(".")) {
-          textCount++;
-          firebaseKeys.push(prop);
+    if (firebaseState) {
+      for (let key in firebaseState) {
+        if (firebaseState.hasOwnProperty(key) && !key.startsWith(".")) {
+          firebaseKeys.push(key);
         }
-      });
+      }
 
-      firebaseValue = firebase[firebaseKeys[0]];
       firebaseKey = firebaseKeys[0];
+      firebaseValue = firebaseState[firebaseKey];
     }
 
     return (
@@ -96,8 +94,8 @@ class DayContainer extends Component {
         {...this.props}
         firebaseKey={firebaseKey}
         saveTodo={this.saveTodo}
-        textCount={textCount}
-        loading={firebase ? false : true}
+        textCount={firebaseKeys.length}
+        loading={firebaseState ? false : true}
                text={firebaseValue ? firebaseValue.text : null}
         lastUpdated={firebaseValue ? firebaseValue.lastUpdated : null}
       />
