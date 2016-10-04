@@ -41,7 +41,7 @@ class DayContainer extends Component {
       function(error) {
         console.log("Firebase subscription cancelled:")
         console.log(error);
-        this.setState({firebase: {}})
+        this.setState({firebase: undefined})
       }.bind(this)
     );
   }
@@ -74,29 +74,27 @@ class DayContainer extends Component {
   }
 
   render() {
-    let firebaseValue, activeFirebaseKey;
+    let firebaseValue, firebaseKey;
     let textCount = 0;
+    let firebaseKeys = [];
     const firebase = this.state.firebase;
 
     if (firebase) {
-      firebaseValue = firebase[Object.keys(firebase)[0]];
-      activeFirebaseKey = Object.keys(firebase)[0];
-
       Object.keys(firebase).map((prop)=> {
         if (!prop.startsWith(".")) {
           textCount++;
+          firebaseKeys.push(prop);
         }
       });
 
-      if (activeFirebaseKey.startsWith(".")) {
-        activeFirebaseKey = null;
-      }
+      firebaseValue = firebase[firebaseKeys[0]];
+      firebaseKey = firebaseKeys[0];
     }
 
     return (
       <Day
         {...this.props}
-        firebaseKey={activeFirebaseKey}
+        firebaseKey={firebaseKey}
         saveTodo={this.saveTodo}
         textCount={textCount}
         loading={firebase ? false : true}
