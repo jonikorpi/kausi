@@ -3,6 +3,7 @@ const path = require('path');
 const compression = require('compression');
 const morgan = require('morgan');
 const analytics = require('universal-analytics');
+const rollbar = require("rollbar");
 
 const app = express();
 
@@ -59,5 +60,11 @@ app.get('*', (req, res) => {
     console.log(trackingObject);
   }
 });
+
+// Report errors to Rollbar
+app.use(rollbar.errorHandler(
+  'e25b560b08f1410abf77cae0888e0acb',
+  {environment: process.env.NODE_ENV || "development"}
+));
 
 module.exports = app;

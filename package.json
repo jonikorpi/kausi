@@ -23,6 +23,7 @@
     "compression": "^1.6.2",
     "express": "^4.14.0",
     "morgan": "^1.7.0",
+    "rollbar": "^0.6.2",
     "universal-analytics": "^0.4.6"
   },
   "scripts": {
