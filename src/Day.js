@@ -10,8 +10,8 @@ class Day extends Component {
 
     this.state = {
       editing: false,
-      text: "",
-      lastUpdated: null,
+      text: this.props.text || "",
+      lastUpdated: this.props.lastUpdated,
     };
 
     this.saveTodo = this.saveTodo.bind(this);
@@ -46,7 +46,7 @@ class Day extends Component {
 
   saveTodo() {
     if (this.state.lastUpdated && this.state.text !== this.props.text) {
-      this.props.saveTodo(this.state.text, this.state.lastUpdated.valueOf(), this.props.day);
+      this.props.saveTodo(this.state.text, this.state.lastUpdated.valueOf(), this.props.day, this.props.firebaseKey);
     }
   }
 
@@ -167,23 +167,33 @@ class Day extends Component {
         })}>
           {label}
 
-          <textarea
-            id={this.props.day.valueOf()}
-            ref={(c) => this.textarea = c}
-            className={classNames({
-              "padding-0-75 grow width-100 scrollbar-3": true,
-            })}
-            style={{
-              paddingTop: "0.5rem",
-              paddingBottom: "0.5rem",
-            }}
-            value={this.state.text}
-            onKeyDown={this.onKeyDown}
-            onFocus={this.onFocus}
-            onBlur={this.onBlur}
-            onChange={this.onChange}
-            placeholder={placeholder}
-          />
+          {
+            this.props.loading
+            ? (
+              <div className="padding-0-75">
+                <div className="spin border border-0-125 border-color-4 dashed round height-0-75 width-0-75"></div>
+              </div>
+            )
+            : (
+              <textarea
+                id={this.props.day.valueOf()}
+                ref={(c) => this.textarea = c}
+                className={classNames({
+                  "padding-0-75 grow width-100 scrollbar-3": true,
+                })}
+                style={{
+                  paddingTop: "0.5rem",
+                  paddingBottom: "0.5rem",
+                }}
+                value={this.state.text}
+                onKeyDown={this.onKeyDown}
+                onFocus={this.onFocus}
+                onBlur={this.onBlur}
+                onChange={this.onChange}
+                placeholder={placeholder}
+              />
+            )
+          }
 
           {additionalTexts}
         </div>

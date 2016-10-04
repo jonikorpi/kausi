@@ -10,7 +10,7 @@ class DayContainer extends Component {
     super(props);
 
     this.state = {
-      firebase: [],
+      firebase: undefined,
     };
 
     this.bindFirebase = this.bindFirebase.bind(this);
@@ -35,7 +35,7 @@ class DayContainer extends Component {
   }
 
   bindFirebase(uid, day) {
-    this.bindAsArray(
+    this.bindAsObject(
       firebase.database().ref(uid).orderByChild("date").equalTo(day.valueOf()),
       "firebase",
       function(error) {
@@ -46,19 +46,18 @@ class DayContainer extends Component {
     );
   }
 
-  saveTodo(text, lastUpdated, day) {
+  saveTodo(text, lastUpdated, day, firebaseKey) {
     if (this.props.uid && lastUpdated && day) {
       let firebaseRef = firebase.database().ref(this.props.uid);
-      let key = this.state.firebase[0] ? this.state.firebase[0][".key"] : null;
 
-      if (!key && text) {
-        key = firebaseRef.push().key;
+      if (!firebaseKey && text) {
+        firebaseKey = firebaseRef.push().key;
       }
 
-      if (key) {
+      if (firebaseKey) {
         if (text) {
           firebaseRef.update({
-            [key]: {
+            [firebaseKey]: {
               date: day.valueOf(),
               text: text,
               lastUpdated: lastUpdated,
@@ -67,7 +66,7 @@ class DayContainer extends Component {
         }
         else {
           firebaseRef.update({
-            [key]: null
+            [firebaseKey]: null
           });
         }
       }
@@ -75,20 +74,34 @@ class DayContainer extends Component {
   }
 
   render() {
-    let text, lastUpdated;
+    let firebaseValue, activeFirebaseKey;
+    let textCount = 0;
+    const firebase = this.state.firebase;
 
-    if (this.state.firebase[0]) {
-      text = this.state.firebase[0].text;
-      lastUpdated = this.state.firebase[0].lastUpdated;
+    if (firebase) {
+      firebaseValue = firebase[Object.keys(firebase)[0]];
+      activeFirebaseKey = Object.keys(firebase)[0];
+
+      Object.keys(firebase).map((prop)=> {
+        if (!prop.startsWith(".")) {
+          textCount++;
+        }
+      });
+
+      if (activeFirebaseKey.startsWith(".")) {
+        activeFirebaseKey = null;
+      }
     }
 
     return (
       <Day
         {...this.props}
+        firebaseKey={activeFirebaseKey}
         saveTodo={this.saveTodo}
-        textCount={this.state.firebase.length}
-        text={text}
-        lastUpdated={lastUpdated}
+        textCount={textCount}
+        loading={firebase ? false : true}
+               text={firebaseValue ? firebaseValue.text : null}
+        lastUpdated={firebaseValue ? firebaseValue.lastUpdated : null}
       />
     );
   }
