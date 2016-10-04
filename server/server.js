@@ -36,6 +36,12 @@ app.get('/favicon.ico', (req, res) => {
 app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, '..', 'build', 'index.html'), { maxAge: pageMaxAge });
 
+  var acceptLanguage = req.headers['accept-language'];
+
+  if (acceptLanguage) {
+    acceptLanguage = acceptLanguage.split(",")[0].split(";")[0].toLowerCase();
+  }
+
   const trackingObject = {
     dp: req.originalUrl,
     dr: req.get('Referrer'),
@@ -43,7 +49,7 @@ app.get('*', (req, res) => {
     dt: "Kausi",
     uip: req.ip || undefined,
     ua: req.get('user-agent'),
-    ul: req.headers['accept-language'].split(",")[0].split(";")[0].toLowerCase() || undefined,
+    ul: acceptLanguage,
   };
 
   if (isProduction) {
