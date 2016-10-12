@@ -22,7 +22,7 @@ Your data is not used for anything else.
 
 All traffic between your browser and Firebase happens on a HTTPS-secured connection.
 
-Any Kausi administrator accounts are able to access your email address and text entries. These accounts use all the account security options Firebase offers, including a strong password stored in secure password manager software.
+Any Kausi administrator accounts are able to view your email address and text entries. These accounts use all the account security options Firebase offers, including a strong password stored in secure password manager software.
 
 Google Analytics data is also sent over HTTPS.
 
@@ -42,7 +42,7 @@ By using Kausi, you consent to this privacy policy.
 
 If this privacy policy changes, we will post the changes on this page, send an email notifying you of any changes, and/or update the Privacy Policy modification date below.
 
-This policy was last modified on 20/09/2016.
+This policy was last modified on 12/10/2016.
 
 ## Contacting us
 
