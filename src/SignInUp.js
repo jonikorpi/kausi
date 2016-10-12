@@ -68,10 +68,7 @@ class SignInUp extends Component {
                 With a permanent account you will be able to sign in from browsers other than this one, as well as export your entries (in the JSON format) whenever you want.
               </p>
               <p>
-                Entries are stored in <a className="border-bottom" href="http://firebase.google.com/">Firebase</a>, unencrypted. Authentication is securely handled by Firebase.
-              </p>
-              <p>
-                Kausi is still in beta. Expect things to break and/or change.
+                Entries are stored in <a className="underlined" href="http://firebase.google.com/">Firebase</a>, unencrypted. Authentication is securely handled by Firebase.
               </p>
             </div>
             <Form
