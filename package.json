@@ -1,5 +1,8 @@
 {
   "name": "kausi",
+  "now": {
+    "alias": "kausi.xyz"
+  },
   "version": "0.0.1",
   "private": true,
   "devDependencies": {
@@ -30,7 +33,7 @@
     "now-start": "node server",
     "now-build": "",
     "start": "react-scripts start",
-    "server": "node server",
+    "server": "npm run build && node server",
     "build": "react-scripts build",
     "eject": "react-scripts eject",
     "deploy": "npm run build && now -e NODE_ENV=production && curl https://api.rollbar.com/api/1/deploy/ -F access_token=e25b560b08f1410abf77cae0888e0acb -F environment=production -F revision=`git log -n 1 --pretty=format:'%H'` -F local_username=`whoami`"
