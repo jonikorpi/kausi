@@ -2,8 +2,11 @@ import React, { Component } from "react";
 import reactMixin from "react-mixin";
 import ReactFire from "reactfire";
 import firebase from "firebase";
+import Link from "next/link";
 
-class DataExport extends Component {
+import Head from "../components/Head.js";
+
+export default class ExportData extends Component {
   constructor(props) {
     super(props);
 
@@ -62,4 +65,3 @@ class DataExport extends Component {
 }
 
 reactMixin(DataExport.prototype, ReactFire);
-export default DataExport;

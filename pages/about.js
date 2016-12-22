@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-class About extends Component {
+export default class About extends Component {
   render() {
     return (
       <div className="color-4 child-margins-y-1 wide-max-width margin-auto-x">
@@ -17,5 +17,3 @@ class About extends Component {
     );
   }
 }
-
-export default About;
