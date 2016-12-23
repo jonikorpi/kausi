@@ -10,9 +10,10 @@ export default class Timeline extends Component {
   constructor(props) {
     super(props);
 
-    this.startIndex = 500;
+    this.startIndex = 1000;
 
     this.state = {
+      today: moment().startOf("day"),
       uid: null,
       anonymous: null,
       connected: false,
@@ -23,7 +24,15 @@ export default class Timeline extends Component {
   }
 
   componentDidMount() {
-    this.setState({clientSide: true});
+    const updateTodayHandler = setTimeout(
+      this.updateToday,
+      moment(this.state.today).add(1, "days").diff(this.state.today)
+    );
+
+    this.setState({
+      updateTodayHandler: updateTodayHandler,
+      clientSide: true,
+    });
 
     // if (firebase.apps.length === 0) {
     //   firebase.initializeApp({
@@ -63,6 +72,19 @@ export default class Timeline extends Component {
     //     this.setState({connected: false});
     //   }
     // }.bind(this));
+  }
+
+  componentWillUnmount() {
+    clearTimeout(this.state.updateTodayHandler);
+  }
+
+  updateToday = () => {
+    const newToday = moment().startOf("day");
+
+    if (!this.state.today.isSame(newToday)) {
+      console.log("Reloading because date has changed");
+      window.location.reload();
+    }
   }
 
   scrollToToday = () => {
