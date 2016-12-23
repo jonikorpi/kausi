@@ -3,6 +3,7 @@ import firebase from "firebase";
 import Link from "next/link";
 
 import Head from "../components/Head.js";
+import Navigation from "../components/Navigation";
 
 export default class SignUp extends Component {
   signUp = (email, password) => {
@@ -23,5 +24,14 @@ export default class SignUp extends Component {
     else {
       this.setState({error: "Invalid email or password."});
     }
+  }
+
+  render() {
+    return (
+      <div>
+        <Head/>
+        <Navigation/>
+      </div>
+    );
   }
 }

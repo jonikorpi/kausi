@@ -1,9 +1,14 @@
 import React, { Component } from "react";
 
+import Head from "../components/Head.js";
+import Navigation from "../components/Navigation";
+
 export default class About extends Component {
   render() {
     return (
       <div className="color-4 child-margins-y-1 wide-max-width margin-auto-x">
+        <Head/>
+        <Navigation/>
         <p>
           Kausi is being maintained and developed as a personal tool. It will always be free to use.
         </p>

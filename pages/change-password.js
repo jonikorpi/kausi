@@ -3,6 +3,7 @@ import firebase from "firebase";
 import Link from "next/link";
 
 import Head from "../components/Head.js";
+import Navigation from "../components/Navigation";
 
 export default class ChangePassword extends Component {
   setPassword = (password, passwordAgain) => {
@@ -16,5 +17,14 @@ export default class ChangePassword extends Component {
     else {
       this.setState({error: "New passwords do not match."})
     }
+  }
+
+  render() {
+    return (
+      <div>
+        <Head/>
+        <Navigation/>
+      </div>
+    );
   }
 }

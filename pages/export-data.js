@@ -5,6 +5,7 @@ import firebase from "firebase";
 import Link from "next/link";
 
 import Head from "../components/Head.js";
+import Navigation from "../components/Navigation";
 
 export default class ExportData extends Component {
   constructor(props) {
@@ -54,12 +55,16 @@ export default class ExportData extends Component {
     }
 
     return (
-      <textarea
-        placeholder={"Fetching your entries…"}
-        value={data}
-        readOnly={true}
-        className="height-5 width-100 size-0-75 padding-0-5 bg-2"
-      />
+      <div>
+        <Head/>
+        <Navigation/>
+        <textarea
+          placeholder={"Fetching your entries…"}
+          value={data}
+          readOnly={true}
+          className="height-5 width-100 size-0-75 padding-0-5 bg-2"
+        />
+      </div>
     );
   }
 }

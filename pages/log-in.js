@@ -3,6 +3,7 @@ import firebase from "firebase";
 import Link from "next/link";
 
 import Head from "../components/Head.js";
+import Navigation from "../components/Navigation";
 
 export default class SignIn extends Component {
   signIn = (email, password) => {
@@ -18,5 +19,14 @@ export default class SignIn extends Component {
     else {
       this.setState({error: "Invalid email or password."});
     }
+  }
+
+  render() {
+    return (
+      <div>
+        <Head/>
+        <Navigation/>
+      </div>
+    );
   }
 }
