@@ -1,13 +1,16 @@
 import React, { Component } from "react";
-import firebase from "firebase";
+// import firebase from "firebase";
+import List from "react-list";
+import moment from "moment";
 
 import Head from "../components/Head.js";
-import Navigation from "../components/Navigation";
 import TimelineNavigation from "../components/TimelineNavigation";
 
-export default class App extends Component {
+export default class Timeline extends Component {
   constructor(props) {
     super(props);
+
+    this.startIndex = 500;
 
     this.state = {
       uid: null,
@@ -15,48 +18,55 @@ export default class App extends Component {
       connected: false,
       haveConnectedOnce: false,
       error: null,
+      clientSide: false,
     }
   }
 
   componentDidMount() {
-    if (firebase.apps.length === 0) {
-      firebase.initializeApp({
-        authDomain: "muisti-6a29a.firebaseapp.com",
-        apiKey: "AIzaSyAF4obcBK8wggQq9klNNkHH-dolEoNhlLM",
-        databaseURL: "https://muisti-6a29a.firebaseio.com",
-      });
-    }
+    this.setState({clientSide: true});
 
-    firebase.auth().onAuthStateChanged(function(user) {
-      if (user) {
-        this.setState({
-          uid: user.uid,
-          anonymous: user.isAnonymous,
-        });
-      }
-      else {
-        this.setState({
-          uid: null,
-          anonymous: null,
-        });
+    // if (firebase.apps.length === 0) {
+    //   firebase.initializeApp({
+    //     authDomain: "muisti-6a29a.firebaseapp.com",
+    //     apiKey: "AIzaSyAF4obcBK8wggQq9klNNkHH-dolEoNhlLM",
+    //     databaseURL: "https://muisti-6a29a.firebaseio.com",
+    //   });
+    // }
+    //
+    // firebase.auth().onAuthStateChanged(function(user) {
+    //   if (user) {
+    //     this.setState({
+    //       uid: user.uid,
+    //       anonymous: user.isAnonymous,
+    //     });
+    //   }
+    //   else {
+    //     this.setState({
+    //       uid: null,
+    //       anonymous: null,
+    //     });
+    //
+    //     firebase.auth().signInAnonymously().catch(function(error) {
+    //       console.log(error);
+    //     });
+    //   }
+    // }.bind(this));
+    //
+    // firebase.database().ref(".info/connected").on("value", function(online) {
+    //   if (online.val() === true) {
+    //     this.setState({
+    //       connected: true,
+    //       haveConnectedOnce: true,
+    //     });
+    //   }
+    //   else {
+    //     this.setState({connected: false});
+    //   }
+    // }.bind(this));
+  }
 
-        firebase.auth().signInAnonymously().catch(function(error) {
-          console.log(error);
-        });
-      }
-    }.bind(this));
-
-    firebase.database().ref(".info/connected").on("value", function(online) {
-      if (online.val() === true) {
-        this.setState({
-          connected: true,
-          haveConnectedOnce: true,
-        });
-      }
-      else {
-        this.setState({connected: false});
-      }
-    }.bind(this));
+  scrollToToday = () => {
+    this.list.scrollTo(this.startIndex);
   }
 
   signOut = () => {
@@ -69,6 +79,14 @@ export default class App extends Component {
     }.bind(this)).catch(function(error) {
       console.log(error);
     });
+  }
+
+  renderWeek = (index, key) => {
+    return (
+      <div key={key} style={{height: "100vh"}}>
+        {index}
+      </div>
+    )
   }
 
   render() {
@@ -91,9 +109,19 @@ export default class App extends Component {
     return (
       <div>
         <Head/>
-        <Navigation/>
-        <TimelineNavigation/>
-        <div>Timeline will go here</div>
+
+        {this.state.clientSide && (
+          <List
+            ref={c => this.list = c}
+            itemRenderer={this.renderWeek}
+            length={this.startIndex * 2}
+            type="uniform"
+            pageSize={3}
+            initialIndex={this.startIndex}
+          />
+        )}
+
+        <TimelineNavigation scrollToToday={this.scrollToToday}/>
       </div>
     );
   }

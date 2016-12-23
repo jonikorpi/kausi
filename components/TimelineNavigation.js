@@ -24,7 +24,13 @@ export default class TimelineNavigation extends Component {
 
         <nav className="navigation">
 
-          <button className="navigation-link" type="button">Today</button>
+          <button
+            className="navigation-link"
+            type="button"
+            onClick={this.props.scrollToToday}
+          >
+            Today
+          </button>
 
           <Link href="/lists">
             <a className="navigation-link">

@@ -805,7 +805,7 @@ chokidar@1.6.1, chokidar@^1.0.0:
   optionalDependencies:
     fsevents "^1.0.0"
 
-classnames@^2.2.3, classnames@^2.2.5:
+classnames@^2.2.5:
   version "2.2.5"
   resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.2.5.tgz#fb3801d453467649ef3603c7d61a02bd129bde6d"
 
@@ -968,10 +968,6 @@ detect-indent@^4.0.0:
   resolved "https://registry.yarnpkg.com/detect-indent/-/detect-indent-4.0.0.tgz#f76d064352cdf43a1cb6ce619c4ee3a9475de208"
   dependencies:
     repeating "^2.0.0"
-
-dom-helpers@^2.4.0:
-  version "2.4.0"
-  resolved "https://registry.yarnpkg.com/dom-helpers/-/dom-helpers-2.4.0.tgz#9bb4b245f637367b1fa670274272aa28fe06c367"
 
 dom-storage@2.0.2:
   version "2.0.2"
@@ -2219,6 +2215,10 @@ react-hot-loader@3.0.0-beta.6:
     redbox-react "^1.2.5"
     source-map "^0.4.4"
 
+react-list@^0.8.0:
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/react-list/-/react-list-0.8.0.tgz#1e99fd48ada5864fdb9f462eda69f8f193483c09"
+
 react-mixin@^3.0.5:
   version "3.0.5"
   resolved "https://registry.yarnpkg.com/react-mixin/-/react-mixin-3.0.5.tgz#e0b7b6713fdc9ddc429267df808b6ac5184c6706"
@@ -2231,14 +2231,6 @@ react-proxy@^3.0.0-alpha.0:
   resolved "https://registry.yarnpkg.com/react-proxy/-/react-proxy-3.0.0-alpha.1.tgz#4400426bcfa80caa6724c7755695315209fa4b07"
   dependencies:
     lodash "^4.6.1"
-
-react-virtualized@^8.8.1:
-  version "8.8.1"
-  resolved "https://registry.yarnpkg.com/react-virtualized/-/react-virtualized-8.8.1.tgz#d12aad7f759ddc158f98ab60981290501b9ce95e"
-  dependencies:
-    babel-runtime "^6.11.6"
-    classnames "^2.2.3"
-    dom-helpers "^2.4.0"
 
 react@15.4.1:
   version "15.4.1"
