@@ -24,7 +24,7 @@ export default class TimelineNavigation extends Component {
 
         <nav className="navigation">
 
-          <button type="button">Today</button>
+          <button className="navigation-link" type="button">Today</button>
 
           <Link href="/lists">
             <a className="navigation-link">
