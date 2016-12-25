@@ -88,13 +88,18 @@ export default class Timeline extends Component {
     }
   }
 
+  getIndexFromDay = (day) => {
+    return moment(day).startOf("isoweek").diff( moment(this.state.today).startOf("isoweek"), "weeks" );
+  }
+
   scrollToToday = () => {
     this.list.scrollTo(this.startIndex);
   }
 
   focusDay = (day) => {
-    const targetIndex = moment(day).startOf("isoweek").diff( moment(this.state.today).startOf("isoweek"), "weeks" );
-    this.list.scrollTo(this.startIndex - targetIndex);
+    const targetIndex = this.getIndexFromDay(day);
+    this.props.url.replace(`/?${moment(day).format("YYYY-MM-DD")}`);
+    this.list.scrollTo(this.startIndex + targetIndex);
   }
 
   signOut = () => {
@@ -113,7 +118,7 @@ export default class Timeline extends Component {
     return (
       <Week
         key={key}
-        tabbingEnabled={key === 1}
+        index={key}
         weekOf={moment(this.state.today).startOf("isoweek").subtract(this.startIndex - index, "weeks")}
         uid={this.state.uid}
         focusDay={this.focusDay}
@@ -138,6 +143,13 @@ export default class Timeline extends Component {
       );
     }
 
+    let initialDayIndex = this.startIndex;
+    const query = Object.keys(this.props.url.query)[0];
+
+    if (query) {
+      initialDayIndex = this.getIndexFromDay(moment(query));
+    }
+
     return (
       <div>
         <Head/>
@@ -150,7 +162,7 @@ export default class Timeline extends Component {
             type="uniform"
             pageSize={2}
             threshold={window.innerHeight * 0.1}
-            initialIndex={this.startIndex}
+            initialIndex={initialDayIndex}
           />
         )}
 

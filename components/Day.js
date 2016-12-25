@@ -47,7 +47,7 @@ class Day extends PureComponent {
 
   onFocus() {
     this.setState({isFocused: true});
-    // this.props.focusDay(this.props.day);
+    this.props.focusDay(this.props.day);
   }
 
   onBlur() {
