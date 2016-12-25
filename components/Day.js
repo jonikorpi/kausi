@@ -106,10 +106,13 @@ class Day extends PureComponent {
     }
 
     return (
-      <div className={classNames({
-        "day": true,
-        "isFocused": isFocused,
-      })}>
+      <div
+        className={classNames({
+          "day": true,
+          "isFocused": isFocused,
+          "isToday": this.props.isToday,
+        })}
+      >
         <style jsx>{`
           .day {
             flex-grow: 1;
@@ -124,6 +127,10 @@ class Day extends PureComponent {
           .day.isFocused {
             flex-grow: initial;
             flex-basis: initial;
+          }
+
+          .day.isToday {
+            background: yellow;
           }
 
           .label {

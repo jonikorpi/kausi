@@ -115,13 +115,48 @@ class Week extends Component {
           }
         `}</style>
 
-        <Day day={moment(this.props.weekOf).add(0, "days")} focusDay={this.props.focusDay} tabbingEnabled={this.props.index === 1}/>
-        <Day day={moment(this.props.weekOf).add(1, "days")} focusDay={this.props.focusDay} tabbingEnabled={this.props.index === 1}/>
-        <Day day={moment(this.props.weekOf).add(2, "days")} focusDay={this.props.focusDay} tabbingEnabled={this.props.index === 1}/>
-        <Day day={moment(this.props.weekOf).add(3, "days")} focusDay={this.props.focusDay} tabbingEnabled={this.props.index === 1}/>
-        <Day day={moment(this.props.weekOf).add(4, "days")} focusDay={this.props.focusDay} tabbingEnabled={this.props.index === 1}/>
-        <Day day={moment(this.props.weekOf).add(5, "days")} focusDay={this.props.focusDay} tabbingEnabled={this.props.index === 1}/>
-        <Day day={moment(this.props.weekOf).add(6, "days")} focusDay={this.props.focusDay} tabbingEnabled={this.props.index === 1}/>
+        <Day
+          day={moment(this.props.weekOf).add(0, "days")}
+          focusDay={this.props.focusDay}
+          tabbingEnabled={this.props.index === 1}
+          isToday={this.props.today.isSame(moment(this.props.weekOf).add(0, "days"))}
+        />
+        <Day
+          day={moment(this.props.weekOf).add(1, "days")}
+          focusDay={this.props.focusDay}
+          tabbingEnabled={this.props.index === 1}
+          isToday={this.props.today.isSame(moment(this.props.weekOf).add(1, "days"))}
+        />
+        <Day
+          day={moment(this.props.weekOf).add(2, "days")}
+          focusDay={this.props.focusDay}
+          tabbingEnabled={this.props.index === 1}
+          isToday={this.props.today.isSame(moment(this.props.weekOf).add(2, "days"))}
+        />
+        <Day
+          day={moment(this.props.weekOf).add(3, "days")}
+          focusDay={this.props.focusDay}
+          tabbingEnabled={this.props.index === 1}
+          isToday={this.props.today.isSame(moment(this.props.weekOf).add(3, "days"))}
+        />
+        <Day
+          day={moment(this.props.weekOf).add(4, "days")}
+          focusDay={this.props.focusDay}
+          tabbingEnabled={this.props.index === 1}
+          isToday={this.props.today.isSame(moment(this.props.weekOf).add(4, "days"))}
+        />
+        <Day
+          day={moment(this.props.weekOf).add(5, "days")}
+          focusDay={this.props.focusDay}
+          tabbingEnabled={this.props.index === 1}
+          isToday={this.props.today.isSame(moment(this.props.weekOf).add(5, "days"))}
+        />
+        <Day
+          day={moment(this.props.weekOf).add(6, "days")}
+          focusDay={this.props.focusDay}
+          tabbingEnabled={this.props.index === 1}
+          isToday={this.props.today.isSame(moment(this.props.weekOf).add(6, "days"))}
+        />
       </div>
     );
   }
