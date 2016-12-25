@@ -1,15 +1,14 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import moment from "moment";
-import classNames from "classnames";
 import debounce from "lodash.debounce";
-import shallowCompare from "react-addons-shallow-compare";
+import classNames from "classnames";
 
-class Day extends Component {
+class Day extends PureComponent {
   constructor(props) {
     super(props);
 
     this.state = {
-      editing: false,
+      isFocused: false,
       text: this.props.text || "",
       lastUpdated: this.props.lastUpdated,
     };
@@ -23,10 +22,6 @@ class Day extends Component {
     this.saveTodoHandler = debounce(function () {
       this.saveTodo()
     }, 500);
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    return shallowCompare(this, nextProps, nextState);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -46,17 +41,17 @@ class Day extends Component {
 
   saveTodo() {
     if (this.state.lastUpdated && this.state.text !== this.props.text) {
-      this.props.saveTodo(this.state.text, this.state.lastUpdated.valueOf(), this.props.day, this.props.firebaseKey);
+      // this.props.saveTodo(this.state.text, this.state.lastUpdated.valueOf(), this.props.day, this.props.firebaseKey);
     }
   }
 
   onFocus() {
-    this.setState({editing: true});
-    this.props.setActiveTimeline(this.props.index);
+    this.setState({isFocused: true});
+    // this.props.focusDay(this.props.day);
   }
 
   onBlur() {
-    this.setState({editing: false});
+    this.setState({isFocused: false});
     this.saveTodo();
   }
 
@@ -77,7 +72,7 @@ class Day extends Component {
   render() {
     const isToday = this.props.day.isSame(moment().startOf("day"));
     const isWeekend = !this.props.someday && (this.props.day.day() === 0 || this.props.day.day() === 6);
-    const isEditing = this.state.editing;
+    const isFocused = this.state.isFocused;
 
     // Placeholder
     let placeholder;
@@ -110,93 +105,84 @@ class Day extends Component {
       );
     }
 
-    // Date label
-    let label, dayLabel, monthLabel;
-
-    if (!this.props.someday) {
-      dayLabel = this.props.day.format("ddd DD");
-      const todayLabel = isToday ? ", Today" : false
-
-      if (
-             this.props.day.isSame(moment(this.props.day).startOf("isoweek"))
-          || this.props.day.isSame(moment(this.props.day).startOf("month"))
-      ) {
-        monthLabel = `, ${this.props.day.format("MMM YYYY")}`;
-      }
-
-      label = (
-        <label
-          className={classNames({
-            "all-caps padding-0-75 padding-x color-4": true,
-            "color-bright-4": isWeekend,
-            "color-bright-5": isToday,
-            "color-bright-6": isEditing,
-          })}
-          style={{
-            paddingTop: "0.5rem",
-          }}
-          htmlFor={this.props.day.valueOf()}
-        >
-          {dayLabel}{monthLabel}{todayLabel}
-        </label>
-      );
-    }
-
     return (
-      <div
-        className={classNames({
-          "flex": true,
-          "bg-1": !this.props.someday,
-          "bg-2 border border-x border-right-0 border-color-1": this.props.someday,
-          "color-5": !isEditing,
-          "color-6": isEditing,
-        })}
-        style={{
-          minWidth: "12rem",
-          width: "12rem",
-        }}
-      >
-        <div className={classNames({
-          "flex grow vertical": true,
-          "border border-y border-bottom-0 border-0-25": true,
-          "border-color-1": !this.props.someday,
-          "border-color-2":  this.props.someday,
-          "border-color-bright-4": isWeekend,
-          "border-color-bright-5": isToday,
-          "border-color-bright-6": isEditing,
-        })}>
-          {label}
-
-          {
-            this.props.loading
-            ? (
-              <div className="padding-0-75">
-                <div className="spin border border-0-125 border-color-4 dashed round height-0-75 width-0-75"></div>
-              </div>
-            )
-            : (
-              <textarea
-                id={this.props.day.valueOf()}
-                ref={(c) => this.textarea = c}
-                className={classNames({
-                  "padding-0-75 grow width-100 scrollbar-3": true,
-                })}
-                style={{
-                  paddingTop: "0.5rem",
-                  paddingBottom: "0.5rem",
-                }}
-                value={this.state.text}
-                onKeyDown={this.onKeyDown}
-                onFocus={this.onFocus}
-                onBlur={this.onBlur}
-                onChange={this.onChange}
-                placeholder={placeholder}
-              />
-            )
+      <div className={classNames({
+        "day": true,
+        "isFocused": isFocused,
+      })}>
+        <style jsx>{`
+          .day {
+            flex-grow: 1;
+            flex-basis: 0;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+            padding: 1.5rem 0;
           }
 
-          {additionalTexts}
-        </div>
+          .day.isFocused {
+            flex-grow: initial;
+            flex-basis: initial;
+          }
+
+          .label {
+            white-space: nowrap;
+            position: absolute;
+            left: 0; top: 0; right: 0;
+            line-height: 1.5rem;
+            font-size: 0.5rem;
+            text-align: center;
+          }
+
+          .textarea {
+            flex-grow: 1;
+            width: 100%;
+            resize: none;
+            padding: 0.5rem;
+            border: none;
+            border: 1px solid;
+          }
+
+          .textarea,
+          .day.isFocused {
+            width: 66.6vw;
+            max-width: 16rem;
+          }
+        `}</style>
+
+        <label className="label" htmlFor={this.props.day.valueOf()}>
+          {this.props.day.format(isFocused ? "DD ddd MMM YYYY" : "DD")}
+        </label>
+
+        {
+          this.props.loading
+          ? (
+            <div className="padding-0-75">
+              <div className="spin border border-0-125 border-color-4 dashed round height-0-75 width-0-75"></div>
+            </div>
+          )
+          : (
+            <textarea
+              id={this.props.day.valueOf()}
+              ref={(c) => this.textarea = c}
+              tabIndex={this.props.tabbingEnabled ? 1 : -1}
+              className="textarea"
+              style={{
+                paddingTop: "0.5rem",
+                paddingBottom: "0.5rem",
+              }}
+              value={this.state.text}
+              onKeyDown={this.onKeyDown}
+              onFocus={this.onFocus}
+              onBlur={this.onBlur}
+              onChange={this.onChange}
+              placeholder="Test test test test test"
+            />
+          )
+        }
+
+        {additionalTexts}
       </div>
     );
   }

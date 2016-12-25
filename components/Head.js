@@ -29,5 +29,6 @@ export default () => (
 
     <link href="/static/reset.css" rel="stylesheet"/>
     <link href="/static/baseline.css" rel="stylesheet"/>
+    <link href="/static/magic.css" rel="stylesheet"/>
   </Head>
 );

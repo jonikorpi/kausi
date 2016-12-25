@@ -9,7 +9,7 @@ export default class TimelineNavigation extends Component {
           .timeline-navigation {
             position: fixed;
             left: 0;
-            bottom: 2rem;
+            bottom: 1rem;
             right: 0;
           }
 

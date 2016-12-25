@@ -5,6 +5,7 @@ import moment from "moment";
 
 import Head from "../components/Head.js";
 import TimelineNavigation from "../components/TimelineNavigation";
+import Week from "../components/Week";
 
 export default class Timeline extends Component {
   constructor(props) {
@@ -91,6 +92,11 @@ export default class Timeline extends Component {
     this.list.scrollTo(this.startIndex);
   }
 
+  focusDay = (day) => {
+    const targetIndex = moment(day).startOf("isoweek").diff( moment(this.state.today).startOf("isoweek"), "weeks" );
+    this.list.scrollTo(this.startIndex - targetIndex);
+  }
+
   signOut = () => {
     firebase.auth().signOut().then(function(){
       this.setState({
@@ -105,9 +111,13 @@ export default class Timeline extends Component {
 
   renderWeek = (index, key) => {
     return (
-      <div key={key} style={{height: "100vh"}}>
-        {index}
-      </div>
+      <Week
+        key={key}
+        tabbingEnabled={key === 1}
+        weekOf={moment(this.state.today).startOf("isoweek").subtract(this.startIndex - index, "weeks")}
+        uid={this.state.uid}
+        focusDay={this.focusDay}
+      />
     )
   }
 
@@ -138,7 +148,8 @@ export default class Timeline extends Component {
             itemRenderer={this.renderWeek}
             length={this.startIndex * 2}
             type="uniform"
-            pageSize={3}
+            pageSize={2}
+            threshold={window.innerHeight * 0.1}
             initialIndex={this.startIndex}
           />
         )}
