@@ -25,4 +25,12 @@ html {
 body {
   line-height: 1rem;
   font-size: 0.764rem;
+  -webkit-scroll-snap-type: mandatory;
+  -webkit-scroll-snap-points-y: repeat(100vh);
+  -moz-scroll-snap-type: mandatory;
+  -moz-scroll-snap-points-y: repeat(100vh);
+  -ms-scroll-snap-type: mandatory;
+  -ms-scroll-snap-points-y: repeat(100vh);
+  scroll-snap-type: mandatory;
+  scroll-snap-points-y: repeat(100vh);
 }

@@ -15,7 +15,8 @@
     "react-list": "^0.8.0",
     "react-mixin": "^3.0.5",
     "reactfire": "^1.0.0",
-    "rollbar": "^0.6.2"
+    "rollbar": "^0.6.2",
+    "styled-components": "^1.2.1"
   },
   "scripts": {
     "start": "next dev",

@@ -2,6 +2,50 @@ import React, { PureComponent } from "react";
 import moment from "moment";
 import debounce from "lodash.debounce";
 import classNames from "classnames";
+import styled from "styled-components";
+
+const DayContainer = styled.div`
+  flex-grow: 1;
+  flex-basis: 0;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  padding: 1.5rem 0;
+
+  &.isFocused {
+    flex-grow: initial;
+    flex-basis: initial;
+  }
+
+  &.isToday {
+    background: yellow;
+  }
+
+  .label {
+    white-space: nowrap;
+    position: absolute;
+    left: 0; top: 0; right: 0;
+    line-height: 1.5rem;
+    font-size: 0.5rem;
+    text-align: center;
+  }
+
+  .textarea {
+    flex-grow: 1;
+    width: 100%;
+    resize: none;
+    padding: 0.5rem;
+    border: none;
+    border: 1px solid;
+  }
+
+  .textarea,
+  &.isFocused {
+    width: 66.6vw;
+    max-width: 16rem;
+  }
+`;
 
 class Day extends PureComponent {
   constructor(props) {
@@ -106,58 +150,13 @@ class Day extends PureComponent {
     }
 
     return (
-      <div
+      <DayContainer
         className={classNames({
           "day": true,
           "isFocused": isFocused,
           "isToday": this.props.isToday,
         })}
       >
-        <style jsx>{`
-          .day {
-            flex-grow: 1;
-            flex-basis: 0;
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            overflow: hidden;
-            padding: 1.5rem 0;
-          }
-
-          .day.isFocused {
-            flex-grow: initial;
-            flex-basis: initial;
-          }
-
-          .day.isToday {
-            background: yellow;
-          }
-
-          .label {
-            white-space: nowrap;
-            position: absolute;
-            left: 0; top: 0; right: 0;
-            line-height: 1.5rem;
-            font-size: 0.5rem;
-            text-align: center;
-          }
-
-          .textarea {
-            flex-grow: 1;
-            width: 100%;
-            resize: none;
-            padding: 0.5rem;
-            border: none;
-            border: 1px solid;
-          }
-
-          .textarea,
-          .day.isFocused {
-            width: 66.6vw;
-            max-width: 16rem;
-          }
-        `}</style>
-
         <label className="label" htmlFor={this.props.day.valueOf()}>
           {this.props.day.format(isFocused ? "DD ddd MMM YYYY" : "DD")}
         </label>
@@ -190,7 +189,7 @@ class Day extends PureComponent {
         }
 
         {additionalTexts}
-      </div>
+      </DayContainer>
     );
   }
 }

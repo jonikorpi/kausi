@@ -1,5 +1,14 @@
 import React, { Component } from "react";
 import Link from "next/link";
+import styled from "styled-components";
+
+const NavigationContainer = styled.nav`
+  display: flex;
+
+  .navigation-link {
+    padding: 0.5rem;
+  }
+`;
 
 export default class Navigation extends Component {
   render() {
@@ -35,31 +44,19 @@ export default class Navigation extends Component {
     ];
 
     return (
-      <div>
-        <nav className="navigation">
-          <style jsx>{`
-            .navigation {
-              display: flex;
-            }
+      <NavigationContainer className="navigation">
+        {links.map((link) => {
+          return (
+            <Link href={link.href} key={link.href}>
+              <a className="navigation-link">
+                {link.text}
+              </a>
+            </Link>
+          )
+        })}
 
-            .navigation-link {
-              padding: 0.5rem;
-            }
-          `}</style>
-
-          {links.map((link) => {
-            return (
-              <Link href={link.href} key={link.href}>
-                <a className="navigation-link">
-                  {link.text}
-                </a>
-              </Link>
-            )
-          })}
-
-          <button className="navigation-link" type="button">Log out</button>
-        </nav>
-      </div>
+        <button className="navigation-link" type="button">Log out</button>
+      </NavigationContainer>
     );
   }
 }

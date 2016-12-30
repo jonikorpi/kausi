@@ -3,8 +3,14 @@ import moment from "moment";
 // import firebase from "firebase";
 // import reactMixin from "react-mixin";
 // import ReactFire from "reactfire";
+import styled from "styled-components";
 
 import Day from "./Day";
+
+const WeekContainer = styled.div`
+  display: flex;
+  height: 100vh;
+`;
 
 class Week extends Component {
   // constructor(props) {
@@ -107,14 +113,7 @@ class Week extends Component {
     // );
 
     return (
-      <div className="week">
-        <style jsx>{`
-          .week {
-            display: flex;
-            height: 100vh;
-          }
-        `}</style>
-
+      <WeekContainer className="week">
         <Day
           day={moment(this.props.weekOf).add(0, "days")}
           focusDay={this.props.focusDay}
@@ -157,7 +156,7 @@ class Week extends Component {
           tabbingEnabled={this.props.index === 1}
           isToday={this.props.today.isSame(moment(this.props.weekOf).add(6, "days"))}
         />
-      </div>
+      </WeekContainer>
     );
   }
 }
