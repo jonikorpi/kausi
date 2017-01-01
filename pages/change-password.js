@@ -5,7 +5,13 @@ import Link from "next/link";
 import Head from "../components/Head.js";
 import Navigation from "../components/Navigation";
 
+import initializeFirebase from "../scripts/initializeFirebase.js";
+
 export default class ChangePassword extends Component {
+  componentDidMount() {
+    initializeFirebase();
+  }
+
   setPassword = (password, passwordAgain) => {
     if (password && password === passwordAgain) {
       firebase.auth().currentUser.updatePassword(password).then(function() {

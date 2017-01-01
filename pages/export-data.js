@@ -7,6 +7,8 @@ import Link from "next/link";
 import Head from "../components/Head.js";
 import Navigation from "../components/Navigation";
 
+import initializeFirebase from "../scripts/initializeFirebase.js";
+
 export default class ExportData extends Component {
   constructor(props) {
     super(props);
@@ -19,6 +21,8 @@ export default class ExportData extends Component {
   }
 
   componentDidMount() {
+    initializeFirebase();
+
     if (this.props.uid) {
       this.bindFirebase(this.props.uid);
     }
@@ -69,4 +73,4 @@ export default class ExportData extends Component {
   }
 }
 
-reactMixin(DataExport.prototype, ReactFire);
+reactMixin(ExportData.prototype, ReactFire);

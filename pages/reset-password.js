@@ -5,7 +5,13 @@ import Link from "next/link";
 import Head from "../components/Head.js";
 import Navigation from "../components/Navigation";
 
+import initializeFirebase from "../scripts/initializeFirebase.js";
+
 export default class ResetPassword extends Component {
+  componentDidMount() {
+    initializeFirebase();
+  }
+
   requestPasswordReset = (email) => {
     firebase.auth().sendPasswordResetEmail(email).then(function() {
       this.setState({error: "Password reset link sent to your email."})

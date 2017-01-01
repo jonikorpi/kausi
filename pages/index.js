@@ -7,6 +7,8 @@ import Head from "../components/Head.js";
 import TimelineNavigation from "../components/TimelineNavigation";
 import Week from "../components/Week";
 
+import initializeFirebase from "../scripts/initializeFirebase.js";
+
 export default class Timeline extends Component {
   constructor(props) {
     super(props);
@@ -35,13 +37,7 @@ export default class Timeline extends Component {
       clientSide: true,
     });
 
-    if (firebase.apps.length === 0) {
-      firebase.initializeApp({
-        authDomain: "muisti-6a29a.firebaseapp.com",
-        apiKey: "AIzaSyAF4obcBK8wggQq9klNNkHH-dolEoNhlLM",
-        databaseURL: "https://muisti-6a29a.firebaseio.com",
-      });
-    }
+    initializeFirebase();
 
     firebase.auth().onAuthStateChanged(function(user) {
       if (user) {

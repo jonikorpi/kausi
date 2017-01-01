@@ -5,7 +5,13 @@ import Link from "next/link";
 import Head from "../components/Head.js";
 import Navigation from "../components/Navigation";
 
+import initializeFirebase from "../scripts/initializeFirebase.js";
+
 export default class SignIn extends Component {
+  componentDidMount() {
+    initializeFirebase();
+  }
+
   signIn = (email, password) => {
     this.setState({error: null});
     if (email && password) {
