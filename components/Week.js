@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import moment from "moment";
-// import firebase from "firebase";
-// import reactMixin from "react-mixin";
-// import ReactFire from "reactfire";
+import firebase from "firebase";
+import reactMixin from "react-mixin";
+import ReactFire from "reactfire";
 import styled from "styled-components";
 
 import Day from "./Day";
@@ -13,51 +13,48 @@ const WeekContainer = styled.div`
 `;
 
 class Week extends Component {
-  // constructor(props) {
-  //   super(props);
-  //
-  //   this.state = {
-  //     firebase: undefined,
-  //   };
-  //
-  //   this.bindFirebase = this.bindFirebase.bind(this);
-  //   this.saveTodo = this.saveTodo.bind(this);
-  // }
-  //
-  // componentDidMount() {
-  //   if (this.props.uid) {
-  //     this.bindFirebase(this.props.uid, this.props.weekOf);
-  //   }
-  // }
-  //
-  // componentWillReceiveProps(nextProps) {
-  //   if (nextProps.uid !== this.props.uid || nextProps.weekOf.valueOf() !== this.props.weekOf.valueOf()) {
-  //     if (this.firebaseRefs.firebase) {
-  //       this.unbind("firebase");
-  //     }
-  //     if (nextProps.uid) {
-  //       this.bindFirebase(nextProps.uid, nextProps.weekOf);
-  //     }
-  //   }
-  // }
-  //
-  // bindFirebase(uid, weekOf) {
-  //   this.bindAsObject(
-  //     firebase.database()
-  //       .ref(uid)
-  //       .orderByChild("date")
-  //       .startAt(weekOf.valueOf())
-  //       .endAt(moment(weekOf).endOf("week").valueOf()),
-  //     "firebase",
-  //     function(error) {
-  //       console.log("Firebase subscription cancelled:")
-  //       console.log(error);
-  //       this.setState({firebase: undefined})
-  //     }.bind(this)
-  //   );
-  // }
+  constructor(props) {
+    super(props);
 
-  // saveTodo(text, lastUpdated, day, firebaseKey) {
+    this.state = {
+      firebase: undefined,
+    };
+  }
+
+  componentDidMount() {
+    if (this.props.uid) {
+      this.bindFirebase(this.props.uid, this.props.weekOf);
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.uid !== this.props.uid || nextProps.weekOf.valueOf() !== this.props.weekOf.valueOf()) {
+      if (this.firebaseRefs.firebase) {
+        this.unbind("firebase");
+      }
+      if (nextProps.uid) {
+        this.bindFirebase(nextProps.uid, nextProps.weekOf);
+      }
+    }
+  }
+
+  bindFirebase = (uid, weekOf) => {
+    this.bindAsObject(
+      firebase.database()
+        .ref(uid)
+        .orderByChild("date")
+        .startAt(weekOf.valueOf())
+        .endAt(moment(weekOf).endOf("week").valueOf()),
+      "firebase",
+      function(error) {
+        console.log("Firebase subscription cancelled:")
+        console.log(error);
+        this.setState({firebase: undefined})
+      }.bind(this)
+    );
+  }
+
+  // saveTodo = (text, lastUpdated, day, firebaseKey) => {
   //   if (this.props.uid && lastUpdated && day) {
   //     let firebaseRef = firebase.database().ref(this.props.uid);
   //
@@ -100,66 +97,27 @@ class Week extends Component {
     //   firebaseValue = firebaseState[firebaseKey];
     // }
 
-    // return (
-    //   <Day
-    //     {...this.props}
-    //     firebaseKey={firebaseKey}
-    //     saveTodo={this.saveTodo}
-    //     textCount={firebaseKeys.length}
-    //     loading={firebaseState ? false : true}
-    //            text={firebaseValue ? firebaseValue.text : null}
-    //     lastUpdated={firebaseValue ? firebaseValue.lastUpdated : null}
-    //   />
-    // );
+    const days = [0,1,2,3,4,5,6];
 
     return (
       <WeekContainer className="week">
-        <Day
-          day={moment(this.props.weekOf).add(0, "days")}
-          focusDay={this.props.focusDay}
-          tabbingEnabled={this.props.index === 1}
-          isToday={this.props.today.isSame(moment(this.props.weekOf).add(0, "days"))}
-        />
-        <Day
-          day={moment(this.props.weekOf).add(1, "days")}
-          focusDay={this.props.focusDay}
-          tabbingEnabled={this.props.index === 1}
-          isToday={this.props.today.isSame(moment(this.props.weekOf).add(1, "days"))}
-        />
-        <Day
-          day={moment(this.props.weekOf).add(2, "days")}
-          focusDay={this.props.focusDay}
-          tabbingEnabled={this.props.index === 1}
-          isToday={this.props.today.isSame(moment(this.props.weekOf).add(2, "days"))}
-        />
-        <Day
-          day={moment(this.props.weekOf).add(3, "days")}
-          focusDay={this.props.focusDay}
-          tabbingEnabled={this.props.index === 1}
-          isToday={this.props.today.isSame(moment(this.props.weekOf).add(3, "days"))}
-        />
-        <Day
-          day={moment(this.props.weekOf).add(4, "days")}
-          focusDay={this.props.focusDay}
-          tabbingEnabled={this.props.index === 1}
-          isToday={this.props.today.isSame(moment(this.props.weekOf).add(4, "days"))}
-        />
-        <Day
-          day={moment(this.props.weekOf).add(5, "days")}
-          focusDay={this.props.focusDay}
-          tabbingEnabled={this.props.index === 1}
-          isToday={this.props.today.isSame(moment(this.props.weekOf).add(5, "days"))}
-        />
-        <Day
-          day={moment(this.props.weekOf).add(6, "days")}
-          focusDay={this.props.focusDay}
-          tabbingEnabled={this.props.index === 1}
-          isToday={this.props.today.isSame(moment(this.props.weekOf).add(6, "days"))}
-        />
+        {days.map((day) => (
+          <Day
+            key={day}
+            day={moment(this.props.weekOf).add(day, "days")}
+            tabbingEnabled={this.props.index === 1}
+            // textCount={firebaseKeys.length}
+            // loading={firebaseState ? false : true}
+            //        text={firebaseValue ? firebaseValue.text : null}
+            // lastUpdated={firebaseValue ? firebaseValue.lastUpdated : null}
+            focusDay={this.props.focusDay}
+            saveTodo={this.saveTodo}
+          />
+        ))}
       </WeekContainer>
     );
   }
 }
 
-// reactMixin(DayContainer.prototype, ReactFire);
+reactMixin(Week.prototype, ReactFire);
 export default Week;

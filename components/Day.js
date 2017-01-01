@@ -122,12 +122,7 @@ class Day extends PureComponent {
     let placeholder;
 
     if (this.props.anonymous) {
-      if ( this.props.someday && this.props.day.isSame(moment(0)) ) {
-        placeholder = "You can also type here. Useful for stuff like grocery lists and grandiose plans.";
-      }
-      else if (isToday) {
-        placeholder = "Try typing something here. Text is auto-saved as you type. \n\nYou are currently using a temporary account. Your entries are saved in this browser only. \n\nTo access your entries in other browsers or devices, sign up. ↘ \n\nSigning up will also make these messages go away.";
-      }
+      placeholder = "Try typing something here. Text is auto-saved as you type. \n\nYou are currently using a temporary account. Your entries are saved in this browser only. \n\nTo access your entries in other browsers or devices, sign up. ↘ \n\nSigning up will also make these messages go away.";
     }
 
     // Additional entries
@@ -183,7 +178,7 @@ class Day extends PureComponent {
               onFocus={this.onFocus}
               onBlur={this.onBlur}
               onChange={this.onChange}
-              placeholder="Test test test test test"
+              placeholder={placeholder}
             />
           )
         }

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-// import firebase from "firebase";
+import firebase from "firebase";
 import List from "react-list";
 import moment from "moment";
 
@@ -35,44 +35,44 @@ export default class Timeline extends Component {
       clientSide: true,
     });
 
-    // if (firebase.apps.length === 0) {
-    //   firebase.initializeApp({
-    //     authDomain: "muisti-6a29a.firebaseapp.com",
-    //     apiKey: "AIzaSyAF4obcBK8wggQq9klNNkHH-dolEoNhlLM",
-    //     databaseURL: "https://muisti-6a29a.firebaseio.com",
-    //   });
-    // }
-    //
-    // firebase.auth().onAuthStateChanged(function(user) {
-    //   if (user) {
-    //     this.setState({
-    //       uid: user.uid,
-    //       anonymous: user.isAnonymous,
-    //     });
-    //   }
-    //   else {
-    //     this.setState({
-    //       uid: null,
-    //       anonymous: null,
-    //     });
-    //
-    //     firebase.auth().signInAnonymously().catch(function(error) {
-    //       console.log(error);
-    //     });
-    //   }
-    // }.bind(this));
-    //
-    // firebase.database().ref(".info/connected").on("value", function(online) {
-    //   if (online.val() === true) {
-    //     this.setState({
-    //       connected: true,
-    //       haveConnectedOnce: true,
-    //     });
-    //   }
-    //   else {
-    //     this.setState({connected: false});
-    //   }
-    // }.bind(this));
+    if (firebase.apps.length === 0) {
+      firebase.initializeApp({
+        authDomain: "muisti-6a29a.firebaseapp.com",
+        apiKey: "AIzaSyAF4obcBK8wggQq9klNNkHH-dolEoNhlLM",
+        databaseURL: "https://muisti-6a29a.firebaseio.com",
+      });
+    }
+
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        this.setState({
+          uid: user.uid,
+          anonymous: user.isAnonymous,
+        });
+      }
+      else {
+        this.setState({
+          uid: null,
+          anonymous: null,
+        });
+
+        firebase.auth().signInAnonymously().catch(function(error) {
+          console.log(error);
+        });
+      }
+    }.bind(this));
+
+    firebase.database().ref(".info/connected").on("value", function(online) {
+      if (online.val() === true) {
+        this.setState({
+          connected: true,
+          haveConnectedOnce: true,
+        });
+      }
+      else {
+        this.setState({connected: false});
+      }
+    }.bind(this));
   }
 
   componentWillUnmount() {
