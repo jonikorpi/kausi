@@ -34,7 +34,7 @@ class Day extends Component {
     const newTimestamp = nextProps.lastUpdated;
 
     if (
-         (newText && newText !== this.state.text)
+      (newText && newText !== this.state.text)
       && (!this.state.lastUpdated || newTimestamp > this.state.lastUpdated)
     ) {
       this.setState({
@@ -51,7 +51,7 @@ class Day extends Component {
   }
 
   onFocus() {
-    this.setState({editing: true});
+    this.setState({ editing: true });
     this.props.setActiveTimeline(this.props.index);
   }
 
@@ -81,7 +81,7 @@ class Day extends Component {
     let placeholder;
 
     if (this.props.anonymous) {
-      if ( this.props.someday && this.props.day.isSame(moment(0)) ) {
+      if (this.props.someday && this.props.day.isSame(moment(0))) {
         placeholder = "You can also type here. Useful for stuff like grocery lists and grandiose plans.";
       }
       else if (isToday) {
@@ -116,8 +116,8 @@ class Day extends Component {
       const todayLabel = isToday ? ", Today" : false
 
       if (
-             this.props.day.isSame(moment(this.props.day).startOf("isoweek"))
-          || this.props.day.isSame(moment(this.props.day).startOf("month"))
+        this.props.day.isSame(moment(this.props.day).startOf("isoweek"))
+        || this.props.day.isSame(moment(this.props.day).startOf("month"))
       ) {
         monthLabel = `, ${this.props.day.format("MMM YYYY")}`;
       }
@@ -158,7 +158,7 @@ class Day extends Component {
           "flex grow vertical": true,
           "border border-y border-bottom-0 border-0-25": true,
           "border-color-1": !this.props.someday,
-          "border-color-2":  this.props.someday,
+          "border-color-2": this.props.someday,
           "border-color-bright-4": isWeekend,
           "border-color-bright-5": isToday,
           "border-color-bright-6": isEditing,
@@ -167,30 +167,30 @@ class Day extends Component {
 
           {
             this.props.loading
-            ? (
-              <div className="padding-0-75">
-                <div className="spin border border-0-125 border-color-4 dashed round height-0-75 width-0-75"></div>
-              </div>
-            )
-            : (
-              <textarea
-                id={this.props.day.valueOf()}
-                ref={(c) => this.textarea = c}
-                className={classNames({
-                  "padding-0-75 grow width-100 scrollbar-3": true,
-                })}
-                style={{
-                  paddingTop: "0.5rem",
-                  paddingBottom: "0.5rem",
-                }}
-                value={this.state.text}
-                onKeyDown={this.onKeyDown}
-                onFocus={this.onFocus}
-                onBlur={this.onBlur}
-                onChange={this.onChange}
-                placeholder={placeholder}
-              />
-            )
+              ? (
+                <div className="padding-0-75">
+                  <div className="spin border border-0-125 border-color-4 dashed round height-0-75 width-0-75"></div>
+                </div>
+              )
+              : (
+                <textarea
+                  id={this.props.day.valueOf()}
+                  ref={(c) => this.textarea = c}
+                  className={classNames({
+                    "padding-0-75 grow width-100 scrollbar-3": true,
+                  })}
+                  style={{
+                    paddingTop: "0.5rem",
+                    paddingBottom: "0.5rem",
+                  }}
+                  value={this.state.text}
+                  onKeyDown={this.onKeyDown}
+                  onFocus={this.onFocus}
+                  onBlur={this.onBlur}
+                  onChange={this.onChange}
+                  placeholder={placeholder}
+                />
+              )
           }
 
           {additionalTexts}

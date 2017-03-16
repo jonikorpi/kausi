@@ -38,10 +38,10 @@ class DayContainer extends Component {
     this.bindAsObject(
       firebase.database().ref(uid).orderByChild("date").equalTo(day.valueOf()),
       "firebase",
-      function(error) {
+      function (error) {
         console.log("Firebase subscription cancelled:")
         console.log(error);
-        this.setState({firebase: undefined})
+        this.setState({ firebase: undefined })
       }.bind(this)
     );
   }
@@ -96,7 +96,7 @@ class DayContainer extends Component {
         saveTodo={this.saveTodo}
         textCount={firebaseKeys.length}
         loading={firebaseState ? false : true}
-               text={firebaseValue ? firebaseValue.text : null}
+        text={firebaseValue ? firebaseValue.text : null}
         lastUpdated={firebaseValue ? firebaseValue.lastUpdated : null}
       />
     );

@@ -43,7 +43,7 @@ class Timeline extends Component {
 
     this.onScrollHandler = throttle(function () {
       this.onScroll()
-    }, 50, {leading: false});
+    }, 50, { leading: false });
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -53,8 +53,8 @@ class Timeline extends Component {
   componentDidMount() {
     window.addEventListener("resize", this.onResizeHandler.bind(this));
 
-    const updateTodayHandler = setInterval(this.updateToday, 1000*10);
-    this.setState({updateTodayHandler: updateTodayHandler});
+    const updateTodayHandler = setInterval(this.updateToday, 1000 * 10);
+    this.setState({ updateTodayHandler: updateTodayHandler });
   }
 
   componentWillUnmount() {
@@ -80,7 +80,7 @@ class Timeline extends Component {
   }
 
   removeRecentScroll() {
-    this.setState({haveScrolledRecently: false});
+    this.setState({ haveScrolledRecently: false });
   }
 
   onScroll() {
@@ -189,7 +189,7 @@ class Timeline extends Component {
           type="uniform"
           pageSize={7}
           initialIndex={this.timelineLength / 2}
-          threshold={window.innerWidth*2}
+          threshold={window.innerWidth * 2}
         />
       );
 
@@ -202,7 +202,7 @@ class Timeline extends Component {
           length={this.somedayLength}
           type="uniform"
           pageSize={this.somedayLength}
-          threshold={window.innerWidth*2}
+          threshold={window.innerWidth * 2}
         />
       );
     }
@@ -245,7 +245,7 @@ class Timeline extends Component {
             zIndex: 2,
           }}
         >
-          <Button label="Today" onClick={this.scrollToToday.bind(this)}/>
+          <Button label="Today" onClick={this.scrollToToday.bind(this)} />
           {accountButton}
         </Controls>
       );
