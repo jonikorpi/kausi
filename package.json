@@ -7,7 +7,7 @@
   "private": true,
   "devDependencies": {
     "classnames": "^2.2.5",
-    "firebase": "^3.4.1",
+    "firebase": "^3.7.2",
     "jonikorpi-base-files": "^4.0.2",
     "lodash.debounce": "^4.0.8",
     "lodash.throttle": "^4.1.1",
@@ -16,17 +16,17 @@
     "react-addons-perf": "^15.3.2",
     "react-addons-shallow-compare": "^15.3.2",
     "react-dom": "^15.3.2",
-    "react-list": "^0.8.0",
+    "react-list": "^0.8.4",
     "react-mixin": "^3.0.5",
-    "react-scripts": "^0.8.5",
+    "react-scripts": "^0.9.5",
     "reactfire": "^1.0.0"
   },
   "dependencies": {
     "compression": "^1.6.2",
-    "express": "^4.14.0",
-    "morgan": "^1.7.0",
-    "rollbar": "^0.6.2",
-    "universal-analytics": "^0.4.6"
+    "express": "^4.15.2",
+    "morgan": "^1.8.1",
+    "rollbar": "^0.6.5",
+    "universal-analytics": "^0.4.11"
   },
   "scripts": {
     "now-start": "node server",
