@@ -56,8 +56,7 @@ class Day extends Component {
   }
 
   onBlur() {
-    this.setState({editing: false});
-    this.saveTodo();
+    this.setState({ editing: false });
   }
 
   onChange(event) {
