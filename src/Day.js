@@ -22,7 +22,7 @@ class Day extends Component {
 
     this.saveTodoHandler = debounce(function () {
       this.saveTodo()
-    }, 500);
+    }, 500, { leading: true, trailing: true });
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -63,8 +63,7 @@ class Day extends Component {
     this.setState({
       text: event.target.value,
       lastUpdated: moment(),
-    });
-    this.saveTodoHandler();
+    }, this.saveTodoHandler);
   }
 
   onKeyDown(event) {
