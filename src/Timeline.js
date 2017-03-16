@@ -73,8 +73,10 @@ class Timeline extends Component {
   }
 
   onResize(timelineIndex, somedayIndex) {
-    this.timeline.scrollTo(timelineIndex);
-    this.someday.scrollTo(somedayIndex);
+    if (this.timeline || this.someday) {
+      this.timeline.scrollTo(timelineIndex);
+      this.someday.scrollTo(somedayIndex);
+    }
   }
 
   removeRecentScroll() {
