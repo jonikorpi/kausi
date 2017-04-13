@@ -27,9 +27,10 @@ export default class Editor extends PureComponent {
     const newTimestamp = nextProps.lastUpdated;
 
     if (
-      newText &&
       newText !== this.state.text &&
-      (!this.state.lastUpdated || newTimestamp > this.state.lastUpdated)
+      (!this.state.lastUpdated ||
+        newTimestamp > this.state.lastUpdated ||
+        !newTimestamp)
     ) {
       this.setState({
         text: newText,
@@ -79,7 +80,7 @@ export default class Editor extends PureComponent {
       id: this.props.day.valueOf(),
       ref: c => this.textarea = c,
       className: "textarea",
-      value: this.state.text,
+      value: this.state.text || "",
       onKeyDown: this.onKeyDown,
       onFocus: this.onFocus,
       onBlur: this.onBlur,

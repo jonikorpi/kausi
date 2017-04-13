@@ -3,7 +3,7 @@ import moment from "moment";
 import debounce from "lodash.debounce";
 import classNames from "classnames";
 
-import Editor from "./Editor";
+import FirebaseProvider from "./FirebaseProvider";
 
 export default class Day extends PureComponent {
   constructor(props) {
@@ -30,6 +30,9 @@ export default class Day extends PureComponent {
       (this.props.day.day() === 0 || this.props.day.day() === 6);
     const isFocused = this.state.focused ||
       (!this.props.aDayIsFocused && isToday);
+
+    const dayNumber = this.props.day.format("DD");
+    const weekday = this.props.day.format("dddd");
 
     // Additional entries
     let additionalTexts;
@@ -165,26 +168,18 @@ export default class Day extends PureComponent {
         </label>
 
         <div className="editors">
-          <Editor
+          <FirebaseProvider
+            uid={this.props.uid}
             day={this.props.day}
-            text={this.props.text}
-            lastUpdated={this.props.lastUpdated}
-            readOnly={this.props.loading}
-            additionalTexts={additionalTexts}
-            saveTodo={this.props.saveTodo}
             focused={this.state.focused}
             onFocus={this.onFocus}
             onBlur={this.onBlur}
             placeholder={isFocused ? "This day" : undefined}
           />
 
-          <Editor
-            day={this.props.day}
-            text={this.props.text}
-            lastUpdated={this.props.lastUpdated}
-            readOnly={this.props.loading}
-            additionalTexts={additionalTexts}
-            saveTodo={this.props.saveTodo}
+          <FirebaseProvider
+            uid={this.props.uid}
+            day={weekday}
             focused={this.state.focused}
             onFocus={this.onFocus}
             onBlur={this.onBlur}
@@ -194,21 +189,18 @@ export default class Day extends PureComponent {
             autoSize
           />
 
-          <Editor
-            day={this.props.day}
-            text={this.props.text}
-            lastUpdated={this.props.lastUpdated}
-            readOnly={this.props.loading}
-            additionalTexts={additionalTexts}
-            saveTodo={this.props.saveTodo}
-            focused={this.state.focused}
-            onFocus={this.onFocus}
-            onBlur={this.onBlur}
-            placeholder={
-              isFocused ? "Every " + this.props.day.format("Do") : undefined
-            }
-            autoSize
-          />
+          {dayNumber < 29 &&
+            <FirebaseProvider
+              uid={this.props.uid}
+              day={dayNumber}
+              focused={this.state.focused}
+              onFocus={this.onFocus}
+              onBlur={this.onBlur}
+              placeholder={
+                isFocused ? "Every " + this.props.day.format("Do") : undefined
+              }
+              autoSize
+            />}
         </div>
       </div>
     );

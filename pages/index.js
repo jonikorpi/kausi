@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Router from "next/router";
 import firebase from "firebase";
 import moment from "moment";
 import { List, AutoSizer, WindowScroller } from "react-virtualized";
@@ -14,15 +15,20 @@ export default class Timeline extends Component {
     super(props);
 
     this.startIndex = 400;
+    const today = moment().startOf("day");
+    const query = Object.keys(this.props.url.query)[0];
 
     this.state = {
-      today: moment().startOf("day"),
+      today: today,
       uid: null,
       anonymous: null,
       connected: false,
       haveConnectedOnce: false,
       error: null,
       clientSide: false,
+      focusOnIndex: query
+        ? this.getIndexFromDay(today, moment(query))
+        : this.startIndex,
     };
   }
 
@@ -87,26 +93,30 @@ export default class Timeline extends Component {
     }
   };
 
-  getIndexFromDay = day => {
+  getIndexFromDay = (today, day) => {
     return this.startIndex +
       moment(day)
         .startOf("isoweek")
-        .diff(moment(this.state.today).startOf("isoweek"), "weeks");
+        .diff(moment(today).startOf("isoweek"), "weeks");
   };
 
   setUrlToDay = day => {
-    this.props.url.replace(`/?${moment(day).format("YYYY-MM-DD")}`);
+    Router.push(`/?${moment(day).format("YYYY-MM-DD")}`);
+    this.setState(
+      { focusOnIndex: this.getIndexFromDay(this.state.today, day) },
+      () => {
+        this.list.scrollToRow(this.state.focusOnIndex);
+      }
+    );
   };
 
   scrollToToday = () => {
     this.setUrlToDay(this.state.today);
-    this.list.scrollTo(this.startIndex);
   };
 
   focusDay = day => {
-    const targetIndex = this.getIndexFromDay(day);
+    const targetIndex = this.getIndexFromDay(this.state.today, day);
     this.setUrlToDay(day);
-    this.list.scrollTo(targetIndex);
   };
 
   signOut = () => {
@@ -155,11 +165,6 @@ export default class Timeline extends Component {
   render() {
     const noWindow = typeof window === "undefined";
     let initialDayIndex = this.startIndex;
-    const query = Object.keys(this.props.url.query)[0];
-
-    if (query) {
-      initialDayIndex = this.getIndexFromDay(moment(query));
-    }
 
     return (
       <div className="timeline">
@@ -181,16 +186,18 @@ export default class Timeline extends Component {
               <WindowScroller>
                 {({ height, isScrolling, scrollTop }) => (
                   <List
+                    ref={c => this.list = c}
                     width={width}
                     height={height}
                     rowCount={this.startIndex * 2}
                     rowHeight={height * 0.91}
                     rowRenderer={this.rowRenderer}
-                    scrollToIndex={this.startIndex}
+                    scrollToIndex={this.state.focusOnIndex}
                     scrollToAlignment="start"
                     scrollTop={scrollTop}
                     isScrolling={isScrolling}
                     overscanRowCount={0}
+                    uid={this.state.uid}
                   />
                 )}
               </WindowScroller>
