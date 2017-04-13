@@ -87,6 +87,7 @@ export default class Editor extends PureComponent {
       onChange: this.onChange,
       placeholder: this.props.placeholder,
       readOnly: this.props.loading,
+      tabIndex: this.props.autoSize ? -1 : undefined,
     };
 
     return (
