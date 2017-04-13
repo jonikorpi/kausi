@@ -139,10 +139,6 @@ export default class Day extends PureComponent {
             white-space: nowrap;
           }
 
-          .today .label {
-            color: cyan;
-          }
-
           .dateStamp {
             text-transform: uppercase;
           }
