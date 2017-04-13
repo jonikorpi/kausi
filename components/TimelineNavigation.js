@@ -1,26 +1,10 @@
 import React, { Component } from "react";
 import Link from "next/link";
-import styled from "styled-components";
-
-const TimelineNavigationContainer = styled.div`
-  position: fixed;
-  left: 0;
-  bottom: 1rem;
-  right: 0;
-
-  .navigation {
-    display: flex;
-  }
-
-  .navigation-link {
-    padding: 0.5rem;
-  }
-`;
 
 export default class TimelineNavigation extends Component {
   render() {
     return (
-      <TimelineNavigationContainer>
+      <div>
         <nav className="navigation">
 
           <button
@@ -55,7 +39,7 @@ export default class TimelineNavigation extends Component {
             </a>
           </Link>
         </nav>
-      </TimelineNavigationContainer>
+      </div>
     );
   }
 }

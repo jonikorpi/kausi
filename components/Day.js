@@ -2,50 +2,6 @@ import React, { PureComponent } from "react";
 import moment from "moment";
 import debounce from "lodash.debounce";
 import classNames from "classnames";
-import styled from "styled-components";
-
-const DayContainer = styled.div`
-  flex-grow: 1;
-  flex-basis: 0;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  overflow: hidden;
-  padding: 1.5rem 0;
-
-  &.isFocused {
-    flex-grow: initial;
-    flex-basis: initial;
-  }
-
-  &.isToday {
-    background: yellow;
-  }
-
-  .label {
-    white-space: nowrap;
-    position: absolute;
-    left: 0; top: 0; right: 0;
-    line-height: 1.5rem;
-    font-size: 0.5rem;
-    text-align: center;
-  }
-
-  .textarea {
-    flex-grow: 1;
-    width: 100%;
-    resize: none;
-    padding: 0.5rem;
-    border: none;
-    border: 1px solid;
-  }
-
-  .textarea,
-  &.isFocused {
-    width: 66.6vw;
-    max-width: 16rem;
-  }
-`;
 
 class Day extends PureComponent {
   constructor(props) {
@@ -73,7 +29,7 @@ class Day extends PureComponent {
     const newTimestamp = nextProps.lastUpdated;
 
     if (
-         (newText && newText !== this.state.text)
+      (newText && newText !== this.state.text)
       && (!this.state.lastUpdated || newTimestamp > this.state.lastUpdated)
     ) {
       this.setState({
@@ -90,12 +46,12 @@ class Day extends PureComponent {
   }
 
   onFocus() {
-    this.setState({isFocused: true});
+    this.setState({ isFocused: true });
     this.props.focusDay(this.props.day);
   }
 
   onBlur() {
-    this.setState({isFocused: false});
+    this.setState({ isFocused: false });
     this.saveTodo();
   }
 
@@ -145,7 +101,7 @@ class Day extends PureComponent {
     }
 
     return (
-      <DayContainer
+      <div
         className={classNames({
           "day": true,
           "isFocused": isFocused,
@@ -158,33 +114,33 @@ class Day extends PureComponent {
 
         {
           this.props.loading
-          ? (
-            <div className="padding-0-75">
-              <div className="spin border border-0-125 border-color-4 dashed round height-0-75 width-0-75"></div>
-            </div>
-          )
-          : (
-            <textarea
-              id={this.props.day.valueOf()}
-              ref={(c) => this.textarea = c}
-              tabIndex={this.props.tabbingEnabled ? 1 : -1}
-              className="textarea"
-              style={{
-                paddingTop: "0.5rem",
-                paddingBottom: "0.5rem",
-              }}
-              value={this.state.text}
-              onKeyDown={this.onKeyDown}
-              onFocus={this.onFocus}
-              onBlur={this.onBlur}
-              onChange={this.onChange}
-              placeholder={placeholder}
-            />
-          )
+            ? (
+              <div className="padding-0-75">
+                <div className="spin border border-0-125 border-color-4 dashed round height-0-75 width-0-75"></div>
+              </div>
+            )
+            : (
+              <textarea
+                id={this.props.day.valueOf()}
+                ref={(c) => this.textarea = c}
+                tabIndex={this.props.tabbingEnabled ? 1 : -1}
+                className="textarea"
+                style={{
+                  paddingTop: "0.5rem",
+                  paddingBottom: "0.5rem",
+                }}
+                value={this.state.text}
+                onKeyDown={this.onKeyDown}
+                onFocus={this.onFocus}
+                onBlur={this.onBlur}
+                onChange={this.onChange}
+                placeholder={placeholder}
+              />
+            )
         }
 
         {additionalTexts}
-      </DayContainer>
+      </div>
     );
   }
 }

@@ -3,14 +3,8 @@ import moment from "moment";
 import firebase from "firebase";
 import reactMixin from "react-mixin";
 import ReactFire from "reactfire";
-import styled from "styled-components";
 
 import Day from "./Day";
-
-const WeekContainer = styled.div`
-  display: flex;
-  height: 100vh;
-`;
 
 class Week extends Component {
   constructor(props) {
@@ -46,10 +40,10 @@ class Week extends Component {
         .startAt(weekOf.valueOf())
         .endAt(moment(weekOf).endOf("week").valueOf()),
       "firebase",
-      function(error) {
+      function (error) {
         console.log("Firebase subscription cancelled:")
         console.log(error);
-        this.setState({firebase: undefined})
+        this.setState({ firebase: undefined })
       }.bind(this)
     );
   }
@@ -97,10 +91,10 @@ class Week extends Component {
     //   firebaseValue = firebaseState[firebaseKey];
     // }
 
-    const days = [0,1,2,3,4,5,6];
+    const days = [0, 1, 2, 3, 4, 5, 6];
 
     return (
-      <WeekContainer className="week">
+      <div className="week">
         {days.map((day) => (
           <Day
             key={day}
@@ -114,7 +108,7 @@ class Week extends Component {
             saveTodo={this.saveTodo}
           />
         ))}
-      </WeekContainer>
+      </div>
     );
   }
 }

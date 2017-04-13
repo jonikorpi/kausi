@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import firebase from "firebase";
-import List from "react-list";
 import moment from "moment";
 
 import Head from "../components/Head.js";
@@ -39,7 +38,7 @@ export default class Timeline extends Component {
 
     initializeFirebase();
 
-    firebase.auth().onAuthStateChanged(function(user) {
+    firebase.auth().onAuthStateChanged(function (user) {
       if (user) {
         this.setState({
           uid: user.uid,
@@ -52,13 +51,13 @@ export default class Timeline extends Component {
           anonymous: null,
         });
 
-        firebase.auth().signInAnonymously().catch(function(error) {
+        firebase.auth().signInAnonymously().catch(function (error) {
           console.log(error);
         });
       }
     }.bind(this));
 
-    firebase.database().ref(".info/connected").on("value", function(online) {
+    firebase.database().ref(".info/connected").on("value", function (online) {
       if (online.val() === true) {
         this.setState({
           connected: true,
@@ -66,7 +65,7 @@ export default class Timeline extends Component {
         });
       }
       else {
-        this.setState({connected: false});
+        this.setState({ connected: false });
       }
     }.bind(this));
   }
@@ -87,7 +86,7 @@ export default class Timeline extends Component {
   getIndexFromDay = (day) => {
     return (
       this.startIndex
-      + moment(day).startOf("isoweek").diff( moment(this.state.today).startOf("isoweek"), "weeks" )
+      + moment(day).startOf("isoweek").diff(moment(this.state.today).startOf("isoweek"), "weeks")
     );
   }
 
@@ -107,13 +106,13 @@ export default class Timeline extends Component {
   }
 
   signOut = () => {
-    firebase.auth().signOut().then(function(){
+    firebase.auth().signOut().then(function () {
       this.setState({
         uid: null,
         anonymous: null,
       });
       this.goToToday();
-    }.bind(this)).catch(function(error) {
+    }.bind(this)).catch(function (error) {
       console.log(error);
     });
   }
@@ -157,9 +156,16 @@ export default class Timeline extends Component {
 
     return (
       <div>
-        <Head/>
+        <Head />
 
-        {this.state.clientSide && (
+        <style jsx>{`
+          html {
+            font-size: 133%; /* Fallback: used if browser doesn't support calc() */
+            font-size: calc(0.95em + 0.5vw + 0.5vh + 0.25vmin);
+          }
+        `}</style>
+
+        {/*{this.state.clientSide && (
           <List
             ref={c => this.list = c}
             itemRenderer={this.renderWeek}
@@ -169,9 +175,9 @@ export default class Timeline extends Component {
             threshold={window.innerHeight * 0.1}
             initialIndex={initialDayIndex}
           />
-        )}
+        )}*/}
 
-        <TimelineNavigation scrollToToday={this.scrollToToday}/>
+        <TimelineNavigation scrollToToday={this.scrollToToday} />
       </div>
     );
   }

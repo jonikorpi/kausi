@@ -7,22 +7,23 @@
   "private": true,
   "dependencies": {
     "classnames": "^2.2.5",
-    "firebase": "^3.4.1",
+    "firebase": "^3.7.6",
     "jonikorpi-base-files": "^6.0.1",
     "lodash.debounce": "^4.0.8",
-    "moment": "^2.15.1",
-    "next": "^2.0.0-beta.11",
-    "react-list": "^0.8.0",
+    "moment": "^2.18.1",
+    "next": "^2.1.1",
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4",
     "react-mixin": "^3.0.5",
+    "react-virtualized": "^9.7.3",
     "reactfire": "^1.0.0",
-    "rollbar": "^0.6.2",
-    "styled-components": "^1.2.1"
+    "rollbar": "^0.6.5"
   },
   "scripts": {
     "start": "next dev",
-    "build": "react-scripts build",
-    "deploy": "now -e NODE_ENV=production && curl https://api.rollbar.com/api/1/deploy/ -F access_token=e25b560b08f1410abf77cae0888e0acb -F environment=production -F revision=`git log -n 1 --pretty=format:'%H'` -F local_username=`whoami`",
-    "now-start": "next start",
-    "now-build": "next build"
+    "build": "next build",
+    "deploy": "now && curl https://api.rollbar.com/api/1/deploy/ -F access_token=e25b560b08f1410abf77cae0888e0acb -F environment=production -F revision=`git log -n 1 --pretty=format:'%H'` -F local_username=`whoami`",
+    "now-start": "NODE_ENV=production next start",
+    "now-build": "NODE_ENV=production next build"
   }
 }

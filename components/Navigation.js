@@ -1,14 +1,5 @@
 import React, { Component } from "react";
 import Link from "next/link";
-import styled from "styled-components";
-
-const NavigationContainer = styled.nav`
-  display: flex;
-
-  .navigation-link {
-    padding: 0.5rem;
-  }
-`;
 
 export default class Navigation extends Component {
   render() {
@@ -44,7 +35,7 @@ export default class Navigation extends Component {
     ];
 
     return (
-      <NavigationContainer className="navigation">
+      <div className="navigation">
         {links.map((link) => {
           return (
             <Link href={link.href} key={link.href}>
@@ -56,7 +47,7 @@ export default class Navigation extends Component {
         })}
 
         <button className="navigation-link" type="button">Log out</button>
-      </NavigationContainer>
+      </div>
     );
   }
 }
