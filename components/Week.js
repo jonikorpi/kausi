@@ -35,7 +35,7 @@ export default class Week extends PureComponent {
             height: 100vh;
             display: flex;
             align-items: stretch;
-            padding: 1.5rem 0.25rem .5rem;
+            padding: 1.25rem 0.25rem .25rem;
           }
 
           .weekStamp {
