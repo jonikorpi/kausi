@@ -113,8 +113,6 @@ export default class Editor extends PureComponent {
           }
 
           :global(.textarea) {
-            width: 18rem;
-            max-width: 66.666vw;
             background: none;
             border: none;
             outline: none;

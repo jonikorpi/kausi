@@ -110,7 +110,6 @@ export default class Day extends PureComponent {
             margin-top: 1rem;
             position: relative;
             color: #999;
-            background-color: #222;
           }
 
           .day:first-of-type {
@@ -127,7 +126,8 @@ export default class Day extends PureComponent {
             color: inherit;
           }
 
-          .focused {
+          .focused,
+          .editors {
             width: 18rem;
             max-width: 66.666vw;
           }
@@ -145,10 +145,10 @@ export default class Day extends PureComponent {
             left: 0; top: -1px; right: 0; bottom: -1px;
             display: flex;
             flex-direction: column;
-            background-color: inherit;
+            background-color: #222;
             border: solid black;
             border-width: 1px 0 1px 1px;
-            border-radius: 0.25rem 0 0 0.25rem;
+            border-radius: 0.25rem;
           }
         `
           }
