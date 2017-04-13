@@ -39,7 +39,11 @@ export default class Week extends PureComponent {
 
           .weekStamp {
             position: absolute;
-            top: 0;
+            top: .25rem;
+            font-size: 0.625rem;
+            line-height: 1rem;
+            font-weight: bold;
+            text-transform: uppercase;
           }
           `
           }

@@ -137,9 +137,6 @@ export default class Day extends PureComponent {
             left: 0; top: -1rem;
             font-size: 0.5rem;
             white-space: nowrap;
-          }
-
-          .dateStamp {
             text-transform: uppercase;
           }
 
@@ -163,7 +160,7 @@ export default class Day extends PureComponent {
               this.props.isList ? "D" : isFocused ? "DD ddd" : "DD"
             )}
           </time>
-          {isToday && isFocused && ", today"}
+          {isToday && isFocused && " / today"}
         </label>
 
         <div className="editors">

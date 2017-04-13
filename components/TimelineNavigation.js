@@ -10,11 +10,14 @@ export default class TimelineNavigation extends Component {
             `
           .navigation {
             position: fixed;
-            right: 0; top: 0;
+            right: .25rem; top: 0;
+            padding: 0.25rem 00;
+            font-size: 0.625rem;
+            line-height: 1rem;
           }
 
           .navigation > * + * {
-            margin-left: 1rem;
+            margin-left: 0.5rem;
           }
         `
           }
