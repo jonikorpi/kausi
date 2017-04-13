@@ -16,12 +16,12 @@ export default class Day extends PureComponent {
 
   onFocus = () => {
     this.setState({ focused: true });
-    this.props.onFocus();
+    this.props.onFocus(this.props.day);
   };
 
   onBlur = () => {
     this.setState({ focused: false });
-    this.props.onBlur();
+    this.props.onBlur(this.props.day);
   };
 
   render() {

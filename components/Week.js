@@ -12,11 +12,12 @@ export default class Week extends PureComponent {
     };
   }
 
-  onFocus = () => {
+  onFocus = day => {
     this.setState({ aDayIsFocused: true });
+    this.props.focusDay(day);
   };
 
-  onBlur = () => {
+  onBlur = day => {
     this.setState({ aDayIsFocused: false });
   };
 
@@ -39,7 +40,7 @@ export default class Week extends PureComponent {
 
           .weekStamp {
             position: absolute;
-            top: .25rem;
+            top: .5rem;
             font-size: 0.625rem;
             line-height: 1rem;
             font-weight: bold;

@@ -10,8 +10,7 @@ export default class TimelineNavigation extends Component {
             `
           .navigation {
             position: fixed;
-            right: .25rem; top: 0;
-            padding: 0.25rem 00;
+            right: .25rem; top: .5rem;
             font-size: 0.625rem;
             line-height: 1rem;
           }

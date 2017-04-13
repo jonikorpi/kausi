@@ -15,20 +15,15 @@ export default class Timeline extends Component {
     super(props);
 
     this.startIndex = 400;
-    const today = moment().startOf("day");
-    const query = Object.keys(this.props.url.query)[0];
 
     this.state = {
-      today: today,
+      today: moment().startOf("day"),
       uid: null,
       anonymous: null,
       connected: false,
       haveConnectedOnce: false,
       error: null,
       clientSide: false,
-      focusOnIndex: query
-        ? this.getIndexFromDay(today, moment(query))
-        : this.startIndex,
     };
   }
 
@@ -101,13 +96,8 @@ export default class Timeline extends Component {
   };
 
   setUrlToDay = day => {
-    Router.push(`/?${moment(day).format("YYYY-MM-DD")}`);
-    this.setState(
-      { focusOnIndex: this.getIndexFromDay(this.state.today, day) },
-      () => {
-        this.list.scrollToRow(this.state.focusOnIndex);
-      }
-    );
+    this.props.url.replace(`/?${moment(day).format("YYYY-MM-DD")}`);
+    this.list.scrollToRow(this.getIndexFromDay(this.state.today, day));
   };
 
   scrollToToday = () => {
@@ -115,7 +105,6 @@ export default class Timeline extends Component {
   };
 
   focusDay = day => {
-    const targetIndex = this.getIndexFromDay(this.state.today, day);
     this.setUrlToDay(day);
   };
 
@@ -165,6 +154,7 @@ export default class Timeline extends Component {
   render() {
     const noWindow = typeof window === "undefined";
     let initialDayIndex = this.startIndex;
+    const query = Object.keys(this.props.url.query)[0];
 
     return (
       <div className="timeline">
@@ -192,7 +182,11 @@ export default class Timeline extends Component {
                     rowCount={this.startIndex * 2}
                     rowHeight={height * 0.91}
                     rowRenderer={this.rowRenderer}
-                    scrollToIndex={this.state.focusOnIndex}
+                    scrollToIndex={
+                      query
+                        ? this.getIndexFromDay(this.state.today, moment(query))
+                        : this.startIndex
+                    }
                     scrollToAlignment="start"
                     scrollTop={scrollTop}
                     isScrolling={isScrolling}
