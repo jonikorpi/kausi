@@ -148,9 +148,10 @@ export default class Day extends PureComponent {
           }
 
           .editors {
+            position: absolute;
+            left: 0; top: -1px; right: 0; bottom: -1px;
             display: flex;
             flex-direction: column;
-            height: 100%;
             background-color: inherit;
             border: solid black;
             border-width: 1px 0 1px 1px;
