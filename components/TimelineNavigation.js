@@ -12,7 +12,13 @@ export default class TimelineNavigation extends Component {
             position: fixed;
             right: .25rem; top: .25rem;
             font-size: 0.625rem;
-            line-height: 1rem;
+            line-height: 0.75rem;
+          }
+
+          @media (min-width: 40rem) {
+            .navigation {
+              top: .5rem;
+            }
           }
 
           .navigation > * + * {

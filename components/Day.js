@@ -107,9 +107,11 @@ export default class Day extends PureComponent {
           .day {
             flex-grow: 1;
             width: 0;
-            margin-top: 1rem;
+            margin-top: 2rem;
             position: relative;
             color: #999;
+            transition: 124ms ease-out;
+            transition-property: width, flex;
           }
 
           .day:first-of-type {
@@ -138,6 +140,7 @@ export default class Day extends PureComponent {
             font-size: 0.5rem;
             white-space: nowrap;
             text-transform: uppercase;
+            pointer-events: none;
           }
 
           .editors {
@@ -157,10 +160,10 @@ export default class Day extends PureComponent {
         <label className="label" htmlFor={this.props.day.valueOf()}>
           <time className="dateStamp">
             {this.props.day.format(
-              this.props.isList ? "D" : isFocused ? "DD ddd" : "DD"
+              this.props.isList ? "D" : isFocused ? "DD MMM / ddd" : "DD"
             )}
           </time>
-          {isToday && isFocused && " / today"}
+          {isToday && isFocused && " (today)"}
         </label>
 
         <div className="editors">
@@ -183,7 +186,7 @@ export default class Day extends PureComponent {
               onFocus={this.onFocus}
               onBlur={this.onBlur}
               placeholder={
-                isFocused ? "Every " + this.props.day.format("dddd") : undefined
+                isFocused ? this.props.day.format("dddd") + "s" : undefined
               }
               autoSize
             />}

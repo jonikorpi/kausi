@@ -35,14 +35,20 @@ export default class Week extends PureComponent {
             height: 100vh;
             display: flex;
             align-items: stretch;
-            padding: 1.25rem 0.25rem .25rem;
+            padding: .25rem;
+            position: relative;
+          }
+
+          @media (min-width: 40rem) {
+            .week {
+              padding: .5rem;
+            }
           }
 
           .weekStamp {
             position: absolute;
-            top: .25rem;
             font-size: 0.625rem;
-            line-height: 1rem;
+            line-height: 0.75rem;
             font-weight: bold;
             text-transform: uppercase;
           }
@@ -53,7 +59,7 @@ export default class Week extends PureComponent {
         <time className="weekStamp">
           {this.props.lists
             ? "Static lists"
-            : <span>W{this.props.weekOf.format("WW MMM YYYY")}</span>}
+            : <span>W{this.props.weekOf.format("WW / MMM YYYY")}</span>}
         </time>
 
         {days.map(day => (
