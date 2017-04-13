@@ -21,7 +21,9 @@ export default class Week extends PureComponent {
   };
 
   render() {
-    const days = [0, 1, 2, 3, 4, 5, 6];
+    const days = this.props.lists
+      ? [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+      : [0, 1, 2, 3, 4, 5, 6];
 
     return (
       <div className="week" style={this.props.style}>
@@ -44,7 +46,9 @@ export default class Week extends PureComponent {
         </style>
 
         <time className="weekStamp">
-          W{this.props.weekOf.format("WW MMM YYYY")}
+          {this.props.lists
+            ? "Static lists"
+            : <span>W{this.props.weekOf.format("WW MMM YYYY")}</span>}
         </time>
 
         {days.map(day => (
@@ -56,6 +60,7 @@ export default class Week extends PureComponent {
             onFocus={this.onFocus}
             onBlur={this.onBlur}
             aDayIsFocused={this.state.aDayIsFocused}
+            isList={this.props.lists}
           />
         ))}
       </div>
