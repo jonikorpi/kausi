@@ -13,6 +13,7 @@ export default class TimelineNavigation extends Component {
             right: .25rem; top: .25rem;
             font-size: 0.625rem;
             line-height: 0.75rem;
+            color: grey;
           }
 
           @media (min-width: 40rem) {

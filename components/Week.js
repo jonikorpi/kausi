@@ -51,6 +51,7 @@ export default class Week extends PureComponent {
             line-height: 0.75rem;
             font-weight: bold;
             text-transform: uppercase;
+            color: grey;
           }
           `
           }
