@@ -13,7 +13,7 @@ export default class Timeline extends Component {
   constructor(props) {
     super(props);
 
-    this.startIndex = 1000;
+    this.startIndex = 400;
 
     this.state = {
       today: moment().startOf("day"),
@@ -176,16 +176,20 @@ export default class Timeline extends Component {
         </style>
 
         {this.state.clientSide &&
-          <AutoSizer disableHeight>
+          <AutoSizer>
             {({ height, width }) => (
               <WindowScroller>
                 {({ height, isScrolling, scrollTop }) => (
                   <List
                     width={width}
                     height={height}
-                    rowCount={1000}
+                    rowCount={this.startIndex * 2}
                     rowHeight={height * 0.91}
                     rowRenderer={this.rowRenderer}
+                    scrollToIndex={this.startIndex}
+                    scrollToAlignment="start"
+                    scrollTop={scrollTop}
+                    isScrolling={isScrolling}
                   />
                 )}
               </WindowScroller>

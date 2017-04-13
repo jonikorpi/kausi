@@ -98,7 +98,7 @@ class Week extends Component {
     const days = [0, 1, 2, 3, 4, 5, 6];
 
     return (
-      <div className="week">
+      <div className="week" style={this.props.style}>
         <style jsx>
           {
             `
