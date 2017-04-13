@@ -19,9 +19,13 @@ class Day extends PureComponent {
     this.onChange = this.onChange.bind(this);
     this.onKeyDown = this.onKeyDown.bind(this);
 
-    this.saveTodoHandler = debounce(function () {
-      this.saveTodo()
-    }, 500, { leading: true, trailing: true });
+    this.saveTodoHandler = debounce(
+      function() {
+        this.saveTodo();
+      },
+      500,
+      { leading: true, trailing: true }
+    );
   }
 
   componentWillReceiveProps(nextProps) {
@@ -29,8 +33,9 @@ class Day extends PureComponent {
     const newTimestamp = nextProps.lastUpdated;
 
     if (
-      (newText && newText !== this.state.text)
-      && (!this.state.lastUpdated || newTimestamp > this.state.lastUpdated)
+      newText &&
+      newText !== this.state.text &&
+      (!this.state.lastUpdated || newTimestamp > this.state.lastUpdated)
     ) {
       this.setState({
         text: newText,
@@ -46,31 +51,34 @@ class Day extends PureComponent {
   }
 
   onFocus() {
-    this.setState({ editing: true });
-    this.props.setActiveTimeline(this.props.index);
+    this.setState({ editing: true, focused: true });
   }
 
   onBlur() {
-    this.setState({ editing: false });
+    this.setState({ editing: false, focused: false });
   }
 
   onChange(event) {
-    this.setState({
-      text: event.target.value,
-      lastUpdated: moment(),
-    }, this.saveTodoHandler);
+    this.setState(
+      {
+        text: event.target.value,
+        lastUpdated: moment(),
+      },
+      this.saveTodoHandler
+    );
   }
 
   onKeyDown(event) {
-    if (event.keyCode === 27 /*esc*/) {
-      this.textarea.blur();
+    if (event.keyCode === 27) {
+      /*esc*/ this.textarea.blur();
     }
   }
 
   render() {
     const isToday = this.props.day.isSame(moment().startOf("day"));
-    const isWeekend = !this.props.someday && (this.props.day.day() === 0 || this.props.day.day() === 6);
-    const isFocused = this.state.isFocused;
+    const isWeekend = !this.props.someday &&
+      (this.props.day.day() === 0 || this.props.day.day() === 6);
+    const isFocused = this.state.focused;
 
     // Placeholder
     let placeholder;
@@ -78,8 +86,7 @@ class Day extends PureComponent {
     if (this.props.anonymous) {
       if (this.props.someday && this.props.day.isSame(moment(0))) {
         placeholder = "You can also type here. Useful for stuff like grocery lists and grandiose plans.";
-      }
-      else if (isToday) {
+      } else if (isToday) {
         placeholder = "Try typing something here. Text is auto-saved as you type. \n\nYou are currently using a temporary account. Your entries are saved in this browser only. \n\nTo access your entries in other browsers or devices, sign up. ↘ \n\nSigning up will also make these messages go away.";
       }
     }
@@ -97,8 +104,17 @@ class Day extends PureComponent {
       }
 
       additionalTexts = (
-        <div className="color-bright-6 size-0-75 padding-0-75 padding-top-0 margin-0-5 margin-y margin-bottom-0">
-          Problem: there {pluralConflictingEntries} for this day. If you remove this &uarr; entry, the {next}conflicting entry should appear and you can decide what to do with it. This sometimes happens with an unstable connection. Sorry for the hassle. :&#65279;(
+        <div
+          className="color-bright-6 size-0-75 padding-0-75 padding-top-0 margin-0-5 margin-y margin-bottom-0"
+        >
+          Problem: there
+          {" "}
+          {pluralConflictingEntries}
+          {" "}
+          for this day. If you remove this ↑ entry, the
+          {" "}
+          {next}
+          conflicting entry should appear and you can decide what to do with it. This sometimes happens with an unstable connection. Sorry for the hassle. :﻿(
         </div>
       );
     }
@@ -108,11 +124,11 @@ class Day extends PureComponent {
 
     if (!this.props.someday) {
       dayLabel = this.props.day.format("ddd DD");
-      const todayLabel = isToday ? ", Today" : false
+      const todayLabel = isToday ? ", Today" : false;
 
       if (
-        this.props.day.isSame(moment(this.props.day).startOf("isoweek"))
-        || this.props.day.isSame(moment(this.props.day).startOf("month"))
+        this.props.day.isSame(moment(this.props.day).startOf("isoweek")) ||
+        this.props.day.isSame(moment(this.props.day).startOf("month"))
       ) {
         monthLabel = `, ${this.props.day.format("MMM YYYY")}`;
       }
@@ -123,7 +139,6 @@ class Day extends PureComponent {
             "all-caps padding-0-75 padding-x color-4": true,
             "color-bright-4": isWeekend,
             "color-bright-5": isToday,
-            "color-bright-6": isEditing,
           })}
           style={{
             paddingTop: "0.5rem",
@@ -138,41 +153,93 @@ class Day extends PureComponent {
     return (
       <div
         className={classNames({
-          "day": true,
-          "isFocused": isFocused,
-          "isToday": this.props.isToday,
+          day: true,
+          focused: isFocused,
+          today: this.props.isToday,
         })}
       >
+        <style jsx>
+          {
+            `
+          .day {
+            flex: 1;
+            width: 0;
+            flex-direction: vertical;
+            padding-top: 1rem;
+            position: relative;
+            overflow: hidden;
+            color: #999;
+          }
+
+          .focused {
+            flex: none;
+            color: inherit;
+          }
+
+          .focused,
+          .textarea {
+            width: 18rem;
+            max-width: 66.666vw;
+          }
+
+          .label {
+            position: absolute;
+            left: 0; top: 0;
+            font-size: 0.5rem;
+            white-space: nowrap;
+          }
+
+          .today .label {
+            color: yellow;
+          }
+
+          .textareaContainer {
+            background-color: #222;
+            overflow: hidden;
+            height: 100%;
+          }
+
+          .day:first-child .textareaContainer {
+            border-radius: 0.25rem 0 0 0.25rem;
+          }
+
+          .day:last-child .textareaContainer {
+            border-radius: 0 0.25rem 0.25rem 0;
+          }
+
+          .textarea {
+            background-color: inherit;
+            border: solid black;
+            border-width: 1px 0 1px 1px;
+            outline: none;
+            resize: none;
+            padding: 0.25rem;
+            border-radius: 0.25rem 0 0 0.25rem;
+            min-height: 0;
+            height: 100%;
+          }
+        `
+          }
+        </style>
+
         <label className="label" htmlFor={this.props.day.valueOf()}>
           {this.props.day.format(isFocused ? "DD ddd MMM YYYY" : "DD")}
         </label>
 
-        {
-          this.props.loading
-            ? (
-              <div className="padding-0-75">
-                <div className="spin border border-0-125 border-color-4 dashed round height-0-75 width-0-75"></div>
-              </div>
-            )
-            : (
-              <textarea
-                id={this.props.day.valueOf()}
-                ref={(c) => this.textarea = c}
-                tabIndex={this.props.tabbingEnabled ? 1 : -1}
-                className="textarea"
-                style={{
-                  paddingTop: "0.5rem",
-                  paddingBottom: "0.5rem",
-                }}
-                value={this.state.text}
-                onKeyDown={this.onKeyDown}
-                onFocus={this.onFocus}
-                onBlur={this.onBlur}
-                onChange={this.onChange}
-                placeholder={placeholder}
-              />
-            )
-        }
+        <div className="textareaContainer">
+          <textarea
+            id={this.props.day.valueOf()}
+            ref={c => this.textarea = c}
+            className="textarea"
+            value={this.state.text}
+            onKeyDown={this.onKeyDown}
+            onFocus={this.onFocus}
+            onBlur={this.onBlur}
+            onChange={this.onChange}
+            placeholder={placeholder}
+            readOnly={this.props.loading}
+          />
+        </div>
 
         {additionalTexts}
       </div>

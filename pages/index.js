@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import firebase from "firebase";
 import moment from "moment";
+import { List, AutoSizer, WindowScroller } from "react-virtualized";
 
 import Head from "../components/Head.js";
 import TimelineNavigation from "../components/TimelineNavigation";
@@ -22,7 +23,7 @@ export default class Timeline extends Component {
       haveConnectedOnce: false,
       error: null,
       clientSide: false,
-    }
+    };
   }
 
   componentDidMount() {
@@ -38,36 +39,39 @@ export default class Timeline extends Component {
 
     initializeFirebase();
 
-    firebase.auth().onAuthStateChanged(function (user) {
-      if (user) {
-        this.setState({
-          uid: user.uid,
-          anonymous: user.isAnonymous,
-        });
-      }
-      else {
-        this.setState({
-          uid: null,
-          anonymous: null,
-        });
+    firebase.auth().onAuthStateChanged(
+      function(user) {
+        if (user) {
+          this.setState({
+            uid: user.uid,
+            anonymous: user.isAnonymous,
+          });
+        } else {
+          this.setState({
+            uid: null,
+            anonymous: null,
+          });
 
-        firebase.auth().signInAnonymously().catch(function (error) {
-          console.log(error);
-        });
-      }
-    }.bind(this));
+          firebase.auth().signInAnonymously().catch(function(error) {
+            console.log(error);
+          });
+        }
+      }.bind(this)
+    );
 
-    firebase.database().ref(".info/connected").on("value", function (online) {
-      if (online.val() === true) {
-        this.setState({
-          connected: true,
-          haveConnectedOnce: true,
-        });
-      }
-      else {
-        this.setState({ connected: false });
-      }
-    }.bind(this));
+    firebase.database().ref(".info/connected").on(
+      "value",
+      function(online) {
+        if (online.val() === true) {
+          this.setState({
+            connected: true,
+            haveConnectedOnce: true,
+          });
+        } else {
+          this.setState({ connected: false });
+        }
+      }.bind(this)
+    );
   }
 
   componentWillUnmount() {
@@ -77,76 +81,79 @@ export default class Timeline extends Component {
   updateToday = () => {
     const newToday = moment().startOf("day");
 
-    if (!this.state.today.isSame(newToday)) {
+    if (window && !this.state.today.isSame(newToday)) {
       console.log("Reloading because date has changed");
       window.location.reload();
     }
-  }
+  };
 
-  getIndexFromDay = (day) => {
-    return (
-      this.startIndex
-      + moment(day).startOf("isoweek").diff(moment(this.state.today).startOf("isoweek"), "weeks")
-    );
-  }
+  getIndexFromDay = day => {
+    return this.startIndex +
+      moment(day)
+        .startOf("isoweek")
+        .diff(moment(this.state.today).startOf("isoweek"), "weeks");
+  };
 
-  setUrlToDay = (day) => {
+  setUrlToDay = day => {
     this.props.url.replace(`/?${moment(day).format("YYYY-MM-DD")}`);
-  }
+  };
 
   scrollToToday = () => {
     this.setUrlToDay(this.state.today);
     this.list.scrollTo(this.startIndex);
-  }
+  };
 
-  focusDay = (day) => {
+  focusDay = day => {
     const targetIndex = this.getIndexFromDay(day);
     this.setUrlToDay(day);
     this.list.scrollTo(targetIndex);
-  }
+  };
 
   signOut = () => {
-    firebase.auth().signOut().then(function () {
-      this.setState({
-        uid: null,
-        anonymous: null,
+    firebase
+      .auth()
+      .signOut()
+      .then(
+        function() {
+          this.setState({
+            uid: null,
+            anonymous: null,
+          });
+          this.goToToday();
+        }.bind(this)
+      )
+      .catch(function(error) {
+        console.log(error);
       });
-      this.goToToday();
-    }.bind(this)).catch(function (error) {
-      console.log(error);
-    });
-  }
+  };
 
-  renderWeek = (index, key) => {
+  rowRenderer = (
+    {
+      key,
+      index,
+      isScrolling,
+      isVisible,
+      style,
+    }
+  ) => {
     return (
       <Week
         key={key}
-        index={key}
-        weekOf={moment(this.state.today).startOf("isoweek").subtract(this.startIndex - index, "weeks")}
+        index={index}
+        weekOf={moment(this.state.today)
+          .startOf("isoweek")
+          .subtract(this.startIndex - index, "weeks")}
         uid={this.state.uid}
         focusDay={this.focusDay}
         today={this.state.today}
+        isVisible={isVisible}
+        style={style}
       />
-    )
-  }
+    );
+  };
 
   render() {
-    if (!this.state.connected) {
-      const spinner = (<div className="spin border border-0-125 dashed round height-1 width-1"></div>);
-      const statusText = this.state.haveConnectedOnce ? "OFFLINE: changes will not be saved if you close Kausi now." : "Connecting…"
-
-      const status = (
-        <div className="padding-0-75 padding-x bg-5 color-1 fixed position-bottom enter-from-below">
-          <div className="padding-0-5 padding-y child-margins-x-0-5 flex">
-            {spinner}
-            <p>
-              {statusText}
-            </p>
-          </div>
-        </div>
-      );
-    }
-
+    const noWindow = typeof window === "undefined";
     let initialDayIndex = this.startIndex;
     const query = Object.keys(this.props.url.query)[0];
 
@@ -155,20 +162,35 @@ export default class Timeline extends Component {
     }
 
     return (
-      <div>
+      <div className="timeline">
         <Head />
+        <style jsx>
+          {
+            `
+          .timeline {
+            width: 100%;
+            position: relative;
+          }
+          `
+          }
+        </style>
 
-        {/*{this.state.clientSide && (
-          <List
-            ref={c => this.list = c}
-            itemRenderer={this.renderWeek}
-            length={this.startIndex * 2}
-            type="uniform"
-            pageSize={2}
-            threshold={window.innerHeight * 0.1}
-            initialIndex={initialDayIndex}
-          />
-        )}*/}
+        {this.state.clientSide &&
+          <AutoSizer disableHeight>
+            {({ height, width }) => (
+              <WindowScroller>
+                {({ height, isScrolling, scrollTop }) => (
+                  <List
+                    width={width}
+                    height={height}
+                    rowCount={1000}
+                    rowHeight={height * 0.91}
+                    rowRenderer={this.rowRenderer}
+                  />
+                )}
+              </WindowScroller>
+            )}
+          </AutoSizer>}
 
         <TimelineNavigation scrollToToday={this.scrollToToday} />
       </div>

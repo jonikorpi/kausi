@@ -22,7 +22,10 @@ class Week extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.uid !== this.props.uid || nextProps.weekOf.valueOf() !== this.props.weekOf.valueOf()) {
+    if (
+      nextProps.uid !== this.props.uid ||
+      nextProps.weekOf.valueOf() !== this.props.weekOf.valueOf()
+    ) {
       if (this.firebaseRefs.firebase) {
         this.unbind("firebase");
       }
@@ -34,19 +37,20 @@ class Week extends Component {
 
   bindFirebase = (uid, weekOf) => {
     this.bindAsObject(
-      firebase.database()
+      firebase
+        .database()
         .ref(uid)
         .orderByChild("date")
         .startAt(weekOf.valueOf())
         .endAt(moment(weekOf).endOf("week").valueOf()),
       "firebase",
-      function (error) {
-        console.log("Firebase subscription cancelled:")
+      function(error) {
+        console.log("Firebase subscription cancelled:");
         console.log(error);
-        this.setState({ firebase: undefined })
+        this.setState({ firebase: undefined });
       }.bind(this)
     );
-  }
+  };
 
   // saveTodo = (text, lastUpdated, day, firebaseKey) => {
   //   if (this.props.uid && lastUpdated && day) {
@@ -95,7 +99,19 @@ class Week extends Component {
 
     return (
       <div className="week">
-        {days.map((day) => (
+        <style jsx>
+          {
+            `
+          .week {
+            height: 91vh;
+            display: flex;
+            align-items: stretch;
+            padding: 1.5rem 0.25rem 0;
+          }
+          `
+          }
+        </style>
+        {days.map(day => (
           <Day
             key={day}
             day={moment(this.props.weekOf).add(day, "days")}
