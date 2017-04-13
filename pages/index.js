@@ -176,7 +176,7 @@ export default class Timeline extends Component {
         </style>
 
         {this.state.clientSide &&
-          <AutoSizer>
+          <AutoSizer disableHeight>
             {({ height, width }) => (
               <WindowScroller>
                 {({ height, isScrolling, scrollTop }) => (
