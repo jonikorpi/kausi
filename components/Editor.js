@@ -123,6 +123,11 @@ export default class Editor extends PureComponent {
             height: 100%;
             flex-grow: 1;
           }
+
+          :global(.textarea::placeholder) {
+            font-style: italic;
+            font-size: 0.625rem;
+          }
         `
           }
         </style>
