@@ -120,8 +120,15 @@ export default class Editor extends PureComponent {
             padding: 0.25rem;
             border-radius: 0.25rem 0 0 0.25rem;
             min-height: 0;
+            width: 100%;
             height: 100%;
             flex-grow: 1;
+          }
+
+          @media (min-width: 40rem) {
+            :global(.textarea) {
+              padding: 0.5rem;
+            }
           }
 
           :global(.textarea::placeholder) {
