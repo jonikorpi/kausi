@@ -21,7 +21,7 @@ class Day extends PureComponent {
 
     this.saveTodoHandler = debounce(function () {
       this.saveTodo()
-    }, 500);
+    }, 500, { leading: true, trailing: true });
   }
 
   componentWillReceiveProps(nextProps) {
@@ -46,21 +46,19 @@ class Day extends PureComponent {
   }
 
   onFocus() {
-    this.setState({ isFocused: true });
-    this.props.focusDay(this.props.day);
+    this.setState({ editing: true });
+    this.props.setActiveTimeline(this.props.index);
   }
 
   onBlur() {
-    this.setState({ isFocused: false });
-    this.saveTodo();
+    this.setState({ editing: false });
   }
 
   onChange(event) {
     this.setState({
       text: event.target.value,
       lastUpdated: moment(),
-    });
-    this.saveTodoHandler();
+    }, this.saveTodoHandler);
   }
 
   onKeyDown(event) {
@@ -78,7 +76,12 @@ class Day extends PureComponent {
     let placeholder;
 
     if (this.props.anonymous) {
-      placeholder = "Try typing something here. Text is auto-saved as you type. \n\nYou are currently using a temporary account. Your entries are saved in this browser only. \n\nTo access your entries in other browsers or devices, sign up. ↘ \n\nSigning up will also make these messages go away.";
+      if (this.props.someday && this.props.day.isSame(moment(0))) {
+        placeholder = "You can also type here. Useful for stuff like grocery lists and grandiose plans.";
+      }
+      else if (isToday) {
+        placeholder = "Try typing something here. Text is auto-saved as you type. \n\nYou are currently using a temporary account. Your entries are saved in this browser only. \n\nTo access your entries in other browsers or devices, sign up. ↘ \n\nSigning up will also make these messages go away.";
+      }
     }
 
     // Additional entries
@@ -97,6 +100,38 @@ class Day extends PureComponent {
         <div className="color-bright-6 size-0-75 padding-0-75 padding-top-0 margin-0-5 margin-y margin-bottom-0">
           Problem: there {pluralConflictingEntries} for this day. If you remove this &uarr; entry, the {next}conflicting entry should appear and you can decide what to do with it. This sometimes happens with an unstable connection. Sorry for the hassle. :&#65279;(
         </div>
+      );
+    }
+
+    // Date label
+    let label, dayLabel, monthLabel;
+
+    if (!this.props.someday) {
+      dayLabel = this.props.day.format("ddd DD");
+      const todayLabel = isToday ? ", Today" : false
+
+      if (
+        this.props.day.isSame(moment(this.props.day).startOf("isoweek"))
+        || this.props.day.isSame(moment(this.props.day).startOf("month"))
+      ) {
+        monthLabel = `, ${this.props.day.format("MMM YYYY")}`;
+      }
+
+      label = (
+        <label
+          className={classNames({
+            "all-caps padding-0-75 padding-x color-4": true,
+            "color-bright-4": isWeekend,
+            "color-bright-5": isToday,
+            "color-bright-6": isEditing,
+          })}
+          style={{
+            paddingTop: "0.5rem",
+          }}
+          htmlFor={this.props.day.valueOf()}
+        >
+          {dayLabel}{monthLabel}{todayLabel}
+        </label>
       );
     }
 
