@@ -36,14 +36,14 @@ export default class Navigation extends Component {
 
     return (
       <div className="navigation">
-        {links.map((link) => {
+        {links.map(link => {
           return (
             <Link href={link.href} key={link.href}>
               <a className="navigation-link">
                 {link.text}
               </a>
             </Link>
-          )
+          );
         })}
 
         <button className="navigation-link" type="button">Log out</button>

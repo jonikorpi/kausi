@@ -28,5 +28,6 @@ export default () => (
     <meta name="twitter:site" content="@jonikorpi" />
 
     <link href="/static/reset.css" rel="stylesheet" />
+    <link href="/static/base.css" rel="stylesheet" />
   </Head>
 );

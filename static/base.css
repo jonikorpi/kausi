@@ -1,0 +1,11 @@
+html {
+  font-size: 133%; /* Fallback: used if browser doesn't support calc() */
+  font-size: calc(1em + 0.5vw + 0.5vh + 0.25vmin);
+  color: white;
+  background: black;
+}
+
+body {
+  line-height: 1rem;
+  font-size: 0.764rem;
+}

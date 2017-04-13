@@ -158,13 +158,6 @@ export default class Timeline extends Component {
       <div>
         <Head />
 
-        <style jsx>{`
-          html {
-            font-size: 133%; /* Fallback: used if browser doesn't support calc() */
-            font-size: calc(0.95em + 0.5vw + 0.5vh + 0.25vmin);
-          }
-        `}</style>
-
         {/*{this.state.clientSide && (
           <List
             ref={c => this.list = c}
