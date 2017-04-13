@@ -3,93 +3,33 @@ import moment from "moment";
 import debounce from "lodash.debounce";
 import classNames from "classnames";
 
-class Day extends PureComponent {
+import Editor from "./Editor";
+
+export default class Day extends PureComponent {
   constructor(props) {
     super(props);
 
     this.state = {
-      isFocused: false,
-      text: this.props.text || "",
-      lastUpdated: this.props.lastUpdated,
+      focused: false,
     };
-
-    this.saveTodo = this.saveTodo.bind(this);
-    this.onFocus = this.onFocus.bind(this);
-    this.onBlur = this.onBlur.bind(this);
-    this.onChange = this.onChange.bind(this);
-    this.onKeyDown = this.onKeyDown.bind(this);
-
-    this.saveTodoHandler = debounce(
-      function() {
-        this.saveTodo();
-      },
-      500,
-      { leading: true, trailing: true }
-    );
   }
 
-  componentWillReceiveProps(nextProps) {
-    const newText = nextProps.text;
-    const newTimestamp = nextProps.lastUpdated;
+  onFocus = () => {
+    this.setState({ focused: true });
+    this.props.onFocus();
+  };
 
-    if (
-      newText &&
-      newText !== this.state.text &&
-      (!this.state.lastUpdated || newTimestamp > this.state.lastUpdated)
-    ) {
-      this.setState({
-        text: newText,
-        lastUpdated: newTimestamp,
-      });
-    }
-  }
-
-  saveTodo() {
-    if (this.state.lastUpdated && this.state.text !== this.props.text) {
-      // this.props.saveTodo(this.state.text, this.state.lastUpdated.valueOf(), this.props.day, this.props.firebaseKey);
-    }
-  }
-
-  onFocus() {
-    this.setState({ editing: true, focused: true });
-  }
-
-  onBlur() {
-    this.setState({ editing: false, focused: false });
-  }
-
-  onChange(event) {
-    this.setState(
-      {
-        text: event.target.value,
-        lastUpdated: moment(),
-      },
-      this.saveTodoHandler
-    );
-  }
-
-  onKeyDown(event) {
-    if (event.keyCode === 27) {
-      /*esc*/ this.textarea.blur();
-    }
-  }
+  onBlur = () => {
+    this.setState({ focused: false });
+    this.props.onBlur();
+  };
 
   render() {
     const isToday = this.props.day.isSame(moment().startOf("day"));
     const isWeekend = !this.props.someday &&
       (this.props.day.day() === 0 || this.props.day.day() === 6);
-    const isFocused = this.state.focused;
-
-    // Placeholder
-    let placeholder;
-
-    if (this.props.anonymous) {
-      if (this.props.someday && this.props.day.isSame(moment(0))) {
-        placeholder = "You can also type here. Useful for stuff like grocery lists and grandiose plans.";
-      } else if (isToday) {
-        placeholder = "Try typing something here. Text is auto-saved as you type. \n\nYou are currently using a temporary account. Your entries are saved in this browser only. \n\nTo access your entries in other browsers or devices, sign up. ↘ \n\nSigning up will also make these messages go away.";
-      }
-    }
+    const isFocused = this.state.focused ||
+      (!this.props.aDayIsFocused && isToday);
 
     // Additional entries
     let additionalTexts;
@@ -154,7 +94,7 @@ class Day extends PureComponent {
       <div
         className={classNames({
           day: true,
-          focused: isFocused || isToday,
+          focused: isFocused,
           today: isToday,
         })}
       >
@@ -162,13 +102,21 @@ class Day extends PureComponent {
           {
             `
           .day {
-            flex: 1;
+            flex-grow: 1;
             width: 0;
-            flex-direction: vertical;
-            padding-top: 1rem;
+            margin-top: 1rem;
             position: relative;
-            overflow: hidden;
             color: #999;
+            background-color: #222;
+          }
+
+          .day:first-of-type {
+            border-radius: 0.25rem 0 0 0.25rem;
+          }
+
+          .day:last-child,
+          .day:last-child .editors {
+            border-radius: 0 0.25rem 0.25rem 0;
           }
 
           .focused {
@@ -176,75 +124,93 @@ class Day extends PureComponent {
             color: inherit;
           }
 
-          .focused,
-          .textarea {
+          .focused {
             width: 18rem;
             max-width: 66.666vw;
           }
 
           .label {
             position: absolute;
-            left: 0; top: 0;
+            left: 0; top: -1rem;
             font-size: 0.5rem;
             white-space: nowrap;
           }
 
           .today .label {
-            color: yellow;
+            color: cyan;
           }
 
-          .textareaContainer {
-            background-color: #222;
-            overflow: hidden;
+          .dateStamp {
+            text-transform: uppercase;
+          }
+
+          .editors {
+            display: flex;
+            flex-direction: column;
             height: 100%;
-          }
-
-          .day:first-child .textareaContainer {
-            border-radius: 0.25rem 0 0 0.25rem;
-          }
-
-          .day:last-child .textareaContainer {
-            border-radius: 0 0.25rem 0.25rem 0;
-          }
-
-          .textarea {
             background-color: inherit;
             border: solid black;
             border-width: 1px 0 1px 1px;
-            outline: none;
-            resize: none;
-            padding: 0.25rem;
             border-radius: 0.25rem 0 0 0.25rem;
-            min-height: 0;
-            height: 100%;
           }
         `
           }
         </style>
 
         <label className="label" htmlFor={this.props.day.valueOf()}>
-          {this.props.day.format(isFocused ? "DD ddd MMM YYYY" : "DD")}
+          <time className="dateStamp">
+            {this.props.day.format(isFocused ? "DD ddd" : "DD")}
+          </time>
+          {isToday && isFocused && ", today"}
         </label>
 
-        <div className="textareaContainer">
-          <textarea
-            id={this.props.day.valueOf()}
-            ref={c => this.textarea = c}
-            className="textarea"
-            value={this.state.text}
-            onKeyDown={this.onKeyDown}
+        <div className="editors">
+          <Editor
+            day={this.props.day}
+            text={this.props.text}
+            lastUpdated={this.props.lastUpdated}
+            readOnly={this.props.loading}
+            additionalTexts={additionalTexts}
+            saveTodo={this.props.saveTodo}
+            focused={this.state.focused}
             onFocus={this.onFocus}
             onBlur={this.onBlur}
-            onChange={this.onChange}
-            placeholder={placeholder}
+            placeholder={isFocused ? "This day" : undefined}
+          />
+
+          <Editor
+            day={this.props.day}
+            text={this.props.text}
+            lastUpdated={this.props.lastUpdated}
             readOnly={this.props.loading}
+            additionalTexts={additionalTexts}
+            saveTodo={this.props.saveTodo}
+            focused={this.state.focused}
+            onFocus={this.onFocus}
+            onBlur={this.onBlur}
+            placeholder={
+              isFocused ? "Every " + this.props.day.format("dddd") : undefined
+            }
+            autoSize
+          />
+
+          <Editor
+            day={this.props.day}
+            text={this.props.text}
+            lastUpdated={this.props.lastUpdated}
+            readOnly={this.props.loading}
+            additionalTexts={additionalTexts}
+            saveTodo={this.props.saveTodo}
+            focused={this.state.focused}
+            onFocus={this.onFocus}
+            onBlur={this.onBlur}
+            placeholder={
+              isFocused ? "Every " + this.props.day.format("Do") : undefined
+            }
+            autoSize
           />
         </div>
-
-        {additionalTexts}
       </div>
     );
   }
 }
-
-export default Day;

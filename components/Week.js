@@ -6,12 +6,13 @@ import ReactFire from "reactfire";
 
 import Day from "./Day";
 
-class Week extends Component {
+export default class Week extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       firebase: undefined,
+      aDayIsFocused: false,
     };
   }
 
@@ -50,6 +51,14 @@ class Week extends Component {
         this.setState({ firebase: undefined });
       }.bind(this)
     );
+  };
+
+  onFocus = () => {
+    this.setState({ aDayIsFocused: true });
+  };
+
+  onBlur = () => {
+    this.setState({ aDayIsFocused: false });
   };
 
   // saveTodo = (text, lastUpdated, day, firebaseKey) => {
@@ -108,9 +117,19 @@ class Week extends Component {
             align-items: stretch;
             padding: 1.5rem 0.25rem 0;
           }
+
+          .weekStamp {
+            position: absolute;
+            top: 0;
+          }
           `
           }
         </style>
+
+        <time className="weekStamp">
+          W{this.props.weekOf.format("WW MMM YYYY")}
+        </time>
+
         {days.map(day => (
           <Day
             key={day}
@@ -122,6 +141,9 @@ class Week extends Component {
             // lastUpdated={firebaseValue ? firebaseValue.lastUpdated : null}
             focusDay={this.props.focusDay}
             saveTodo={this.saveTodo}
+            onFocus={this.onFocus}
+            onBlur={this.onBlur}
+            aDayIsFocused={this.state.aDayIsFocused}
           />
         ))}
       </div>
@@ -130,4 +152,3 @@ class Week extends Component {
 }
 
 reactMixin(Week.prototype, ReactFire);
-export default Week;

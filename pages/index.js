@@ -190,6 +190,7 @@ export default class Timeline extends Component {
                     scrollToAlignment="start"
                     scrollTop={scrollTop}
                     isScrolling={isScrolling}
+                    overscanRowCount={0}
                   />
                 )}
               </WindowScroller>
