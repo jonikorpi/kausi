@@ -154,8 +154,8 @@ class Day extends PureComponent {
       <div
         className={classNames({
           day: true,
-          focused: isFocused,
-          today: this.props.isToday,
+          focused: isFocused || isToday,
+          today: isToday,
         })}
       >
         <style jsx>
