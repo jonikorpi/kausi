@@ -97,7 +97,8 @@ export default class Timeline extends Component {
   };
 
   setUrlToDay = day => {
-    this.props.url.replace(`/?${moment(day).format("YYYY-MM-DD")}`);
+    const url = `/?${moment(day).format("YYYY-MM-DD")}`;
+    Router.replace(url, url, { shallow: true });
     this.list.scrollToRow(this.getIndexFromDay(this.state.today, day));
   };
 
