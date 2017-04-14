@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import Link from "next/link";
-import Router from "next/router";
 import firebase from "firebase";
 import moment from "moment";
 
@@ -67,22 +66,17 @@ export default class Lists extends Component {
   }
 
   render() {
-    const noWindow = typeof window === "undefined";
-    let initialDayIndex = this.startIndex;
-
     return (
       <div className="timeline">
         <Head />
         <style jsx>
-          {
-            `
+          {`
           .timeline {
             width: 100%;
             position: relative;
             overflow: hidden;
           }
-          `
-          }
+          `}
         </style>
 
         <Week

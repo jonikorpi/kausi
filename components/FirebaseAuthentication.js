@@ -2,10 +2,12 @@ import React, { Component } from "react";
 import firebase from "firebase";
 import Router from "next/router";
 
+let firebaseui;
+
 export default class FirebaseAuthentication extends Component {
   componentDidMount() {
     try {
-      const firebaseui = require("firebaseui");
+      firebaseui = require("firebaseui");
       window.authUi = new firebaseui.auth.AuthUI(firebase.auth());
     } catch (err) {
       if (!/already exists/.test(err.message)) {
@@ -31,7 +33,7 @@ export default class FirebaseAuthentication extends Component {
   }
 
   componentWillUnMount() {
-    authUi.reset();
+    window.authUi.reset();
   }
 
   render() {

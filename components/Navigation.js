@@ -1,10 +1,9 @@
-import React, { Component } from "react";
+import React from "react";
 
 export default props => (
   <nav className="navigation">
     <style jsx>
-      {
-        `
+      {`
           .navigation {
             position: fixed;
             right: 0; top: 0;
@@ -13,8 +12,7 @@ export default props => (
             z-index: 10;
             display: flex;
           }
-        `
-      }
+        `}
     </style>
 
     {props.children}

@@ -78,7 +78,6 @@ export default class Editor extends PureComponent {
   };
 
   render() {
-    const isFocused = this.props.focused;
     const isEditing = this.state.editing;
     const props = {
       ref: c => this.textarea = c,
@@ -98,6 +97,34 @@ export default class Editor extends PureComponent {
       tabIndex: this.props.autoSize ? -1 : undefined,
     };
 
+    // Additional entries
+    /*let additionalTexts;
+
+    if (this.props.textCount > 1) {
+      let pluralConflictingEntries = `is a conflicting entry`;
+      let next;
+
+      if (this.props.textCount > 2) {
+        pluralConflictingEntries = `are ${this.props.textCount} conflicting entries`;
+        next = "next ";
+      }
+
+      additionalTexts = (
+        <div
+          className="color-bright-6 size-0-75 padding-0-75 padding-top-0 margin-0-5 margin-y margin-bottom-0"
+        >
+          Problem: there
+          {" "}
+          {pluralConflictingEntries}
+          {" "}
+          for this day. If you remove this ↑ entry, the
+          {" "}
+          {next}
+          conflicting entry should appear and you can decide what to do with it. This sometimes happens with an unstable connection. Sorry for the hassle. :﻿(
+        </div>
+      );
+    }*/
+
     return (
       <div
         className={classNames({
@@ -107,8 +134,7 @@ export default class Editor extends PureComponent {
         })}
       >
         <style jsx>
-          {
-            `
+          {`
           .textareaContainer {
             position: relative;
           }
@@ -176,8 +202,7 @@ export default class Editor extends PureComponent {
           :global(.last::-webkit-scrollbar-thumb) {
             border-radius: 0 0 .25rem .25rem;
           }
-        `
-          }
+        `}
         </style>
 
         {this.props.autoSize

@@ -90,10 +90,12 @@ export default class Timeline extends Component {
   };
 
   getIndexFromDay = (today, day) => {
-    return this.startIndex +
+    return (
+      this.startIndex +
       moment(day)
         .startOf("isoweek")
-        .diff(moment(today).startOf("isoweek"), "weeks");
+        .diff(moment(today).startOf("isoweek"), "weeks")
+    );
   };
 
   setUrlToDay = day => {
@@ -110,15 +112,7 @@ export default class Timeline extends Component {
     this.setUrlToDay(day);
   };
 
-  rowRenderer = (
-    {
-      key,
-      index,
-      isScrolling,
-      isVisible,
-      style,
-    }
-  ) => {
+  rowRenderer = ({ key, index, isScrolling, isVisible, style }) => {
     return (
       <Week
         key={key}
@@ -136,22 +130,18 @@ export default class Timeline extends Component {
   };
 
   render() {
-    const noWindow = typeof window === "undefined";
-    let initialDayIndex = this.startIndex;
     const query = Object.keys(this.props.url.query)[0];
 
     return (
       <div className="timeline">
         <Head />
         <style jsx>
-          {
-            `
+          {`
           .timeline {
             width: 100%;
             position: relative;
           }
-          `
-          }
+          `}
         </style>
 
         {this.state.clientSide &&

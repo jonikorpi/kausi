@@ -1,6 +1,5 @@
 import React, { PureComponent } from "react";
 import moment from "moment";
-import debounce from "lodash.debounce";
 import classNames from "classnames";
 
 import FirebaseProvider from "./FirebaseProvider";
@@ -26,41 +25,14 @@ export default class Day extends PureComponent {
 
   render() {
     const isToday = this.props.day.isSame(moment().startOf("day"));
-    const isWeekend = !this.props.someday &&
+    const isWeekend =
+      !this.props.someday &&
       (this.props.day.day() === 0 || this.props.day.day() === 6);
-    const isFocused = this.state.focused ||
-      (!this.props.aDayIsFocused && isToday);
+    const isFocused =
+      this.state.focused || (!this.props.aDayIsFocused && isToday);
 
     const dayNumber = this.props.day.format("DD");
     const weekday = this.props.day.format("dddd");
-
-    // Additional entries
-    let additionalTexts;
-
-    if (this.props.textCount > 1) {
-      let pluralConflictingEntries = `is a conflicting entry`;
-      let next;
-
-      if (this.props.textCount > 2) {
-        pluralConflictingEntries = `are ${this.props.textCount} conflicting entries`;
-        next = "next ";
-      }
-
-      additionalTexts = (
-        <div
-          className="color-bright-6 size-0-75 padding-0-75 padding-top-0 margin-0-5 margin-y margin-bottom-0"
-        >
-          Problem: there
-          {" "}
-          {pluralConflictingEntries}
-          {" "}
-          for this day. If you remove this ↑ entry, the
-          {" "}
-          {next}
-          conflicting entry should appear and you can decide what to do with it. This sometimes happens with an unstable connection. Sorry for the hassle. :﻿(
-        </div>
-      );
-    }
 
     // Date label
     let label, dayLabel, monthLabel;
@@ -102,8 +74,7 @@ export default class Day extends PureComponent {
         })}
       >
         <style jsx>
-          {
-            `
+          {`
           .day {
             flex-grow: 1;
             width: 0;
@@ -157,8 +128,7 @@ export default class Day extends PureComponent {
             border: 1px solid;
             border-radius: 0.25rem;
           }
-        `
-          }
+        `}
         </style>
 
         <h2 className="label" htmlFor={this.props.day.valueOf()}>

@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import reactMixin from "react-mixin";
 import ReactFire from "reactfire";
 import firebase from "firebase";
-import Link from "next/link";
 
 import Head from "../components/Head.js";
 import Navigation from "../components/Navigation";
@@ -44,9 +43,9 @@ export default class ExportData extends Component {
       firebase.database().ref(uid).orderByChild("date"),
       "data",
       function(error) {
-        console.log("Firebase subscription cancelled:")
+        console.log("Firebase subscription cancelled:");
         console.log(error);
-        this.setState({data: []})
+        this.setState({ data: [] });
       }.bind(this)
     );
   }
@@ -60,8 +59,8 @@ export default class ExportData extends Component {
 
     return (
       <div>
-        <Head/>
-        <Navigation/>
+        <Head />
+        <Navigation />
         <textarea
           placeholder={"Fetching your entries…"}
           value={data}

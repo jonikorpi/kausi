@@ -1,7 +1,5 @@
 import React, { Component } from "react";
-import firebase from "firebase";
 import Link from "next/link";
-import Router from "next/router";
 
 import Head from "../components/Head.js";
 import Navigation from "../components/Navigation";
