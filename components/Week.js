@@ -27,7 +27,7 @@ export default class Week extends PureComponent {
       : [0, 1, 2, 3, 4, 5, 6];
 
     return (
-      <div className="week" style={this.props.style}>
+      <div className="week padding" style={this.props.style}>
         <style jsx>
           {
             `
@@ -35,21 +35,14 @@ export default class Week extends PureComponent {
             height: 100vh;
             display: flex;
             align-items: stretch;
-            padding: .25rem;
             position: relative;
             overflow: hidden;
-          }
-
-          @media (min-width: 40rem) {
-            .week {
-              padding: .5rem;
-            }
           }
 
           .weekStamp {
             position: absolute;
             font-size: 0.625rem;
-            line-height: 0.75rem;
+            line-height: 0.625rem;
             font-weight: bold;
             text-transform: uppercase;
           }

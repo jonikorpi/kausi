@@ -1507,7 +1507,7 @@ find@^0.2.4:
   dependencies:
     traverse-chain "~0.1.0"
 
-firebase@^3.7.6:
+firebase@^3.3.0, firebase@^3.7.6:
   version "3.7.6"
   resolved "https://registry.yarnpkg.com/firebase/-/firebase-3.7.6.tgz#7ab031e1db203a7d7159de788274fb5e05447704"
   dependencies:
@@ -1516,6 +1516,12 @@ firebase@^3.7.6:
     jsonwebtoken "^7.3.0"
     promise-polyfill "^6.0.2"
     xmlhttprequest "^1.8.0"
+
+firebaseui@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/firebaseui/-/firebaseui-1.0.1.tgz#ba7bd6432d6a08d1a591fa49dd31112bc69f0385"
+  dependencies:
+    firebase "^3.3.0"
 
 flow-parser@0.40.0:
   version "0.40.0"

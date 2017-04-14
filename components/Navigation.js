@@ -1,53 +1,22 @@
 import React, { Component } from "react";
-import Link from "next/link";
 
-export default class Navigation extends Component {
-  render() {
-    const links = [
+export default props => (
+  <nav className="navigation">
+    <style jsx>
       {
-        text: "Back",
-        href: "/",
-      },
-      {
-        text: "Log in",
-        href: "/log-in",
-      },
-      {
-        text: "Sign up",
-        href: "/sign-up",
-      },
-      {
-        text: "Reset password",
-        href: "/reset-password",
-      },
-      {
-        text: "Export your data",
-        href: "/export-data",
-      },
-      {
-        text: "Change password",
-        href: "/change-password",
-      },
-      {
-        text: "About Kausi",
-        href: "/about",
-      },
-    ];
+        `
+          .navigation {
+            position: fixed;
+            right: 0; top: 0;
+            font-size: 0.625rem;
+            line-height: 0.625rem;
+            z-index: 10;
+            display: flex;
+          }
+        `
+      }
+    </style>
 
-    return (
-      <div className="navigation">
-        {links.map(link => {
-          return (
-            <Link href={link.href} key={link.href}>
-              <a className="navigation-link">
-                {link.text}
-              </a>
-            </Link>
-          );
-        })}
-
-        <button className="navigation-link" type="button">Log out</button>
-      </div>
-    );
-  }
-}
+    {props.children}
+  </nav>
+);

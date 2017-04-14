@@ -1,10 +1,11 @@
 import React, { Component } from "react";
+import Link from "next/link";
 import Router from "next/router";
 import firebase from "firebase";
 import moment from "moment";
 
 import Head from "../components/Head.js";
-import TimelineNavigation from "../components/TimelineNavigation";
+import Navigation from "../components/Navigation";
 import Week from "../components/Week";
 
 import initializeFirebase from "../scripts/initializeFirebase.js";
@@ -92,7 +93,26 @@ export default class Lists extends Component {
           lists={true}
         />
 
-        <TimelineNavigation />
+        <Navigation>
+          <Link href="/">
+            <a>
+              Back
+            </a>
+          </Link>
+          {this.state.anonymous &&
+            <Link href="/authenticate">
+              <a>
+                Log in/Sign up
+              </a>
+            </Link>}
+          {!this.state.anonymous &&
+            this.state.uid &&
+            <Link href="/account">
+              <a>
+                Account
+              </a>
+            </Link>}
+        </Navigation>
       </div>
     );
   }

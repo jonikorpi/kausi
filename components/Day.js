@@ -107,7 +107,7 @@ export default class Day extends PureComponent {
           .day {
             flex-grow: 1;
             width: 0;
-            margin-top: 1.75rem;
+            margin-top: 2rem;
             position: relative;
           }
 
@@ -130,15 +130,22 @@ export default class Day extends PureComponent {
           .focused,
           .editors {
             width: 24rem;
-            max-width: 75vw;
+            max-width: 70vw;
           }
 
           .label {
             position: absolute;
-            left: 0; top: -1rem;
+            left: 0; bottom: 100%;
             font-size: 0.5rem;
+            line-height: 1.25rem;
             white-space: nowrap;
             text-transform: uppercase;
+          }
+
+          @media (min-width: 30rem) {
+            .label {
+              font-size: 0.625rem;
+            }
           }
 
           .editors {

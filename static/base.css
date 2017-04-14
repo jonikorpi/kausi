@@ -27,3 +27,36 @@ body {
   line-height: 1rem;
   font-size: 0.8rem;
 }
+
+.page {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100vh;
+}
+
+.page > * + * {
+  margin-top: 1rem;
+}
+
+.padding,
+.navigation > * {
+  padding: .25rem;
+}
+
+@media (min-width: 40rem) {
+  .padding,
+  .navigation > * {
+    padding: .5rem;
+  }
+}
+
+.navigation > * {
+  text-decoration: underline;
+}
+
+.navigation > *:hover,
+.navigation > *:focus {
+  color: hsl(0, 0%, 91%);
+  outline: none;
+}
