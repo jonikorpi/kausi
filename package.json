@@ -7,8 +7,7 @@
   "private": true,
   "dependencies": {
     "classnames": "^2.2.5",
-    "eslint-plugin-react": "^6.10.3",
-    "firebase": "^3.7.6",
+    "firebase": "^3.7.7",
     "firebaseui": "^1.0.1",
     "jonikorpi-base-files": "^6.0.1",
     "lodash.debounce": "^4.0.8",
@@ -35,6 +34,13 @@
     "now-build": "NODE_ENV=production next build"
   },
   "devDependencies": {
-    "prettier": "^0.22.0"
+    "babel-eslint": "^7.2.2",
+    "eslint": "^3.19.0",
+    "eslint-config-react-app": "^0.6.2",
+    "eslint-plugin-flowtype": "^2.30.4",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^4.0.0",
+    "eslint-plugin-react": "^6.10.3",
+    "prettier": "^1.1.0"
   }
 }
