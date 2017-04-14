@@ -180,6 +180,7 @@ export default class Timeline extends Component {
                     width={width}
                     height={height}
                     rowCount={this.startIndex * 2}
+                    estimatedRowSize={height}
                     rowHeight={height}
                     rowRenderer={this.rowRenderer}
                     scrollToIndex={

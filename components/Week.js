@@ -51,17 +51,16 @@ export default class Week extends PureComponent {
             line-height: 0.75rem;
             font-weight: bold;
             text-transform: uppercase;
-            color: grey;
           }
           `
           }
         </style>
 
-        <time className="weekStamp">
+        <h1 className="weekStamp">
           {this.props.lists
             ? "Static lists"
             : <span>W{this.props.weekOf.format("WW / MMM YYYY")}</span>}
-        </time>
+        </h1>
 
         {days.map(day => (
           <Day

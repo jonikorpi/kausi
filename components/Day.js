@@ -109,7 +109,6 @@ export default class Day extends PureComponent {
             width: 0;
             margin-top: 1.75rem;
             position: relative;
-            color: #999;
             transition: 124ms ease-out;
             transition-property: width, flex;
           }
@@ -125,13 +124,15 @@ export default class Day extends PureComponent {
 
           .focused {
             flex: none;
-            color: inherit;
+            color: hsl(0, 0%, 91%);
+            margin-right: -1px;
+            z-index: 1;
           }
 
           .focused,
           .editors {
-            width: 18rem;
-            max-width: 66.666vw;
+            width: 24rem;
+            max-width: 75vw;
           }
 
           .label {
@@ -140,37 +141,36 @@ export default class Day extends PureComponent {
             font-size: 0.5rem;
             white-space: nowrap;
             text-transform: uppercase;
-            pointer-events: none;
           }
 
           .editors {
             position: absolute;
-            left: 0; top: -1px; right: 0; bottom: -1px;
+            left: 0; top: -1px; right: 1px; bottom: -1px;
             display: flex;
             flex-direction: column;
-            background-color: #222;
-            border: solid black;
-            border-width: 1px 0 1px 1px;
+            background-color: #000;
+            border: 1px solid;
             border-radius: 0.25rem;
           }
         `
           }
         </style>
 
-        <label className="label" htmlFor={this.props.day.valueOf()}>
+        <h2 className="label" htmlFor={this.props.day.valueOf()}>
           <time className="dateStamp">
             {this.props.day.format(
               this.props.isList ? "D" : isFocused ? "DD MMM / ddd" : "DD"
             )}
           </time>
           {isToday && isFocused && " (today)"}
-        </label>
+        </h2>
 
         <div className="editors">
           <FirebaseProvider
+            first={true}
             uid={this.props.uid}
             day={this.props.day}
-            focused={this.state.focused}
+            focused={isFocused}
             onFocus={this.onFocus}
             onBlur={this.onBlur}
             placeholder={
@@ -182,7 +182,7 @@ export default class Day extends PureComponent {
             <FirebaseProvider
               uid={this.props.uid}
               day={weekday}
-              focused={this.state.focused}
+              focused={isFocused}
               onFocus={this.onFocus}
               onBlur={this.onBlur}
               placeholder={
@@ -194,9 +194,10 @@ export default class Day extends PureComponent {
           {!this.props.isList &&
             dayNumber < 29 &&
             <FirebaseProvider
+              last={true}
               uid={this.props.uid}
               day={dayNumber}
-              focused={this.state.focused}
+              focused={isFocused}
               onFocus={this.onFocus}
               onBlur={this.onBlur}
               placeholder={

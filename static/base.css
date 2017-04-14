@@ -1,12 +1,29 @@
+@font-face {
+  font-family: 'Inconsolata';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Inconsolata Regular'), local('Inconsolata-Regular'),
+       url('fonts/inconsolata-v15-latin-ext_latin-regular.woff2') format('woff2'),
+       url('fonts/inconsolata-v15-latin-ext_latin-regular.woff') format('woff');
+}
+@font-face {
+  font-family: 'Inconsolata';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Inconsolata Bold'), local('Inconsolata-Bold'),
+       url('fonts/inconsolata-v15-latin-ext_latin-700.woff2') format('woff2'),
+       url('fonts/inconsolata-v15-latin-ext_latin-700.woff') format('woff');
+}
+
 html {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-  font-size: 133%; /* Fallback: used if browser doesn't support calc() */
-  font-size: calc(1.2625em + 0.1vw + 0.1vh + 0.05vmin);
-  color: white;
-  background: black;
+  font-family: Inconsolata, Menlo, monospace, monospace;
+  font-size: 133%;
+  font-size: calc(1.14em + 0.2vw + 0.2vh + 0.1vmin);
+  color: hsl(0, 0%, 58.6%);
+  background: #000;
 }
 
 body {
   line-height: 1rem;
-  font-size: 0.764rem;
+  font-size: 0.8rem;
 }

@@ -11,6 +11,7 @@ export default class Editor extends PureComponent {
     this.state = {
       text: this.props.text || "",
       lastUpdated: this.props.lastUpdated,
+      editing: false,
     };
 
     this.saveTodoHandler = debounce(
@@ -52,10 +53,12 @@ export default class Editor extends PureComponent {
 
   onFocus = () => {
     this.props.onFocus();
+    this.setState({ editing: true });
   };
 
   onBlur = () => {
     this.props.onBlur();
+    this.setState({ editing: false });
   };
 
   onChange = event => {
@@ -76,10 +79,14 @@ export default class Editor extends PureComponent {
 
   render() {
     const isFocused = this.props.focused;
+    const isEditing = this.state.editing;
     const props = {
-      id: this.props.day.valueOf(),
       ref: c => this.textarea = c,
-      className: "textarea",
+      className: classNames({
+        textarea: true,
+        first: this.props.first,
+        last: this.props.last,
+      }),
       value: this.state.text || "",
       onKeyDown: this.onKeyDown,
       onFocus: this.onFocus,
@@ -92,19 +99,22 @@ export default class Editor extends PureComponent {
 
     return (
       <div
-        className={
-          `textareaContainer ${this.props.autoSize ? "autoSize" : "noAutoSize"}`
-        }
+        className={classNames({
+          textareaContainer: true,
+          autoSize: this.props.autoSize,
+          noAutoSize: !this.props.autoSize,
+        })}
       >
         <style jsx>
           {
             `
           .textareaContainer {
             position: relative;
+            border-bottom: 1px solid black;
           }
 
           .textareaContainer + .textareaContainer {
-            border-top: 1px dashed black;
+            border-top: 1px dashed;
           }
 
           .textareaContainer.noAutoSize {
@@ -124,6 +134,9 @@ export default class Editor extends PureComponent {
             width: 100%;
             height: 100%;
             flex-grow: 1;
+            transition: 124ms ease-out;
+            transition-property: height;
+            -webkit-overflow-scrolling: touch;
           }
 
           @media (min-width: 40rem) {
@@ -136,12 +149,29 @@ export default class Editor extends PureComponent {
             font-style: italic;
             font-size: 0.625rem;
           }
+
+          :global(.textarea::-webkit-scrollbar) {
+            width: .25rem;
+            height: .25rem;
+          }
+
+          :global(.textarea::-webkit-scrollbar-thumb) {
+            background: currentcolor;
+          }
+
+          :global(.first::-webkit-scrollbar-thumb) {
+            border-radius: .25rem .25rem 0 0;
+          }
+
+          :global(.last::-webkit-scrollbar-thumb) {
+            border-radius: 0 0 .25rem .25rem;
+          }
         `
           }
         </style>
 
         {this.props.autoSize
-          ? <Textarea {...props} maxRows={5} />
+          ? <Textarea {...props} maxRows={isEditing ? 13 : 1} />
           : <textarea {...props} />}
 
         {this.props.additionalTexts}
