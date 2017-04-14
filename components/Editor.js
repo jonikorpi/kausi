@@ -141,6 +141,14 @@ export default class Editor extends PureComponent {
             border-width: 1px 0;
           }
 
+          :global(.first) {
+            border-width: 0 0 1px;
+          }
+
+          :global(.last) {
+            border-width: 1px 0 0;
+          }
+
           @media (min-width: 40rem) {
             :global(.textarea) {
               padding: 0.5rem;
