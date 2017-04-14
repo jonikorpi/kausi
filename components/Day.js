@@ -171,11 +171,7 @@ export default class Day extends PureComponent {
             focused={isFocused}
             onFocus={this.onFocus}
             onBlur={this.onBlur}
-            label={
-              this.props.isList
-                ? `List ${this.props.day.format("D")}`
-                : "This day"
-            }
+            label={this.props.isList && `List ${this.props.day.format("D")}`}
           />
 
           {!this.props.isList &&

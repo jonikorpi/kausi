@@ -181,7 +181,7 @@ export default class Editor extends PureComponent {
         </style>
 
         {this.props.autoSize
-          ? <Textarea {...props} maxRows={isEditing ? 13 : 1} />
+          ? <Textarea {...props} maxRows={isEditing ? 13 : 2} />
           : <textarea {...props} />}
 
         {this.props.additionalTexts}
