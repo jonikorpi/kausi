@@ -92,7 +92,8 @@ export default class Editor extends PureComponent {
       onFocus: this.onFocus,
       onBlur: this.onBlur,
       onChange: this.onChange,
-      placeholder: this.props.placeholder,
+      placeholder: this.props.label,
+      title: this.props.label,
       readOnly: this.props.loading,
       tabIndex: this.props.autoSize ? -1 : undefined,
     };
@@ -110,7 +111,6 @@ export default class Editor extends PureComponent {
             `
           .textareaContainer {
             position: relative;
-            border-bottom: 1px solid black;
           }
 
           .textareaContainer + .textareaContainer {
@@ -137,6 +137,8 @@ export default class Editor extends PureComponent {
             transition: 124ms ease-out;
             transition-property: height;
             -webkit-overflow-scrolling: touch;
+            border: solid black;
+            border-width: 1px 0;
           }
 
           @media (min-width: 40rem) {

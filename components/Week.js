@@ -37,6 +37,7 @@ export default class Week extends PureComponent {
             align-items: stretch;
             padding: .25rem;
             position: relative;
+            overflow: hidden;
           }
 
           @media (min-width: 40rem) {

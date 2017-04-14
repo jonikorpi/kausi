@@ -78,6 +78,7 @@ export default class Lists extends Component {
           .timeline {
             width: 100%;
             position: relative;
+            overflow: hidden;
           }
           `
           }

@@ -109,8 +109,6 @@ export default class Day extends PureComponent {
             width: 0;
             margin-top: 1.75rem;
             position: relative;
-            transition: 124ms ease-out;
-            transition-property: width, flex;
           }
 
           .day:first-of-type {
@@ -173,8 +171,10 @@ export default class Day extends PureComponent {
             focused={isFocused}
             onFocus={this.onFocus}
             onBlur={this.onBlur}
-            placeholder={
-              isFocused && !this.props.isList ? "This day" : undefined
+            label={
+              this.props.isList
+                ? `List ${this.props.day.format("D")}`
+                : "This day"
             }
           />
 
@@ -185,9 +185,7 @@ export default class Day extends PureComponent {
               focused={isFocused}
               onFocus={this.onFocus}
               onBlur={this.onBlur}
-              placeholder={
-                isFocused ? this.props.day.format("dddd") + "s" : undefined
-              }
+              label={this.props.day.format("dddd") + "s"}
               autoSize
             />}
 
@@ -200,9 +198,7 @@ export default class Day extends PureComponent {
               focused={isFocused}
               onFocus={this.onFocus}
               onBlur={this.onBlur}
-              placeholder={
-                isFocused ? "Every " + this.props.day.format("Do") : undefined
-              }
+              label={"Every " + this.props.day.format("Do")}
               autoSize
             />}
         </div>
