@@ -161,8 +161,6 @@ export default class Timeline extends Component {
                     : this.startIndex
                 }
                 scrollToAlignment="start"
-                //scrollTop={scrollTop}
-                //isScrolling={isScrolling}
                 overscanRowCount={0}
                 uid={this.state.uid}
               />
