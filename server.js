@@ -1,6 +1,7 @@
 const express = require("express");
 const next = require("next");
 const LRUCache = require("lru-cache");
+const rollbar = require("rollbar");
 
 const dev = process.env.NODE_ENV !== "production";
 const app = next({ dir: ".", dev });
@@ -35,6 +36,13 @@ app.prepare().then(() => {
   server.get("*", (req, res) => {
     return handle(req, res);
   });
+
+  // Report errors to Rollbar
+  server.use(
+    rollbar.errorHandler("e25b560b08f1410abf77cae0888e0acb", {
+      environment: process.env.NODE_ENV || "development",
+    })
+  );
 
   server.listen(3000, err => {
     if (err) throw err;
