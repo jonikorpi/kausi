@@ -31,7 +31,7 @@ export default class Week extends PureComponent {
         <style jsx>
           {`
           .week {
-            height: 100vh;
+            height: 85.4vh;
             display: flex;
             align-items: stretch;
             position: relative;

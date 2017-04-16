@@ -3,7 +3,7 @@ import Link from "next/link";
 import Router from "next/router";
 import firebase from "firebase";
 import moment from "moment";
-import { List, AutoSizer, WindowScroller } from "react-virtualized";
+import { List, AutoSizer } from "react-virtualized";
 
 import Head from "../components/Head.js";
 import Navigation from "../components/Navigation";
@@ -139,37 +139,33 @@ export default class Timeline extends Component {
           {`
           .timeline {
             width: 100%;
-            position: relative;
+            height: 100vh;
           }
           `}
         </style>
 
         {this.state.clientSide &&
-          <AutoSizer disableHeight>
+          <AutoSizer>
             {({ height, width }) => (
-              <WindowScroller>
-                {({ height, isScrolling, scrollTop }) => (
-                  <List
-                    ref={c => this.list = c}
-                    width={width}
-                    height={height}
-                    rowCount={this.startIndex * 2}
-                    estimatedRowSize={height}
-                    rowHeight={height}
-                    rowRenderer={this.rowRenderer}
-                    scrollToIndex={
-                      query
-                        ? this.getIndexFromDay(this.state.today, moment(query))
-                        : this.startIndex
-                    }
-                    scrollToAlignment="start"
-                    scrollTop={scrollTop}
-                    isScrolling={isScrolling}
-                    overscanRowCount={0}
-                    uid={this.state.uid}
-                  />
-                )}
-              </WindowScroller>
+              <List
+                ref={c => this.list = c}
+                width={width}
+                height={height}
+                rowCount={this.startIndex * 2}
+                estimatedRowSize={height * 0.854}
+                rowHeight={height * 0.854}
+                rowRenderer={this.rowRenderer}
+                scrollToIndex={
+                  query
+                    ? this.getIndexFromDay(this.state.today, moment(query))
+                    : this.startIndex
+                }
+                scrollToAlignment="start"
+                //scrollTop={scrollTop}
+                //isScrolling={isScrolling}
+                overscanRowCount={0}
+                uid={this.state.uid}
+              />
             )}
           </AutoSizer>}
 

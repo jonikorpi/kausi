@@ -78,7 +78,7 @@ export default class Day extends PureComponent {
           .day {
             flex-grow: 1;
             width: 0;
-            margin-top: 2rem;
+            margin-top: 1.75rem;
             position: relative;
           }
 
