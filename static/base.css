@@ -1,0 +1,70 @@
+html {
+  font-family: Inconsolata, Menlo, monospace, monospace;
+  font-size: 133%;
+  font-size: calc(1.14em + 0.2vw + 0.2vh + 0.1vmin);
+  color: hsl(0, 0%, 58.6%);
+  background: #000;
+}
+
+body {
+  line-height: 1rem;
+  font-size: 0.8rem;
+}
+
+.centered {
+  text-align: center;
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100vh;
+}
+
+.heading {
+  font-size: 0.625rem;
+  line-height: 0.625rem;
+  text-transform: uppercase;
+}
+
+.child-spacing > * + *,
+.page > * + * {
+  margin-top: 1rem;
+}
+
+.padding {
+  padding: .25rem;
+}
+
+@media (min-width: 40rem) {
+  .padding {
+    padding: .5rem;
+  }
+}
+
+button,
+a {
+  text-decoration: underline;
+}
+
+button:hover,
+button:focus,
+button.active,
+a:hover,
+a:focus,
+a.active,
+.bright {
+  color: hsl(0, 0%, 91%);
+  outline: none;
+}
+
+button.active,
+a.active {
+  text-decoration: none;
+}
+
+button:active,
+a:active {
+  color: hsl(0, 0%, 50%);
+}

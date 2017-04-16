@@ -13,7 +13,7 @@
         // Todos have a date, text and a lastUpdated timestamp. Nothing else.
         ".validate": "newData.hasChildren(['date', 'text', 'lastUpdated'])",
         "date": {
-          ".validate": "newData.isNumber()",
+          ".validate": "newData.isNumber() || newData.isString()",
         },
         "text": {
           ".validate": "newData.isString()",

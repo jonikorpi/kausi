@@ -6,36 +6,44 @@
   "version": "0.0.1",
   "private": true,
   "dependencies": {
-    "compression": "^1.6.2",
-    "express": "^4.15.2",
-    "morgan": "^1.8.1",
-    "rollbar": "^0.6.5",
-    "universal-analytics": "^0.4.11",
     "classnames": "^2.2.5",
-    "firebase": "^3.7.2",
-    "jonikorpi-base-files": "^4.0.2",
+    "express": "^4.15.2",
+    "firebase": "^3.7.8",
+    "firebaseui": "^1.0.1",
     "lodash.debounce": "^4.0.8",
-    "lodash.throttle": "^4.1.1",
-    "moment": "^2.15.1",
-    "react": "^15.3.2",
-    "react-addons-perf": "^15.3.2",
-    "react-addons-shallow-compare": "^15.3.2",
-    "react-dom": "^15.3.2",
-    "react-list": "^0.8.4",
+    "lru-cache": "^4.0.2",
+    "moment": "^2.18.1",
+    "next": "^2.1.1",
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4",
     "react-mixin": "^3.0.5",
-    "react-scripts": "^0.9.5",
-    "reactfire": "^1.0.0"
-  },
-  "scripts": {
-    "now-start": "node server",
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "server": "node server",
-    "eject": "react-scripts eject",
-    "deploy": "curl https://api.rollbar.com/api/1/deploy/ -F access_token=e25b560b08f1410abf77cae0888e0acb -F environment=production -F revision=`git log -n 1 --pretty=format:'%H'` -F local_username=`whoami` && now -e NODE_ENV=production",
-    "prune": "now rm $(now-no-alias | json -a uid)"
+    "react-textarea-autosize": "^4.0.5",
+    "react-virtualized": "^9.7.3",
+    "reactfire": "^1.0.0",
+    "rollbar": "^0.6.5",
+    "rollbar-browser": "^1.9.4",
+    "universal-analytics": "^0.4.13"
   },
   "eslintConfig": {
-    "extends": "./node_modules/react-scripts/config/eslint.js"
+    "extends": [
+      "react-app"
+    ]
+  },
+  "scripts": {
+    "start": "node server.js",
+    "build": "next build",
+    "deploy": "now && curl https://api.rollbar.com/api/1/deploy/ -F access_token=e25b560b08f1410abf77cae0888e0acb -F environment=production -F revision=`git log -n 1 --pretty=format:'%H'` -F local_username=`whoami`",
+    "now-start": "NODE_ENV=production node server.js",
+    "now-build": "NODE_ENV=production next build"
+  },
+  "devDependencies": {
+    "babel-eslint": "^7.2.2",
+    "eslint": "^3.19.0",
+    "eslint-config-react-app": "^0.6.2",
+    "eslint-plugin-flowtype": "^2.30.4",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^4.0.0",
+    "eslint-plugin-react": "^6.10.3",
+    "prettier": "^1.1.0"
   }
 }
