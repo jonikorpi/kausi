@@ -165,6 +165,11 @@ export default class Editor extends PureComponent {
             -webkit-overflow-scrolling: touch;
             border: solid black;
             border-width: 1px 0;
+            overflow: hidden;
+          }
+
+          :global(.focused) :global(.textarea) {
+            overflow: auto;
           }
 
           :global(.first) {
