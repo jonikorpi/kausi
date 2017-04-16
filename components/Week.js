@@ -43,7 +43,6 @@ export default class Week extends PureComponent {
             position: absolute;
             font-size: 0.625rem;
             line-height: 0.625rem;
-            font-weight: bold;
             text-transform: uppercase;
           }
           `
