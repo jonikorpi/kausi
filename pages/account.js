@@ -60,13 +60,10 @@ export default class Account extends Component {
         <Navigation url={this.props.url} uid={true} anonymous={false} />
 
         <div className="page padding">
-
-          <header className="child-spacing">
-            <h1 className="heading">Your account</h1>
-          </header>
+          <h1 className="heading">Your account</h1>
 
           {this.state.user &&
-            <div className="child-spacing">
+            <div className="child-spacing centered">
 
               <div>
                 <h1 className="heading bright">{this.state.user.email}</h1>
