@@ -31,7 +31,7 @@ export default class ExportData extends Component {
   };
 
   fetch = () => {
-    this.bindFirebase(this.props.uid);
+    this.setState({ fetching: true }, this.bindFirebase(this.props.uid));
   };
 
   render() {
@@ -52,16 +52,18 @@ export default class ExportData extends Component {
             background: transparent;
             border: 1px solid;
             width: 100%;
-            height: 10rem;
+            height: 20rem;
+            max-height: 62vh;
             font-size: 0.625rem;
             line-height: 0.75rem;
+            margin-top: 0.25rem;
           }
         `}</style>
 
-        {this.state.data
+        {this.state.data || this.state.fetching
           ? <textarea
+              placeholder="Fetching your entries…"
               className="exportTextarea padding"
-              placeholder={"Fetching your entries…"}
               value={data}
               readOnly={true}
             />
