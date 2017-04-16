@@ -100,7 +100,6 @@ export default class Timeline extends Component {
     const url = `/?${moment(day).format("YYYY-MM-DD")}`;
     Router.replace(url, url, { shallow: true });
     this.list.scrollToRow(this.getIndexFromDay(this.state.today, day));
-    console.log(this.list);
   };
 
   scrollToToday = () => {
