@@ -154,8 +154,8 @@ export default class Timeline extends Component {
                   width={width}
                   height={height}
                   rowCount={this.startIndex * 2}
-                  estimatedRowSize={height * 0.854}
-                  rowHeight={height * 0.854}
+                  estimatedRowSize={height * 0.91}
+                  rowHeight={height * 0.91}
                   rowRenderer={this.rowRenderer}
                   scrollToIndex={
                     query
