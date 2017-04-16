@@ -22,7 +22,9 @@ export default class Authenticate extends Component {
 
   render() {
     return (
-      <div className="page padding">
+      <div>
+        <Navigation url={this.props.url} uid={true} anonymous={true} />
+
         <Head>
           <link
             type="text/css"
@@ -30,29 +32,22 @@ export default class Authenticate extends Component {
             href="https://cdn.firebase.com/libs/firebaseui/1.0.1/firebaseui.css"
           />
         </Head>
+        <div className="page padding">
+          <header className="child-spacing">
+            <h1 className="heading">Authentication</h1>
+            <p>
+              Kausi uses
+              {" "}
+              <a href="https://firebase.google.com">Firebase</a>
+              {" "}
+              to store your data. Log in or sign up for an account below.
+            </p>
+          </header>
 
-        <header>
-          <h1>Authentication</h1>
-          <p>
-            Kausi uses
-            {" "}
-            <a href="https://firebase.google.com">Firebase</a>
-            {" "}
-            to store your data. Log in or sign up for an account below.
-          </p>
-        </header>
+          {this.state.clientSide && <FirebaseAuthentication />}
 
-        {this.state.clientSide && <FirebaseAuthentication />}
-
-        <About />
-
-        <Navigation>
-          <Link href="/">
-            <a>
-              Back to the app
-            </a>
-          </Link>
-        </Navigation>
+          <About />
+        </div>
       </div>
     );
   }

@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Link from "next/link";
 import firebase from "firebase";
 import moment from "moment";
 
@@ -83,30 +82,12 @@ export default class Lists extends Component {
           weekOf={moment(0)}
           uid={this.state.uid}
           focusDay={this.focusDay}
-          isVisible={true}
+          url={this.props.url}
+          uid={this.state.uid}
+          anonymous={this.state.anonymous}
           lists={true}
+          isVisible={true}
         />
-
-        <Navigation>
-          <Link href="/">
-            <a>
-              Back
-            </a>
-          </Link>
-          {this.state.anonymous &&
-            <Link href="/authenticate">
-              <a>
-                Log in/Sign up
-              </a>
-            </Link>}
-          {!this.state.anonymous &&
-            this.state.uid &&
-            <Link href="/account">
-              <a>
-                Account
-              </a>
-            </Link>}
-        </Navigation>
       </div>
     );
   }

@@ -1,10 +1,7 @@
-import React, { Component } from "react";
+import React from "react";
 
 export default props => (
   <div>
-    <p>
-      Kausi is being maintained and developed as a personal tool. It will always be free to use.
-    </p>
     <p>
       To stay in touch, follow
       {" "}

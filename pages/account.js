@@ -1,17 +1,44 @@
 import React, { Component } from "react";
 import firebase from "firebase";
-import Link from "next/link";
 import Router from "next/router";
 
 import Head from "../components/Head.js";
 import Navigation from "../components/Navigation";
 import About from "../components/About";
+import ExportData from "../components/ExportData";
 
 import initializeFirebase from "../scripts/initializeFirebase.js";
 
 export default class Account extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {};
+  }
+
   componentDidMount() {
     initializeFirebase();
+
+    firebase.auth().onAuthStateChanged(
+      function(user) {
+        if (user) {
+          this.setState({
+            uid: user.uid,
+            anonymous: user.isAnonymous,
+            user: user,
+          });
+        } else {
+          this.setState({
+            uid: null,
+            anonymous: null,
+          });
+
+          firebase.auth().signInAnonymously().catch(function(error) {
+            console.log(error);
+          });
+        }
+      }.bind(this)
+    );
   }
 
   signOut = () => {
@@ -28,29 +55,36 @@ export default class Account extends Component {
 
   render() {
     return (
-      <div className="padding page">
+      <div>
         <Head />
-        <Navigation>
-          <Link href="/">
-            <a>
-              Back
-            </a>
-          </Link>
-        </Navigation>
+        <Navigation url={this.props.url} uid={true} anonymous={false} />
 
-        <header>
-          <h1>Your account</h1>
-          <nav className="accountNavigation">
-            <Link href="/export-data">
-              <a className="padding">
-                Export data
-              </a>
-            </Link>
-            <button className="padding" onClick={this.signOut}>Log out</button>
-          </nav>
-        </header>
+        <div className="page padding">
 
-        <About />
+          <header className="child-spacing">
+            <h1 className="heading">Your account</h1>
+          </header>
+
+          {this.state.user &&
+            <div className="child-spacing">
+
+              <div>
+                <h1 className="heading bright">{this.state.user.email}</h1>
+                <button onClick={this.signOut}>
+                  Log out
+                </button>
+              </div>
+
+              <div className="child-spacing">
+                <div>
+                  <h1 className="heading bright">Export your data</h1>
+                  <ExportData uid={this.state.uid} />
+                </div>
+              </div>
+            </div>}
+
+          <About />
+        </div>
       </div>
     );
   }

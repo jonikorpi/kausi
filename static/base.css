@@ -35,28 +35,49 @@ body {
   min-height: 100vh;
 }
 
+.heading {
+  font-size: 0.625rem;
+  line-height: 0.625rem;
+  text-transform: uppercase;
+}
+
+.child-spacing > * + *,
 .page > * + * {
   margin-top: 1rem;
 }
 
-.padding,
-.navigation > * {
+.padding {
   padding: .25rem;
 }
 
 @media (min-width: 40rem) {
-  .padding,
-  .navigation > * {
+  .padding {
     padding: .5rem;
   }
 }
 
-.navigation > * {
+button,
+a {
   text-decoration: underline;
 }
 
-.navigation > *:hover,
-.navigation > *:focus {
+button:hover,
+button:focus,
+button.active,
+a:hover,
+a:focus,
+a.active,
+.bright {
   color: hsl(0, 0%, 91%);
   outline: none;
+}
+
+button.active,
+a.active {
+  text-decoration: none;
+}
+
+button:active,
+a:active {
+  color: hsl(0, 0%, 50%);
 }

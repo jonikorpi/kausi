@@ -1,12 +1,10 @@
 import React, { Component } from "react";
-import Link from "next/link";
 import Router from "next/router";
 import firebase from "firebase";
 import moment from "moment";
 import { List, AutoSizer } from "react-virtualized";
 
 import Head from "../components/Head.js";
-import Navigation from "../components/Navigation";
 import Week from "../components/Week";
 
 import initializeFirebase from "../scripts/initializeFirebase.js";
@@ -121,11 +119,14 @@ export default class Timeline extends Component {
         weekOf={moment(this.state.today)
           .startOf("isoweek")
           .subtract(this.startIndex - index, "weeks")}
+        url={this.props.url}
+        anonymous={this.state.anonymous}
         uid={this.state.uid}
         focusDay={this.focusDay}
+        scrollToToday={this.scrollToToday}
         today={this.state.today}
-        isVisible={isVisible}
         style={style}
+        isVisible={isVisible}
       />
     );
   };
@@ -167,28 +168,6 @@ export default class Timeline extends Component {
               />
             )}
           </AutoSizer>}
-
-        <Navigation>
-          <button onClick={this.scrollToToday}>Today</button>
-          <Link href="/lists">
-            <a>
-              Lists
-            </a>
-          </Link>
-          {this.state.anonymous &&
-            <Link href="/authenticate">
-              <a>
-                Log in/Sign up
-              </a>
-            </Link>}
-          {!this.state.anonymous &&
-            this.state.uid &&
-            <Link href="/account">
-              <a>
-                Account
-              </a>
-            </Link>}
-        </Navigation>
       </div>
     );
   }

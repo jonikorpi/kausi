@@ -31,7 +31,7 @@ export default class Day extends PureComponent {
     const isFocused =
       this.state.focused || (!this.props.aDayIsFocused && isToday);
 
-    const dayNumber = this.props.day.format("DD");
+    const dayNumber = this.props.day.format("D");
     const weekday = this.props.day.format("dddd");
 
     // Date label
@@ -78,7 +78,7 @@ export default class Day extends PureComponent {
           .day {
             flex-grow: 1;
             width: 0;
-            margin-top: 1.75rem;
+            margin-top: 2rem;
             position: relative;
           }
 

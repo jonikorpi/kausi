@@ -3,9 +3,6 @@ import reactMixin from "react-mixin";
 import ReactFire from "reactfire";
 import firebase from "firebase";
 
-import Head from "../components/Head.js";
-import Navigation from "../components/Navigation";
-
 import initializeFirebase from "../scripts/initializeFirebase.js";
 
 export default class ExportData extends Component {
@@ -15,43 +12,34 @@ export default class ExportData extends Component {
     this.state = {
       data: null,
     };
-
-    this.bindFirebase = this.bindFirebase.bind(this);
   }
 
   componentDidMount() {
     initializeFirebase();
-
-    if (this.props.uid) {
-      this.bindFirebase(this.props.uid);
-    }
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.uid !== this.props.uid) {
-      if (this.firebaseRefs.firebase) {
-        this.unbind("firebase");
-      }
-      if (nextProps.uid) {
-        this.bindFirebase(nextProps.uid);
-      }
-    }
-  }
-
-  bindFirebase(uid) {
+  bindFirebase = uid => {
     this.bindAsObject(
       firebase.database().ref(uid).orderByChild("date"),
       "data",
       function(error) {
         console.log("Firebase subscription cancelled:");
         console.log(error);
-        this.setState({ data: [] });
+        this.setState({ data: null });
       }.bind(this)
     );
-  }
+  };
+
+  fetch = () => {
+    this.bindFirebase(this.props.uid);
+  };
 
   render() {
     let data;
+
+    if (!this.props.uid) {
+      return null;
+    }
 
     if (this.state.data) {
       data = JSON.stringify(this.state.data, null, 2);
@@ -59,14 +47,27 @@ export default class ExportData extends Component {
 
     return (
       <div>
-        <Head />
-        <Navigation />
-        <textarea
-          placeholder={"Fetching your entries…"}
-          value={data}
-          readOnly={true}
-          className="height-5 width-100 size-0-75 padding-0-5 bg-2"
-        />
+        <style jsx>{`
+          .exportTextarea {
+            background: transparent;
+            border: 1px solid;
+            width: 100%;
+            height: 10rem;
+            font-size: 0.625rem;
+            line-height: 0.75rem;
+          }
+        `}</style>
+
+        {this.state.data
+          ? <textarea
+              className="exportTextarea padding"
+              placeholder={"Fetching your entries…"}
+              value={data}
+              readOnly={true}
+            />
+          : <button onClick={this.fetch}>
+              Fetch your entries
+            </button>}
       </div>
     );
   }

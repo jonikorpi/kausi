@@ -2,6 +2,7 @@ import React, { PureComponent } from "react";
 import moment from "moment";
 
 import Day from "./Day";
+import Navigation from "../components/Navigation";
 
 export default class Week extends PureComponent {
   constructor(props) {
@@ -47,10 +48,22 @@ export default class Week extends PureComponent {
           `}
         </style>
 
+        <Navigation
+          url={this.props.url}
+          uid={this.props.uid}
+          anonymous={this.props.anonymous}
+          replaceActiveLinkWith={
+            !this.props.lists &&
+              <button onClick={this.props.scrollToToday} className="active">
+                Timeline
+              </button>
+          }
+        />
+
         <h1 className="weekStamp">
           {this.props.lists
             ? "Static lists"
-            : <span>W{this.props.weekOf.format("WW / MMM YYYY")}</span>}
+            : <span>W{this.props.weekOf.format("WW MMM YYYY")}</span>}
         </h1>
 
         {days.map(day => (

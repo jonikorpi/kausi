@@ -21,10 +21,7 @@ export default class FirebaseProvider extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (
-      nextProps.uid !== this.props.uid ||
-      nextProps.day.valueOf() !== this.props.day.valueOf()
-    ) {
+    if (nextProps.uid !== this.props.uid) {
       if (this.firebaseRefs.firebase) {
         this.unbind("firebase");
       }
