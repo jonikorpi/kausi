@@ -120,6 +120,7 @@ export default class Timeline extends Component {
           .startOf("isoweek")
           .subtract(this.startIndex - index, "weeks")}
         url={this.props.url}
+        query={this.props.url.query}
         anonymous={this.state.anonymous}
         uid={this.state.uid}
         focusDay={this.focusDay}
@@ -165,6 +166,7 @@ export default class Timeline extends Component {
                   scrollToAlignment="start"
                   overscanRowCount={0}
                   uid={this.state.uid}
+                  query={this.props.url.query}
                 />
               )}
             </AutoSizer>

@@ -84,6 +84,7 @@ export default class Lists extends Component {
           weekOf={moment(0)}
           uid={this.state.uid}
           url={this.props.url}
+          query={this.props.url.query}
           anonymous={this.state.anonymous}
           lists={true}
           isVisible={true}

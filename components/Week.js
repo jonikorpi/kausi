@@ -25,9 +25,7 @@ export default class Week extends PureComponent {
       : [0, 1, 2, 3, 4, 5, 6];
 
     const focusedDay =
-      (this.props.url &&
-        this.props.url.query &&
-        Object.keys(this.props.url.query)[0]) ||
+      (this.props.query && Object.keys(this.props.query)[0]) ||
       this.state.focusedDay;
 
     return (
