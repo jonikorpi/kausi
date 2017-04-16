@@ -22,7 +22,8 @@
     "react-virtualized": "^9.7.3",
     "reactfire": "^1.0.0",
     "rollbar": "^0.6.5",
-    "rollbar-browser": "^1.9.4"
+    "rollbar-browser": "^1.9.4",
+    "universal-analytics": "^0.4.13"
   },
   "eslintConfig": {
     "extends": [

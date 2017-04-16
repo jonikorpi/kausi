@@ -2,6 +2,7 @@ const express = require("express");
 const next = require("next");
 const LRUCache = require("lru-cache");
 const rollbar = require("rollbar");
+const analytics = require("universal-analytics");
 
 const dev = process.env.NODE_ENV !== "production";
 const app = next({ dir: ".", dev });
@@ -15,6 +16,8 @@ const ssrCache = new LRUCache({
 
 app.prepare().then(() => {
   const server = express();
+
+  server.use(analytics.middleware("UA-3628636-11", { https: true }));
 
   // Use the `renderAndCache` utility defined below to serve pages
   server.get("/:id", (req, res) => {
