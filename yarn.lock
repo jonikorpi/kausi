@@ -1175,6 +1175,10 @@ console-control-strings@^1.0.0, console-control-strings@~1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/console-control-strings/-/console-control-strings-1.1.0.tgz#3d7cf4464db6446ea644bf4b39507f9851008e8e"
 
+"console-polyfill@github:rollbar/console-polyfill#eab6ff9d2b7597fc2f259baa18100556bdb94dbe":
+  version "0.2.3"
+  resolved "https://codeload.github.com/rollbar/console-polyfill/tar.gz/eab6ff9d2b7597fc2f259baa18100556bdb94dbe"
+
 constants-browserify@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/constants-browserify/-/constants-browserify-1.0.0.tgz#c20b96d8c617748aaf1c16021760cd27fcb8cb75"
@@ -1452,6 +1456,12 @@ error-ex@^1.2.0:
   dependencies:
     is-arrayish "^0.2.1"
 
+error-stack-parser@1.3.3:
+  version "1.3.3"
+  resolved "https://registry.yarnpkg.com/error-stack-parser/-/error-stack-parser-1.3.3.tgz#fada6e3a9cd2b0e080e6d6fc751418649734f35c"
+  dependencies:
+    stackframe "^0.3.1"
+
 error-stack-parser@^1.3.6:
   version "1.3.6"
   resolved "https://registry.yarnpkg.com/error-stack-parser/-/error-stack-parser-1.3.6.tgz#e0e73b93e417138d1cd7c0b746b1a4a14854c292"
@@ -1724,7 +1734,7 @@ expand-range@^1.8.1:
   dependencies:
     fill-range "^2.1.0"
 
-extend@~3.0.0:
+extend@3.0.0, extend@~3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/extend/-/extend-3.0.0.tgz#5a474353b9f3353ddd8176dfd37b91c83a46f1d4"
 
@@ -1745,12 +1755,6 @@ fast-levenshtein@~2.0.4:
 faye-websocket@0.9.3:
   version "0.9.3"
   resolved "https://registry.yarnpkg.com/faye-websocket/-/faye-websocket-0.9.3.tgz#482a505b0df0ae626b969866d3bd740cdb962e83"
-  dependencies:
-    websocket-driver ">=0.5.1"
-
-faye-websocket@^0.11.1:
-  version "0.11.1"
-  resolved "https://registry.yarnpkg.com/faye-websocket/-/faye-websocket-0.11.1.tgz#f0efe18c4f56e4f40afc7e06c719fd5ee6188f38"
   dependencies:
     websocket-driver ">=0.5.1"
 
@@ -1826,17 +1830,7 @@ find@^0.2.4:
   dependencies:
     traverse-chain "~0.1.0"
 
-firebase@^3.3.0:
-  version "3.7.7"
-  resolved "https://registry.yarnpkg.com/firebase/-/firebase-3.7.7.tgz#233e59f6f2c59bf9ec5584238a9ac5812c19902d"
-  dependencies:
-    dom-storage "^2.0.2"
-    faye-websocket "^0.11.1"
-    jsonwebtoken "^7.3.0"
-    promise-polyfill "^6.0.2"
-    xmlhttprequest "^1.8.0"
-
-firebase@^3.7.8:
+firebase@^3.3.0, firebase@^3.7.8:
   version "3.7.8"
   resolved "https://registry.yarnpkg.com/firebase/-/firebase-3.7.8.tgz#1365a191a0b66470f9fbfd7292365f7f398f7e57"
   dependencies:
@@ -3483,6 +3477,14 @@ rimraf@~2.4.0:
 ripemd160@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/ripemd160/-/ripemd160-1.0.1.tgz#93a4bbd4942bc574b69a8fa57c71de10ecca7d6e"
+
+rollbar-browser@^1.9.4:
+  version "1.9.4"
+  resolved "https://registry.yarnpkg.com/rollbar-browser/-/rollbar-browser-1.9.4.tgz#dcf183ed2b2f1901246604d69f93ded6bb27a84f"
+  dependencies:
+    console-polyfill rollbar/console-polyfill#eab6ff9d2b7597fc2f259baa18100556bdb94dbe
+    error-stack-parser "1.3.3"
+    extend "3.0.0"
 
 rollbar@^0.6.5:
   version "0.6.5"

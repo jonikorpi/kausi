@@ -8,6 +8,7 @@ import About from "../components/About";
 import ExportData from "../components/ExportData";
 
 import initializeFirebase from "../scripts/initializeFirebase.js";
+import initializeRollbar from "../scripts/initializeRollbar.js";
 
 export default class Account extends Component {
   constructor(props) {

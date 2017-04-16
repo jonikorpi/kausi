@@ -54,7 +54,11 @@ export default class Week extends PureComponent {
           anonymous={this.props.anonymous}
           replaceActiveLinkWith={
             !this.props.lists &&
-              <button onClick={this.props.scrollToToday} className="active">
+              <button
+                onClick={this.props.scrollToToday}
+                className="active"
+                key="today"
+              >
                 Timeline
               </button>
           }

@@ -8,6 +8,7 @@ import Head from "../components/Head.js";
 import Week from "../components/Week";
 
 import initializeFirebase from "../scripts/initializeFirebase.js";
+import initializeRollbar from "../scripts/initializeRollbar.js";
 
 export default class Timeline extends Component {
   constructor(props) {

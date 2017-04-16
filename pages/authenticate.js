@@ -7,6 +7,7 @@ import About from "../components/About";
 import FirebaseAuthentication from "../components/FirebaseAuthentication";
 
 import initializeFirebase from "../scripts/initializeFirebase.js";
+import initializeRollbar from "../scripts/initializeRollbar.js";
 
 export default class Authenticate extends Component {
   constructor(props) {

@@ -3,10 +3,10 @@ import firebase from "firebase";
 import moment from "moment";
 
 import Head from "../components/Head.js";
-import Navigation from "../components/Navigation";
 import Week from "../components/Week";
 
 import initializeFirebase from "../scripts/initializeFirebase.js";
+import initializeRollbar from "../scripts/initializeRollbar.js";
 
 export default class Lists extends Component {
   constructor(props) {
