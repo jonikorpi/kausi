@@ -146,28 +146,29 @@ export default class Timeline extends Component {
           `}
         </style>
 
-        {this.state.clientSide &&
-          <AutoSizer>
-            {({ height, width }) => (
-              <List
-                ref={c => this.list = c}
-                width={width}
-                height={height}
-                rowCount={this.startIndex * 2}
-                estimatedRowSize={height * 0.854}
-                rowHeight={height * 0.854}
-                rowRenderer={this.rowRenderer}
-                scrollToIndex={
-                  query
-                    ? this.getIndexFromDay(this.state.today, moment(query))
-                    : this.startIndex
-                }
-                scrollToAlignment="start"
-                overscanRowCount={0}
-                uid={this.state.uid}
-              />
-            )}
-          </AutoSizer>}
+        {this.state.clientSide
+          ? <AutoSizer>
+              {({ height, width }) => (
+                <List
+                  ref={c => this.list = c}
+                  width={width}
+                  height={height}
+                  rowCount={this.startIndex * 2}
+                  estimatedRowSize={height * 0.854}
+                  rowHeight={height * 0.854}
+                  rowRenderer={this.rowRenderer}
+                  scrollToIndex={
+                    query
+                      ? this.getIndexFromDay(this.state.today, moment(query))
+                      : this.startIndex
+                  }
+                  scrollToAlignment="start"
+                  overscanRowCount={0}
+                  uid={this.state.uid}
+                />
+              )}
+            </AutoSizer>
+          : this.rowRenderer(0, 0, false, false, {})}
       </div>
     );
   }

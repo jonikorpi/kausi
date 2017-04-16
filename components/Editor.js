@@ -138,6 +138,8 @@ export default class Editor extends PureComponent {
           {`
           .textareaContainer {
             position: relative;
+            display: flex;
+            flex-direction: column;
           }
 
           .textareaContainer + .textareaContainer {
@@ -158,13 +160,14 @@ export default class Editor extends PureComponent {
             padding: 0.25rem;
             border-radius: 0.25rem 0 0 0.25rem;
             min-height: 0;
-            width: 100%;
             height: 100%;
             flex-grow: 1;
             -webkit-overflow-scrolling: touch;
             border: solid black;
             border-width: 1px 0;
             overflow: hidden;
+            min-height: 1rem;
+            box-sizing: content-box;
           }
 
           :global(.focused) :global(.textarea) {
@@ -187,6 +190,7 @@ export default class Editor extends PureComponent {
 
           .label {
             font-size: 0.625rem;
+            line-height: 1rem;
             position: absolute;
             left: 0; top: 0;
             pointer-events: none;

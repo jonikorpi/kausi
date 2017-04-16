@@ -8,16 +8,12 @@ export default ({ anonymous, uid, url, replaceActiveLinkWith, ...props }) => {
     {
       title: "Account",
       url: "/account",
-      hideIf: () => {
-        return uid && anonymous;
-      },
+      hideIf: uid && anonymous,
     },
     {
       title: "Log in/Sign up",
       url: "/authenticate",
-      hideIf: () => {
-        return uid && !anonymous;
-      },
+      hideIf: !uid || (uid && !anonymous),
     },
   ];
 
@@ -45,7 +41,7 @@ export default ({ anonymous, uid, url, replaceActiveLinkWith, ...props }) => {
       {links.map((link, index) => {
         const active = link.url === url.pathname;
 
-        if (link.hideIf && link.hideIf()) {
+        if (link.hideIf) {
           return false;
         } else if (replaceActiveLinkWith && active) {
           return replaceActiveLinkWith;
