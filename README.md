@@ -2,8 +2,10 @@
 
 Developed by [@jonikorpi](http://twitter.com/jonikorpi) / [Vuoro](http://vuoro.design/)
 
-## This app uses:
+## Primary technologies used
 
-- https://github.com/facebookincubator/create-react-app/
+- https://facebook.github.io/react/
+- https://github.com/zeit/next.js
+- https://github.com/bvaughn/react-virtualized
 - http://firebase.google.com/
-- https://zeit.co
+- http://zeit.co/now
