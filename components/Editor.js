@@ -99,32 +99,21 @@ export default class Editor extends PureComponent {
     };
 
     // Additional entries
-    /*let additionalTexts;
+    let additionalTexts;
 
     if (this.props.textCount > 1) {
       let pluralConflictingEntries = `is a conflicting entry`;
-      let next;
+      let next = "";
 
       if (this.props.textCount > 2) {
         pluralConflictingEntries = `are ${this.props.textCount} conflicting entries`;
         next = "next ";
       }
 
-      additionalTexts = (
-        <div
-          className="color-bright-6 size-0-75 padding-0-75 padding-top-0 margin-0-5 margin-y margin-bottom-0"
-        >
-          Problem: there
-          {" "}
-          {pluralConflictingEntries}
-          {" "}
-          for this day. If you remove this ↑ entry, the
-          {" "}
-          {next}
-          conflicting entry should appear and you can decide what to do with it. This sometimes happens with an unstable connection. Sorry for the hassle. :﻿(
-        </div>
-      );
-    }*/
+      additionalTexts = `
+        WARNING: there ${pluralConflictingEntries} here. If you remove all the text from this ↑ entry, the ${next} conflicting entry should appear and you can decide what to do with it. This can happen with an unstable connection. Sorry for the hassle. :﻿(
+      `;
+    }
 
     return (
       <div
@@ -219,6 +208,13 @@ export default class Editor extends PureComponent {
           :global(.last::-webkit-scrollbar-thumb) {
             border-radius: 0 0 .25rem .25rem;
           }
+
+          .additionalTexts {
+            font-size: 0.625rem;
+            line-height: 0.75rem;
+            background: hsl(0, 0%, 91%);
+            color: black;
+          }
         `}
         </style>
 
@@ -235,7 +231,10 @@ export default class Editor extends PureComponent {
           {this.props.label}
         </label>
 
-        {this.props.additionalTexts}
+        {additionalTexts &&
+          <div className="additionalTexts padding">
+            {additionalTexts}
+          </div>}
       </div>
     );
   }
