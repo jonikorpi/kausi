@@ -7,29 +7,22 @@ import FirebaseProvider from "./FirebaseProvider";
 export default class Day extends PureComponent {
   constructor(props) {
     super(props);
-
-    this.state = {
-      focused: false,
-    };
   }
 
   onFocus = () => {
-    this.setState({ focused: true });
     this.props.onFocus(this.props.day);
   };
 
   onBlur = () => {
-    this.setState({ focused: false });
     this.props.onBlur(this.props.day);
   };
 
   render() {
-    const isToday = this.props.day.isSame(moment().startOf("day"));
+    const isToday = this.props.isToday;
     const isWeekend =
       !this.props.someday &&
       (this.props.day.day() === 0 || this.props.day.day() === 6);
-    const isFocused =
-      this.state.focused || (!this.props.aDayIsFocused && isToday);
+    const isFocused = this.props.focused;
 
     const dayNumber = this.props.day.format("D");
     const weekday = this.props.day.format("dddd");

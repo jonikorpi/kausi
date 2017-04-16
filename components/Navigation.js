@@ -48,7 +48,7 @@ export default ({ anonymous, uid, url, replaceActiveLinkWith, ...props }) => {
         } else {
           return (
             <Link href={link.url} key={index}>
-              <a className={active ? "active" : ""}>
+              <a className={active ? "active" : ""} tabIndex="-1">
                 {link.title}
               </a>
             </Link>

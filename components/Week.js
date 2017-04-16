@@ -27,6 +27,11 @@ export default class Week extends PureComponent {
       ? [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
       : [0, 1, 2, 3, 4, 5, 6];
 
+    const focusedDay =
+      this.props.url &&
+      this.props.url.query &&
+      Object.keys(this.props.url.query)[0];
+
     return (
       <div className="week padding" style={this.props.style} role="row">
         <style jsx>
@@ -58,6 +63,7 @@ export default class Week extends PureComponent {
                 onClick={this.props.scrollToToday}
                 className="active"
                 key="today"
+                tabIndex="-1"
               >
                 Timeline
               </button>
@@ -70,18 +76,27 @@ export default class Week extends PureComponent {
             : <span>W{this.props.weekOf.format("WW MMM YYYY")}</span>}
         </h1>
 
-        {days.map(day => (
-          <Day
-            key={day}
-            day={moment(this.props.weekOf).add(day, "days")}
-            uid={this.props.uid}
-            focusDay={this.props.focusDay}
-            onFocus={this.onFocus}
-            onBlur={this.onBlur}
-            aDayIsFocused={this.state.aDayIsFocused}
-            isList={this.props.lists}
-          />
-        ))}
+        {days.map(day => {
+          const dayValue = moment(this.props.weekOf).add(day, "days");
+          const isToday = dayValue.isSame(moment().startOf("day"));
+
+          return (
+            <Day
+              key={day}
+              day={dayValue}
+              uid={this.props.uid}
+              focusDay={this.props.focusDay}
+              onFocus={this.onFocus}
+              onBlur={this.onBlur}
+              focused={
+                focusedDay === dayValue.format("YYYY-MM-DD") ||
+                  (!focusedDay && isToday)
+              }
+              isToday={isToday}
+              isList={this.props.lists}
+            />
+          );
+        })}
       </div>
     );
   }
