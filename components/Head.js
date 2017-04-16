@@ -1,3 +1,4 @@
+import React from "react";
 import Head from "next/head";
 
 export default props => (
@@ -8,6 +9,9 @@ export default props => (
     <link rel="manifest" href="/static/manifest.json?v=1.0" />
     {/* <meta name="apple-mobile-web-app-capable" content="yes"/> */}
     <meta name="mobile-web-app-capable" content="yes" />
+
+    <link href="/static/reset.css" rel="stylesheet" />
+    <link href="/static/base.css" rel="stylesheet" />
 
     <link
       href="/static/logo.png?v=1.0"
@@ -49,9 +53,6 @@ export default props => (
 
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:site" content="@jonikorpi" />
-
-    <link href="/static/reset.css" rel="stylesheet" />
-    <link href="/static/base.css" rel="stylesheet" />
 
     {props.children}
   </Head>

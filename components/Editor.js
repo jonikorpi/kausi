@@ -79,6 +79,8 @@ export default class Editor extends PureComponent {
 
   render() {
     const isEditing = this.state.editing;
+    const value = this.props.loading ? "…" : this.state.text || "";
+
     const props = {
       ref: c => this.textarea = c,
       className: classNames({
@@ -86,12 +88,11 @@ export default class Editor extends PureComponent {
         first: this.props.first,
         last: this.props.last,
       }),
-      value: this.props.loading ? "…" : this.state.text || "",
+      value: value,
       onKeyDown: this.onKeyDown,
       onFocus: this.onFocus,
       onBlur: this.onBlur,
       onChange: this.onChange,
-      placeholder: this.props.label,
       title: this.props.label,
       readOnly: this.props.loading,
       tabIndex: this.props.autoSize ? -1 : undefined,
@@ -160,8 +161,6 @@ export default class Editor extends PureComponent {
             width: 100%;
             height: 100%;
             flex-grow: 1;
-            transition: 124ms ease-out;
-            transition-property: height;
             -webkit-overflow-scrolling: touch;
             border: solid black;
             border-width: 1px 0;
@@ -186,14 +185,23 @@ export default class Editor extends PureComponent {
             }
           }
 
-          :global(.textarea::placeholder) {
-            font-style: italic;
+          .label {
             font-size: 0.625rem;
+            position: absolute;
+            left: 0; top: 0;
+            pointer-events: none;
+            opacity: 0;
+          }
+
+          .label.visible {
+            opacity: 0.618;
           }
 
           :global(.textarea::-webkit-scrollbar) {
             width: .25rem;
             height: .25rem;
+            position: absolute;
+            left: 0; top: 0;
           }
 
           :global(.textarea::-webkit-scrollbar-thumb) {
@@ -213,6 +221,15 @@ export default class Editor extends PureComponent {
         {this.props.autoSize
           ? <Textarea {...props} maxRows={isEditing ? 13 : 2} />
           : <textarea {...props} />}
+
+        <label
+          className={classNames({
+            "label padding": true,
+            visible: !value && !isEditing && this.props.autoSize,
+          })}
+        >
+          {this.props.label}
+        </label>
 
         {this.props.additionalTexts}
       </div>

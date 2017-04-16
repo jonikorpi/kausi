@@ -28,7 +28,7 @@ export default class Week extends PureComponent {
       : [0, 1, 2, 3, 4, 5, 6];
 
     return (
-      <div className="week padding" style={this.props.style}>
+      <div className="week padding" style={this.props.style} role="row">
         <style jsx>
           {`
           .week {
