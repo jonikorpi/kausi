@@ -98,7 +98,9 @@ export default class Timeline extends Component {
   };
 
   setUrlToDay = day => {
-    const url = `/?${moment(day).format("YYYY-MM-DD")}`;
+    const url = moment().startOf("day").isSame(day)
+      ? "/"
+      : `/?${moment(day).format("YYYY-MM-DD")}`;
     Router.replace(url, url, { shallow: true });
     this.list.scrollToRow(this.getIndexFromDay(this.state.today, day));
   };
