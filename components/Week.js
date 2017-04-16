@@ -8,7 +8,7 @@ export default class Week extends PureComponent {
   constructor(props) {
     super(props);
 
-    this.state = { focusedDay: "1" };
+    this.state = { focusedDay: this.props.lists ? "1" : undefined };
   }
 
   onFocus = day => {
