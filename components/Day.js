@@ -165,7 +165,7 @@ export default class Day extends PureComponent {
               day={dayNumber}
               focused={isFocused}
               onFocus={this.onFocus}
-              label={"Every " + this.props.day.format("Do")}
+              label={this.props.day.format("Do")}
               autoSize
             />}
         </div>
