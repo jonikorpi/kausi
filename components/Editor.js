@@ -96,6 +96,7 @@ export default class Editor extends PureComponent {
       title: this.props.label,
       readOnly: this.props.loading,
       tabIndex: this.props.autoSize ? -1 : undefined,
+      spellCheck: false,
     };
 
     // Additional entries
