@@ -29,8 +29,7 @@ export default class Week extends PureComponent {
     return (
       <div className="week padding" style={this.props.style}>
         <style jsx>
-          {
-            `
+          {`
           .week {
             height: 100vh;
             display: flex;
@@ -45,8 +44,7 @@ export default class Week extends PureComponent {
             line-height: 0.625rem;
             text-transform: uppercase;
           }
-          `
-          }
+          `}
         </style>
 
         <h1 className="weekStamp">
