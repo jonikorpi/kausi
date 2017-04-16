@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import firebase from "firebase";
 import moment from "moment";
+import Router from "next/router";
 
 import Head from "../components/Head.js";
 import Week from "../components/Week";
@@ -82,9 +83,7 @@ export default class Lists extends Component {
         <Week
           weekOf={moment(0)}
           uid={this.state.uid}
-          focusDay={this.focusDay}
           url={this.props.url}
-          uid={this.state.uid}
           anonymous={this.state.anonymous}
           lists={true}
           isVisible={true}

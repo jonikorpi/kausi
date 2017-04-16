@@ -57,7 +57,6 @@ export default class Editor extends PureComponent {
   };
 
   onBlur = () => {
-    this.props.onBlur();
     this.setState({ editing: false });
   };
 

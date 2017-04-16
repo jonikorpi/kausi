@@ -13,10 +13,6 @@ export default class Day extends PureComponent {
     this.props.onFocus(this.props.day);
   };
 
-  onBlur = () => {
-    this.props.onBlur(this.props.day);
-  };
-
   render() {
     const isToday = this.props.isToday;
     const isWeekend =
@@ -144,7 +140,6 @@ export default class Day extends PureComponent {
             day={this.props.day}
             focused={isFocused}
             onFocus={this.onFocus}
-            onBlur={this.onBlur}
             label={
               this.props.isList
                 ? `List ${this.props.day.format("D")}`
@@ -158,7 +153,6 @@ export default class Day extends PureComponent {
               day={weekday}
               focused={isFocused}
               onFocus={this.onFocus}
-              onBlur={this.onBlur}
               label={this.props.day.format("dddd") + "s"}
               autoSize
             />}
@@ -171,7 +165,6 @@ export default class Day extends PureComponent {
               day={dayNumber}
               focused={isFocused}
               onFocus={this.onFocus}
-              onBlur={this.onBlur}
               label={"Every " + this.props.day.format("Do")}
               autoSize
             />}

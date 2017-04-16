@@ -8,18 +8,15 @@ export default class Week extends PureComponent {
   constructor(props) {
     super(props);
 
-    this.state = {
-      aDayIsFocused: false,
-    };
+    this.state = { focusedDay: "1" };
   }
 
   onFocus = day => {
-    this.setState({ aDayIsFocused: true });
-    this.props.focusDay(day);
-  };
-
-  onBlur = day => {
-    this.setState({ aDayIsFocused: false });
+    if (this.props.lists) {
+      this.setState({ focusedDay: day.format("D") });
+    } else {
+      this.props.focusDay(day);
+    }
   };
 
   render() {
@@ -28,9 +25,10 @@ export default class Week extends PureComponent {
       : [0, 1, 2, 3, 4, 5, 6];
 
     const focusedDay =
-      this.props.url &&
-      this.props.url.query &&
-      Object.keys(this.props.url.query)[0];
+      (this.props.url &&
+        this.props.url.query &&
+        Object.keys(this.props.url.query)[0]) ||
+      this.state.focusedDay;
 
     return (
       <div className="week padding" style={this.props.style} role="row">
@@ -88,10 +86,11 @@ export default class Week extends PureComponent {
               uid={this.props.uid}
               focusDay={this.props.focusDay}
               onFocus={this.onFocus}
-              onBlur={this.onBlur}
               focused={
-                focusedDay === dayValue.format("YYYY-MM-DD") ||
-                  (!focusedDay && isToday)
+                this.props.lists
+                  ? focusedDay === dayValue.format("D")
+                  : focusedDay === dayValue.format("YYYY-MM-DD") ||
+                      (!focusedDay && isToday)
               }
               isToday={isToday}
               isList={this.props.lists}
