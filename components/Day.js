@@ -94,7 +94,6 @@ export default class Day extends PureComponent {
           .focused {
             flex: none;
             color: hsl(0, 0%, 91%);
-            margin-right: -1px;
             z-index: 1;
           }
 
@@ -127,6 +126,10 @@ export default class Day extends PureComponent {
             background-color: #000;
             border: 1px solid;
             border-radius: 0.25rem;
+            box-shadow:
+              -1px 0 0 black,
+              1px 0 0 black
+            ;
           }
         `}
         </style>
