@@ -6,40 +6,63 @@ export default props => (
     <meta charSet="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <link rel="manifest" href="/static/manifest.json?v=1.0" />
+    <link rel="manifest" href="/static/manifest.json" />
     {/* <meta name="apple-mobile-web-app-capable" content="yes"/> */}
     <meta name="mobile-web-app-capable" content="yes" />
 
     <link href="/static/reset.css" rel="stylesheet" />
     <link href="/static/base.css" rel="stylesheet" />
 
+    <style
+      dangerouslySetInnerHTML={{
+        __html: `
+      @font-face {
+        font-family: 'Inconsolata';
+        font-style: normal;
+        font-weight: 400;
+        src: local('Inconsolata Regular'), local('Inconsolata-Regular'),
+            url('/static/fonts/inconsolata-v15-latin-ext_latin-regular.woff2') format('woff2'),
+            url('/static/fonts/inconsolata-v15-latin-ext_latin-regular.woff') format('woff');
+      }
+      @font-face {
+        font-family: 'Inconsolata';
+        font-style: normal;
+        font-weight: 700;
+        src: local('Inconsolata Bold'), local('Inconsolata-Bold'),
+            url('/static/fonts/inconsolata-v15-latin-ext_latin-700.woff2') format('woff2'),
+            url('/static/fonts/inconsolata-v15-latin-ext_latin-700.woff') format('woff');
+      }
+    `,
+      }}
+    />
+
     <link
-      href="/static/logo.png?v=1.0"
+      href="/static/logo-black.png"
       rel="shortcut icon"
       type="image/png"
       sizes="any"
     />
     <link
-      href="/static/logo.svg?v=1.0"
+      href="/static/logo-black.svg"
       rel="shortcut icon"
       type="image/svg+xml"
       sizes="any"
     />
     <link
-      href="/static/logo.png?v=1.0"
+      href="/static/logo-black.png"
       rel="apple-touch-icon"
       type="image/png"
       sizes="any"
     />
     <link
-      href="/static/logo-black.svg?v=1.0"
+      href="/static/logo-black.svg"
       rel="mask-icon"
       color="#251916"
       type="image/svg+xml"
     />
 
     <meta
-      content="https://kausi.xyz/static/logo.png?v=1.0"
+      content="https://kausi.xyz/static/logo-black.png"
       property="og:image"
     />
     <meta content="256" property="og:image:width" />

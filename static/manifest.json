@@ -4,15 +4,16 @@
   "description": "A textarea for every day.",
   "display": "fullscreen",
   "start_url": "./",
-  "background_color": "#251916",
-  "theme_color": "#10FEFE",
+  "background_color": "black",
+  "theme_color": "hsl(0, 0%, 91%)",
   "icons": [
     {
-      "src": "/assets/logo.png",
+      "src": "/static/logo-black.png",
+      "sizes": "1024x1024",
       "type": "image/png"
     },
     {
-      "src": "/assets/logo.svg",
+      "src": "/static/logo-black.svg",
       "type": "image/svg+xml"
     }
   ]
