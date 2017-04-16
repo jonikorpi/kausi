@@ -86,7 +86,7 @@ export default class Editor extends PureComponent {
         first: this.props.first,
         last: this.props.last,
       }),
-      value: this.state.text || "",
+      value: this.props.loading ? "…" : this.state.text || "",
       onKeyDown: this.onKeyDown,
       onFocus: this.onFocus,
       onBlur: this.onBlur,
