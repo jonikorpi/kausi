@@ -19,11 +19,6 @@ app.prepare().then(() => {
 
   server.use(analytics.middleware("UA-3628636-11", { https: true }));
 
-  // Use the `renderAndCache` utility defined below to serve pages
-  server.get("/:id", (req, res) => {
-    renderAndCache(req, res, "/", { [req.params.id]: true });
-  });
-
   server.get("/lists", (req, res) => {
     renderAndCache(req, res, "/lists");
   });
@@ -34,6 +29,10 @@ app.prepare().then(() => {
 
   server.get("/account", (req, res) => {
     renderAndCache(req, res, "/account");
+  });
+
+  server.get("/:id", (req, res) => {
+    renderAndCache(req, res, "/", { [req.params.id]: true });
   });
 
   server.get("*", (req, res) => {
@@ -66,7 +65,6 @@ function renderAndCache(req, res, pagePath, queryParams) {
 
   // If we have a page in the cache, let's serve it
   if (ssrCache.has(key)) {
-    console.log(`CACHE HIT: ${key}`);
     res.send(ssrCache.get(key));
     return;
   }
@@ -76,7 +74,6 @@ function renderAndCache(req, res, pagePath, queryParams) {
     .renderToHTML(req, res, pagePath, queryParams)
     .then(html => {
       // Let's cache this page
-      console.log(`CACHE MISS: ${key}`);
       ssrCache.set(key, html);
 
       res.send(html);

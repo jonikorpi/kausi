@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Link from "next/link";
 
 import Head from "../components/Head.js";
 import Navigation from "../components/Navigation";

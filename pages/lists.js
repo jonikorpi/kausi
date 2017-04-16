@@ -4,6 +4,7 @@ import moment from "moment";
 
 import Head from "../components/Head.js";
 import Week from "../components/Week";
+import About from "../components/About";
 
 import initializeFirebase from "../scripts/initializeFirebase.js";
 import initializeRollbar from "../scripts/initializeRollbar.js";
@@ -66,7 +67,7 @@ export default class Lists extends Component {
 
   render() {
     return (
-      <div className="timeline">
+      <div className="timeline page">
         <Head />
         <style jsx>
           {`
@@ -88,6 +89,9 @@ export default class Lists extends Component {
           lists={true}
           isVisible={true}
         />
+        <div className="padding">
+          <About />
+        </div>
       </div>
     );
   }
