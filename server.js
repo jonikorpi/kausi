@@ -61,6 +61,33 @@ function getCacheKey(req) {
 }
 
 function renderAndCache(req, res, pagePath, queryParams) {
+  try {
+    // Tracking
+    var acceptLanguage = req.headers["accept-language"];
+
+    if (acceptLanguage) {
+      acceptLanguage = acceptLanguage.split(",")[0].split(";")[0].toLowerCase();
+    }
+
+    const trackingObject = {
+      dp: req.originalUrl,
+      dr: req.get("Referrer"),
+      dl: `https://kausi.xyz${pagePath}`,
+      dt: "Kausi",
+      uip: req.ip || undefined,
+      ua: req.get("user-agent"),
+      ul: acceptLanguage,
+    };
+
+    if (dev) {
+      console.log(trackingObject);
+    } else {
+      req.visitor.pageview(trackingObject).send();
+    }
+  } catch (error) {
+    throw new Error(error);
+  }
+
   const key = getCacheKey(req);
 
   // If we have a page in the cache, let's serve it
