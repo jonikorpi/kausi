@@ -2496,10 +2496,6 @@ joi@^6.10.1:
     moment "2.x.x"
     topo "1.x.x"
 
-jonikorpi-base-files@^6.0.1:
-  version "6.0.1"
-  resolved "https://registry.yarnpkg.com/jonikorpi-base-files/-/jonikorpi-base-files-6.0.1.tgz#9e63a18642b189e8049e6d8d43f7e098d9e197bb"
-
 js-tokens@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/js-tokens/-/js-tokens-2.0.0.tgz#79903f5563ee778cc1162e6dcf1a0027c97f9cb5"
