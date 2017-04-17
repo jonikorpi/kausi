@@ -37,19 +37,19 @@ export default props => (
     />
 
     <link
-      href="/static/logo-black.png"
+      href="/static/logo.png"
       rel="shortcut icon"
       type="image/png"
       sizes="any"
     />
     <link
-      href="/static/logo-black.svg"
+      href="/static/logo.svg"
       rel="shortcut icon"
       type="image/svg+xml"
       sizes="any"
     />
     <link
-      href="/static/logo-black.png"
+      href="/static/logo.png"
       rel="apple-touch-icon"
       type="image/png"
       sizes="any"

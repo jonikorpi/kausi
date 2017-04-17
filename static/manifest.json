@@ -8,12 +8,12 @@
   "theme_color": "hsl(0, 0%, 91%)",
   "icons": [
     {
-      "src": "/static/logo-black.png",
+      "src": "/static/logo.png",
       "sizes": "1024x1024",
       "type": "image/png"
     },
     {
-      "src": "/static/logo-black.svg",
+      "src": "/static/logo.svg",
       "type": "image/svg+xml"
     }
   ]
