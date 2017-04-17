@@ -51,7 +51,7 @@ export default props => (
 
     <link
       href="/static/icon.png"
-      rel="apple-touch-icon"
+      rel="apple-touch-icon-precomposed"
       type="image/png"
       sizes="any"
     />
