@@ -37,7 +37,7 @@ export default props => (
     />
 
     <link
-      href="/static/logo.png"
+      href="/static/favicon.png"
       rel="shortcut icon"
       type="image/png"
       sizes="any"
@@ -48,25 +48,17 @@ export default props => (
       type="image/svg+xml"
       sizes="any"
     />
+
     <link
-      href="/static/logo.png"
+      href="/static/icon.png"
       rel="apple-touch-icon"
       type="image/png"
       sizes="any"
     />
-    <link
-      href="/static/logo-black.svg"
-      rel="mask-icon"
-      color="#251916"
-      type="image/svg+xml"
-    />
 
-    <meta
-      content="https://kausi.xyz/static/logo-black.png"
-      property="og:image"
-    />
-    <meta content="256" property="og:image:width" />
-    <meta content="256" property="og:image:height" />
+    <meta content="https://kausi.xyz/static/icon.png" property="og:image" />
+    <meta content="600" property="og:image:width" />
+    <meta content="600" property="og:image:height" />
 
     <title>Kausi</title>
     <meta content="Kausi" property="og:title" />
