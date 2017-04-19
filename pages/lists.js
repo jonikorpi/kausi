@@ -7,8 +7,8 @@ import Head from "../components/Head.js";
 import Week from "../components/Week";
 import About from "../components/About";
 
-import initializeFirebase from "../scripts/initializeFirebase.js";
-import initializeRollbar from "../scripts/initializeRollbar.js";
+import initializeFirebase from "../helpers/initializeFirebase.js";
+import initializeRollbar from "../helpers/initializeRollbar.js";
 
 export default class Lists extends Component {
   constructor(props) {

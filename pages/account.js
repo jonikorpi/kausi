@@ -7,8 +7,8 @@ import Navigation from "../components/Navigation";
 import About from "../components/About";
 import ExportData from "../components/ExportData";
 
-import initializeFirebase from "../scripts/initializeFirebase.js";
-import initializeRollbar from "../scripts/initializeRollbar.js";
+import initializeFirebase from "../helpers/initializeFirebase.js";
+import initializeRollbar from "../helpers/initializeRollbar.js";
 
 export default class Account extends Component {
   constructor(props) {

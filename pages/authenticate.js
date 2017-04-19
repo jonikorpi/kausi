@@ -5,8 +5,8 @@ import Navigation from "../components/Navigation";
 import About from "../components/About";
 import FirebaseAuthentication from "../components/FirebaseAuthentication";
 
-import initializeFirebase from "../scripts/initializeFirebase.js";
-import initializeRollbar from "../scripts/initializeRollbar.js";
+import initializeFirebase from "../helpers/initializeFirebase.js";
+import initializeRollbar from "../helpers/initializeRollbar.js";
 
 export default class Authenticate extends Component {
   constructor(props) {

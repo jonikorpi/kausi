@@ -3,7 +3,7 @@ import reactMixin from "react-mixin";
 import ReactFire from "reactfire";
 import firebase from "firebase";
 
-import initializeFirebase from "../scripts/initializeFirebase.js";
+import initializeFirebase from "../helpers/initializeFirebase.js";
 
 export default class ExportData extends Component {
   constructor(props) {
