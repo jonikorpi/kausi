@@ -25,7 +25,7 @@ export default props => (
       sizes="any"
     />
     <link
-      href="/static/logo.svg"
+      href="/static/favicon.svg"
       rel="shortcut icon"
       type="image/svg+xml"
       sizes="any"
