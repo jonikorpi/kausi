@@ -32,7 +32,7 @@
   "scripts": {
     "start": "node server.js",
     "build": "next build",
-    "deploy": "now && curl https://api.rollbar.com/api/1/deploy/ -F access_token=e25b560b08f1410abf77cae0888e0acb -F environment=production -F revision=`git log -n 1 --pretty=format:'%H'` -F local_username=`whoami`",
+    "deploy": "now && cd static && yarn run deploy && cd .. && curl https://api.rollbar.com/api/1/deploy/ -F access_token=e25b560b08f1410abf77cae0888e0acb -F environment=production -F revision=`git log -n 1 --pretty=format:'%H'` -F local_username=`whoami`",
     "now-start": "NODE_ENV=production node server.js",
     "now-build": "NODE_ENV=production next build"
   },

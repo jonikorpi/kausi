@@ -3,6 +3,10 @@ import Head from "next/head";
 
 import globalCSS from "../helpers/globalCSS";
 
+const env = (process && process.env && process.env.NODE_ENV) || "development";
+const dev = env === "development";
+const assetHost = dev ? "/static/" : "https://cdn.kausi.xyz/";
+
 export default props => (
   <Head>
     <meta charSet="utf-8" />
@@ -14,31 +18,31 @@ export default props => (
       }}
     />
 
-    <link rel="manifest" href="/static/manifest.json" />
+    <link rel="manifest" href={`${assetHost}manifest.json?v1`} />
     {/* <meta name="apple-mobile-web-app-capable" content="yes"/> */}
     <meta name="mobile-web-app-capable" content="yes" />
 
     <link
-      href="/static/favicon.png"
+      href={`${assetHost}favicon.png?v1`}
       rel="shortcut icon"
       type="image/png"
       sizes="any"
     />
     <link
-      href="/static/favicon.svg"
+      href={`${assetHost}favicon.svg?v1`}
       rel="shortcut icon"
       type="image/svg+xml"
       sizes="any"
     />
 
     <link
-      href="/static/icon.png"
+      href={`${assetHost}icon.png?v1`}
       rel="apple-touch-icon-precomposed"
       type="image/png"
       sizes="any"
     />
 
-    <meta content="https://kausi.xyz/static/icon.png" property="og:image" />
+    <meta content={`${assetHost}icon.png?v1`} property="og:image" />
     <meta content="600" property="og:image:width" />
     <meta content="600" property="og:image:height" />
 
