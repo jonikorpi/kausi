@@ -136,6 +136,9 @@ export default class Timeline extends Component {
 
   render() {
     const query = this.props.url.query && Object.keys(this.props.url.query)[0];
+    const scrollToIndex = query
+      ? this.getIndexFromDay(this.state.today, moment(query))
+      : this.startIndex;
 
     return (
       <div className="timeline">
@@ -160,11 +163,7 @@ export default class Timeline extends Component {
                   estimatedRowSize={height * 0.91}
                   rowHeight={height * 0.91}
                   rowRenderer={this.rowRenderer}
-                  scrollToIndex={
-                    query
-                      ? this.getIndexFromDay(this.state.today, moment(query))
-                      : this.startIndex
-                  }
+                  scrollToIndex={scrollToIndex}
                   scrollToAlignment="start"
                   overscanRowCount={0}
                   uid={this.state.uid}
@@ -172,7 +171,16 @@ export default class Timeline extends Component {
                 />
               )}
             </AutoSizer>
-          : this.rowRenderer(0, 0, false, false, {})}
+          : <div>
+              {this.rowRenderer({
+                key: scrollToIndex + 0,
+                index: scrollToIndex + 0,
+              })}
+              {this.rowRenderer({
+                key: scrollToIndex + 1,
+                index: scrollToIndex + 1,
+              })}
+            </div>}
       </div>
     );
   }
