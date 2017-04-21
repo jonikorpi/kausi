@@ -14,14 +14,6 @@ export default props => (
       }}
     />
 
-    <link
-      rel="preload"
-      as="font"
-      crossorigin="crossorigin"
-      type="font/woff2"
-      href="/static/fonts/inconsolata-v15-latin-ext_latin-regular.woff2?v1"
-    />
-
     <link rel="manifest" href="/static/manifest.json?v1" />
     {/* <meta name="apple-mobile-web-app-capable" content="yes"/> */}
     <meta name="mobile-web-app-capable" content="yes" />
