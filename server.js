@@ -34,7 +34,7 @@ app.prepare().then(() => {
   server.get("/", (req, res) => {
     const query = req.query && Object.keys(req.query);
 
-    renderAndCache(req, res, "/", { param: query[0] });
+    renderAndCache(req, res, "/", query[0] ? { [query[0]]: true } : undefined);
   });
 
   server.get("*", (req, res) => {

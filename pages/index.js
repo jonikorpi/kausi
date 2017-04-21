@@ -135,7 +135,7 @@ export default class Timeline extends Component {
   };
 
   render() {
-    const query = this.props.url.query && this.props.url.query.param;
+    const query = this.props.url.query && Object.keys(this.props.url.query)[0];
 
     return (
       <div className="timeline">
