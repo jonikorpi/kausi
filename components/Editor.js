@@ -52,8 +52,10 @@ export default class Editor extends PureComponent {
   };
 
   onFocus = () => {
-    this.props.onFocus();
-    this.setState({ editing: true });
+    if (!this.props.loading) {
+      this.props.onFocus();
+      this.setState({ editing: true });
+    }
   };
 
   onBlur = () => {

@@ -73,6 +73,8 @@ export default class Timeline extends Component {
         }
       }.bind(this)
     );
+
+    this.scrollToToday();
   }
 
   componentWillUnmount() {
@@ -102,7 +104,8 @@ export default class Timeline extends Component {
       ? "/"
       : `/?${moment(day).format("YYYY-MM-DD")}`;
     Router.replace(url, url, { shallow: true });
-    this.list.scrollToRow(this.getIndexFromDay(this.state.today, day));
+    this.list &&
+      this.list.scrollToRow(this.getIndexFromDay(this.state.today, day));
   };
 
   scrollToToday = () => {
