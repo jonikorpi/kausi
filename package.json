@@ -1,7 +1,7 @@
 {
   "name": "kausi",
   "now": {
-    "alias": "kausi.xyz"
+    "alias": "app.kausi.xyz"
   },
   "version": "0.0.1",
   "private": true,
@@ -34,6 +34,7 @@
     "build": "next build",
     "deploy": "now && curl https://api.rollbar.com/api/1/deploy/ -F access_token=e25b560b08f1410abf77cae0888e0acb -F environment=production -F revision=`git log -n 1 --pretty=format:'%H'` -F local_username=`whoami`",
     "deploy-assets": "cd static && yarn run deploy && cd ..",
+    "alias": "now alias && now alias -r now-alias.json kausi.xyz",
     "now-start": "NODE_ENV=production node server.js",
     "now-build": "NODE_ENV=production next build"
   },

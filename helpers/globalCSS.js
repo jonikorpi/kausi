@@ -1,7 +1,3 @@
-const env = (process && process.env && process.env.NODE_ENV) || "development";
-const dev = env === "development";
-const assetHost = dev ? "/static/" : "https://cdn.kausi.xyz/";
-
 export default {
   fontFace: `
     @font-face {
@@ -9,16 +5,16 @@ export default {
       font-style: normal;
       font-weight: 400;
       src: local('Inconsolata Regular'), local('Inconsolata-Regular'),
-          url('${assetHost}fonts/inconsolata-v15-latin-ext_latin-regular.woff2?v1') format('woff2'),
-          url('${assetHost}fonts/inconsolata-v15-latin-ext_latin-regular.woff?v1') format('woff');
+          url('/static/fonts/inconsolata-v15-latin-ext_latin-regular.woff2?v1') format('woff2'),
+          url('/static/fonts/inconsolata-v15-latin-ext_latin-regular.woff?v1') format('woff');
     }
     @font-face {
       font-family: 'Inconsolata';
       font-style: normal;
       font-weight: 700;
       src: local('Inconsolata Bold'), local('Inconsolata-Bold'),
-          url('${assetHost}fonts/inconsolata-v15-latin-ext_latin-700.woff2?v1') format('woff2'),
-          url('${assetHost}fonts/inconsolata-v15-latin-ext_latin-700.woff?v1') format('woff');
+          url('/static/fonts/inconsolata-v15-latin-ext_latin-700.woff2?v1') format('woff2'),
+          url('/static/fonts/inconsolata-v15-latin-ext_latin-700.woff?v1') format('woff');
     }
   `,
 

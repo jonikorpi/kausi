@@ -1,0 +1,11 @@
+{
+  "rules": [
+    {
+      "pathname": "/static/**",
+      "dest": "cdn.kausi.xyz"
+    },
+    {
+      "dest": "app.kausi.xyz"
+    }
+  ]
+}
