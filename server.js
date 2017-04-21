@@ -5,7 +5,7 @@ const rollbar = require("rollbar");
 const analytics = require("universal-analytics");
 
 const dev = process.env.NODE_ENV !== "production";
-const app = next({ dir: ".", dev });
+const app = next({ dir: ".", dev: dev, quiet: dev });
 const handle = app.getRequestHandler();
 
 // This is where we cache our rendered HTML pages
@@ -31,8 +31,10 @@ app.prepare().then(() => {
     renderAndCache(req, res, "/account");
   });
 
-  server.get("/:id", (req, res) => {
-    renderAndCache(req, res, "/", { [req.params.id]: true });
+  server.get("/", (req, res) => {
+    const query = req.query && Object.keys(req.query);
+
+    renderAndCache(req, res, "/", { param: query[0] });
   });
 
   server.get("*", (req, res) => {
@@ -48,6 +50,7 @@ app.prepare().then(() => {
 
   server.listen(3000, err => {
     if (err) throw err;
+    dev && console.log("> Starting in dev mode");
     console.log("> Ready on http://localhost:3000");
   });
 });
@@ -61,8 +64,32 @@ function getCacheKey(req) {
 }
 
 function renderAndCache(req, res, pagePath, queryParams) {
+  trackVisit(req, res, pagePath);
+
+  // If we have a page in the cache, let's serve it
+  const key = getCacheKey(req);
+
+  if (ssrCache.has(key)) {
+    res.send(ssrCache.get(key));
+    return;
+  }
+
+  // If not let's render the page into HTML
+  app
+    .renderToHTML(req, res, pagePath, queryParams)
+    .then(html => {
+      // Let's cache this page
+      ssrCache.set(key, html);
+
+      res.send(html);
+    })
+    .catch(err => {
+      app.renderError(err, req, res, pagePath, queryParams);
+    });
+}
+
+function trackVisit(req, res, pagePath) {
   try {
-    // Tracking
     var acceptLanguage = req.headers["accept-language"];
 
     if (acceptLanguage) {
@@ -87,25 +114,4 @@ function renderAndCache(req, res, pagePath, queryParams) {
   } catch (error) {
     throw new Error(error);
   }
-
-  const key = getCacheKey(req);
-
-  // If we have a page in the cache, let's serve it
-  if (ssrCache.has(key)) {
-    res.send(ssrCache.get(key));
-    return;
-  }
-
-  // If not let's render the page into HTML
-  app
-    .renderToHTML(req, res, pagePath, queryParams)
-    .then(html => {
-      // Let's cache this page
-      ssrCache.set(key, html);
-
-      res.send(html);
-    })
-    .catch(err => {
-      app.renderError(err, req, res, pagePath, queryParams);
-    });
 }
