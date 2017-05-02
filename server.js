@@ -19,6 +19,15 @@ app.prepare().then(() => {
 
   server.use(analytics.middleware("UA-3628636-11", { https: true }));
 
+  // Serve static assets
+  const assetMaxAge = dev ? 0 : "1y";
+  server.use("/static", express.static("./static", { maxAge: assetMaxAge }));
+
+  // 404 favicon
+  server.get("/favicon.ico", (req, res) => {
+    res.status(404).send("Not using a favicon.ico");
+  });
+
   server.get("/lists", (req, res) => {
     renderAndCache(req, res, "/lists");
   });
