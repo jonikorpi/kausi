@@ -29,7 +29,7 @@ export default class Week extends PureComponent {
       this.state.focusedDay;
 
     return (
-      <div className="week padding" style={this.props.style} role="row">
+      <div className="week padding" role="row">
         <style jsx>
           {`
           .week {

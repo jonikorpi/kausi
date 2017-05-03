@@ -5,10 +5,6 @@ import classNames from "classnames";
 import FirebaseProvider from "./FirebaseProvider";
 
 export default class Day extends PureComponent {
-  constructor(props) {
-    super(props);
-  }
-
   onFocus = () => {
     this.props.onFocus(this.props.day);
   };

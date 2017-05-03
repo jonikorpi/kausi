@@ -2,10 +2,11 @@ import React, { Component } from "react";
 import Router from "next/router";
 import firebase from "firebase";
 import moment from "moment";
-import { List, AutoSizer } from "react-virtualized";
+import List from "react-virtualized/dist/commonjs/List";
+import AutoSizer from "react-virtualized/dist/commonjs/AutoSizer";
 
 import Head from "../components/Head.js";
-import Week from "../components/Week";
+import WeekContainer from "../components/WeekContainer";
 
 import initializeFirebase from "../helpers/initializeFirebase.js";
 import initializeRollbar from "../helpers/initializeRollbar.js";
@@ -118,7 +119,7 @@ export default class Timeline extends Component {
 
   rowRenderer = ({ key, index, isScrolling, isVisible, style }) => {
     return (
-      <Week
+      <WeekContainer
         key={key}
         index={index}
         weekOf={moment(this.state.today)
@@ -132,7 +133,6 @@ export default class Timeline extends Component {
         scrollToToday={this.scrollToToday}
         today={this.state.today}
         style={style}
-        isVisible={isVisible}
       />
     );
   };
@@ -159,7 +159,7 @@ export default class Timeline extends Component {
           ? <AutoSizer>
               {({ height, width }) => (
                 <List
-                  ref={c => this.list = c}
+                  ref={c => (this.list = c)}
                   width={width}
                   height={height}
                   rowCount={this.startIndex * 2}
