@@ -90,7 +90,6 @@ export default class Week extends PureComponent {
                   : focusedDay === dayValue.format("YYYY-MM-DD") ||
                       (!focusedDay && isToday)
               }
-              isToday={isToday}
               isList={this.props.lists}
             />
           );

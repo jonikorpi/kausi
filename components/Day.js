@@ -4,13 +4,17 @@ import classNames from "classnames";
 
 import FirebaseProvider from "./FirebaseProvider";
 
+const getToday = () => {
+  return moment().startOf("day");
+};
+
 export default class Day extends PureComponent {
   onFocus = () => {
     this.props.onFocus(this.props.day);
   };
 
   render() {
-    const isToday = this.props.isToday;
+    const isToday = this.props.day.isSame(getToday());
     const isWeekend =
       !this.props.someday &&
       (this.props.day.day() === 0 || this.props.day.day() === 6);

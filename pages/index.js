@@ -11,6 +11,10 @@ import WeekContainer from "../components/WeekContainer";
 import initializeFirebase from "../helpers/initializeFirebase.js";
 import initializeRollbar from "../helpers/initializeRollbar.js";
 
+const getToday = () => {
+  return moment().startOf("day");
+};
+
 export default class Timeline extends Component {
   constructor(props) {
     super(props);
@@ -18,7 +22,6 @@ export default class Timeline extends Component {
     this.startIndex = 400;
 
     this.state = {
-      today: moment().startOf("day"),
       uid: null,
       anonymous: null,
       connected: false,
@@ -29,13 +32,7 @@ export default class Timeline extends Component {
   }
 
   componentDidMount() {
-    const updateTodayHandler = setTimeout(
-      this.updateToday,
-      moment(this.state.today).add(1, "days").diff(this.state.today)
-    );
-
     this.setState({
-      updateTodayHandler: updateTodayHandler,
       clientSide: true,
     });
 
@@ -77,20 +74,6 @@ export default class Timeline extends Component {
 
     this.scrollToToday();
   }
-
-  componentWillUnmount() {
-    clearTimeout(this.state.updateTodayHandler);
-  }
-
-  updateToday = () => {
-    const newToday = moment().startOf("day");
-
-    if (window && !this.state.today.isSame(newToday)) {
-      console.log("Reloading because date has changed");
-      window.location.reload();
-    }
-  };
-
   getIndexFromDay = (today, day) => {
     return (
       this.startIndex +
@@ -105,12 +88,11 @@ export default class Timeline extends Component {
       ? "/"
       : `/?${moment(day).format("YYYY-MM-DD")}`;
     Router.replace(url, url, { shallow: true });
-    this.list &&
-      this.list.scrollToRow(this.getIndexFromDay(this.state.today, day));
+    this.list && this.list.scrollToRow(this.getIndexFromDay(getToday(), day));
   };
 
   scrollToToday = () => {
-    this.setUrlToDay(this.state.today);
+    this.setUrlToDay(getToday());
   };
 
   focusDay = day => {
@@ -122,7 +104,7 @@ export default class Timeline extends Component {
       <WeekContainer
         key={key}
         index={index}
-        weekOf={moment(this.state.today)
+        weekOf={moment(getToday())
           .startOf("isoweek")
           .subtract(this.startIndex - index, "weeks")}
         url={this.props.url}
@@ -131,7 +113,6 @@ export default class Timeline extends Component {
         uid={this.state.uid}
         focusDay={this.focusDay}
         scrollToToday={this.scrollToToday}
-        today={this.state.today}
         style={style}
       />
     );
@@ -140,20 +121,18 @@ export default class Timeline extends Component {
   render() {
     const query = this.props.url.query && Object.keys(this.props.url.query)[0];
     const scrollToIndex = query
-      ? this.getIndexFromDay(this.state.today, moment(query))
+      ? this.getIndexFromDay(getToday(), moment(query))
       : this.startIndex;
 
     return (
       <div className="timeline">
         <Head />
-        <style jsx>
-          {`
+        <style jsx>{`
           .timeline {
             width: 100%;
             height: 100vh;
           }
-          `}
-        </style>
+        `}</style>
 
         {this.state.clientSide
           ? <AutoSizer>

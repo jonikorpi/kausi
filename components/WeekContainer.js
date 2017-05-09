@@ -15,7 +15,6 @@ export default class WeekContainer extends PureComponent {
           uid={this.props.uid}
           focusDay={this.props.focusDay}
           scrollToToday={this.props.scrollToToday}
-          today={this.props.today}
         />
       </div>
     );
