@@ -15,10 +15,10 @@ const getToday = () => {
   return moment().startOf("day");
 };
 
-const startOfTime = moment(0).add(40 * 52, "weeks").startOf("week");
+const startOfTime = moment(0).add(40 * 52, "weeks").startOf("isoweek");
 
 const weekToIndex = day => {
-  return moment(day).startOf("week").diff(startOfTime, "weeks");
+  return moment(day).startOf("isoweek").diff(startOfTime, "weeks");
 };
 
 const indexToWeek = index => {
