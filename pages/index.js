@@ -15,11 +15,19 @@ const getToday = () => {
   return moment().startOf("day");
 };
 
+const startOfTime = moment(0).add(40 * 52, "weeks").startOf("week");
+
+const weekToIndex = day => {
+  return moment(day).startOf("week").diff(startOfTime, "weeks");
+};
+
+const indexToWeek = index => {
+  return moment(startOfTime).add(index, "weeks");
+};
+
 export default class Timeline extends Component {
   constructor(props) {
     super(props);
-
-    this.startIndex = 400;
 
     this.state = {
       uid: null,
@@ -74,21 +82,13 @@ export default class Timeline extends Component {
 
     this.scrollToToday();
   }
-  getIndexFromDay = (today, day) => {
-    return (
-      this.startIndex +
-      moment(day)
-        .startOf("isoweek")
-        .diff(moment(today).startOf("isoweek"), "weeks")
-    );
-  };
 
   setUrlToDay = day => {
     const url = moment().startOf("day").isSame(day)
       ? "/"
       : `/?${moment(day).format("YYYY-MM-DD")}`;
     Router.replace(url, url, { shallow: true });
-    this.list && this.list.scrollToRow(this.getIndexFromDay(getToday(), day));
+    this.list && this.list.scrollToRow(weekToIndex(day));
   };
 
   scrollToToday = () => {
@@ -104,9 +104,7 @@ export default class Timeline extends Component {
       <WeekContainer
         key={key}
         index={index}
-        weekOf={moment(getToday())
-          .startOf("isoweek")
-          .subtract(this.startIndex - index, "weeks")}
+        weekOf={indexToWeek(index)}
         url={this.props.url}
         query={this.props.url.query}
         anonymous={this.state.anonymous}
@@ -121,8 +119,8 @@ export default class Timeline extends Component {
   render() {
     const query = this.props.url.query && Object.keys(this.props.url.query)[0];
     const scrollToIndex = query
-      ? this.getIndexFromDay(getToday(), moment(query))
-      : this.startIndex;
+      ? weekToIndex(moment(query))
+      : weekToIndex(getToday());
 
     return (
       <div className="timeline">
@@ -141,7 +139,7 @@ export default class Timeline extends Component {
                   ref={c => (this.list = c)}
                   width={width}
                   height={height}
-                  rowCount={this.startIndex * 2}
+                  rowCount={weekToIndex(getToday()) + 10 * 52}
                   estimatedRowSize={height * 0.91}
                   rowHeight={height * 0.91}
                   rowRenderer={this.rowRenderer}
