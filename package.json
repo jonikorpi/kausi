@@ -47,6 +47,6 @@
     "react-textarea-autosize": "^4.3.2",
     "react-virtualized": "^9.7.5",
     "reactfire": "^1.0.0",
-    "rollbar-browser": "^1.9.4"
+    "rollbar": "^2.0.0"
   }
 }

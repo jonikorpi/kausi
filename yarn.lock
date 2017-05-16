@@ -246,6 +246,10 @@ async@^2.1.2:
   dependencies:
     lodash "^4.14.0"
 
+async@~1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/async/-/async-1.2.1.tgz#a4816a17cd5ff516dfa2c7698a453369b9790de0"
+
 asynckit@^0.4.0:
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/asynckit/-/asynckit-0.4.0.tgz#c79ed97f7f34cb8f2ba1bc9790bcc366474b4b79"
@@ -1295,7 +1299,7 @@ console-control-strings@^1.0.0, console-control-strings@~1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/console-control-strings/-/console-control-strings-1.1.0.tgz#3d7cf4464db6446ea644bf4b39507f9851008e8e"
 
-console-polyfill@rollbar/console-polyfill#eab6ff9d2b7597fc2f259baa18100556bdb94dbe:
+"console-polyfill@github:rollbar/console-polyfill#eab6ff9d2b7597fc2f259baa18100556bdb94dbe":
   version "0.2.3"
   resolved "https://codeload.github.com/rollbar/console-polyfill/tar.gz/eab6ff9d2b7597fc2f259baa18100556bdb94dbe"
 
@@ -1420,17 +1424,23 @@ date-now@^0.1.4:
   version "0.1.4"
   resolved "https://registry.yarnpkg.com/date-now/-/date-now-0.1.4.tgz#eaf439fd4d4848ad74e5cc7dbef200672b9e345b"
 
-debug@2.2.0, debug@~2.2.0:
+debug@2.2.0, debug@^2.1.1, debug@^2.2.0, debug@~2.2.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/debug/-/debug-2.2.0.tgz#f87057e995b1a1f6ae6a4960664137bc56f039da"
   dependencies:
     ms "0.7.1"
 
-debug@2.6.4, debug@^2.1.1, debug@^2.2.0, debug@^2.6.0:
+debug@2.6.4, debug@^2.6.0:
   version "2.6.4"
   resolved "https://registry.yarnpkg.com/debug/-/debug-2.6.4.tgz#7586a9b3c39741c0282ae33445c4e8ac74734fe0"
   dependencies:
     ms "0.7.3"
+
+decache@^3.0.5:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/decache/-/decache-3.1.0.tgz#4f5036fbd6581fcc97237ac3954a244b9536c2da"
+  dependencies:
+    find "^0.2.4"
 
 decamelize@^1.0.0, decamelize@^1.1.1:
   version "1.2.0"
@@ -2017,6 +2027,12 @@ find-up@^2.1.0:
   resolved "https://registry.yarnpkg.com/find-up/-/find-up-2.1.0.tgz#45d1b7e506c717ddd482775a2b77920a3c0c57a7"
   dependencies:
     locate-path "^2.0.0"
+
+find@^0.2.4:
+  version "0.2.7"
+  resolved "https://registry.yarnpkg.com/find/-/find-0.2.7.tgz#7afbd00f8f08c5b622f97cda6f714173d547bb3f"
+  dependencies:
+    traverse-chain "~0.1.0"
 
 firebase@^3.3.0, firebase@^3.8.0:
   version "3.9.0"
@@ -2720,7 +2736,7 @@ json-stable-stringify@^1.0.0, json-stable-stringify@^1.0.1:
   dependencies:
     jsonify "~0.0.0"
 
-json-stringify-safe@~5.0.1:
+json-stringify-safe@~5.0.0, json-stringify-safe@~5.0.1:
   version "5.0.1"
   resolved "https://registry.yarnpkg.com/json-stringify-safe/-/json-stringify-safe-5.0.1.tgz#1296a2d58fd45f19a0f6ce01d65701e2c735b6eb"
 
@@ -2898,6 +2914,10 @@ lru-cache@^4.0.0, lru-cache@^4.0.1:
     pseudomap "^1.0.1"
     yallist "^2.0.0"
 
+lru-cache@~2.2.1:
+  version "2.2.4"
+  resolved "https://registry.yarnpkg.com/lru-cache/-/lru-cache-2.2.4.tgz#6c658619becf14031d0d0b594b16042ce4dc063d"
+
 magic-string@^0.19.0:
   version "0.19.1"
   resolved "https://registry.yarnpkg.com/magic-string/-/magic-string-0.19.1.tgz#14d768013caf2ec8fdea16a49af82fc377e75201"
@@ -3047,7 +3067,7 @@ moment@2.x.x, moment@^2.11.2, moment@^2.18.1:
   version "2.18.1"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.18.1.tgz#c36193dd3ce1c2eed2adb7c802dbbc77a81b1c0f"
 
-ms@0.7.1:
+ms@0.7.1, ms@^0.7.1:
   version "0.7.1"
   resolved "https://registry.yarnpkg.com/ms/-/ms-0.7.1.tgz#9cd13c03adbff25b65effde7ce864ee952017098"
 
@@ -3058,10 +3078,6 @@ ms@0.7.3:
 ms@1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/ms/-/ms-1.0.0.tgz#59adcd22edc543f7b5381862d31387b1f4bc9473"
-
-ms@^0.7.1:
-  version "0.7.2"
-  resolved "https://registry.yarnpkg.com/ms/-/ms-0.7.2.tgz#ae25cf2512b3885a1d95d7f037868d8431124765"
 
 mute-stream@0.0.5:
   version "0.0.5"
@@ -3869,6 +3885,10 @@ repeating@^2.0.0:
   dependencies:
     is-finite "^1.0.0"
 
+request-ip@~1.2.3:
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/request-ip/-/request-ip-1.2.3.tgz#66988f0e22406ec4af630d19b573fe4b447c3b49"
+
 request@^2.81.0:
   version "2.81.0"
   resolved "https://registry.yarnpkg.com/request/-/request-2.81.0.tgz#c6928946a0e06c5f8d6f8a9333469ffda46298a0"
@@ -3950,13 +3970,21 @@ ripemd160@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/ripemd160/-/ripemd160-1.0.1.tgz#93a4bbd4942bc574b69a8fa57c71de10ecca7d6e"
 
-rollbar-browser@^1.9.4:
-  version "1.9.4"
-  resolved "https://registry.yarnpkg.com/rollbar-browser/-/rollbar-browser-1.9.4.tgz#dcf183ed2b2f1901246604d69f93ded6bb27a84f"
+rollbar@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/rollbar/-/rollbar-2.0.0.tgz#f76c30db0452ff8253d8fa2e5478ac87d2e2c7bb"
   dependencies:
+    async "~1.2.1"
     console-polyfill rollbar/console-polyfill#eab6ff9d2b7597fc2f259baa18100556bdb94dbe
+    debug "2.2.0"
     error-stack-parser "1.3.3"
     extend "3.0.0"
+    json-stringify-safe "~5.0.0"
+    lru-cache "~2.2.1"
+    request-ip "~1.2.3"
+    uuid "3.0.x"
+  optionalDependencies:
+    decache "^3.0.5"
 
 run-async@^0.1.0:
   version "0.1.0"
@@ -4362,6 +4390,10 @@ tough-cookie@~2.3.0:
   dependencies:
     punycode "^1.4.1"
 
+traverse-chain@~0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/traverse-chain/-/traverse-chain-0.1.0.tgz#61dbc2d53b69ff6091a12a168fd7d433107e40f1"
+
 trim-right@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/trim-right/-/trim-right-1.0.1.tgz#cb2e1203067e0c8de1f614094b9fe45704ea6003"
@@ -4475,7 +4507,7 @@ util@0.10.3, util@^0.10.3:
   dependencies:
     inherits "2.0.1"
 
-uuid@3.0.1, uuid@^3.0.0:
+uuid@3.0.1, uuid@3.0.x, uuid@^3.0.0:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.0.1.tgz#6544bba2dfda8c1cf17e629a3a305e2bb1fee6c1"
 
