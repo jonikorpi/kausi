@@ -1,8 +1,16 @@
 const express = require("express");
 const next = require("next");
 const LRUCache = require("lru-cache");
-const rollbar = require("rollbar");
 const analytics = require("universal-analytics");
+
+const Rollbar = require("rollbar");
+const rollbar = Rollbar.init({
+  accessToken: "e25b560b08f1410abf77cae0888e0acb",
+  handleUncaughtExceptions: true,
+  payload: {
+    environment: process.env.NODE_ENV || "development",
+  },
+});
 
 const dev = process.env.NODE_ENV !== "production";
 const app = next({ dir: ".", dev: dev, quiet: dev });
@@ -51,11 +59,7 @@ app.prepare().then(() => {
   });
 
   // Report errors to Rollbar
-  server.use(
-    rollbar.errorHandler("e25b560b08f1410abf77cae0888e0acb", {
-      environment: process.env.NODE_ENV || "development",
-    })
-  );
+  server.use(rollbar.errorHandler());
 
   server.listen(3000, err => {
     if (err) throw err;
