@@ -35,6 +35,9 @@
     "now-start": "NODE_ENV=production node server.js",
     "now-build": "NODE_ENV=production next build"
   },
+  "now": {
+    "alias": "kausi.xyz"
+  },
   "devDependencies": {
     "babel-eslint": "^7.2.2",
     "eslint": "^3.19.0",
