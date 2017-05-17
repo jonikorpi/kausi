@@ -9,6 +9,7 @@ import ExportData from "../components/ExportData";
 
 import initializeFirebase from "../helpers/initializeFirebase.js";
 import initializeRollbar from "../helpers/initializeRollbar.js";
+import track from "../helpers/track.js";
 
 export default class Account extends Component {
   constructor(props) {
@@ -40,6 +41,8 @@ export default class Account extends Component {
         }
       }.bind(this)
     );
+
+    track();
   }
 
   signOut = () => {
@@ -57,7 +60,7 @@ export default class Account extends Component {
   render() {
     return (
       <div>
-        <Head />
+        <Head><title>Account</title></Head>
         <Navigation url={this.props.url} uid={true} anonymous={false} />
 
         <div className="page padding">
