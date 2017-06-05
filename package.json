@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "dependencies": {
-    "serve": "^5.1.5"
+    "serve": "^5.2.1"
   },
   "eslintConfig": {
     "extends": [
