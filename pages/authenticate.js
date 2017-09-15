@@ -7,7 +7,6 @@ import FirebaseAuthentication from "../components/FirebaseAuthentication";
 
 import initializeFirebase from "../helpers/initializeFirebase.js";
 import initializeRollbar from "../helpers/initializeRollbar.js";
-import track from "../helpers/track.js";
 
 export default class Authenticate extends Component {
   constructor(props) {
@@ -19,7 +18,6 @@ export default class Authenticate extends Component {
   componentDidMount() {
     initializeFirebase();
     this.setState({ clientSide: true });
-    track();
   }
 
   render() {

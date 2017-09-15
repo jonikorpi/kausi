@@ -9,7 +9,6 @@ import About from "../components/About";
 
 import initializeFirebase from "../helpers/initializeFirebase.js";
 import initializeRollbar from "../helpers/initializeRollbar.js";
-import track from "../helpers/track.js";
 
 export default class Lists extends Component {
   constructor(props) {
@@ -65,8 +64,6 @@ export default class Lists extends Component {
         }
       }.bind(this)
     );
-
-    track();
   }
 
   render() {
