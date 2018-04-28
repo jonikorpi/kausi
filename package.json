@@ -12,7 +12,7 @@
   },
   "scripts": {
     "start": "next",
-    "deploy": "NODE_ENV=production next build && next export && now && curl https://api.rollbar.com/api/1/deploy/ -F access_token=e25b560b08f1410abf77cae0888e0acb -F environment=production -F revision=`git log -n 1 --pretty=format:'%H'` -F local_username=`whoami`",
+    "deploy": "NODE_ENV=production next build && next export && cd out && now && curl https://api.rollbar.com/api/1/deploy/ -F access_token=e25b560b08f1410abf77cae0888e0acb -F environment=production -F revision=`git log -n 1 --pretty=format:'%H'` -F local_username=`whoami` && cd ..",
     "alias": "now alias kausi.xyz",
     "now-start": "NODE_ENV=production serve ./out --cache 600000"
   },
