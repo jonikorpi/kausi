@@ -4,7 +4,7 @@
 
 Kausi receives your email address and password when you sign up for or sign in to the site. They are not stored by Kausi, but are passed on to the [Firebase](http://firebase.google.com/) authentication system.
 
-Similarly, whenever you create a text entry in Kausi that text is submitted to the Firebase Realtime Database, where it is stored in plain text.
+Similarly, whenever you create a text entry in Kausi that text is submitted to the Firebase Realtime Database, where it is stored in plain text. Firebase encrypts this plain text on their servers.
 
 ## What the data is used for
 
@@ -19,6 +19,8 @@ Your data is not used for anything else.
 All traffic between your browser and Firebase happens on a HTTPS-secured connection.
 
 Any Kausi administrator accounts are able to view your email address and text entries. These accounts use all the account security options Firebase offers, including a strong password stored in secure password manager software.
+
+At the time of writing there is only one such administrator account, operated by Joni Korpi, sole developer and also the designated Data Protection Officer.
 
 ## How cookies and localstorage are used
 
@@ -36,7 +38,7 @@ By using Kausi, you consent to this privacy policy.
 
 If this privacy policy changes, we will post the changes on this page, send an email notifying you of any changes, and/or update the Privacy Policy modification date below.
 
-This policy was last modified on 15/09/2017.
+This policy was last modified on 28/04/2018.
 
 ## Contacting us
 
@@ -61,3 +63,10 @@ The data resides in Firebase, in the United States. Firebase is owned by Google 
 Every user has the right to inspect and remove their data, as well as request corrections to their data. Users can contact hello@vuoro.design for assistance with inspecting or removing their data.
 
 Other than Firebase, no third party has access to the data. Kausi will not use the data for any purposes other than user authentication and customer support.
+
+# Data protection details
+
+- You may export your text entries at https://kausi.xyz/account/
+- To have your personal data deleted from Kausi, please contact hello@vuoro.design from the same email address as you've signed up to Kausi with. 
+- Kausi has enabled daily Firebase Realtime Database backups, which are deleted after 30 days. This means that if you delete a text entry or request your personal data be deleted, it will remain in these backup snapshots for up to 30 days.
+- Firebase GDPR and privacy information can be found at https://firebase.google.com/support/privacy/
