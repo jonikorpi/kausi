@@ -42,6 +42,8 @@ export default class Authenticate extends Component {
               <a href="https://firebase.google.com">Firebase</a>
               {" "}
               to store your data. Log in or sign up for an account below.
+              {" "}
+              By signing up you verify that you are at least 16 years old or have consent to do so from a holder of your parental responsibility.
             </p>
           </header>
 
