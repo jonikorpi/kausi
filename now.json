@@ -1,0 +1,5 @@
+{
+  "version": 2,
+  "name": "kausi.xyz",
+  "builds": [{ "src": "package.json", "use": "@now/static-build" }]
+}
