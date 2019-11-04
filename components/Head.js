@@ -4,20 +4,20 @@ import Head from "next/head";
 import globalCSS from "../helpers/globalCSS";
 
 export default props => {
-  useEffect(() => {
-    (function(f, a, t, h, o, m) {
-      a[h] =
-        a[h] ||
-        function() {
-          (a[h].q = a[h].q || []).push(arguments);
-        };
-    })(document, window, "//analytics.jonikorpi.com/tracker.js", "fathom");
+  // useEffect(() => {
+  //   (function(f, a, t, h, o, m) {
+  //     a[h] =
+  //       a[h] ||
+  //       function() {
+  //         (a[h].q = a[h].q || []).push(arguments);
+  //       };
+  //   })(document, window, "//analytics.jonikorpi.com/tracker.js", "fathom");
 
-    if (window.fathom) {
-      window.fathom("set", "siteId", "VJSNU");
-      window.fathom("trackPageview");
-    }
-  }, []);
+  //   if (window.fathom) {
+  //     window.fathom("set", "siteId", "VJSNU");
+  //     window.fathom("trackPageview");
+  //   }
+  // }, []);
 
   return (
     <Head>
@@ -70,11 +70,11 @@ export default props => {
       <meta name="twitter:card" content="summary" />
       <meta name="twitter:site" content="@jonikorpi" />
 
-      <script
+      {/* <script
         async
         src="//analytics.jonikorpi.com/tracker.js"
         id="fathom-script"
-      />
+      /> */}
 
       {props.children}
     </Head>
