@@ -15,10 +15,14 @@ const getToday = () => {
   return moment().startOf("day");
 };
 
-const startOfTime = moment(0).add(40 * 52, "weeks").startOf("isoweek");
+const startOfTime = moment(0)
+  .add(40 * 52, "weeks")
+  .startOf("isoweek");
 
 const weekToIndex = day => {
-  return moment(day).startOf("isoweek").diff(startOfTime, "weeks");
+  return moment(day)
+    .startOf("isoweek")
+    .diff(startOfTime, "weeks");
 };
 
 const indexToWeek = index => {
@@ -59,32 +63,40 @@ export default class Timeline extends Component {
             anonymous: null,
           });
 
-          firebase.auth().signInAnonymously().catch(function(error) {
-            console.log(error);
-          });
+          firebase
+            .auth()
+            .signInAnonymously()
+            .catch(function(error) {
+              console.log(error);
+            });
         }
       }.bind(this)
     );
 
-    firebase.database().ref(".info/connected").on(
-      "value",
-      function(online) {
-        if (online.val() === true) {
-          this.setState({
-            connected: true,
-            haveConnectedOnce: true,
-          });
-        } else {
-          this.setState({ connected: false });
-        }
-      }.bind(this)
-    );
+    firebase
+      .database()
+      .ref(".info/connected")
+      .on(
+        "value",
+        function(online) {
+          if (online.val() === true) {
+            this.setState({
+              connected: true,
+              haveConnectedOnce: true,
+            });
+          } else {
+            this.setState({ connected: false });
+          }
+        }.bind(this)
+      );
 
     this.scrollToToday();
   }
 
   setUrlToDay = day => {
-    const url = moment().startOf("day").isSame(day)
+    const url = moment()
+      .startOf("day")
+      .isSame(day)
       ? "/"
       : `/?${moment(day).format("YYYY-MM-DD")}`;
     Router.replace(url, url, { shallow: true });
@@ -118,22 +130,21 @@ export default class Timeline extends Component {
 
   render() {
     const query = this.props.url.query && Object.keys(this.props.url.query)[0];
-    const scrollToIndex = query
-      ? weekToIndex(moment(query))
-      : weekToIndex(getToday());
+    const scrollToIndex = query ? weekToIndex(moment(query)) : weekToIndex(getToday());
 
     return (
-      <div className="timeline">
-        <Head />
-        <style jsx>{`
-          .timeline {
-            width: 100%;
-            height: 100vh;
-          }
-        `}</style>
+      <>
+        <div className="timeline">
+          <Head />
+          <style jsx>{`
+            .timeline {
+              width: 100%;
+              height: 100vh;
+            }
+          `}</style>
 
-        {this.state.clientSide
-          ? <AutoSizer>
+          {this.state.clientSide ? (
+            <AutoSizer>
               {({ height, width }) => (
                 <List
                   ref={c => (this.list = c)}
@@ -151,7 +162,8 @@ export default class Timeline extends Component {
                 />
               )}
             </AutoSizer>
-          : <div>
+          ) : (
+            <div>
               {this.rowRenderer({
                 key: scrollToIndex + 0,
                 index: scrollToIndex + 0,
@@ -160,8 +172,40 @@ export default class Timeline extends Component {
                 key: scrollToIndex + 1,
                 index: scrollToIndex + 1,
               })}
-            </div>}
-      </div>
+            </div>
+          )}
+        </div>
+
+        {this.state.uid && (
+          <p
+            style={{
+              position: "fixed",
+              top: 0,
+              left: 0,
+              right: 0,
+              zIndex: 10000,
+              backgroundColor: "black",
+              padding: "0.25rem 0.5rem",
+              color: `hsl(0, 50%, 61.8%)`,
+              borderBottom: `1px solid hsl(0, 50%, 61.8%)`,
+              fontSize: "0.625rem",
+              lineHeight: "0.625rem",
+              fontWeight: "bold",
+            }}
+          >
+            Kausi will shut down on August 1st 2020.{" "}
+            {this.state.anonymous ? (
+              <>
+                <a href="/authenticate/">Sign in to export your data</a>.
+              </>
+            ) : (
+              <>
+                You can <a href="/account/">export your data here</a>.
+              </>
+            )}
+          </p>
+        )}
+      </>
     );
   }
 }
